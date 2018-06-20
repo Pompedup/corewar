@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/19 15:07:22 by abezanni          #+#    #+#             */
-/*   Updated: 2018/06/19 18:56:03 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/06/20 15:05:54 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,13 @@ int	calc_print(unsigned char *str)
 	if (*str == 5)
 		return (5);
 	if (*str == 6)
+	{
+		if (*(str + 1) == 84)
+			return (5);
+		if (*(str + 1) == 116)
+			return (6);
 		return (8);
+	}
 	if (*str == 7)
 		return (5);
 	if (*str == 8)
