@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/06/20 15:02:57 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/06/20 18:39:28 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+# include "libft/libft.h"
 
 /*
 ** Toutes les tailles sont en octets.
@@ -86,3 +88,19 @@ typedef struct		s_op
 	int				inc1;
 	int				inc2;
 }					t_op;
+
+typedef struct		s_champion
+{
+	int				num;
+	int				*pc; // commence au i/n case de la core avec i == ieme player et n == total playeur
+	char			*fichier; // tmp recup tt fichier (a voir comment ranger les instructions)
+}					t_champion;
+
+typedef struct		s_vm
+{
+	int				nb_cycles;
+	int				nb_champion;
+	char			*core;
+	t_champion		**players;	
+}					t_vm;
+
