@@ -1,9 +1,9 @@
 .name           "42"
 .comment        "Just a basic Winner Program"
 
-entree:	live	%42		# entree
-	ld	%0,r5
-	ld	%0,r5
+entree: live	%42		# entree
+	ld	1,r5
+	ld	%1,r5
 	zjmp	%:bite
 
 tir:	sti	r1,%:tirb,%1
@@ -228,8 +228,8 @@ tirdow:	ld	%425,r2
 	ld	%4,r4
 
 tird:	live	%42
-	sti	r10,%:fin,r2
-	sti	r10,%:fin,r3
+	sti	r10,3,%:fin
+	sti	r10,3,%:fin
 	add	r4,r5,r4
 	add	r3,r4,r3
 	sub	r2,r4,r2

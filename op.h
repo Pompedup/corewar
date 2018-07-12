@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adibou <adibou@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/06/20 15:02:57 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/07/12 11:20:16 by adibou           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,20 @@ typedef struct		header_s
   char				comment[COMMENT_LENGTH + 1];
 }					header_t;
 
+/*
+**	"%"				-> dir 2
+**	":" or nothing	-> ind 3
+**	"r"				-> reg 1
+*/
+
 typedef struct		s_op
 {
 	char			*shortcut;
 	int				arg_authorized; // 1 || 2 || 3
-	char			accept[3];
+	char			accept;
 	int				id;
-	int				nb_cycle_by_instruction_maybe; //10 || 5 || 6 || 25 || 800 ||
+	int				nb_cycle_by_instruction; //10 || 5 || 6 || 25 || 800 ||
 	char			*description;
-	int				inc1;
-	int				inc2;
+	int				octetind; // 4 si 0
+	int				octetdir; // 2 si 1
 }					t_op;
