@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 12:02:04 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/07/20 14:24:10 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/07/20 16:37:15 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	add_player_with_num(t_corevm *vm, int i)
 */
 
 void	add_player(t_corevm *vm, int i)
-{	
+{		
 	if (ft_strlen(vm->argv[i]) < 4 && !ft_strstr(vm->argv[i], ".cor\0"))
 		ft_error(vm, 1); //le nom du fichier champion nest pas bon!!
 	if (vm->info_players->nb_players + 1 > MAX_PLAYERS)

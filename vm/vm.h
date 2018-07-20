@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/07/20 16:23:22 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/07/20 16:37:15 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # define SUB			0x05
 # define AND			0x06
 # define OR				0x07
-# define ZJMP			0x09
 # define XOR			0x08
+# define ZJMP			0x09
 # define LDI			0x0a
 # define STI			0x0b
 # define FORK			0x0c

@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 14:08:14 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/07/20 15:48:00 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/07/20 16:37:19 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,5 @@ void	read_programme(t_player *player, t_corevm *vm, int fd)
 
 	//write(1, "process : \n", 11);
 	//print_memory(player->process, ret);
-	//write(1, "\n", 1);
+	//	write(1, "\n", 1);
 }
