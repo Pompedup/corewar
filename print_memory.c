@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   print_memory.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/19 15:07:22 by abezanni          #+#    #+#             */
-/*   Updated: 2018/06/20 15:05:54 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/07/17 16:33:08 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include <unistd.h>
+#include "vm/vm.h"
+#include <fcntl.h>
 
 void	print_memory(const void *addr, size_t size)
 {
@@ -115,7 +117,7 @@ int	calc_print(unsigned char *str)
 
 }
 
-int main(int ac, char **av)
+int print_player(char *av, int i)
 {
 	int				fd;
 	char	buf[10000];
@@ -126,7 +128,7 @@ int main(int ac, char **av)
 
 	print[2] = ' ';
 	print[3] = 0;
-	fd = open(av[1], O_RDONLY);
+	fd = open(av, O_RDONLY);
 	ret = read(fd, buf, 10000);
 	test = buf;
 	test += 600;
@@ -138,7 +140,7 @@ int main(int ac, char **av)
 	}
 	while (ret > 0)
 	{
-		to_print = calc_print(test);
+		to_print = calc_print((unsigned char *)test);
 		if (to_print < 40)
 		{
 			print_memory(test, to_print);

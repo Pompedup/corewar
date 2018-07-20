@@ -6,109 +6,177 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/07/17 16:31:25 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/07/20 16:23:22 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "op.h"
+#include "../op/op.h"
 #include <fcntl.h>
-#include <stdio.h>
+#include <stdio.h>	
 
-# define LIVE   1
-# define LD		2
-# define ST		3
-# define ADD	4
-# define SUB	5
-# define AND	6
-# define OR		7
-# define ZJMP	9
-# define XOR	8
-# define LDI	10
-# define STI	11
-# define FORK	12
-# define LLD	13
-# define LLDI	14
-# define LFORK	15
-# define AFF	16
-# define TOTAL_SIZE (CHAMP_MAX_SIZE + PROG_NAME_LENGTH + COMMENT_LENGTH + 1)
+# define LIVE   		0x01
+# define LD				0x02
+# define ST				0x03
+# define ADD			0x04
+# define SUB			0x05
+# define AND			0x06
+# define OR				0x07
+# define ZJMP			0x09
+# define XOR			0x08
+# define LDI			0x0a
+# define STI			0x0b
+# define FORK			0x0c
+# define LLD			0x0d
+# define LLDI			0x0e
+# define LFORK			0x0f
+# define AFF			0x10
 
-typedef struct		s_players
+typedef struct			s_player
 {
-	char			name[PROG_NAME_LENGTH + 1];
-	char			comment[COMMENT_LENGTH + 1];
-	int				num; // numero du joueur (choisi ou donnee automatiquement)
-	int				color;
-	char			*file;// on recup tt le fichier avec read
-}					t_players;
+	int					num; // num joueur a voir faut peut etre le mettre dans le r1
+	char				*name_file; //a supprimer cest juste pr afficher pendant le parsing
+	int					color;
+	header_t			*header;
+	char				process[CHAMP_MAX_SIZE + 1];
+	int					len_process;
+	/* 
+	** structure pour le parcing au dessus et ci dessous pour le game (on a peut etre besoin de dautre variable??)
+	*/	
+	int					reg[REG_NUMBER]; // de REG_SIZE #define REG_SIZE	4 un int 4 octets
+	char				*pc; //programme counter
+	int					carry; //une retenu des instructions ou ya des calculs (si jai bien compris!?)
+	struct s_player		*next;
+}						t_player;
 
-typedef struct		s_corevm
+typedef struct			s_info_players //structure pour gerer la liste chainée des players
 {
-	char			**argv;
-	char			core[MEM_SIZE];
-	t_players		*players[MAX_PLAYERS + 1];
-	int				nb_cycles;
-	int				nb_players;
-	int				dump;
-	int				visu;	
-}					t_corevm;
+	int					nb_players;
+	t_player			*first;
+}						t_info_players;
 
-typedef struct		s_instruction
+typedef struct			s_corevm
 {
-	char			code_instruction;
-	int				param[4];
-}					t_instruction;
-
-typedef struct		s_func
-{
-	char			*(*ptrfunc) (t_corevm *core, t_players *players,
-					t_instruction instruction);
-	int				code_instruction;
-}					t_func;	
+	char				**argv; //pour le parsing
+	int					visu; //option visu librairie possible : OpenGL, SDL, nCurses, ... (bonus)
+	t_info_players		*info_players; // pointeur vers la structure qui gere la liste des players
+	
+	//ici plus pour la battle
+	char				core[MEM_SIZE]; //larene
+	int					nb_cycles; //associer au define CYCLE_TO_DIE qui est le max && Si on n’a pas décrémenté CYCLE_TO_DIE depuis MAX_CHECKS vérifications, on le décrémente
+	int					cycle_to_die; // = CYCLE_TO_DIE ->se decrement quand :
+						//Si on n’a pas décrémenté CYCLE_TO_DIE depuis MAX_CHECKS vérifications,on le décrémente.
+	int					nb_check;	 //??? voir ci dessus
+	int					dump; //je sais pas trop encore
+	int					nb_live; //associer au define NBR_LIVE. Si au cours d’une de ces vérifications on se rend compte qu’il y a eu au moins NBR_LIVE exécutions de live depuis la dernière vérification en date, on décrémente CYCLE_TO_DIE de CYCLE_DELTA unités
+}						t_corevm;	
 
 /*
-** vm.c
+** structure pour faire un tableau de pointeur sur fonction
+** et appeler les instructions comme dans printf (avec le code d'instruction) 
+*/
+
+typedef struct			s_ptr_func
+{
+	char				*(*ptrfunc) (t_corevm *core, t_player *player);
+	int					code_instruction;
+}						t_ptr_func;	
+/*
+******************************************************************************** #ecesarie
+**								INIT_VM_C								 	  **
+********************************************************************************
 */
 
 void					init_vm(char **av, t_corevm *vm);
 
 /*
-** parse_argv.c
+********************************************************************************
+**						     PARSE_ARGV_C								 	  **
+********************************************************************************
 */
 
-void   				parse_argv(t_corevm *vm);
+void   					parse_argv(t_corevm *vm);
 
 /*
-** print_memory.c
+********************************************************************************
+**						   REGISTER_PLAYERS_C							 	  **
+********************************************************************************
 */
 
-int					print_player(char *av, int i);
+void					create_player(t_corevm *vm, int num,  int index);
 
 /*
-** manage_error.c
+********************************************************************************
+**						     READ_FILE_PLAYER_C							 	  **
+********************************************************************************
 */
 
-void     ft_error(t_corevm *vm,  int num_error);
+void					read_magic(t_player *player, t_corevm *vm, int fd);
+void					read_name(t_player *player, t_corevm *vm, int fd);
+void					read_prog_size(t_player *player, t_corevm *vm, int fd);
+void					read_comment(t_player *player, t_corevm *vm, int fd);
+void					read_programme(t_player *player, t_corevm *vm, int fd);
 
 /*
-** all instructionss
+********************************************************************************
+**						    NUMBER_PLAYERS_C							 	  **
+********************************************************************************
 */
 
-int     ft_live(t_corevm *core, t_players *players, t_instruction instruction);
-int		ft_ld(t_corevm *core, t_players *players, t_instruction instruction);
-int     ft_st(t_corevm *core, t_players *players, t_instruction instruction);
-int		ft_add(t_corevm *core, t_players *players, t_instruction instruction);
-int     ft_sub(t_corevm *core, t_players *players, t_instruction instruction);
-int		ft_and(t_corevm *core, t_players *players, t_instruction instruction);
-int     ft_or(t_corevm *core, t_players *players, t_instruction instruction);
-int     ft_xor(t_corevm *core, t_players *players, t_instruction instruction);
-int		ft_zjump(t_corevm *core, t_players *players, t_instruction instruction);
-int		ft_ldi(t_corevm *core, t_players *players, t_instruction instruction);
-int     ft_sti(t_corevm *core, t_players *players, t_instruction instruction);
-int		ft_fork(t_corevm *core, t_players *players, t_instruction instruction);
-int     ft_lld(t_corevm *core, t_players *players, t_instruction instruction);
-int     ft_lldi(t_corevm *core, t_players *players, t_instruction instruction);
-int     ft_lfork(t_corevm *core, t_players *players, t_instruction instruction);
-int		ft_aff(t_corevm *core, t_players *players, t_instruction instruction);
+void    				number_players(t_corevm *vm);
+int						unused_num(t_corevm *vm, int num);
+
+/*
+********************************************************************************
+**						    CHARGE_PLAYERS_C							 	  **
+********************************************************************************
+*/
+
+void					charge_players_in_core(t_corevm *vm);
+
+/*
+********************************************************************************
+**						      MANAGE_ERROR_C							 	  **
+********************************************************************************
+*/
+
+void    				 ft_error(t_corevm *vm,  int num_error);
+
+/*
+********************************************************************************
+**						      PRINT_MEMORY_C							 	  **
+********************************************************************************
+*/
+
+int						print_player(char *av, int i);
+void					print_memory(const void *addr, size_t size);
+
+/*
+********************************************************************************
+**						      INSTRUCTIONS				     			 	  **
+********************************************************************************
+*/	
+
+/*int						ft_live(t_corevm *core, t_player *player);
+int						ft_ld(t_corevm *core, t_player *player);
+int     				ft_st(t_corevm *core, t_player *player);
+int						ft_add(t_corevm *core, t_player *player);
+int     				ft_sub(t_corevm *core, t_player *player);
+int						ft_and(t_corevm *core, t_player *player);
+int     				ft_or(t_corevm *core, t_player *player);
+int     				ft_xor(t_corevm *core, t_player *player);
+int						ft_zjump(t_corevm *core, t_player *player);
+int						ft_ldi(t_corevm *core, t_player *player);
+int     				ft_sti(t_corevm *core, t_player *player);
+int						ft_fork(t_corevm *core, t_player *player);
+int     				ft_lld(t_corevm *core, t_player *player);
+int     				ft_lldi(t_corevm *core, t_player *player);
+int     				ft_lfork(t_corevm *core, t_player *player);
+int						ft_aff(t_corevm *core, t_player *player);*/
+
+
+
+
+
 
 //Trois méthodes d’adressage de la mémoire sont possibles 
 //dans une instruction :
