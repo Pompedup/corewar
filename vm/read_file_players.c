@@ -6,11 +6,16 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 14:08:14 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/07/20 16:37:19 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/07/20 16:43:25 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
+
+
+/*
+**  (∩｀-´)⊃━☆ﾟ.*･｡ﾟ
+*/
 
 void	read_magic(t_player *player, t_corevm *vm, int fd)
 {
