@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/07/26 13:26:12 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/07/26 15:36:56 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <fcntl.h>
 #include <stdio.h>	
 
-# define LIVE   		0x01
+# define LIVE   			
 # define LD				0x02
 # define ST				0x03
 # define ADD			0x04

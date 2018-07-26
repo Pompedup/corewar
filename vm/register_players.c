@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:40:17 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/07/20 14:07:45 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/07/26 15:32:45 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	init_variable(t_player *player, int num)
 	player->color = 0; //?voir comment on met les couleurs (avec des defines?)
 	player->pc = NULL;
 	player->carry = 0;
-	i = 0;
+	player->reg[0] = num;
+	i = 1;
 	while (i < REG_NUMBER)
 		player->reg[i++] = 0;
 }

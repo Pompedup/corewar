@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 15:52:38 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/07/26 14:22:10 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/07/26 15:43:01 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@
 ** vers les fonctions qui execute
 */
 
-void	execute_game(t_corevm *vm)
-{
-	t_player	*actual;
-
-	//1ere boucle tant quon peut continuer la partie
-	while (vm->cycle_to_die && vm->dump && there is still more than 2 plyers alive && ...	)
-	{
-		//ici une boucle pour excecuter une instruction de chaque joueur (mais apres comme certaine instruction sont plus longue que d'autre est ce quon fait un joueur par un joueur ou nb_cycle par nb_cycle je sais pas du tout)
-		actual = vm->info_players->first;
-		while (actual)
-		{
-			//execute
-			actual = actual->next;
-		}
-	}
-}
+//void	execute_game(t_corevm *vm)
+//{
+//	t_player	*actual;
+//
+//	//1ere boucle tant quon peut continuer la partie
+//	while (vm->cycle_to_die && vm->dump && there is still more than 2 plyers alive && ...	)
+//	{
+//		//ici une boucle pour excecuter une instruction de chaque joueur (mais apres comme certaine instruction sont plus longue que d'autre est ce quon fait un joueur par un joueur ou nb_cycle par nb_cycle je sais pas du tout)
+//		actual = vm->info_players->first;
+//		while (actual)
+//		{
+//			//execute
+//			actual = actual->next;
+//		}
+//	}
+//}
 
 
 /*

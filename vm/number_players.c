@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:56:15 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/07/20 14:36:07 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/07/26 15:36:55 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	sort_players(t_corevm *vm)
 ** ????
 */
 
-
 /*
 ** j'assigne un num a tout les joueurs qui en on pas et les trie (en commencant par 1 obligatoirement) !!
 ** !!!! ds le sujet --> le dernier né joue en premier.
@@ -90,6 +89,7 @@ void	number_players(t_corevm *vm)
 			while (!(unused_num(vm, i)))
 				i++;
 			tmp->num = i;
+			tmp->reg[0] = i; //* voir 2 commentaires au dessus pour voir a quoi ca sert cette ligne
 		}
 		tmp = tmp->next;
 	}
