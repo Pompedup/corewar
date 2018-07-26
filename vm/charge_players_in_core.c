@@ -6,19 +6,40 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 15:52:38 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/07/20 16:33:06 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/07/26 14:22:10 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
 /*
-** place les joueurs dans la memoire (l'arenne corewar)
-** il est demandé que : les champions sont chargés en mémoire de façon à espacer 
-** équitablement leurs points d’entrée.
-** donc on a ca grace au calcul i = .. voir ci dessous
-** et tout est caste en float sinon le calcul donne 0 tout le temps
+** premiere reflexion sur la fonction qui lit la vm et renvoie 
+** vers les fonctions qui execute
 */
+
+void	execute_game(t_corevm *vm)
+{
+	t_player	*actual;
+
+	//1ere boucle tant quon peut continuer la partie
+	while (vm->cycle_to_die && vm->dump && there is still more than 2 plyers alive && ...	)
+	{
+		//ici une boucle pour excecuter une instruction de chaque joueur (mais apres comme certaine instruction sont plus longue que d'autre est ce quon fait un joueur par un joueur ou nb_cycle par nb_cycle je sais pas du tout)
+		actual = vm->info_players->first;
+		while (actual)
+		{
+			//execute
+			actual = actual->next;
+		}
+	}
+}
+
+
+/*
+** place les joueurs dans la memoire (l'arenne corewar)
+** les champions sont chargés en mémoire de façon à espacer équitablement leurs points d’entrée.
+** on a ca grace au calcul i = .. voir ci dessous
+** et la on enregistre le 1er pc du joueur -> premiere case de la ou on a placé le programme du joueur*/
 
 void	charge_players_in_core(t_corevm *vm)
 {
@@ -33,6 +54,8 @@ void	charge_players_in_core(t_corevm *vm)
 		j = 0;
 		i = ((float)player->num / (float)vm->info_players->nb_players
 			* (float)MEM_SIZE);
+		player->pc = &(vm->core[i]);
+		printf("player->pc %p\n", player->pc);
 		while (j < player->len_process)
 		{
 			vm->core[i] = player->process[j];
@@ -41,5 +64,6 @@ void	charge_players_in_core(t_corevm *vm)
 		}
 		player = player->next;
 	}
-	print_memory(vm->core, MEM_SIZE);
+	//write(1, vm->core, MEM_SIZE);
+	//print_memory(vm->core, MEM_SIZE);
 }

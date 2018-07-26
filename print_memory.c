@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/19 15:07:22 by abezanni          #+#    #+#             */
-/*   Updated: 2018/07/17 16:33:08 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/07/26 13:25:34 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int print_player(char *av, int i)
 	int		ret;
 	int		to_print;
 
+	(void)i;
 	print[2] = ' ';
 	print[3] = 0;
 	fd = open(av, O_RDONLY);

@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/07/20 16:38:38 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/07/26 13:26:12 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct			s_player
 	int					reg[REG_NUMBER]; // de REG_SIZE #define REG_SIZE	4 un int 4 octets
 	char				*pc; //programme counter
 	int					carry; //une retenu des instructions ou ya des calculs (si jai bien compris!?)
+	//int				last_live; pour voir la derniere foi qu'il a dit quil etait en vie
 	struct s_player		*next;
 }						t_player;
 

@@ -14,7 +14,8 @@
 
 t_func instruction_tab[] =
 {
-	{&live, 1}, {&ld, 2}, {&st, 3}, {&add, 4}, {&sub, 5}, {&and, 6}, {&or, 7},
-	{&xor, 8}, {&zjmp, 9}, {&ldi, 10}, {&sti, 11}, {&fork, 12}, {&lld, 13},
-	{&lldi, 14}, {&lfork, 15}, {&aff, 16}, {NULL, 0}
+	{&live, 0x01}, {&ld, 0x02}, {&st, 0x03}, {&add, 0x04}, {&sub, 0x05},
+	{&and, 0x06}, {&or, 0x07}, {&xor, 0x08}, {&zjmp, 0x09}, {&ldi, 0x0a},
+	{&sti, 0x0b}, {&fork, 0x0c}, {&lld, 0x0d}, {&lldi, 0x0e}, {&lfork, 0x0f},
+	{&aff, 0x010}, {NULL, 0}
 }
