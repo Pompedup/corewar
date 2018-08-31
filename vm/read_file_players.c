@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 14:08:14 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/07/26 13:30:20 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/08/31 11:03:11 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	read_magic(t_player *player, t_corevm *vm, int fd)
 	ft_strrev(magic, 4);
 	player->header->magic = *(unsigned int *)magic;
 
-	printf("player->header->magic %x \n", player->header->magic);
-	print_memory(magic, 4);
+	//printf("player->header->magic %x \n", player->header->magic);
+	//print_memory(magic, 4);
 
 	if (player->header->magic != COREWAR_EXEC_MAGIC)
 		ft_error(vm, 34); //le numero magique nest pas bon :(!!
@@ -42,10 +42,10 @@ void	read_name(t_player *player, t_corevm *vm, int fd)
 		ft_error(vm, -3); // num error probleme de lecture!!!
 	player->header->prog_name[ret] = '\0';
 
-	write(1, "name : ", 7);
-	write(1, player->header->prog_name, ret);
-	write(1, "\n", 1);
-	print_memory(player->header->prog_name, ret);
+	//write(1, "name : ", 7);
+	//write(1, player->header->prog_name, ret);
+	//write(1, "\n", 1);
+	//print_memory(player->header->prog_name, ret);
 }
 
 void	read_prog_size(t_player *player, t_corevm *vm, int fd)
@@ -55,15 +55,15 @@ void	read_prog_size(t_player *player, t_corevm *vm, int fd)
 
 	if ((ret = read(fd, psize, 4)) == -1)
 		ft_error(vm, -3); // num error probleme de lecture!!!
-	printf("player->header->prog_size %x \n", player->header->prog_size);
-	print_memory(psize, 4);
+//	printf("player->header->prog_size %x \n", player->header->prog_size);
+	//print_memory(psize, 4);
 	ft_strrev(psize, 4);
 	player->header->prog_size = *(unsigned int *)psize;
 	if (player->header->prog_size > CHAMP_MAX_SIZE)
 		ft_error(vm, 333); //votre champion est trop gros!!
 
-	printf("player->header->prog_size %x \n", player->header->prog_size);
-	print_memory(psize, 4);
+	//printf("player->header->prog_size %x \n", player->header->prog_size);
+	//print_memory(psize, 4);
 }
 
 void	read_comment(t_player *player, t_corevm *vm, int fd)
@@ -89,7 +89,7 @@ void	read_programme(t_player *player, t_corevm *vm, int fd)
 	if (ret > CHAMP_MAX_SIZE)
 		ft_error(vm, 3); //votre champion est trop gros!!
 	player->process[ret] = '\0';
-	printf("ret %d\n", ret);
+//	printf("ret %d\n", ret);
 	if ((unsigned int)ret != player->header->prog_size) 
 		ft_error(vm, 19); //difference entre la taille reel de votre proramme et l'int prog_size :0 !!
 	player->len_process = ret;

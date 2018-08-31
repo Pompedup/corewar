@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:40:17 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/07/26 15:32:45 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/08/31 15:35:55 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	get_info_player(t_player *player, t_corevm *vm, int i)
 {
 	int	fd;
 
-	printf(" get file vm->argv[i] -%s-\n", vm->argv[i]);
+	//printf(" get file vm->argv[i] -%s-\n", vm->argv[i]);
 	if (ft_strlen(vm->argv[i]) > 4 && ft_strstr(vm->argv[i], ".cor\0"))
 	{
 		if ((fd = open(vm->argv[i], O_RDONLY)) == -1)
@@ -38,18 +38,17 @@ void	get_info_player(t_player *player, t_corevm *vm, int i)
 		ft_error(vm, -4);
 }
 
-void	init_variable(t_player *player, int num)
+void	init_variable(t_corevm *vm, t_player *player, int num)
 {
-	int i;
-
+//	int i;
+	header_t	*header;
+	
+	if (!(header = malloc(sizeof(header_t))))
+		ft_error(vm, -6); //malloc error
+	player->header = header;
 	player->num = num;
 	player->color = 0; //?voir comment on met les couleurs (avec des defines?)
-	player->pc = NULL;
-	player->carry = 0;
-	player->reg[0] = num;
-	i = 1;
-	while (i < REG_NUMBER)
-		player->reg[i++] = 0;
+
 }
 
 /*
@@ -58,23 +57,19 @@ void	init_variable(t_player *player, int num)
 
 void	create_player(t_corevm *vm, int num, int index)
 {
-	header_t	*header;
 	t_player	*player;
 	t_player	*tmp;
 
 	if (!(player = malloc(sizeof(t_player))))
 		ft_error(vm, -6); //malloc error
-	if (!(header = malloc(sizeof(header_t))))
-		ft_error(vm, -6); //malloc error
-	player->header = header;
 	player->name_file = vm->argv[index]; // a supprimer quand on a fini le projet cetait juste pour afficher
-	init_variable(player, num);
+	init_variable(vm, player, num);
 	get_info_player(player, vm, index);
-	if (vm->info_players->first == NULL)
-		vm->info_players->first = player;
+	if (vm->info_players->first_player == NULL)
+		vm->info_players->first_player = player;
 	else
 	{
-		tmp = vm->info_players->first;
+		tmp = vm->info_players->first_player;
 		while (tmp->next)
 		{
 			tmp = tmp->next;

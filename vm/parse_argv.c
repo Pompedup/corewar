@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 12:02:04 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/07/26 13:55:16 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/08/31 15:41:34 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	add_player_with_num(t_corevm *vm, int i)
 	while (ft_isdigit(vm->argv[i + 1][j]) && vm->argv[i + 1][j])
 		j++;
 	if (vm->argv[i + 1][j] != '\0')
-		ft_error(vm, 1); // -n veut un num apres (1-4)
+		ft_error(vm, 111); // -n veut un num apres (1-4)
 	num = ft_atoi(vm->argv[i + 1]);
 	if ((num < 1 || num > MAX_PLAYERS) || !unused_num(vm, num))
 		ft_error(vm, 15); //le num dun joueur doit etre 1 et 4 et sans doublon
@@ -64,11 +64,12 @@ void	get_dump(t_corevm *vm, int i)
 		j++;
 	if (vm->argv[i][j] != '\0')
 		ft_error(vm, 0); // usage: ./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ...
-	vm->dump = ft_atoi(vm->argv[i]);
+	if ((!(vm->dump = ft_atoi(vm->argv[i]))))
+		ft_error(vm, -1); //le nombre de dump doit etre strictement superieur à 0
 }
 
 /*
-** parsing des champions (et 2 option : -dump (lié a nbr_cycle) et -visu)
+** parsing des champions (et 2 options : -dump (lié a nbr_cycle) et -visu)
 */
 
 void	parse_argv(t_corevm *vm)
@@ -78,7 +79,7 @@ void	parse_argv(t_corevm *vm)
 	i = 0;
 	while (vm->argv[++i])
 	{
-		if (ft_strequ(vm->argv[i], "-dump"))
+		if (ft_strequ(vm->argv[i], "-dump") && vm->dump == 0)
 			get_dump(vm, ++i);
 		else if (ft_strequ(vm->argv[i], "-visu"))
 			vm->visu = 1;
@@ -94,6 +95,6 @@ void	parse_argv(t_corevm *vm)
 		if (vm->info_players->nb_players > MAX_PLAYERS)
 			ft_error(vm, 7); //num error Too many players for the battle :O!!
 	}
-	if (vm->info_players->nb_players < 2)
-		ft_error(vm, 77); //num error il faut au moins 2 joueurs!!
+	if (vm->info_players->nb_players < 1)
+		ft_error(vm, 77); //num error il faut au moins 1 joueurs!!
 }

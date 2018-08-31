@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/07/26 15:36:56 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/08/31 15:28:52 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <fcntl.h>
 #include <stdio.h>	
 
-# define LIVE   			
+# define LIVE   		0x01	
 # define LD				0x02
 # define ST				0x03
 # define ADD			0x04
@@ -39,20 +39,25 @@ typedef struct			s_player
 	header_t			*header;
 	char				process[CHAMP_MAX_SIZE + 1];
 	int					len_process;
-	/* 
-	** structure pour le parcing au dessus et ci dessous pour le game (on a peut etre besoin de dautre variable??)
-	*/	
+	struct s_player		*next;
+}						t_player;
+
+typedef struct			s_process
+{
+	int					color;
 	int					reg[REG_NUMBER]; // de REG_SIZE #define REG_SIZE	4 un int 4 octets
 	char				*pc; //programme counter
 	int					carry; //une retenu des instructions ou ya des calculs (si jai bien compris!?)
+	int					nb_cycle;
 	//int				last_live; pour voir la derniere foi qu'il a dit quil etait en vie
-	struct s_player		*next;
-}						t_player;
+	struct s_process	*next;
+}						t_process;
 
 typedef struct			s_info_players //structure pour gerer la liste chainée des players
 {
 	int					nb_players;
-	t_player			*first;
+	t_player			*first_player;
+	t_process			*first_processus;
 }						t_info_players;
 
 typedef struct			s_corevm
@@ -63,7 +68,7 @@ typedef struct			s_corevm
 	
 	//ici plus pour la battle
 	char				core[MEM_SIZE]; //larene
-	int					nb_cycles; //associer au define CYCLE_TO_DIE qui est le max && Si on n’a pas décrémenté CYCLE_TO_DIE depuis MAX_CHECKS vérifications, on le décrémente
+	int					nb_total_cycles; //associer au define CYCLE_TO_DIE qui est le max && Si on n’a pas décrémenté CYCLE_TO_DIE depuis MAX_CHECKS vérifications, on le décrémente
 	int					cycle_to_die; // = CYCLE_TO_DIE ->se decrement quand :
 						//Si on n’a pas décrémenté CYCLE_TO_DIE depuis MAX_CHECKS vérifications,on le décrémente.
 	int					nb_check;	 //??? voir ci dessus
@@ -150,6 +155,14 @@ void    				 ft_error(t_corevm *vm,  int num_error);
 
 int						print_player(char *av, int i);
 void					print_memory(const void *addr, size_t size);
+
+/*
+********************************************************************************
+**						      HANDLE_PROCESSUS_C				     		  **
+********************************************************************************
+*/	
+
+t_process				*create_processus(t_corevm *vm, char *pc, t_player *player);
 
 /*
 ********************************************************************************
