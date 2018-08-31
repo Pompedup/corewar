@@ -6,11 +6,11 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/08/31 15:58:55 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/08/31 16:24:02 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../libft/inc/ft_printf.h"
+# include "../libft/inc/libft.h"
 
 /*
 ** "Toutes les tailles sont en octets. On part du principe qu'un int fait 32 bits."
