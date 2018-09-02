@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+         #
+#    By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/09/02 16:44:55 by ccoupez          ###   ########.fr        #
+#    Updated: 2018/09/02 18:16:07 by abezanni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ COMMON_OBJ =	$(COMMON_SRC:.c=.o)
 
 ASM_OBJ =		$(ASM_SRC:.c=.o)
 
-VM_OBJ =	$(VM_SRC:.c=.o)
+VM_OBJ =		$(VM_SRC:.c=.o)
 
 SRC =			$(COMMON_SRC)\
 				$(ASM_SRC)\
@@ -46,25 +46,25 @@ VM_FILES =		charge_players_in_core.c\
 
 COMMON_SRC =	$(addprefix src/,$(COMMON_FILES))
 
-ASM_SRC = 		$(addprefix src/asm/,$(ASM_FILES))
+ASM_SRC =		$(addprefix src/asm/,$(ASM_FILES))
 
-VM_SRC =	$(addprefix src/vm/,$(VM_FILES))
+VM_SRC =		$(addprefix src/vm/,$(VM_FILES))
 
-ASM_NAME = asm
+ASM_NAME =		asm
 
-VM_NAME = vm
+VM_NAME =		vm
 
-LIB_PATH = libft
+LIB_PATH =		libft
 
-LIB = libft/libft.a
+LIB =			libft/libft.a
 
-INCLUDE = -I ./inc
+INCLUDE =		-I ./inc
 
 CFLAGS = -Wall -Wextra -Werror $(INCLUDE)
 
-all : libftcomp $(VM_NAME) #$(ASM_NAME) #test
+all : libftcomp $(ASM_NAME) $(COREWAR_NAME)
 
-$(ASM_NAME) : $(LIB) $(ASM_OBJ) #$(COMMON_OBJ)
+$(ASM_NAME) : $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
 	$(CC) -o $(ASM_NAME) $(CFLAGS) $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
 	@echo "\033[1;32mSucced asm\033[0m"
 
