@@ -1,5 +1,5 @@
 .comment"en fait C forker !"
-.name .name "Jumper !"
+.nameeere "Jumper !"
 
 gobepc:	st r1,:buff
 	st r6,-4

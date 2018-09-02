@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pompedup <pompedup@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 12:23:45 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/01 17:23:54 by pompedup         ###   ########.fr       */
+/*   Updated: 2018/09/02 16:12:36 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,13 @@ static void	init(t_record *record)
 int			main(int ac, char **av)
 {
 	t_record	record;
-	int		i;
-	int		ret;
+	int			i;
+	int			ret;
 
 	if (ac < 2)
-		ft_putendl("usage: ./data/asm [-a] <sourcefile.s>\n\t-a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output");
+		ft_putendl("usage: ./data/asm [-a] <sourcefile.s>\n\t-a : Instead of \
+		creating a .cor file, outputs a stripped and annotated version of the \
+		code to the standard output");
 	i = 1;
 	init(&record);
 	while (i < ac)

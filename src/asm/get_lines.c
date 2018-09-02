@@ -3,24 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   get_lines.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pompedup <pompedup@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 15:27:07 by pompedup          #+#    #+#             */
-/*   Updated: 2018/09/01 16:58:19 by pompedup         ###   ########.fr       */
+/*   Updated: 2018/09/02 16:11:57 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int		add_line(char *line, t_lines **lines)
+int		add_line(char *line, int num, t_lines **lines)
 {
-	t_lines *new;
-
-	if (!(new = malloc(sizeof(t_lines))))
+	if (!(*line = malloc(sizeof(t_lines))))
 		return (ALLOC_ERROR);
-	new->str = line;
-	new->next = NULL;
-	*lines = new;
+	(*line)->str = line;
+	(*line)->num_line = num;
+	(*line)->next = NULL;
 	return (OK);
 }
 
@@ -58,10 +56,12 @@ int		get_lines(char *file_name, t_lines **lines)
 {
 	int		fd;
 	int		ret;
+	int		i;
 	char	*line;
 
 	if ((fd = open(file_name, O_RDONLY)) == -1)
 		return (NO_FILE);
+	i = 0;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		ret = select_line(&line);
@@ -72,10 +72,11 @@ int		get_lines(char *file_name, t_lines **lines)
 		}
 		if (line)
 		{
-			if ((ret = add_line(line, lines)))
+			if ((ret = add_line(line, i, lines)))
 				return (ret);
 			lines = &((*lines)->next);
 		}
+		i++;
 	}
 	if (ret == -1)
 		return (CANT_READ);

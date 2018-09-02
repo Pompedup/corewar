@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_infos.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pompedup <pompedup@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 17:02:50 by pompedup          #+#    #+#             */
-/*   Updated: 2018/09/01 17:43:30 by pompedup         ###   ########.fr       */
+/*   Updated: 2018/09/02 16:36:37 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,16 @@ char	*search_begin(char *line)
 
 int		get_string(char *str, char **addr_dest)
 {
+	char *quote;
+
 	str = search_begin(str);
 	if (*str != '"')
-
+	{
+		//pas bon format
+	}
+	str++;
+	if (ft_strchr(str, '"'))
+	*addr_dest = ft_strdup(str, );
 	return (OK);
 }
 
