@@ -6,7 +6,7 @@
 #    By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/09/02 15:32:20 by ccoupez          ###   ########.fr        #
+#    Updated: 2018/09/02 16:44:55 by ccoupez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,7 +90,7 @@ clean :
 fclean : clean
 	@/bin/rm -f $(LIB)
 	@echo "\033[1;32mSucced clean of libft.a\033[0m"
-	@/bin/rm -f $(NAME1) $(NAME2)
+	@/bin/rm -f $(ASM_NAME) $(VM_NAME)
 	@echo "\033[1;32mSucced clean asm and vm\033[0m"
 
 re : fclean	all
