@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 12:23:45 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/02 16:12:36 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/02 19:18:35 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ void		print_lines(t_lines *lines)
 		ft_putendl(lines->str);
 		lines = lines->next;
 	}
+}
+
+void		name_and_comment(t_record record)
+{
+	ft_putendl(record.name);
+	ft_putendl(record.comment);
 }
 
 static void	init(t_record *record)
@@ -51,6 +57,7 @@ int			main(int ac, char **av)
 		if ((ret = get_lines(av[i], &(record.lines))))
 			error(ret, av[i]);
 		get_infos(&record);
+		name_and_comment(record);
 		i++;
 	}
 	//print_lines(record.lines);
