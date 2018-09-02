@@ -3,86 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pompedup <pompedup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/06/29 15:23:09 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/01 17:40:00 by pompedup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
 
-# define IND_SIZE				2
-# define REG_SIZE				4
-# define DIR_SIZE				REG_SIZE
+#include "../libft/inc/libft.h"
+#include "common.h"
 
+# define	YET			-1
+# define	OK			0
+# define	ALLOC_ERROR	1
+# define	NO_FILE		2
+# define	CANT_READ	3
 
-# define REG_CODE				1
-# define DIR_CODE				2
-# define IND_CODE				3
+typedef struct		s_lines{
+	char			*str;
+	struct s_lines	*next;
+}					t_lines;
 
-
-# define MAX_ARGS_NUMBER		4
-# define MAX_PLAYERS			4
-# define MEM_SIZE				(4*1024)
-# define IDX_MOD				(MEM_SIZE / 8)
-# define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
-
-# define COMMENT_CHAR			'#'
-# define LABEL_CHAR				':'
-# define DIRECT_CHAR			'%'
-# define SEPARATOR_CHAR			','
-
-# define LABEL_CHARS			"abcdefghijklmnopqrstuvwxyz_0123456789"
-
-# define NAME_CMD_STRING		".name"
-# define COMMENT_CMD_STRING		".comment"
-
-# define REG_NUMBER				16
-
-# define CYCLE_TO_DIE			1536
-# define CYCLE_DELTA			50
-# define NBR_LIVE				21
-# define MAX_CHECKS				10
+typedef struct		s_record{
+	char			*name;
+	char			*comment;
+	t_lines			*lines;
+}					t_record;
 
 /*
-**
+********************************************************************************
+**                                                                            **
+**   get_lines.c                                                              **
+**                                                                            **
+********************************************************************************
 */
 
-typedef char	t_arg_type;
-
-# define T_REG					1
-# define T_DIR					2
-# define T_IND					4
-# define T_LAB					8
+int					get_lines(char *file_name, t_lines **lines);
 
 /*
-**
+********************************************************************************
+**                                                                            **
+**   get_infos.c                                                              **
+**                                                                            **
+********************************************************************************
 */
 
-# define PROG_NAME_LENGTH		(128)
-# define COMMENT_LENGTH			(2048)
-# define COREWAR_EXEC_MAGIC		0xea83f3
+void				get_infos(t_record *record);
 
-typedef struct		header_s
-{
-  unsigned int		magic;
-  char				prog_name[PROG_NAME_LENGTH + 1];
-  unsigned int		prog_size;
-  char				comment[COMMENT_LENGTH + 1];
-}					header_t;
+/*
+********************************************************************************
+**                                                                            **
+**   lines.c                                                                  **
+**                                                                            **
+********************************************************************************
+*/
 
-typedef struct		s_op
-{
-	char			*shortcut;
-	int				arg_authorized; // 1 || 2 || 3
-	char			accept;
-	int				id;
-	int				nb_cycle_instruction; //10 || 5 || 6 || 20 || 25 || 800 || 1000
-	char			*description;
-	int				ind;
-	int				dir;
-}					t_op;
+void				delete_t_lines(t_lines **lines);
 
 #endif

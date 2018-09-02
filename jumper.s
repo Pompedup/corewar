@@ -1,7 +1,5 @@
-#debut du mega truc qu'il est trop dur a faire
-
-.name "Jumper !"
-.comment "en fait C forker !"
+.comment"en fait C forker !"
+.name .name "Jumper !"
 
 gobepc:	st r1,:buff
 	st r6,-4

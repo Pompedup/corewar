@@ -1,0 +1,5 @@
+COREWAR_EXEC_MAGIC
+Nom du fichier sur 128 + 4 octets a 0
+Taille du programme sur un int
+Cmmentaire du fichier sur 2048 + 4 octets a 0
+Programme

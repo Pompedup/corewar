@@ -3,78 +3,72 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+         #
+#    By: pompedup <pompedup@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/06/29 14:57:31 by abezanni         ###   ########.fr        #
+#    Updated: 2018/09/01 17:40:16 by pompedup         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-OBJ =	$(OBJ_ALL)\
-		$(OBJ1)\
-		$(OBJ2)\
+CC =			@gcc
 
-OBJ_ALL = $(SRC_ALL:.c=.o)
+OBJ =			$(COMMON_OBJ)\
+				$(ASM_OBJ)\
+				$(COREWAR_OBJ)\
 
-OBJ1 = $(SRC_1:.c=.o)
+COMMON_OBJ =	$(COMMON_SRC:.c=.o)
 
-OBJ2 = $(SRC_2:.c=.o)
+ASM_OBJ =		$(ASM_SRC:.c=.o)
 
+COREWAR_OBJ =	$(COREWAR_SRC:.c=.o)
 
-CC = @gcc
+SRC =			$(COMMON_SRC)\
+				$(ASM_SRC)\
+				$(COREWAR_SRC)\
 
-SRC =	$(SRC_ALL)\
-		$(SRC_1)\
-		$(SRC_2)\
+COMMON_FILES =
 
-SRC_NAME =	ft_lst.c\
-			push.c\
-			reverse_rotate.c\
-			rotate.c\
-			swap.c\
-			ft_init.c\
-			ft_errors.c\
+ASM_FILES =		asm.c\
+				get_infos.c\
+				get_lines.c\
+				lines.c\
 
-SRC_NAME1 = checker.c\
+COREWAR_FILES =
 
-SRC_NAME2 = push_swap.c\
-			ft_search_best_move.c\
-			ft_sort.c\
-			ft_back_in_a.c\
-			ft_recombined.c\
-			ft_verif_sort.c\
+COMMON_SRC =	$(addprefix src/,$(COMMON_FILES))
 
-SRC_ALL = $(addprefix src/,$(SRC_NAME))
+ASM_SRC = 		$(addprefix src/asm/,$(ASM_FILES))
 
-SRC_1 = $(addprefix src/,$(SRC_NAME1))
+COREWAR_SRC =	$(addprefix src/,$(COREWAR_FILES))
 
-SRC_2 = $(addprefix src/,$(SRC_NAME2))
+ASM_NAME = asm
 
-NAME1 = asm
-
-NAME2 = corewar
+COREWAR_NAME = corewar
 
 LIB_PATH = libft
 
 LIB = libft/libft.a
 
-INCLUDE = -I ./includes
+INCLUDE = -I ./inc
 
 CFLAGS = -Wall -Wextra -Werror $(INCLUDE)
 
-all : libftcomp $(NAME1) $(NAME2)
+all : libftcomp $(ASM_NAME) test#$(COREWAR_NAME)
 
-$(NAME1) : $(LIB) $(OBJ1) $(OBJ_ALL)
-	@gcc -o $(NAME1) $(CFLAGS) $(LIB) $(OBJ1) $(OBJ_ALL)
-	@echo "\033[1;32mSucced checker\033[0m"
+$(ASM_NAME) : $(LIB) $(ASM_OBJ) #$(COMMON_OBJ)
+	$(CC) -o $(ASM_NAME) $(CFLAGS) $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
+	@echo "\033[1;32mSucced asm\033[0m"
 
-$(NAME2) : $(LIB) $(OBJ2) $(OBJ_ALL)
-	@gcc -o $(NAME2) $(CFLAGS) $(LIB) $(OBJ2) $(OBJ_ALL)
-	@echo "\033[1;32mSucced push_swap\033[0m"
+$(COREWAR_NAME) : $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
+	$(CC) -o $(COREWAR_NAME) $(CFLAGS) $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
+	@echo "\033[1;32mSucced corewar\033[0m"
 
-$(OBJ_ALL) : includes/checker.h
-$(OBJ1) : includes/checker.h
-$(OBJ2) : includes/checker.h
+$(COMMON_OBJ) : inc/common.h
+$(ASM_OBJ) : inc/asm.h inc/common.h
+$(COREWAR_OBJ) : inc/corewar.h inc/common.h
+
+test : print_memory.c
+	$(CC) print_memory.c $(LIB) -o memory
 
 libftcomp :
 	@make -C $(LIB_PATH)

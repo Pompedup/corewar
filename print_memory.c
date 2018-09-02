@@ -3,57 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   print_memory.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pompedup <pompedup@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/19 15:07:22 by abezanni          #+#    #+#             */
-/*   Updated: 2018/06/21 14:04:50 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/01 13:50:16 by pompedup         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include <unistd.h>
-
-void	print_memory(const void *addr, size_t size)
-{
-	unsigned char	*str;
-	unsigned char	tabmem[16];
-	unsigned char	tab[2];
-	size_t			i;
-	int				j;
-
-	i = 0;
-	j = 0;
-	str = (unsigned char *)addr;
-	while (i < size)
-	{
-		tab[0] = *str / 16 < 10 ? *str / 16 + 48 : *str / 16 + 87;
-		tab[1] = *str % 16 < 10 ? *str % 16 + 48 : *str % 16 + 87;
-		write(1, tab, 2);
-		if (i % 2 == 1)
-			write(1, " ", 1);
-		tabmem[j++] = 31 < *str && *str < 127 ? *str : '.';
-		str++;
-		i++;
-		if (j == 16)
-		{
-			write(1, tabmem, 16);
-			write(1, "\n", 1);
-			j = 0;
-		}
-	}
-	if (j != 0)
-	{
-		while (i % 16 != 0)
-		{
-			write(1, "  ", 2);
-			if (i % 2 == 1)
-				write(1, " ", 1);
-			i++;
-		}
-		write(1, tabmem, j);
-		write(1, "\n", 1);
-	}
-}
+#include "libft/inc/libft.h"
 
 int	calc_print(unsigned char *str)
 {
@@ -124,8 +81,8 @@ int	calc_print(unsigned char *str)
 int main(int ac, char **av)
 {
 	int				fd;
-	char	buf[10000];
-	char	*test;
+	unsigned char	buf[10000];
+	unsigned char	*test;
 	char	print[4];
 	int		ret;
 	int		to_print;
@@ -135,27 +92,30 @@ int main(int ac, char **av)
 	fd = open(av[1], O_RDONLY);
 	ret = read(fd, buf, 10000);
 	test = buf;
-	test += 600;
-	ret -= 600;
+	test += 104;
+	ret = 100;
+	ft_putnbrendl(ret);
 	while (!*test)
 	{
 		test++;
-		ret--;
+		ret++;
 	}
+	ft_putnbrendl(ret);
+	/*
 	while (ret > 0)
 	{
 		to_print = calc_print(test);
 		if (to_print < 40)
 		{
-			print_memory(test, to_print);
+			ft_print_memory(test, to_print);
 			test += to_print;
 			ret -= to_print;
 		}
 		else
 		{
-			print_memory(test, ret);
+			ft_print_memory(test, ret);
 			ret = 0;
 		}
-	}
+	}*/
 	return (0);
 }
