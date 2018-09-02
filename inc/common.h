@@ -6,12 +6,14 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/02 18:18:27 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/02 18:48:59 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMON_H
 # define COMMON_H
+
+#include "../libft/inc/libft.h"
 
 # define IND_SIZE				2
 # define REG_SIZE				4

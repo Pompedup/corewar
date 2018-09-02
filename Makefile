@@ -6,7 +6,7 @@
 #    By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/09/02 18:16:07 by abezanni         ###   ########.fr        #
+#    Updated: 2018/09/02 18:36:02 by abezanni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,17 +14,17 @@ CC =			@gcc
 
 OBJ =			$(COMMON_OBJ)\
 				$(ASM_OBJ)\
-				$(VM_OBJ)\
+				$(COREWAR_OBJ)\
 
 COMMON_OBJ =	$(COMMON_SRC:.c=.o)
 
 ASM_OBJ =		$(ASM_SRC:.c=.o)
 
-VM_OBJ =		$(VM_SRC:.c=.o)
+COREWAR_OBJ =	$(COREWAR_SRC:.c=.o)
 
 SRC =			$(COMMON_SRC)\
 				$(ASM_SRC)\
-				$(VM_SRC)\
+				$(COREWAR_SRC)\
 
 COMMON_FILES =
 
@@ -33,26 +33,26 @@ ASM_FILES =		asm.c\
 				get_lines.c\
 				lines.c\
 
-VM_FILES =		charge_players_in_core.c\
+COREWAR_FILES =	charge_players_in_core.c\
 				execute_the_battle.c\
 				handle_processus.c\
-				init_vm.c\
+				init_corewar.c\
 				manage_error.c\
 				number_players.c\
 				parse_argv.c\
 				read_file_players.c\
 				register_players.c\
-				vm.c\
+				corewar.c\
 
 COMMON_SRC =	$(addprefix src/,$(COMMON_FILES))
 
 ASM_SRC =		$(addprefix src/asm/,$(ASM_FILES))
 
-VM_SRC =		$(addprefix src/vm/,$(VM_FILES))
+COREWAR_SRC =	$(addprefix src/corewar/,$(COREWAR_FILES))
 
 ASM_NAME =		asm
 
-VM_NAME =		vm
+COREWAR_NAME =	corewar
 
 LIB_PATH =		libft
 
@@ -68,13 +68,13 @@ $(ASM_NAME) : $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
 	$(CC) -o $(ASM_NAME) $(CFLAGS) $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
 	@echo "\033[1;32mSucced asm\033[0m"
 
-$(VM_NAME) : $(LIB) $(VM_OBJ) $(COMMON_OBJ)
-	$(CC) -o $(VM_NAME) $(CFLAGS) $(LIB) $(VM_OBJ) $(COMMON_OBJ)
-	@echo "\033[1;32mSucced vm\033[0m"
+$(COREWAR_NAME) : $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
+	$(CC) -o $(COREWAR_NAME) $(CFLAGS) $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
+	@echo "\033[1;32mSucced corewar\033[0m"
 
 $(COMMON_OBJ) : inc/common.h
 $(ASM_OBJ) : inc/asm.h inc/common.h
-$(VM_OBJ) : inc/vm.h inc/common.h
+$(COREWAR_OBJ) : inc/corewar.h inc/common.h
 
 test : print_memory.c
 	$(CC) print_memory.c $(LIB) -o memory
@@ -85,13 +85,13 @@ libftcomp :
 clean :
 	@make clean -C $(LIB_PATH)
 	@/bin/rm -f $(OBJ)
-	@echo "\033[1;32mSucced clean of '*.o' from asm and vm\033[0m"
+	@echo "\033[1;32mSucced clean of '*.o' from asm and corewar\033[0m"
 
 fclean : clean
 	@/bin/rm -f $(LIB)
 	@echo "\033[1;32mSucced clean of libft.a\033[0m"
-	@/bin/rm -f $(ASM_NAME) $(VM_NAME)
-	@echo "\033[1;32mSucced clean asm and vm\033[0m"
+	@/bin/rm -f $(ASM_NAME) $(COREWAR_NAME) memory #remove memory
+	@echo "\033[1;32mSucced clean asm and corewar\033[0m"
 
 re : fclean	all
-	@echo "\033[1;32mSucced recompilation asm and vm\033[0m"
+	@echo "\033[1;32mSucced recompilation asm and corewar\033[0m"

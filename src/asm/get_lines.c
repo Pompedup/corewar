@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 15:27:07 by pompedup          #+#    #+#             */
-/*   Updated: 2018/09/02 16:11:57 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/02 18:44:32 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int		add_line(char *line, int num, t_lines **lines)
 {
-	if (!(*line = malloc(sizeof(t_lines))))
+	if (!(*lines = malloc(sizeof(t_lines))))
 		return (ALLOC_ERROR);
-	(*line)->str = line;
-	(*line)->num_line = num;
-	(*line)->next = NULL;
+	(*lines)->str = line;
+	(*lines)->num_line = num;
+	(*lines)->next = NULL;
 	return (OK);
 }
 

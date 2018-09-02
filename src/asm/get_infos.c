@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 17:02:50 by pompedup          #+#    #+#             */
-/*   Updated: 2018/09/02 16:36:37 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/02 18:43:10 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ int		get_string(char *str, char **addr_dest)
 
 	str = search_begin(str);
 	if (*str != '"')
-	{
-		//pas bon format
-	}
+		return (WRONG_FORMAT);
 	str++;
-	if (ft_strchr(str, '"'))
-	*addr_dest = ft_strdup(str, );
+	if (((quote = ft_strchr(str, '"'))))
+		*addr_dest = ft_strndup(str, quote - str);
+	else
+		*addr_dest = ft_strdup(str);
 	return (OK);
 }
 
@@ -42,13 +42,13 @@ void	get_infos(t_record *record)
 	lines = &(record->lines);
 	while (!(record->name && record->comment))
 	{
-		begin = search_begin((*line)->str);
+		begin = search_begin((*lines)->str);
 		if (ft_strncmp(begin, NAME_CMD_STRING, 5))
 			get_string(begin + 5, &(record->name));
 		else if (ft_strncmp(begin, COMMENT_CMD_STRING, 7))
 			get_string(begin + 7, &(record->comment));
 		else
-			return (YET);
+			return ;
 		delete_t_lines(lines);
 	}
 }
