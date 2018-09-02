@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:40:17 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/08/31 15:35:55 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/02 16:24:00 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	init_variable(t_corevm *vm, t_player *player, int num)
 {
 //	int i;
 	header_t	*header;
-	
+
 	if (!(header = malloc(sizeof(header_t))))
 		ft_error(vm, -6); //malloc error
 	player->header = header;
@@ -71,9 +71,7 @@ void	create_player(t_corevm *vm, int num, int index)
 	{
 		tmp = vm->info_players->first_player;
 		while (tmp->next)
-		{
 			tmp = tmp->next;
-		}
 		tmp->next = player;
 	}
 	vm->info_players->nb_players++;

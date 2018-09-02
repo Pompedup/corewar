@@ -6,15 +6,15 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/08/31 15:28:52 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/02 16:20:05 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../op/op.h"
+#include "common.h"
 #include <fcntl.h>
-#include <stdio.h>	
+#include <stdio.h>
 
-# define LIVE   		0x01	
+# define LIVE   		0x01
 # define LD				0x02
 # define ST				0x03
 # define ADD			0x04
@@ -22,7 +22,7 @@
 # define AND			0x06
 # define OR				0x07
 # define XOR			0x08
-# define ZJMP			0x09	
+# define ZJMP			0x09
 # define LDI			0x0a
 # define STI			0x0b
 # define FORK			0x0c
@@ -46,7 +46,7 @@ typedef struct			s_process
 {
 	int					color;
 	int					reg[REG_NUMBER]; // de REG_SIZE #define REG_SIZE	4 un int 4 octets
-	char				*pc; //programme counter
+	int					pc; //programme counter
 	int					carry; //une retenu des instructions ou ya des calculs (si jai bien compris!?)
 	int					nb_cycle;
 	//int				last_live; pour voir la derniere foi qu'il a dit quil etait en vie
@@ -65,7 +65,7 @@ typedef struct			s_corevm
 	char				**argv; //pour le parsing
 	int					visu; //option visu librairie possible : OpenGL, SDL, nCurses, ... (bonus)
 	t_info_players		*info_players; // pointeur vers la structure qui gere la liste des players
-	
+
 	//ici plus pour la battle
 	char				core[MEM_SIZE]; //larene
 	int					nb_total_cycles; //associer au define CYCLE_TO_DIE qui est le max && Si on n’a pas décrémenté CYCLE_TO_DIE depuis MAX_CHECKS vérifications, on le décrémente
@@ -74,18 +74,18 @@ typedef struct			s_corevm
 	int					nb_check;	 //??? voir ci dessus
 	int					dump; //je sais pas trop encore
 	int					nb_live; //associer au define NBR_LIVE. Si au cours d’une de ces vérifications on se rend compte qu’il y a eu au moins NBR_LIVE exécutions de live depuis la dernière vérification en date, on décrémente CYCLE_TO_DIE de CYCLE_DELTA unités
-}						t_corevm;	
+}						t_corevm;
 
 /*
 ** structure pour faire un tableau de pointeur sur fonction
-** et appeler les instructions comme dans printf (avec le code d'instruction) 
+** et appeler les instructions comme dans printf (avec le code d'instruction)
 */
 
 typedef struct			s_ptr_func
 {
 	char				*(*ptrfunc) (t_corevm *core, t_player *player);
 	int					code_instruction;
-}						t_ptr_func;	
+}						t_ptr_func;
 /*
 ******************************************************************************** #ecesari
 **								INIT_VM_C								 	  **
@@ -146,6 +146,7 @@ void					charge_players_in_core(t_corevm *vm);
 */
 
 void    				 ft_error(t_corevm *vm,  int num_error);
+void					ft_read_error(t_corevm *vm, int num_error, int fd);
 
 /*
 ********************************************************************************
@@ -160,15 +161,16 @@ void					print_memory(const void *addr, size_t size);
 ********************************************************************************
 **						      HANDLE_PROCESSUS_C				     		  **
 ********************************************************************************
-*/	
+*/
 
-t_process				*create_processus(t_corevm *vm, char *pc, t_player *player);
+t_process				*create_process(t_corevm *vm, int pc, int num, unsigned int color);
+void					put_process_front(t_process **first, t_process *process);
 
 /*
 ********************************************************************************
 **						      INSTRUCTIONS				     			 	  **
 ********************************************************************************
-*/	
+*/
 
 /*int						ft_live(t_corevm *core, t_player *player);
 int						ft_ld(t_corevm *core, t_player *player);
@@ -192,21 +194,21 @@ int						ft_aff(t_corevm *core, t_player *player);*/
 
 
 
-//Trois méthodes d’adressage de la mémoire sont possibles 
+//Trois méthodes d’adressage de la mémoire sont possibles
 //dans une instruction :
-//Relatif : C’est le mode par défaut. Il est relatif à la 
-//case de l’instruction en cours d’exécution. Par exemple, 
-//3 pointe vers la troisième case après la case de 
+//Relatif : C’est le mode par défaut. Il est relatif à la
+//case de l’instruction en cours d’exécution. Par exemple,
+//3 pointe vers la troisième case après la case de
 //l’instruction en cours d’exécution.
 
-//Indirect : Est indiqué par un signe @. 
-//L’adresse après le signe @ n’est pas l’adresse pointée 
-//mais l’adresse de l’adresse pointée. 
-//Par exemple @3 pointe vers la case dont l’adresse est 3 cases 
-//après celle de l’instruction en cours. Attention, la case 
-//contenant l’adresse doit être du type DAT (cf plus loin) 
+//Indirect : Est indiqué par un signe @.
+//L’adresse après le signe @ n’est pas l’adresse pointée
+//mais l’adresse de l’adresse pointée.
+//Par exemple @3 pointe vers la case dont l’adresse est 3 cases
+//après celle de l’instruction en cours. Attention, la case
+//contenant l’adresse doit être du type DAT (cf plus loin)
 //sans quoi, le programme s’arrête sur une erreur d’indirection.
 
-//Immédiat : Est indiqué par un signe # avant 
-//l’argument. Indique une valeur numérique, sans référence 
+//Immédiat : Est indiqué par un signe # avant
+//l’argument. Indique une valeur numérique, sans référence
 //d’adresse. Donc #3 est la valeur numérique 3.

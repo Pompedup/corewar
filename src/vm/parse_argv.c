@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 12:02:04 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/08/31 15:41:34 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/02 16:35:18 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ void	add_player_with_num(t_corevm *vm, int i)
 	int num;
 
 	j = 0;
-	while (ft_isdigit(vm->argv[i + 1][j]) && vm->argv[i + 1][j])
-		j++;
-	if (vm->argv[i + 1][j] != '\0')
+	if (!(ft_strisall(vm->argv[i + 1], &ft_isdigit)))
 		ft_error(vm, 111); // -n veut un num apres (1-4)
 	num = ft_atoi(vm->argv[i + 1]);
 	if ((num < 1 || num > MAX_PLAYERS) || !unused_num(vm, num))
@@ -43,13 +41,11 @@ void	add_player(t_corevm *vm, int i)
 {
 	if (ft_strlen(vm->argv[i]) < 4 && !ft_strstr(vm->argv[i], ".cor\0"))
 		ft_error(vm, 1); //le nom du fichier champion nest pas bon!!
-	if (vm->info_players->nb_players + 1 > MAX_PLAYERS)
-		ft_error(vm, 5); //num error il y a trop de joueur!!
 	create_player(vm, 0, i);
 }
 
 /*
-** recupère	dump : 
+** recupère	dump :
 ** Au bout de nbr_cycles cycles d’exécution, dump la mémoire sur la sortie standard,
 ** puis quitte la partie. (mémoire dumpée au format hexadécimal)
 ** avec 32 octets par ligne.
