@@ -1,23 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lines.c                                            :+:      :+:    :+:   */
+/*   t_lines.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 17:37:50 by pompedup          #+#    #+#             */
-/*   Updated: 2018/09/02 18:44:35 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/03 18:48:53 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	delete_t_lines(t_lines **lines)
+void	del_t_line(t_lines **current)
 {
 	t_lines *to_free;
 
-	to_free = *lines;
-	*lines = (*lines)->next;
+	to_free = *current;
+	*current = (*current)->next;
 	free(to_free->str);
 	free(to_free);
+}
+
+void	del_t_lines(t_lines **current)
+{
+	while (*current)
+		del_t_line(current);
+}
+
+void	new_t_line(t_lines **current, char *line, int num)
+{
+	if (*current)
+		*current = (*current)->next;
+	if (!(*current = malloc(sizeof(t_lines))))
+		return ;
+	(*current)->str = line;
+	(*current)->num_line = num;
+	(*current)->next = NULL;
 }

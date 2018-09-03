@@ -6,7 +6,7 @@
 #    By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/09/02 18:36:02 by abezanni         ###   ########.fr        #
+#    Updated: 2018/09/03 16:36:10 by abezanni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,15 @@ SRC =			$(COMMON_SRC)\
 
 COMMON_FILES =
 
+ASM_STRUCT =	t_elems.c\
+				t_functions.c\
+				t_lines.c\
+
 ASM_FILES =		asm.c\
 				get_infos.c\
 				get_lines.c\
-				lines.c\
+				get_functions.c\
+				$(addprefix struct/,$(ASM_STRUCT))\
 
 COREWAR_FILES =	charge_players_in_core.c\
 				execute_the_battle.c\

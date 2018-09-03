@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 17:02:50 by pompedup          #+#    #+#             */
-/*   Updated: 2018/09/02 19:27:28 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/03 16:43:23 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	get_infos(t_record *record)
 			begin += 5;
 			while ((ret = get_string(begin, &(record->name))) > 0)
 			{
-				delete_t_lines(lines);
+				del_t_line(lines);
 				begin = (*lines)->str;
 			}
 		}
@@ -78,12 +78,12 @@ void	get_infos(t_record *record)
 			begin += 8;
 			while ((ret = get_string(begin, &(record->comment))) > 0)
 			{
-				delete_t_lines(lines);
+				del_t_line(lines);
 				begin = (*lines)->str;
 			}
 		}
 		else
 			return ;
-		delete_t_lines(lines);
+		del_t_line(lines);
 	}
 }
