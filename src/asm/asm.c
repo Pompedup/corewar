@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 12:23:45 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/03 17:13:14 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/03 22:32:04 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int			main(int ac, char **av)
 			error(ret, av[i]);
 		get_infos(&record);
 		name_and_comment(record);//affichage
-		get_functions(&record);
+		get_functions(&record, &(record.lines), &(record.functions));
 		i++;
 	}
 	record.lines = NULL;
@@ -66,6 +66,5 @@ int			main(int ac, char **av)
 	//verification fichier
 	//creation data pour le .cor
 	//creation du .cor
-	sleep(10);
 	return (0);
 }

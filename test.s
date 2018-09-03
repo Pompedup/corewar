@@ -1,7 +1,8 @@
-.name ""
-.comment ""
+.name "f"
+.comment "fd"
 
-live %-1
+ld:live%-1
+ld:ld, r3
 live %-1
 live %-1
 live %-1

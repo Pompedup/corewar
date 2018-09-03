@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 15:27:07 by pompedup          #+#    #+#             */
-/*   Updated: 2018/09/03 18:50:31 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/03 21:38:23 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int			get_lines(char *file_name, t_lines **current)
 			new_t_line(current, line, i);
 			if (!*current)
 				return (ALLOC_ERROR);
+			current = &((*current)->next);
 		}
 		i++;
 	}
