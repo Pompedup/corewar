@@ -28,6 +28,23 @@ typedef struct		s_lines{
 	struct s_lines	*next;
 }					t_lines;
 
+typedef struct		s_elems{
+	int		type;
+	int		key;
+	int		first;
+	int		second;
+	int		third;
+	struct s_elems	*next;
+}
+
+typedef struct		s_functions t_functions;
+
+struct			s_functions{
+	char		*name;
+	t_elems		*elems;
+	t_functions	*next;
+};
+
 typedef struct		s_record{
 	char			*name;
 	char			*comment;
