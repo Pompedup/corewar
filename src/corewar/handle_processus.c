@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_processus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 15:13:34 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/02 18:45:19 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/03 14:03:28 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_process	*create_process(t_corevm *vm, int pc, int num, unsigned int color)
     process->color = color;
     process->pc = pc;
 	process->carry = 0;
-	process->reg[0] = num;
+	process->reg[0] = num + 1;
 	i = 1;
 	while (i < REG_NUMBER)
 		process->reg[i++] = 0;
