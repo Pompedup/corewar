@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_the_battle.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/03 17:20:18 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/03 21:07:29 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,5 @@
 
 void	execute_the_battle(t_corevm *vm)
 {
-
-
+	(void)vm;
 }

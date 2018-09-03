@@ -6,7 +6,7 @@
 #    By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/09/02 18:36:02 by abezanni         ###   ########.fr        #
+#    Updated: 2018/09/03 21:07:01 by abezanni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC =			$(COMMON_SRC)\
 				$(ASM_SRC)\
 				$(COREWAR_SRC)\
 
-COMMON_FILES =
+COMMON_FILES =	global.c\
 
 ASM_FILES =		asm.c\
 				get_infos.c\
@@ -44,7 +44,7 @@ COREWAR_FILES =	charge_players_in_core.c\
 				register_players.c\
 				corewar.c\
 
-COMMON_SRC =	$(addprefix src/,$(COMMON_FILES))
+COMMON_SRC =	$(addprefix src/common/,$(COMMON_FILES))
 
 ASM_SRC =		$(addprefix src/asm/,$(ASM_FILES))
 
