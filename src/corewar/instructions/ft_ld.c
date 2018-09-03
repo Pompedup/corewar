@@ -12,7 +12,7 @@
 */
 
 //void	ld(char *dir_ind, char *reg)
-int     ft_ld(t_corevm *core, t_player *player)
+int     ft_ld(t_corevm *core, t_process *process)
 {
 
 }
