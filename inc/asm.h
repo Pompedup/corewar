@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/03 22:32:18 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/05 15:38:04 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int					get_lines(char *file_name, t_lines **lines);
 ********************************************************************************
 */
 
+char				*search_begin(char *line);
 void				get_infos(t_record *record);
 
 /*
@@ -107,7 +108,7 @@ void				new_t_elem(t_elems **current, int type, int key);
 
 void				del_t_function(t_functions **current);
 void				del_t_functions(t_functions **current);
-void				new_t_function(t_functions **current, char *name, int pos);
+t_functions			**new_t_function(t_functions **current, char *name, int pos);
 
 /*
 ********************************************************************************
