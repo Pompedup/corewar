@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 13:17:29 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/02 18:45:09 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/11 15:33:25 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ int     main(int ac, char **av)
 	t_corevm    vm;
 	t_player	*tmp;
 
-	if (ac < 3)
+	if (ac < 2)
 		ft_error(&vm, 0); //// no emought argv - usage: ./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ...
 	init_vm(av, &vm);
 	parse_argv(&vm);
 	number_players(&vm);
-	charge_players_in_core(&vm);
-	//execute_the_battle(); !!!!!! :D	(ง •̀_•́)ง  ᕙ༼*◕_◕*༽ᕤ
+	players_charged_in_core(&vm);
+	execute_the_battle(&vm); // !!!!!! :D (ง •̀_•́)ง  ᕙ༼*◕_◕*༽ᕤ
 
 
 	//dump the core and print the win	ner ( ˘ ³˘)♥
-	tmp = vm.info_players->first_player;
+	tmp = vm.info->first_player;
 	//printf("main vm.dummp %d\n", vm.dump);
 	//int i = 0;
 	//while (tmp)

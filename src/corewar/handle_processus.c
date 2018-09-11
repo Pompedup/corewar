@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 15:13:34 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/03 14:03:28 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/11 16:10:31 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,17 @@ t_process	*create_process(t_corevm *vm, int pc, int num, unsigned int color)
 
     if (!(process = malloc(sizeof(t_process))))
         ft_error(vm, -66); //malloc error
-    process->color = color;
-    process->pc = pc;
-	process->carry = 0;
-	process->reg[0] = num + 1;
 	i = 1;
 	while (i < REG_NUMBER)
 		process->reg[i++] = 0;
+    i = 0;
+    while (i < 5)
+        process->type_instruc[i++] = -1;
+    process->color = color;
+    process->pc = pc;
+	process->carry = 0;
+	process->reg[0] = num;
+    process->alive = 0;
     printf("num %d\n", num);
     return (process);
 }

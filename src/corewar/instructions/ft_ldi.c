@@ -16,7 +16,8 @@
 */
 
 //void    ldi(char *reg_dir_ind, char *dir_reg, char *reg)
-int     ft_ldi(t_corevm *core, t_player *player)
+void	ft_ldi(t_corevm *vm, t_process *process)
 {
-
+	(void)vm;
+	(void)process;
 }

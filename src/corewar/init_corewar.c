@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_corewar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 15:22:28 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/02 18:45:25 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/11 16:57:46 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,22 @@
 
 void		init_vm(char **av, t_corevm *vm)
 {
-	t_info_players	*players;
+	t_info	*info;
 
 	vm->argv = av;
 	vm->visu = 0;
 	ft_bzero(vm->core, MEM_SIZE);
-	vm->nb_total_cycles = 0;
 	vm->dump = 0;
+	vm->nb_cycle = 0;
+	vm->cycle_to_die = CYCLE_TO_DIE;
 	vm->nb_live = 0;
-	if (!(players = malloc(sizeof(t_info_players))))
+	vm->nb_max_live = NBR_LIVE;
+	if (!(info = malloc(sizeof(t_info))))
 		ft_error(vm, 9); //malloc error
-	players->nb_players = 0;
-	players->first_player = NULL;
-	players->first_processus = NULL;
-	vm->info_players = players;
+	info->nb_players = 0;
+	info->first_player = NULL;
+	info->first_processus = NULL;
+	vm->info = info;
 }
 
 /*

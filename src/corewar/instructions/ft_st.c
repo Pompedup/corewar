@@ -11,7 +11,8 @@
 */
 
 //void	st(char *reg, char *ind_reg)
-int     ft_st(t_corevm *core, t_player *player)
+void	ft_st(t_corevm *vm, t_process *process)
 {
-
+	(void)vm;
+	(void)process;
 }

@@ -9,7 +9,8 @@ sont instruction c'est :
 */
 
 //void	live(char *dir)
-int     ft_live(t_corevm *core, t_player *player)
+void	ft_live(t_corevm *vm, t_process *process)
 {
-
+	(void)process;
+	vm->nb_live++;
 }

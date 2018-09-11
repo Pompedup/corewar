@@ -10,7 +10,8 @@
 */
 
 //void	and(char *reg_ind_dir1, char *reg_ind_dir2, char *reg)
-int     ft_and(t_corevm *core, t_player *player)
+void	ft_and(t_corevm *vm, t_process *process)
 {
-
+	(void)vm;
+	(void)process;
 }

@@ -14,7 +14,8 @@
 */
 
 //void	aff(char *reg)
-int     ft_aff(t_corevm *core, t_player *player)
+void	ft_aff(t_corevm *vm, t_process *process)
 {
-
+	(void)vm;
+	(void)process;
 }

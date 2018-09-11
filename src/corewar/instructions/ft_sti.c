@@ -12,7 +12,8 @@
 */
 
 //void    sti(char *reg, char *reg_dir_ind, char *dir_reg)
-int     ft_sti(t_corevm *core, t_player *player)
+void	ft_sti(t_corevm *vm, t_process *process)
 {
-
+	(void)vm;
+	(void)process;
 }

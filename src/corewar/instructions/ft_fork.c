@@ -18,7 +18,8 @@
 */
 
 //void    fork(char *dir)
-int     ft_fork(t_corevm *core, t_player *player)
+void	ft_fork(t_corevm *vm, t_process *process)
 {
-
+	(void)vm;
+	(void)process;
 }

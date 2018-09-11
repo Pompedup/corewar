@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+         #
+#    By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/09/02 18:36:02 by abezanni         ###   ########.fr        #
+#    Updated: 2018/09/11 15:26:52 by ccoupez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,16 +33,34 @@ ASM_FILES =		asm.c\
 				get_lines.c\
 				lines.c\
 
-COREWAR_FILES =	charge_players_in_core.c\
+COREWAR_FILES =	checking_battle.c\
 				execute_the_battle.c\
+				get_instructions.c\
 				handle_processus.c\
 				init_corewar.c\
 				manage_error.c\
 				number_players.c\
 				parse_argv.c\
+				players_charged.c\
 				read_file_players.c\
 				register_players.c\
 				corewar.c\
+				instructions/ft_add.c\
+				instructions/ft_aff.c\
+				instructions/ft_and.c\
+				instructions/ft_fork.c\
+				instructions/ft_ld.c\
+				instructions/ft_ldi.c\
+				instructions/ft_lfork.c\
+				instructions/ft_live.c\
+				instructions/ft_lld.c\
+				instructions/ft_lldi.c\
+				instructions/ft_or.c\
+				instructions/ft_st.c\
+				instructions/ft_sti.c\
+				instructions/ft_sub.c\
+				instructions/ft_xor.c\
+				instructions/ft_zjump.c\
 
 COMMON_SRC =	$(addprefix src/,$(COMMON_FILES))
 

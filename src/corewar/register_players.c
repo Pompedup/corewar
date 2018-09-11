@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   register_players.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:40:17 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/02 18:45:42 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/04 11:25:34 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,14 @@ void	create_player(t_corevm *vm, int num, int index)
 	player->name_file = vm->argv[index]; // a supprimer quand on a fini le projet cetait juste pour afficher
 	init_variable(vm, player, num);
 	get_info_player(player, vm, index);
-	if (vm->info_players->first_player == NULL)
-		vm->info_players->first_player = player;
+	if (vm->info->first_player == NULL)
+		vm->info->first_player = player;
 	else
 	{
-		tmp = vm->info_players->first_player;
+		tmp = vm->info->first_player;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = player;
 	}
-	vm->info_players->nb_players++;
+	vm->info->nb_players++;
 }

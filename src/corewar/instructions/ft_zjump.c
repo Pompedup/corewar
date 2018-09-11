@@ -15,8 +15,8 @@
 ** les instruction depuis cette nouvelle adresse
 */
 
-//void	zjump(char *dir)
-int     ft_zjump(t_corevm *core, t_player *player)
+void	ft_zjmp(t_corevm *vm, t_process *process)
 {
-
+	(void)vm;
+	(void)process;
 }

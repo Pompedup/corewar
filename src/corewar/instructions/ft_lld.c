@@ -14,7 +14,8 @@
 */
 
 //void	lld(char *dir_ind, char *reg)
-int     ft_lld(t_corevm *core, t_player *player)
+void	ft_lld(t_corevm *vm, t_process *process)
 {
-
+	(void)vm;
+	(void)process;
 }

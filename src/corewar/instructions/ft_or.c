@@ -10,7 +10,8 @@
 */
 
 //void	or(char *reg_ind_dir1, char *reg_ind_dir2, char *reg)
-int     ft_or(t_corevm *core, t_player *player)
+void	ft_or(t_corevm *vm, t_process *process)
 {
-
+	(void)vm;
+	(void)process;
 }

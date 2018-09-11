@@ -12,7 +12,8 @@
 */
 
 //void	lfork(char *dir)
-int     ft_lfork(t_corevm *core, t_player *player)
+void	ft_lfork(t_corevm *vm, t_process *process)
 {
-
+	(void)vm;
+	(void)process;
 }
