@@ -13,7 +13,7 @@
 ** modifie le carry
 */
 
-//void	lld(char *dir_ind, char *reg)
+//Usage : lld S(ID/D4), D(RG)
 void	ft_lld(t_corevm *vm, t_process *process)
 {
 	(void)vm;

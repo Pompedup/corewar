@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/11 16:57:39 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/13 17:42:48 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct			s_player
 
 typedef struct			s_process
 {
+	char				name[PROG_NAME_LENGTH + 1];
 	int					color;
 	int					reg[REG_NUMBER]; // de REG_SIZE #define REG_SIZE	4 un int 4 octets
 	int					pc; //programme counter
@@ -58,8 +59,8 @@ typedef struct			s_corevm
 	int					dump;
 	int					nb_cycle;
 	int					cycle_to_die;
-	int					nb_live; //associer au define NBR_LIVE. Si au cours d’une de ces vérifications on se rend compte qu’il y a eu au moins NBR_LIVE exécutions de live depuis la dernière vérification en date, on décrémente CYCLE_TO_DIE de CYCLE_DELTA unités
-	int					nb_max_live;
+	int					nb_lives; //associer au define NBR_LIVE. Si au cours d’une de ces vérifications on se rend compte qu’il y a eu au moins NBR_LIVE exécutions de live depuis la dernière vérification en date, on décrémente CYCLE_TO_DIE de CYCLE_DELTA unités
+	int					nb_max_live; //define NBR_LIVE
 }						t_corevm;
 
 typedef struct		s_op
@@ -73,18 +74,7 @@ typedef struct		s_op
 	int				ind;
 	int				dir;
 	void			(*ptrfunc) (t_corevm *vm, t_process *actual);
-}					t_op;
-
-/*
-** structure pour faire un tableau de pointeur sur fonction
-** et appeler les instructions comme dans printf (avec le code d'instruction)
-*/
-
-typedef struct			s_ptr_func
-{
-	char				*(*ptrfunc) (t_corevm *core, t_player *player);
-	int					code_instruction;
-}						t_ptr_func;
+	}					t_op;
 
 /*
 ******************************************************************************** #ecesari
@@ -145,8 +135,9 @@ void					players_charged_in_core(t_corevm *vm);
 ********************************************************************************
 */
 
-void    				 ft_error(t_corevm *vm,  int num_error);
+void    				ft_error(t_corevm *vm,  int num_error);
 void					ft_read_error(t_corevm *vm, int num_error, int fd);
+void					ft_dump_exit(t_corevm *vm);
 
 /*
 ********************************************************************************
@@ -163,7 +154,7 @@ void					print_memory(const void *addr, size_t size);
 ********************************************************************************
 */
 
-t_process				*create_process(t_corevm *vm, int pc, int num, unsigned int color);
+t_process				*create_process(t_corevm *vm, int pc, t_player *player);
 void					put_process_front(t_process **first, t_process *process);
 
 /*
@@ -180,10 +171,10 @@ void					execute_the_battle(t_corevm *vm);
 ********************************************************************************
 */
 
-void					check_instruction(t_corevm *vm, t_process *process);
 void					check_if_process_lives(t_process *process);
-void					check_nb_live(t_corevm *vm);
-void					check_nb_cycle(t_corevm *vm);
+void					check_nb_lives(t_corevm *vm);
+void					check_dump(t_corevm *vm);
+int						check_max_checks(t_corevm *vm, int tmp_cycle);
 
 /*
 ********************************************************************************
@@ -191,6 +182,7 @@ void					check_nb_cycle(t_corevm *vm);
 ********************************************************************************
 */
 
+void					manage_instruction(t_corevm *vm, t_process *process);
 void					get_instruction_type(t_corevm *vm, t_process *actual);
 void					execute_instruction(t_corevm *vm, t_process *actual);
 
@@ -199,7 +191,6 @@ void					execute_instruction(t_corevm *vm, t_process *actual);
 **						      INSTRUCTIONS				     			 	  **
 ********************************************************************************
 */
-
 
 void					ft_live(t_corevm *vm, t_process *process);
 void					ft_ld(t_corevm *vm, t_process *process);
@@ -218,7 +209,13 @@ void    				ft_lldi(t_corevm *vm, t_process *process);
 void    				ft_lfork(t_corevm *vm, t_process *process);
 void					ft_aff(t_corevm *vm, t_process *process);
 
+/*
+********************************************************************************
+**						      PRINT_CORE_C				     			 	  **
+********************************************************************************
+*/
 
+void					print_core(t_corevm *vm);
 
 
 //Trois méthodes d’adressage de la mémoire sont possibles

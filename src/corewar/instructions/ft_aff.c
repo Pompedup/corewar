@@ -13,9 +13,13 @@
 ** affiche '*' sur la sortie standard
 */
 
-//void	aff(char *reg)
+//Usage : aff S(RG)
 void	ft_aff(t_corevm *vm, t_process *process)
 {
 	(void)vm;
-	(void)process;
+
+	process->pc += 2;
+	//on avance le pc pour la mettre au niveau de la prochaine instruction
+	//pourquoi +2 : 1 octet pour linstrution 1 (comme il y a quun arg pour cette fonction on a pas de key argument)
+	//et + 1 pour l'argument de type registre
 }

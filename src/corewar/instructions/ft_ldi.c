@@ -15,7 +15,7 @@
 ** les parametres 1 et 2 sont des index.
 */
 
-//void    ldi(char *reg_dir_ind, char *dir_reg, char *reg)
+//Usage : ldi S(RG/ID/D2), S(ID/D2), D(RG)
 void	ft_ldi(t_corevm *vm, t_process *process)
 {
 	(void)vm;

@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 13:36:25 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/11 13:40:03 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/13 11:51:15 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	players_charged_in_core(t_corevm *vm)
 		//printf("player->name_file %s \n", player->name_file);
 		i = (place / (float)vm->info->nb_players * (float)MEM_SIZE);
 		printf("player->num %d \n",player->num);
-		process = create_process(vm, i, player->num, player->color);
+		process = create_process(vm, i, player);
 		put_process_front(&(vm->info->first_processus), process);
 		j = 0;
 		while (j < player->len_process)

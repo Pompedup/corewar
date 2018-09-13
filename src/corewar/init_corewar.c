@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 15:22:28 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/11 16:57:46 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/13 14:39:11 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		init_vm(char **av, t_corevm *vm)
 	vm->dump = 0;
 	vm->nb_cycle = 0;
 	vm->cycle_to_die = CYCLE_TO_DIE;
-	vm->nb_live = 0;
+	vm->nb_lives = 0;
 	vm->nb_max_live = NBR_LIVE;
 	if (!(info = malloc(sizeof(t_info))))
 		ft_error(vm, 9); //malloc error

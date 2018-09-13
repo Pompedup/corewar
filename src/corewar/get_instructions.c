@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/11 16:00:58 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/13 17:42:39 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,13 @@ t_op	g_op_tab[] =
 	{0, 0, {0}, 0, 0, 0, 0, 0, 0},
 };
 
-void	execute_instruction(t_corevm *vm, t_process *actual)
+/*
+** add - sub - live - zjmp - fork - lfork - aff (les simples 0 option pour les arg)
+** combinaison ok : ld - st - ldi - sti - lld - lldi
+** combinaison ok : and - or - xor meme combinaison possible
+*/
+
+void	execute_instruction	, t_process *actual)
 {
 	int	i;
 
@@ -70,10 +76,13 @@ void	execute_instruction(t_corevm *vm, t_process *actual)
 }
 
 /*
+# define REG_CODE	1
+# define DIR_CODE	2
+# define IND_CODE	3
 ** pour connaitre le type de notre argument on a 1 octet qui nous indique :
-** si l'arg et un registre -> 01
-** si l'arg et un direct -> 10
-** si l'arg et un indirect -> 11
+** si l'arg et un registre -> 01 - codé sur 1 octet
+** si l'arg et un direct -> 10 - codé sur 2 ou 4 octets
+** si l'arg et un indirect -> 11 - codé 2 octets
 ** ce qui donne avec un mask comme on applique dans la fonction ci dessous
 ** : 1 pour reg, 2 pour direct ou 3 pour un indirect
 ** r2,23,%34 donne l’octet de codage 0b 01 11 10 00, soit 0x78
@@ -105,3 +114,104 @@ void	get_instruction_type(t_corevm *vm, t_process *actual)
 	if (g_op_tab[i].nbr_arg > 1)
 		get_args_type(vm, actual);
 }
+
+
+/*
+** je regarde si j'ai deja lu linstruction ou se situe mon pc
+** si NON : je la recupere avec get_instruction
+** si OUI : je regarde si on est arrive a la fin de son dernier cycle
+** pour voir si on peut lexecuter ou non
+*/
+
+void	manage_instruction(t_corevm *vm, t_process *process)
+{
+
+	if (process->type_instruc[0] == -1)
+		get_instruction_type(vm, process);
+	else
+	{
+		process->nb_cycle_instruc--;
+		if (process->nb_cycle_instruc == 1)
+			execute_instruction(vm, process);
+	}
+}
+
+
+/*
+
+Combinaison pour and - or - xor :
+
+{T_REG , T_REG , T_REG} ->54
+{T_REG , T_IND, T_REG} -> 74
+{T_REG, T_DIR, T_REG} ->64
+
+
+{T_DIR , T_REG, T_REG} -> 94
+{T_DIR, T_IND , T_REG} -> B4
+{T_DIR, T_DIR, T_REG} -> A4
+
+{T_IND, T_REG, T_REG} ->D4
+{T_IND, T_IND, T_REG} -> F4
+{T_IND, T_DIR, T_REG} -> E4
+
+________________________________________
+Combinaison pour ld :
+
+{T_DIR, T_REG} -> 90
+{T_IND, T_REG} -> D
+
+________________________________________
+Combinaison pour st :
+
+{T_REG, T_REG} -> 50
+{T_REG, T_IND} -> 70
+
+________________________________________
+Combinaison pour ldi :
+
+{T_REG , T_DIR, T_REG} -> 64
+{T_REG, T_REG, T_REG} -> 54
+
+{T_DIR , T_DIR , T_REG} -> A4
+{T_DIR, T_REG, T_REG} -> 94
+
+{T_IND, T_DIR, T_REG} -> E4
+{ T_IND, T_REG, T_REG} -> D4
+
+________________________________________
+Combinaison pour sdi :
+
+{T_REG, T_REG, T_DIR} -> 58
+{T_REG, T_REG , T_REG} -> 54
+
+{T_REG, T_DIR, T_DIR } -> 68
+{T_REG, T_DIR, T_REG} -> 64
+
+{T_REG, T_IND, T_DIR } -> 78
+{T_REG, T_IND, T_REG} -> 74
+
+________________________________________
+Combinaison pour lld :
+
+{T_DIR , T_REG} -> 90
+{T_IND, T_REG} -> D
+
+
+________________________________________
+Combinaison pour lldi :
+
+{T_REG , T_DIR , T_REG} -> 64
+{T_REG, T_REG, T_REG} -> 54
+
+{ T_DIR, T_DIR , T_REG} -> A4
+{ T_DIR, T_REG, T_REG} -> 94
+
+
+{T_IND, T_DIR , T_REG} -> E4
+{T_IND, T_REG, T_REG} -> D4
+
+
+** si l'arg et un registre -> 01 - codé sur 1 octet
+** si l'arg et un direct -> 10 - codé sur 2 ou 4 octets
+** si l'arg et un indirect -> 11 - codé 2 octets
+*/

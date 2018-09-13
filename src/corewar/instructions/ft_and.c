@@ -9,9 +9,10 @@
 ** modifie le carry
 */
 
-//void	and(char *reg_ind_dir1, char *reg_ind_dir2, char *reg)
+//Usage : and S(RG/ID/D4), S(RG/ID/D4), D(RG)
 void	ft_and(t_corevm *vm, t_process *process)
 {
 	(void)vm;
 	(void)process;
+
 }

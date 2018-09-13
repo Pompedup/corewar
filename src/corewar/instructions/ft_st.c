@@ -10,9 +10,28 @@
 ** ou st r3, r8 - copie r3 dans r8
 */
 
-//void	st(char *reg, char *ind_reg)
+//Usage : st S(RG), D(RG/ID)
 void	ft_st(t_corevm *vm, t_process *process)
 {
 	(void)vm;
-	(void)process;
+	if (process->type_instruc[1] == REG_CODE
+		&& process->type_instruc[2] == IND_CODE
+			&& process->type_instruc[3] == 0
+				&& && process->type_instruc[4] == 0)
+	{
+		//executer lintruction
+		process->pc += 5 //si deuxieme arg est un indirect
+	}
+
+
+	ou
+	else if (process->type_instruc[1] == REG_CODE
+		&& process->type_instruc[2] == REG_CODE
+			&& process->type_instruc[3] == 0
+				&& process->type_instruc[4] == 0)
+	{
+		//executer lintruction
+		process->pc += 4 //si deuxieme arg est un registre
+	}
+
 }

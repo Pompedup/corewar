@@ -9,7 +9,7 @@
 ** modifie le carry
 */
 
-//void	xor(char *reg_ind_dir1, char *reg_ind_dir2, char *  reg)
+//Usage : xor S(RG/ID/D4), S(RG/ID/D4), D(RG)
 void	ft_xor(t_corevm *vm, t_process *process)
 {
 	(void)vm;

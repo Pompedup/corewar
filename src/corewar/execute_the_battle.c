@@ -6,11 +6,29 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/11 17:04:19 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/13 16:11:53 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+int		two_players_lives(t_corevm *vm)
+{
+	int			nb;
+	t_process	*process;
+
+	nb = 0;
+	process = vm->info->first_processus;
+	while (process)
+	{
+		if (process->alive == 0)
+			nb++;
+		process = process->next;
+	}
+	if (nb > 1)
+		return (1);
+	return (0);
+}
 
 /*
 ** recupere les instructions de chaque process
@@ -18,29 +36,30 @@
 
 void	execute_the_battle(t_corevm *vm)
 {
+	int i = 0;
+	int			tmp_cycle;
 	t_process	*process;
-	//while (two_players_lives())
-	//{
+
+	tmp_cycle = 0;
+	while (two_players_lives(vm))
+	{
 		process = vm->info->first_processus;
 		while (process)
 		{
 			if (process->alive > -1)
 			{
-				check_instruction(vm, process);
+				manage_instruction(vm, process);
 				if (vm->nb_cycle >= vm->cycle_to_die)
 					check_if_process_lives(process);
 			}
 			process = process->next;
 		}
-		//check_nb_live(vm);
-		//check_nb_cycle(vm);
-		if (vm->nb_cycle >= vm->cycle_to_die)
-		{
-
-		}
+		print_core(vm);
+		tmp_cycle = check_max_checks(vm, tmp_cycle);
+		check_nb_lives(vm);
+		check_cycles(vm);
 		vm->nb_cycle++;
-	//}
-
+	}
 }
 
 

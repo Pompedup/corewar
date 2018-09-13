@@ -6,7 +6,7 @@
 #    By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/09/11 15:26:52 by ccoupez          ###   ########.fr        #
+#    Updated: 2018/09/13 14:34:07 by ccoupez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,17 +34,11 @@ ASM_FILES =		asm.c\
 				lines.c\
 
 COREWAR_FILES =	checking_battle.c\
+				corewar.c\
 				execute_the_battle.c\
 				get_instructions.c\
 				handle_processus.c\
 				init_corewar.c\
-				manage_error.c\
-				number_players.c\
-				parse_argv.c\
-				players_charged.c\
-				read_file_players.c\
-				register_players.c\
-				corewar.c\
 				instructions/ft_add.c\
 				instructions/ft_aff.c\
 				instructions/ft_and.c\
@@ -61,6 +55,13 @@ COREWAR_FILES =	checking_battle.c\
 				instructions/ft_sub.c\
 				instructions/ft_xor.c\
 				instructions/ft_zjump.c\
+				manage_error.c\
+				number_players.c\
+				parse_argv.c\
+				players_charged.c\
+				read_file_players.c\
+				register_players.c\
+				print_core.c\
 
 COMMON_SRC =	$(addprefix src/,$(COMMON_FILES))
 

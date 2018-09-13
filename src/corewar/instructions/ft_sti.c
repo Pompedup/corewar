@@ -11,7 +11,7 @@
 ** si ce sont des registres, on utilisera leur contenu comme un index
 */
 
-//void    sti(char *reg, char *reg_dir_ind, char *dir_reg)
+//Usage : sti S(RG), S(RG/ID/D2), S(ID/D2)
 void	ft_sti(t_corevm *vm, t_process *process)
 {
 	(void)vm;

@@ -9,7 +9,7 @@
 ** modifie le carry
 */
 
-//void	or(char *reg_ind_dir1, char *reg_ind_dir2, char *reg)
+//Usage : or S(RG/ID/D4), S(RG/ID/D4), D(RG)
 void	ft_or(t_corevm *vm, t_process *process)
 {
 	(void)vm;

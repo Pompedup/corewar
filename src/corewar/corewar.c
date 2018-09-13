@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 13:17:29 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/11 15:33:25 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/13 14:49:38 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int     main(int ac, char **av)
 	execute_the_battle(&vm); // !!!!!! :D (ง •̀_•́)ง  ᕙ༼*◕_◕*༽ᕤ
 
 
-	//dump the core and print the win	ner ( ˘ ³˘)♥
+	//dump the core and print the winner ( ˘ ³˘)♥ ♥ ♥ ♥
 	tmp = vm.info->first_player;
 	//printf("main vm.dummp %d\n", vm.dump);
 	//int i = 0;

@@ -17,7 +17,7 @@
 ** modifie le carry
 */
 
-//void	lldi(char *reg_dir_ind, char *dir_reg, char *reg)
+//Usage : lldi S(RG/ID/D2), S(ID/D2), D(RG)
 void	ft_lldi(t_corevm *vm, t_process *process)
 {
 	(void)vm;
