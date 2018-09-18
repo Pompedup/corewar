@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/19 15:07:22 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/02 18:17:02 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/18 16:44:13 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,13 @@ int print_player(char *av, int i)
 	fd = open(av, O_RDONLY);
 	ret = read(fd, buf, 10000);
 	test = buf;
-	test += 1000;
-	ret = 1000;
+	test += 800;
+	ret -= 800;
 	//ft_putnbrendl(ret);
 	while (!*test)
 	{
 		test++;
-		ret++;
+		ret--;
 	}
 	//ft_putnbrendl(ret);
 	while (ret > 0)
@@ -113,9 +113,16 @@ int print_player(char *av, int i)
 		}
 		else
 		{
+			ft_printf("%d\n", ret);
 			ft_print_memory(test, ret);
 			ret = 0;
 		}
 	}
 	return (0);
+}
+
+int main(int ac, char **av)
+{
+	(void)ac;
+	print_player(av[1], 1);
 }

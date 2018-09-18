@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:43:02 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/05 15:39:21 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/18 15:18:19 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_functions	**new_t_function(t_functions **current, char *name, int pos)
 {
 	if (*current)
 		current = &((*current)->next);
-	if (!(*current = malloc(sizeof(t_functions))))
+	if (!(*current = ft_memalloc(sizeof(t_functions))))
 		return (NULL);
 	bzero(*current, sizeof(t_functions));
 	(*current)->name = name;

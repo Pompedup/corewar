@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:34:54 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/03 21:55:15 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/18 15:18:02 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	del_t_elems(t_elems **current)
 
 void	new_t_elem(t_elems **current, int type, int key)
 {
-	if (!(*current = malloc(sizeof(t_elems))))
+	if (!(*current = ft_memalloc(sizeof(t_elems))))
 		return ;
 	bzero(*current, sizeof(t_elems));
 	(*current)->type = type;
