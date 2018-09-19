@@ -20,5 +20,8 @@
 //Usage : lldi S(RG/ID/D2), S(ID/D2), D(RG)
 void	ft_lldi(t_corevm *vm, t_process *process)
 {
-	get_args_ldi_lldi(vm, process);
+
+	(void)vm;
+	(void)process;
+	// get_args_ldi_lldi(vm, process);
 }

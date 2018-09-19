@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/18 18:02:30 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/19 17:59:39 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,28 +23,28 @@ t_func opcode_tab[] =
 
 t_op	g_op_tab[] =
 {
-	{"live",  1, {T_DIR}, 1, 10, "alive", 0, 0, &ft_live},
-	{"ld",    2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0, &ft_ld},
-	{"st",    2, {T_REG, T_IND | T_REG}, 3, 5, "store", 1, 0, &ft_st},
-	{"add",   3, {T_REG, T_REG, T_REG}, 4, 10, "addition", 1, 0, &ft_add},
-	{"sub",   3, {T_REG, T_REG, T_REG}, 5, 10, "soustraction", 1, 0, &ft_sub},
+	{"live",  1, {T_DIR}, 1, 10, "alive", 											0, 0, &ft_live},
+	{"ld",    2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 								1, 0, &ft_ld},
+	{"st",    2, {T_REG, T_IND | T_REG}, 3, 5, "store", 							1, 0, &ft_st},
+	{"add",   3, {T_REG, T_REG, T_REG}, 4, 10, "addition", 							1, 0, &ft_add},
+	{"sub",   3, {T_REG, T_REG, T_REG}, 5, 10, "soustraction", 						1, 0, &ft_sub},
 	{"and",   3, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, 6, 6,
-		"et", 1, 0, &ft_and},
+		"et", 																		1, 0, &ft_and},
 	{"or",    3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 7, 6,
-		"ou", 1, 0, &ft_or},
+		"ou", 																		1, 0, &ft_or},
 	{"xor",   3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 8, 6,
-		"xou", 1, 0, &ft_xor},
-	{"zjmp",  1, {T_DIR}, 9, 20, "jump if zero", 0, 1, &ft_zjmp},
+		"xou", 																		1, 0, &ft_xor},
+	{"zjmp",  1, {T_DIR}, 9, 20, "jump if zero", 									0, 1, &ft_zjmp},
 	{"ldi",   3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 10, 25,
-		"load index", 1, 1, &ft_ldi},
+		"load index", 																1, 1, &ft_ldi},
 	{"sti",   3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25,
-		"store index", 1, 1, &ft_sti},
-	{"fork",  1, {T_DIR}, 12, 800, "fork", 0, 1, &ft_fork},
-	{"lld",   2, {T_DIR | T_IND, T_REG}, 13, 10, "long load", 1, 0, &ft_lld},
+		"store index", 																1, 1, &ft_sti},
+	{"fork",  1, {T_DIR}, 12, 800, "fork", 											0, 1, &ft_fork},
+	{"lld",   2, {T_DIR | T_IND, T_REG}, 13, 10, "long load", 						1, 0, &ft_lld},
 	{"lldi",  3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 14, 50,
-		"long load 	index",1, 1, &ft_lldi},
-	{"lfork", 1, {T_DIR}, 15, 1000, "long fork", 0, 1, &ft_lfork},
-	{"aff",   1, {T_REG}, 16, 2, "aff", 1, 0, &ft_aff},
+		"long load 	index",															1, 1, &ft_lldi},
+	{"lfork", 1, {T_DIR}, 15, 1000, "long fork", 									0, 1, &ft_lfork},
+	{"aff",   1, {T_REG}, 16, 2, "aff", 											1, 0, &ft_aff},
 	{0, 0, {0}, 0, 0, 0, 0, 0, 0},
 };
 
@@ -78,7 +78,7 @@ void	execute_instruction(t_corevm *vm, t_process *actual)
 		if (g_op_tab[i].id == actual->type_instruc[0])
 		{
 			printf("g_op_tab[i].ptrfunc(vm, actual); %d \n", actual->type_instruc[0]);
-			//g_op_tab[i].ptrfunc(vm, actual);
+			g_op_tab[i].ptrfunc(vm, actual);
 			i = 0;
 			while (i < 5)
 				actual->type_instruc[i++] = -1;
@@ -154,6 +154,7 @@ void	manage_instruction(t_corevm *vm, t_process *process)
 		if (process->nb_cycle_instruc == 1)
 			execute_instruction(vm, process);
 	}
+	execute_instruction(vm, process);
 }
 
 
@@ -165,63 +166,63 @@ void	manage_instruction(t_corevm *vm, t_process *process)
 
 Combinaison pour add - sub :
 
-{T_REG, T_REG, T_REG} ->54  size instruction : process->pc += 5;
+{T_REG, T_REG, T_REG} ->54  size  process->pc += 5;
 
 ________________________________________
 Combinaison pour and - or - xor :
 {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}
 
-{T_REG , T_REG , T_REG} -> 54  size instruction : process->pc += 5;
-{T_REG , T_IND, T_REG} -> 74  size instruction : process->pc += 6;
-{T_REG, T_DIR, T_REG} -> 64 size instruction : process->pc += 8;
+{T_REG , T_REG , T_REG} -> 54  size  process->pc += 5;
+{T_REG , T_IND, T_REG} -> 74  size  process->pc += 6;
+{T_REG, T_DIR, T_REG} -> 64 size  process->pc += 8;
 
 
-{T_DIR , T_REG, T_REG} -> 94  size instruction : process->pc += 8;
-{T_DIR, T_IND , T_REG} -> B4  size instruction : process->pc += 9;
-{T_DIR, T_DIR, T_REG} -> A4  size instruction : process->pc += 11;
+{T_DIR , T_REG, T_REG} -> 94  size  process->pc += 8;
+{T_DIR, T_IND , T_REG} -> B4  size  process->pc += 9;
+{T_DIR, T_DIR, T_REG} -> A4  size  process->pc += 11;
 
-{T_IND, T_REG, T_REG} ->D4  size instruction : process->pc += 6;
-{T_IND, T_IND, T_REG} -> F4  size instruction : process->pc += 7;
-{T_IND, T_DIR, T_REG} -> E4  size instruction : process->pc += 9;
+{T_IND, T_REG, T_REG} ->D4  size  process->pc += 6;
+{T_IND, T_IND, T_REG} -> F4  size  process->pc += 7;
+{T_IND, T_DIR, T_REG} -> E4  size  process->pc += 9;
 
 ________________________________________
 Combinaison pour ld - lld:
 {T_DIR | T_IND, T_REG}
 
-{T_DIR, T_REG} -> 90  size instruction : process->pc += 5;
-{T_IND, T_REG} -> D0  size instruction : process->pc += 7;
+{T_DIR, T_REG} -> 90  size  process->pc += 5;
+{T_IND, T_REG} -> D0  size  process->pc += 7;
 
 ________________________________________
 Combinaison pour st :
 {T_REG, T_IND | T_REG}
 
-{T_REG, T_REG} -> 50  size instruction : process->pc += 4;
-{T_REG, T_IND} -> 70  size instruction : process->pc += 5;
+{T_REG, T_REG} -> 50  size  process->pc += 4;
+{T_REG, T_IND} -> 70  size  process->pc += 5;
 
 ________________________________________
 Combinaison pour ldi - lldi :
 {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}
 
-{T_REG , T_DIR, T_REG} -> 64  size instruction : process->pc += 6;
-{T_REG, T_REG, T_REG} -> 54  size instruction : process->pc += 5;
+{T_REG , T_DIR, T_REG} -> 64  size  process->pc += 6;
+{T_REG, T_REG, T_REG} -> 54  size  process->pc += 5;
 
-{T_DIR , T_DIR , T_REG} -> A4  size instruction : process->pc += 7;
-{T_DIR, T_REG, T_REG} -> 94  size instruction : process->pc += 6;
+{T_DIR , T_DIR , T_REG} -> A4  size  process->pc += 7;
+{T_DIR, T_REG, T_REG} -> 94  size  process->pc += 6;
 
-{T_IND, T_DIR, T_REG} -> E4  size instruction : process->pc += 7;
-{T_IND, T_REG, T_REG} -> D4  size instruction : process->pc += 6;
+{T_IND, T_DIR, T_REG} -> E4  size  process->pc += 7;
+{T_IND, T_REG, T_REG} -> D4  size  process->pc += 6;
 
 ________________________________________
 Combinaison pour sti :
 {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}
 
-{T_REG, T_REG, T_DIR} -> 58  size instruction : process->pc += 6;
-{T_REG, T_REG , T_REG} -> 54  size instruction : process->pc += 5;
+{T_REG, T_REG, T_DIR} -> 58  size  process->pc += 6;
+{T_REG, T_REG , T_REG} -> 54  size  process->pc += 5;
 
-{T_REG, T_DIR, T_DIR } -> 68  size instruction : process->pc += 7;
-{T_REG, T_DIR, T_REG} -> 64  size instruction : process->pc += 6;
+{T_REG, T_DIR, T_DIR } -> 68  size  process->pc += 7;
+{T_REG, T_DIR, T_REG} -> 64  size  process->pc += 6;
 
-{T_REG, T_IND, T_DIR } -> 78  size instruction : process->pc += 7;
-{T_REG, T_IND, T_REG} -> 74  size instruction : process->pc += 6;
+{T_REG, T_IND, T_DIR } -> 78  size  process->pc += 7;
+{T_REG, T_IND, T_REG} -> 74  size  process->pc += 6;
 
 */

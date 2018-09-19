@@ -2,4 +2,4 @@
 .comment ""
 
 
-st r1, 6548
+and %9, %6, r3

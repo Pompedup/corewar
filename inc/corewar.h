@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/18 15:48:14 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/19 17:53:01 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct			s_process
 	int					alive; //pour voir la derniere foi qu'il a dit quil etait en vie
 	int					type_instruc[2];
 	int					args[3];
+	//int					values[3];
 	int					nb_cycle_instruc;
 	struct s_process	*next;
 }						t_process;
@@ -198,8 +199,9 @@ int						is_in_key_tab(unsigned int key, unsigned int *key_tab, int size_tab);
 void					get_one_octet(t_corevm *vm, t_process *process, int i);
 void					get_two_octets(t_corevm *vm, t_process *process, int i);
 void					get_four_octets(t_corevm *vm, t_process *process, int i);
-void					get_args_and_or_xor(t_corevm *vm, t_process *process);
-
+int						*get_args_and_or_xor_ldi(t_corevm *vm, t_process *process);
+t_bool					test_args(t_process *process, t_op g_tab);
+void					get_args(t_corevm *vm, t_process *process, t_op g_tab);
 /*
 ********************************************************************************
 **						      INSTRUCTIONS/				     			 	  **

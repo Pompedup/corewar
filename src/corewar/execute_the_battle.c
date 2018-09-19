@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/18 15:27:48 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/19 13:47:44 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	execute_the_battle(t_corevm *vm)
 		}
 		print_core(vm);
 		process = vm->info->first_processus;
-		ft_st(vm, process);
+		// ft_st(vm, process);
 		//tmp_cycle = check_max_checks(vm, tmp_cycle);
 		//check_nb_lives(vm);
 		//check_cycles(vm);
