@@ -28,27 +28,11 @@ et il changera le carry.
 //Usage : ld S(ID/D4), D(RG)
 void	ft_ld(t_corevm *vm, t_process *process)
 {
-	(void)vm;
-
-	if (process->type_instruc[1] == DIR_CODE
-		&& process->type_instruc[2] == REG_CODE
-			&& process->type_instruc[3] == 0
-				&& && process->type_instruc[4] == 0) // 1er arg sur 4 octets
-	{
-		//ici executer laction ld avec un direct
-		process->pc += 7;
-	}
-	else if (process->type_instruc[1] == IND_CODE
-				&& process->type_instruc[2] == REG_CODE
-					&& process->type_instruc[3] == 0
-						&& process->type_instruc[4] == 0) // 1er arg sur 2 octets
-	{
-		//ici executer laction ld avec un indirect
-		process->pc += 5;
-	}
-	else
-		//instruction compromise les arg ne sont pas bon on execute rien
-
-
+	if (process->type_instruc[1] == 0xd0) //{T_IND, T_REG}
+		get_two_octets(vm, process, 0);
+	else if (process->type_instruc[1] == 0x90) //{T_DIR, T_REG}
+		get_four_octets(vm, process, 0);
+	if (process->type_instruc[1] == 0xd0 || process->type_instruc[1] == 0x90)
+		get_one_octet(vm, process, 1);
+	//execute linstruction
 }
-//il doit y avoir plus opti pour checker les agr et savoir quoi faire

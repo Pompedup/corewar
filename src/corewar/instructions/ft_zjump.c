@@ -20,6 +20,8 @@ void	ft_zjmp(t_corevm *vm, t_process *process)
 {
 	(void)vm;
 
+		//il y a un seul arg donc pas de key arg a checker!!
+
 	process->pc += 3;
 	//on avance le pc pour la mettre au niveau de la prochaine instruction
 	//pourquoi +2 : 1 octet pour linstrution 1 (comme il y a quun arg pour cette fonction on a pas de key argument)

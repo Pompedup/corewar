@@ -12,6 +12,5 @@
 //Usage : xor S(RG/ID/D4), S(RG/ID/D4), D(RG)
 void	ft_xor(t_corevm *vm, t_process *process)
 {
-	(void)vm;
-	(void)process;
+	get_args_and_or_xor(vm, process);
 }

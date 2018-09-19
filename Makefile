@@ -6,7 +6,7 @@
 #    By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/09/13 14:34:07 by ccoupez          ###   ########.fr        #
+#    Updated: 2018/09/18 15:29:06 by ccoupez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ ASM_FILES =		asm.c\
 COREWAR_FILES =	checking_battle.c\
 				corewar.c\
 				execute_the_battle.c\
+				get_arguments.c\
 				get_instructions.c\
 				handle_processus.c\
 				init_corewar.c\

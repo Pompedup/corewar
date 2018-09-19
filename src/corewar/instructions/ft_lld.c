@@ -16,6 +16,11 @@
 //Usage : lld S(ID/D4), D(RG)
 void	ft_lld(t_corevm *vm, t_process *process)
 {
-	(void)vm;
-	(void)process;
+	if (process->type_instruc[1] == 0xd0) //{T_IND, T_REG}
+		get_two_octets(vm, process, 0);
+	if (process->type_instruc[1] == 0x90) //{T_DIR, T_REG}
+		get_four_octets(vm, process, 0);
+
+	get_one_octet(vm, process, 1);
+	//execute linstruction
 }

@@ -5,33 +5,27 @@
 /*
 ** 0x03
 ** st -> store, met la valeur du 1er arg(un registre) dans le 2eme
-** st 34, r3 - charge les REG_SIZE octets a partir de ladresse
-** ( PC + (34 % IDX_MOD))
+** . Par exemple, st r1, 42 stocke la
+valeur de r1 à l’adresse (PC + (42 % IDX_MOD))
+
+** st r3,r8 copies r3 in r8
 ** ou st r3, r8 - copie r3 dans r8
 */
 
 //Usage : st S(RG), D(RG/ID)
 void	ft_st(t_corevm *vm, t_process *process)
 {
-	(void)vm;
-	if (process->type_instruc[1] == REG_CODE
-		&& process->type_instruc[2] == IND_CODE
-			&& process->type_instruc[3] == 0
-				&& && process->type_instruc[4] == 0)
+	printf("ft_st\n");
+	if (process->type_instruc[1] == 0x50) //{T_REG, T_REG}
 	{
-		//executer lintruction
-		process->pc += 5 //si deuxieme arg est un indirect
+		get_one_octet(vm, process, 0);
+		get_one_octet(vm, process, 1);
+		//execute linstruction
 	}
-
-
-	ou
-	else if (process->type_instruc[1] == REG_CODE
-		&& process->type_instruc[2] == REG_CODE
-			&& process->type_instruc[3] == 0
-				&& process->type_instruc[4] == 0)
+	if (process->type_instruc[1] == 0x70) //{T_REG, T_IND}
 	{
-		//executer lintruction
-		process->pc += 4 //si deuxieme arg est un registre
+		get_one_octet(vm, process, 0);
+		get_two_octets(vm, process, 1);
+		//execute linstruction
 	}
-
 }

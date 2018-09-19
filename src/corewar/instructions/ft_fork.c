@@ -20,10 +20,5 @@
 //Usage : fork S(D2)
 void	ft_fork(t_corevm *vm, t_process *process)
 {
-	(void)vm;
-
-	process->pc += 3;
-	//on avance le pc pour la mettre au niveau de la prochaine instruction
-	//pourquoi +2 : 1 octet pour linstrution 1 (comme il y a quun arg pour cette fonction on a pas de key argument)
-	//et + 1 pour l'argument de type direct codé sur deux octets
+	get_two_octets(vm, process, 0);
 }

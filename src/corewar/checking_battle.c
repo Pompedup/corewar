@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 11:08:35 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/13 15:22:28 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/18 12:04:03 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	check_nb_lives(t_corevm *vm)
 ** La mémoire doit être dumpée au format hexadécimal, avec 32 octets par ligne.
 */
 
-void	check_scyles(t_corevm *vm)
+void	check_cyles(t_corevm *vm)
 {
 	if (vm->nb_cycle >= vm->dump)
 		ft_dump_exit(vm);

@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 14:29:45 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/13 15:22:25 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/18 12:53:41 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void	print_core(t_corevm *vm)
 
 	//process = vm->info->first_processus;
 	//comment en imprimant la core differencier les joueurs un peu partout
-	system("clear"); // pour pouvoir reecrire par dessus ᕙ༼*◕_◕*༽⊃━☆ﾟ.*･｡
+//	system("clear"); // pour pouvoir reecrire par dessus ᕙ༼*◕_◕*༽⊃━☆ﾟ.*･｡
 	ft_print_memory(vm->core, 30);
 }

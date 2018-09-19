@@ -2,6 +2,4 @@
 .comment ""
 
 
-ld	65, r4
-live %1
-live %1
+st r1, 6548

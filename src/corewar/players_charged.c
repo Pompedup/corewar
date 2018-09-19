@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 13:36:25 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/13 11:51:15 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/18 15:10:36 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 ** place les joueurs dans la memoire (l'arenne corewar)
 ** les champions sont chargés en mémoire de façon à espacer équitablement leurs points d’entrée.
 ** on a ca grace au calcul i = .. voir ci dessous
-** et la on enregistre le 1er pc du joueur -> premiere case de la ou on a placé le programme du joueur*/
+** et la on enregistre le 1er pc du joueur -> premiere case de la ou on a placé le programme du joueur
+*/
 
 void	players_charged_in_core(t_corevm *vm)
 {

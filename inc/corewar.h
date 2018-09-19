@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/13 17:42:48 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/18 15:48:14 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ typedef struct			s_process
 	int					carry; //une retenu des instructions ou ya des calculs (si jai bien compris!?)
 
 	int					alive; //pour voir la derniere foi qu'il a dit quil etait en vie
-	int					type_instruc[5];
+	int					type_instruc[2];
+	int					args[3];
 	int					nb_cycle_instruc;
 	struct s_process	*next;
 }						t_process;
@@ -55,7 +56,7 @@ typedef struct			s_corevm
 	t_info				*info; // pointeur vers la structure qui gere la liste des players
 
 	//ici plus pour la battle
-	char				core[MEM_SIZE]; //larene
+	char				core[MEM_SIZE];
 	int					dump;
 	int					nb_cycle;
 	int					cycle_to_die;
@@ -178,17 +179,30 @@ int						check_max_checks(t_corevm *vm, int tmp_cycle);
 
 /*
 ********************************************************************************
-**						      INSTRUCTIONS				     			 	  **
+**						      GET_INSTRUCTIONS_C			     			  **
 ********************************************************************************
 */
 
 void					manage_instruction(t_corevm *vm, t_process *process);
 void					get_instruction_type(t_corevm *vm, t_process *actual);
 void					execute_instruction(t_corevm *vm, t_process *actual);
+int						is_in_key_tab(unsigned int key, unsigned int *key_tab, int size_tab);
+
 
 /*
 ********************************************************************************
-**						      INSTRUCTIONS				     			 	  **
+**						      GET_ARGUMENTS_C			     				  **
+********************************************************************************
+*/
+
+void					get_one_octet(t_corevm *vm, t_process *process, int i);
+void					get_two_octets(t_corevm *vm, t_process *process, int i);
+void					get_four_octets(t_corevm *vm, t_process *process, int i);
+void					get_args_and_or_xor(t_corevm *vm, t_process *process);
+
+/*
+********************************************************************************
+**						      INSTRUCTIONS/				     			 	  **
 ********************************************************************************
 */
 

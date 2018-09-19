@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/13 17:42:39 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/18 18:02:30 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,27 @@ t_op	g_op_tab[] =
 	{0, 0, {0}, 0, 0, 0, 0, 0, 0},
 };
 
+int		is_in_key_tab(unsigned int key, unsigned int *key_tab, int size_tab)
+{
+	int	i;
+
+	i = 0;
+	while (i < size_tab)
+	{
+		if (key == key_tab[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 /*
 ** add - sub - live - zjmp - fork - lfork - aff (les simples 0 option pour les arg)
 ** combinaison ok : ld - st - ldi - sti - lld - lldi
 ** combinaison ok : and - or - xor meme combinaison possible
 */
 
-void	execute_instruction	, t_process *actual)
+void	execute_instruction(t_corevm *vm, t_process *actual)
 {
 	int	i;
 
@@ -89,16 +103,16 @@ void	execute_instruction	, t_process *actual)
 **                                      re id di les 2 derniers bits tjr a 00
 */
 
-void	get_args_type(t_corevm *vm, t_process *actual)
-{
-	int key;
-
-	key = vm->core[(actual->pc + 1) % MEM_SIZE];
-	actual->type_instruc[1] = (key >> 6) & 3;
-	actual->type_instruc[2] = (key >> 4) & 3;
-	actual->type_instruc[3] = (key >> 2) & 3;
-	actual->type_instruc[4] = key & 3; //si ce nest pas == 0 ERREUR !! a checker losquon verifie les arg dans linstruction
-}
+//void	get_args_type(t_corevm *vm, t_process *actual)
+//{
+//	int key;
+//
+//	key = vm->core[(actual->pc + 1) % MEM_SIZE];
+//	actual->type_instruc[1] = (key >> 6) & 3;
+//	actual->type_instruc[2] = (key >> 4) & 3;
+//	actual->type_instruc[3] = (key >> 2) & 3;
+//	actual->type_instruc[4] = key & 3; //si ce nest pas == 0 ERREUR !! a checker losquon verifie les arg dans linstruction
+//}
 
 void	get_instruction_type(t_corevm *vm, t_process *actual)
 {
@@ -111,8 +125,14 @@ void	get_instruction_type(t_corevm *vm, t_process *actual)
 		ft_error(vm, 88); //linstruction nexiste pas
 	actual->nb_cycle_instruc = g_op_tab[i].nb_cycle_instruction;
 	actual->type_instruc[0] = g_op_tab[i].id;
+	actual->pc++;
 	if (g_op_tab[i].nbr_arg > 1)
-		get_args_type(vm, actual);
+	{
+		actual->type_instruc[1] = vm->core[actual->pc++ % MEM_SIZE];
+		//actual->pc++;
+	}
+
+
 }
 
 
@@ -138,80 +158,70 @@ void	manage_instruction(t_corevm *vm, t_process *process)
 
 
 /*
-
-Combinaison pour and - or - xor :
-
-{T_REG , T_REG , T_REG} ->54
-{T_REG , T_IND, T_REG} -> 74
-{T_REG, T_DIR, T_REG} ->64
-
-
-{T_DIR , T_REG, T_REG} -> 94
-{T_DIR, T_IND , T_REG} -> B4
-{T_DIR, T_DIR, T_REG} -> A4
-
-{T_IND, T_REG, T_REG} ->D4
-{T_IND, T_IND, T_REG} -> F4
-{T_IND, T_DIR, T_REG} -> E4
-
-________________________________________
-Combinaison pour ld :
-
-{T_DIR, T_REG} -> 90
-{T_IND, T_REG} -> D
-
-________________________________________
-Combinaison pour st :
-
-{T_REG, T_REG} -> 50
-{T_REG, T_IND} -> 70
-
-________________________________________
-Combinaison pour ldi :
-
-{T_REG , T_DIR, T_REG} -> 64
-{T_REG, T_REG, T_REG} -> 54
-
-{T_DIR , T_DIR , T_REG} -> A4
-{T_DIR, T_REG, T_REG} -> 94
-
-{T_IND, T_DIR, T_REG} -> E4
-{ T_IND, T_REG, T_REG} -> D4
-
-________________________________________
-Combinaison pour sdi :
-
-{T_REG, T_REG, T_DIR} -> 58
-{T_REG, T_REG , T_REG} -> 54
-
-{T_REG, T_DIR, T_DIR } -> 68
-{T_REG, T_DIR, T_REG} -> 64
-
-{T_REG, T_IND, T_DIR } -> 78
-{T_REG, T_IND, T_REG} -> 74
-
-________________________________________
-Combinaison pour lld :
-
-{T_DIR , T_REG} -> 90
-{T_IND, T_REG} -> D
-
-
-________________________________________
-Combinaison pour lldi :
-
-{T_REG , T_DIR , T_REG} -> 64
-{T_REG, T_REG, T_REG} -> 54
-
-{ T_DIR, T_DIR , T_REG} -> A4
-{ T_DIR, T_REG, T_REG} -> 94
-
-
-{T_IND, T_DIR , T_REG} -> E4
-{T_IND, T_REG, T_REG} -> D4
-
-
 ** si l'arg et un registre -> 01 - codé sur 1 octet
 ** si l'arg et un direct -> 10 - codé sur 2 ou 4 octets
 ** si l'arg et un indirect -> 11 - codé 2 octets
+
+
+Combinaison pour add - sub :
+
+{T_REG, T_REG, T_REG} ->54  size instruction : process->pc += 5;
+
+________________________________________
+Combinaison pour and - or - xor :
+{T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}
+
+{T_REG , T_REG , T_REG} -> 54  size instruction : process->pc += 5;
+{T_REG , T_IND, T_REG} -> 74  size instruction : process->pc += 6;
+{T_REG, T_DIR, T_REG} -> 64 size instruction : process->pc += 8;
+
+
+{T_DIR , T_REG, T_REG} -> 94  size instruction : process->pc += 8;
+{T_DIR, T_IND , T_REG} -> B4  size instruction : process->pc += 9;
+{T_DIR, T_DIR, T_REG} -> A4  size instruction : process->pc += 11;
+
+{T_IND, T_REG, T_REG} ->D4  size instruction : process->pc += 6;
+{T_IND, T_IND, T_REG} -> F4  size instruction : process->pc += 7;
+{T_IND, T_DIR, T_REG} -> E4  size instruction : process->pc += 9;
+
+________________________________________
+Combinaison pour ld - lld:
+{T_DIR | T_IND, T_REG}
+
+{T_DIR, T_REG} -> 90  size instruction : process->pc += 5;
+{T_IND, T_REG} -> D0  size instruction : process->pc += 7;
+
+________________________________________
+Combinaison pour st :
+{T_REG, T_IND | T_REG}
+
+{T_REG, T_REG} -> 50  size instruction : process->pc += 4;
+{T_REG, T_IND} -> 70  size instruction : process->pc += 5;
+
+________________________________________
+Combinaison pour ldi - lldi :
+{T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}
+
+{T_REG , T_DIR, T_REG} -> 64  size instruction : process->pc += 6;
+{T_REG, T_REG, T_REG} -> 54  size instruction : process->pc += 5;
+
+{T_DIR , T_DIR , T_REG} -> A4  size instruction : process->pc += 7;
+{T_DIR, T_REG, T_REG} -> 94  size instruction : process->pc += 6;
+
+{T_IND, T_DIR, T_REG} -> E4  size instruction : process->pc += 7;
+{T_IND, T_REG, T_REG} -> D4  size instruction : process->pc += 6;
+
+________________________________________
+Combinaison pour sti :
+{T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}
+
+{T_REG, T_REG, T_DIR} -> 58  size instruction : process->pc += 6;
+{T_REG, T_REG , T_REG} -> 54  size instruction : process->pc += 5;
+
+{T_REG, T_DIR, T_DIR } -> 68  size instruction : process->pc += 7;
+{T_REG, T_DIR, T_REG} -> 64  size instruction : process->pc += 6;
+
+{T_REG, T_IND, T_DIR } -> 78  size instruction : process->pc += 7;
+{T_REG, T_IND, T_REG} -> 74  size instruction : process->pc += 6;
+
 */
