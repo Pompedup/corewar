@@ -11,10 +11,17 @@
 //Usage : sub S(RG), S(RG), D(RG)
 void	ft_sub(t_corevm *vm, t_process *process)
 {
+	int	*values;
+
 	if (process->type_instruc[1] != 54)
 		return ;
-	get_one_octet(vm, process, 0);
-	get_one_octet(vm, process, 1);
-	get_one_octet(vm, process, 2);
-	//execute l'instruction
+	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
+	values = get_values(vm, process, 3);
+
+	if (values)
+		process->reg[process->args[2]] = values[0] - values[1];
+
+	//MODIFIE LE CARRY ????!!!!!
+
+	free(values);
 }

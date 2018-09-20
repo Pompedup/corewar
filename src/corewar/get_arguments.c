@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 15:16:23 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/19 17:59:55 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/20 16:44:02 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,31 @@ résultat dans le registre qui est le 3ème paramètre. Opcode 0x06. Modifie le 
 ** et ca avamce le pc dans les fonctions get_octets ci dessus !!
 */
 
-int		*get_args_and_or_xor_ldi(t_corevm *vm, t_process *process)
+int		*get_values(t_corevm *vm, t_process *process, char num_arg)
 {
 	int	*values;
+	int	dec;
+	int	i;
 
 	if (!(values = malloc(sizeof(int) * 3)))
 		return (NULL);
-	if (((process->type_instruc[1] >> 6) & 3) == 1)
-		values[0] = process->reg[process->args[0]];
-	else if (((process->type_instruc[1] >> 6) & 3) == 2)
-		values[0] = process->args[0];
-	else if (((process->type_instruc[1] >> 6) & 3) == 3)
-		values[0] = vm->core[(process->pc + (process->args[1] % IDX_MOD)) % MEM_SIZE];
-
-
-
-	if (((process->type_instruc[1] >> 4) & 3) == 1)
-		values[1] = process->reg[process->args[1]];
-	else if (((process->type_instruc[1] >> 4) & 3) == 2)
-		values[1] = process->args[1];
-	else if (((process->type_instruc[1] >> 4) & 3) == 3)
-		values[1] = vm->core[(process->pc + (process->args[1] % IDX_MOD)) % MEM_SIZE];
-
-
+	dec = 6;
+	i = 0;
+	while (i < 3)
+	{
+		if (num_arg & (1 << i))
+		{
+			if (((process->type_instruc[1] >> dec) & 3) == 1)
+				values[i] = process->reg[process->args[i]];
+			else if (((process->type_instruc[1] >> dec) & 3) == 2)
+				values[i] = process->args[i];
+			else if (((process->type_instruc[1] >> dec) & 3) == 3)
+				values[i] = vm->core[(process->pc
+					+ (process->args[i] % IDX_MOD)) % MEM_SIZE];
+		}
+		dec -= 2;
+		i++;
+	}
 	return (values);
 }
 

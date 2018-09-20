@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/11 16:48:06 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/20 15:24:50 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define COMMON_H
 
 #include "../libft/inc/libft.h"
+
+
 
 # define IND_SIZE				2
 # define REG_SIZE				4

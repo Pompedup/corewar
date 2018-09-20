@@ -1,7 +1,7 @@
 
 
 #include "corewar.h"
-extern t_op	g_op_tab[];
+
 /*
 ** 0x0a
 ** modifie le carry
@@ -28,7 +28,7 @@ void	ft_ldi(t_corevm *vm, t_process *process)
 		return ;
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
 
-	values = get_args_and_or_xor_ldi(vm, process);
+	values = get_values(vm, process, 3);
 	if (values)
 	{
 		s = values[0] + values[1];

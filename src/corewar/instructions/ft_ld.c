@@ -16,10 +16,12 @@ Durée : 5    OCP : Oui
 Adressage Restreint : Oui
 Modifie le carry : Oui
 Transfert direct RAM > Registre.
+
 Charge le premier parametre dans le registre passé en
 second parametre. Si la valeur du premier parametre
 est egale a zero, alors le carry passe a l'etat un,
 sinon a l'etat zero.
+
 ld : Prend un paramètre quelconque et un registre. Charge la valeur
 du premier paramètre dans le registre. Son opcode est 10 en binaire,
 et il changera le carry.
@@ -28,11 +30,23 @@ et il changera le carry.
 //Usage : ld S(ID/D4), D(RG)
 void	ft_ld(t_corevm *vm, t_process *process)
 {
-	if (process->type_instruc[1] == 0xd0) //{T_IND, T_REG}
-		get_two_octets(vm, process, 0);
-	else if (process->type_instruc[1] == 0x90) //{T_DIR, T_REG}
-		get_four_octets(vm, process, 0);
-	if (process->type_instruc[1] == 0xd0 || process->type_instruc[1] == 0x90)
-		get_one_octet(vm, process, 1);
-	//execute linstruction
+	int	*values;
+
+	if (g_op_tab[process->type_instruc[0]].nbr_arg > 1)
+		if (!(test_args(process, g_op_tab[process->type_instruc[0]])))
+			return ;
+	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
+
+	values = get_values(vm, process, 1); //1 on recupere seulement la valeur de larg 1
+
+	if (values)
+	{
+		process->reg[process->args[1]] = values[0];
+		process->carry = values[0] = 0 ? 1 : 0; //MODIFIE LE CARRY ????!!!!!
+	}
+
+
+
+	free(values);
+
 }

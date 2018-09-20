@@ -21,7 +21,7 @@ void	ft_and(t_corevm *vm, t_process *process)
 			return ;
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
 
-	values = get_args_and_or_xor_ldi(vm, process);
+	values = get_values(vm, process, 3);
 	printf("values[0] %d  values[1] %d\n", values[0], values[1]);
 	if (values)
 		process->reg[process->args[2]] = values[0] & values[1];

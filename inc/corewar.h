@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/19 17:53:01 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/20 15:25:20 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ typedef struct		s_op
 	int				dir;
 	void			(*ptrfunc) (t_corevm *vm, t_process *actual);
 	}					t_op;
+
+extern t_op	g_op_tab[];
 
 /*
 ******************************************************************************** #ecesari
@@ -199,7 +201,7 @@ int						is_in_key_tab(unsigned int key, unsigned int *key_tab, int size_tab);
 void					get_one_octet(t_corevm *vm, t_process *process, int i);
 void					get_two_octets(t_corevm *vm, t_process *process, int i);
 void					get_four_octets(t_corevm *vm, t_process *process, int i);
-int						*get_args_and_or_xor_ldi(t_corevm *vm, t_process *process);
+int						*get_values(t_corevm *vm, t_process *process, char num_arg);
 t_bool					test_args(t_process *process, t_op g_tab);
 void					get_args(t_corevm *vm, t_process *process, t_op g_tab);
 /*
