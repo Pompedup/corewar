@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:26:00 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/18 16:20:28 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/20 15:25:15 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,33 +68,32 @@ t_bool	get_name(t_functions *functions, char *str, char *label, char **name)
 			if (is_correct_name(str))
 			{
 				*name = is_new_name(functions, str, i);
-				return (TRUE);//ft_strndup(str, i);//j'ai un nom
+				return (TRUE);
 			}
 		}
 	}
 	return (FALSE);
 }
 
-char	*check_line(t_functions *functions, char *str, int *type)
+t_bool	check_line(t_functions *functions, char *str, int *type, char **name)
 {
 	int		i;
 	char	*label;
-	char	*name;
 
 	i = 0;
-	name = NULL;
+	*name = NULL;
 	str = search_begin(str);
 	(void)type;
 	(void)functions;//pour verifier si le nom existe deja
 	if ((label = ft_strchr(str, LABEL_CHAR)))
-		get_name(functions, str, label, &name);
+		get_name(functions, str, label, name);
 	//while (g_op_tab[*type].shortcut)
 	//{
 	//	if (ft_strncmp(str + i, g_op_tab[*type].shortcut, ft_strlen(g_op_tab[*type].shortcut)))
 	//		break;
 	//	(*type)++;
 	//}
-	return (name);
+	return (TRUE);
 }
 
 void	get_functions(t_record *record, t_lines **current_line,
@@ -111,7 +110,7 @@ void	get_functions(t_record *record, t_lines **current_line,
 	while (*current_line)
 	{
 		//ft_putendl((*current_line)->str);
-		if ((name = check_line(record->functions, (*current_line)->str, &type)) || !(*current_function))
+		if (check_line(record->functions, (*current_line)->str, &type, &name) || !(*current_function))
 		{
 			ft_putendl(name);
 			current_function = new_t_function(current_function, name, pos);//si rien de cree ->erreur

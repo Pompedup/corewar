@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 23:04:59 by pompedup          #+#    #+#             */
-/*   Updated: 2018/09/18 14:27:39 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/20 15:21:40 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,5 @@ int main()
 	test4 = test + 2;
 	printf("%p\n", test4);
 	printf("%x\n", *test4);
-
-
-
-
 	return (0);
 }

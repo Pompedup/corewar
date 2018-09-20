@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/05 15:38:04 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/20 15:55:21 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@
 # define	NO_FILE		2
 # define	CANT_READ	3
 # define	WRONG_FORMAT 4
+
+typedef struct		s_file{
+	int				fd;
+	char			*line;
+	size_t			index_line;
+	size_t			index_char;
+}					t_file;
 
 typedef struct		s_lines{
 	char			*str;
@@ -50,6 +57,7 @@ struct				s_functions{
 typedef struct		s_record{
 	char			*name;
 	char			*comment;
+	t_file			file;
 	t_lines			*lines;
 	t_functions		*functions;
 }					t_record;
@@ -101,7 +109,18 @@ void				new_t_elem(t_elems **current, int type, int key);
 /*
 ********************************************************************************
 **                                                                            **
-**   t_functions.c                                                                **
+**   t_file.c                                                                 **
+**                                                                            **
+********************************************************************************
+*/
+
+void				del_t_file(t_file *file);
+void				new_t_file(t_file *file, char *file_name);
+
+/*
+********************************************************************************
+**                                                                            **
+**   t_functions.c                                                            **
 **                                                                            **
 ********************************************************************************
 */

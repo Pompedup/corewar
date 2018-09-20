@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 12:23:45 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/03 22:32:04 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/20 15:55:02 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,18 @@ void		name_and_comment(t_record record)
 	ft_putendl(record.comment);
 }
 
-static void	init(t_record *record)
+static void	close(t_record *record)
 {
-	record->lines = NULL;
-	record->name = NULL;
-	record->comment = NULL;
+	free(name);
+	free(comment);
+	del_t_file(&record->file);
+	del_t_functions(record->functions);
+}
+
+static void	init(t_record *record, char *file_name)
+{
+	ft_bzero(record, sizeof(t_record));
+	new_t_file(&record->file, file_name);
 }
 
 int			main(int ac, char **av)
@@ -51,15 +58,16 @@ int			main(int ac, char **av)
 		creating a .cor file, outputs a stripped and annotated version of the \
 		code to the standard output");
 	i = 1;
-	init(&record);
 	while (i < ac)
 	{
+		init(&record, av[i]);
 		if ((ret = get_lines(av[i], &(record.lines))))
 			error(ret, av[i]);
 		get_infos(&record);
 		name_and_comment(record);//affichage
 		get_functions(&record, &(record.lines), &(record.functions));
 		i++;
+		close(&record);
 	}
 	record.lines = NULL;
 	//print_lines(record.lines);
