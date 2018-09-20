@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/20 15:55:21 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/20 16:42:20 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define	NO_FILE		2
 # define	CANT_READ	3
 # define	WRONG_FORMAT 4
+# define	INVALID_FILE 5
 
 typedef struct		s_file{
 	int				fd;
@@ -62,6 +63,8 @@ typedef struct		s_record{
 	t_functions		*functions;
 }					t_record;
 
+void	erase(t_record *record);
+
 /*
 ********************************************************************************
 **                                                                            **
@@ -97,6 +100,18 @@ void				get_infos(t_record *record);
 /*
 ********************************************************************************
 **                                                                            **
+**   step.c                                                                   **
+**                                                                            **
+********************************************************************************
+*/
+
+void		error(t_record *record, int error);
+void		erase(t_record *record);
+void		init(t_record *record, char *file_name);
+
+/*
+********************************************************************************
+**                                                                            **
 **   t_elems.c                                                                **
 **                                                                            **
 ********************************************************************************
@@ -114,8 +129,9 @@ void				new_t_elem(t_elems **current, int type, int key);
 ********************************************************************************
 */
 
+void				read_t_file(t_record *record, t_file *file);
 void				del_t_file(t_file *file);
-void				new_t_file(t_file *file, char *file_name);
+void				new_t_file(t_record *record, t_file *file, char *file_name);
 
 /*
 ********************************************************************************

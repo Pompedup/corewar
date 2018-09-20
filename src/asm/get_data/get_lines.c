@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 15:27:07 by pompedup          #+#    #+#             */
-/*   Updated: 2018/09/03 21:38:23 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/20 16:25:46 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ int			get_lines(char *file_name, t_lines **current)
 	int		i;
 	char	*line;
 
-	if ((fd = open(file_name, O_RDONLY)) == -1)
-		return (NO_FILE);
 	i = 0;
+	fd = 0;
+	(void)file_name;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		ret = select_line(&line);
