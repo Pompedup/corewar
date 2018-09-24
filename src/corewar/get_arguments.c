@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 15:16:23 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/20 16:44:02 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/24 11:46:10 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 
 /*
-** Applique un & (ET bit-à-bit) sur les deux premiers paramètres, et stocke le
-résultat dans le registre qui est le 3ème paramètre. Opcode 0x06. Modifie le carry.
+** avec get_args on a parse le joueur et recupéré les arguments de la fonction
+** ensuite ici on recupère la valeur de ces arguments
+** (on les recupère de manière différentes selon qu'ils soient des registre direct ou indirect)
+** cette fonction est génériaue à les toutes les fonctions
+** on boucle 3 fois car 3 nb ax d'argument
+** le num_arg quon envoie nous permet de connaitre les args quon veut recuperer
+** 001 on recup que le 1er arg 011 les 2 premier 101 le permier et le 3eme...
+** et ensuite en fonction de la key de linstruction on recup larg selon son type
 
-** recupere les arguments pour les fonctions and or et xor
-** ca fait un peu foret de fi dsll donc peut etre a opti
-** teste toute les possibilites de type pour chaque args
-** et ca avamce le pc dans les fonctions get_octets ci dessus !!
 */
 
 int		*get_values(t_corevm *vm, t_process *process, char num_arg)
@@ -51,7 +53,9 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg)
 	return (values);
 }
 
-
+/*
+** recupère seulement les registres (codé sur 1 octet)
+*/
 
 void	get_one_octet(t_corevm *vm, t_process *process, int i)
 {
@@ -60,6 +64,10 @@ void	get_one_octet(t_corevm *vm, t_process *process, int i)
 	printf("arg 1 octet %x\n", process->args[i]);
 }
 
+/*
+** recupère les indirects et une partie des directs codé sur 2 octets
+*/
+
 void	get_two_octets(t_corevm *vm, t_process *process, int i)
 {
 	process->args[i] = *((unsigned short*)(vm->core + (process->pc % MEM_SIZE)));
@@ -67,6 +75,10 @@ void	get_two_octets(t_corevm *vm, t_process *process, int i)
 	process->pc += 2;
 	printf("arg 2 octets %x\n", process->args[i]);
 }
+
+/*
+** recupère une partie des directs codé sur 4 octets)
+*/
 
 void	get_four_octets(t_corevm *vm, t_process *process, int i)
 {
@@ -77,7 +89,7 @@ void	get_four_octets(t_corevm *vm, t_process *process, int i)
 }
 
 /*
-** je recupere mes argment sur le bon nombre doctet quils sont codé
+** je parse mes argment sur le bon nombre doctet quils sont codé
 ** registre -> 01 - codé sur 1 octet
 ** direct -> 10 - codé sur 2 ou 4 octets (indiqué dans la global)
 ** indirect -> 11 - codé 2 octets
