@@ -6,7 +6,7 @@
 #    By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/09/24 18:22:11 by ccoupez          ###   ########.fr        #
+#    Updated: 2018/09/24 18:31:33 by ccoupez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC =			$(COMMON_SRC)\
 				$(ASM_SRC)\
 				$(COREWAR_SRC)\
 
-#COMMON_FILES =	global.c\
+COMMON_FILES =	global.c\
 
 ASM_FILES =		asm.c\
 				get_infos.c\
