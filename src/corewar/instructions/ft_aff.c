@@ -16,5 +16,11 @@
 //Usage : aff S(RG)
 void	ft_aff(t_corevm *vm, t_process *process)
 {
+	char	c;
+
+	if (process->type_instruc[1] != 40)
+		return ;
 	get_one_octet(vm, process, 0);
+	c = process->reg[process->args[0] % 256];
+	write(1, &c, 1);
 }

@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/20 15:25:20 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/24 17:09:58 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,13 @@ typedef struct			s_corevm
 	int					nb_max_live; //define NBR_LIVE
 }						t_corevm;
 
-typedef struct		s_op
+typedef struct			s_ptr_func
 {
-	char			*shortcut;
-	int				nbr_arg; // 1 || 2 || 3
-	char			accept[3];
-	int				id;
-	int				nb_cycle_instruction; //10 || 5 || 6 || 20 || 25 || 800 || 1000
-	char			*description;
-	int				ind;
-	int				dir;
-	void			(*ptrfunc) (t_corevm *vm, t_process *actual);
-	}					t_op;
+	void				(*ptrfunc) (t_corevm *core, t_process *actual);
+	int					code_instruction;
+}						t_ptr_func;
 
-extern t_op	g_op_tab[];
+extern t_ptr_func	g_instruc_func[];
 
 /*
 ******************************************************************************** #ecesari
@@ -189,7 +182,6 @@ int						check_max_checks(t_corevm *vm, int tmp_cycle);
 void					manage_instruction(t_corevm *vm, t_process *process);
 void					get_instruction_type(t_corevm *vm, t_process *actual);
 void					execute_instruction(t_corevm *vm, t_process *actual);
-int						is_in_key_tab(unsigned int key, unsigned int *key_tab, int size_tab);
 
 
 /*

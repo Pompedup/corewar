@@ -35,6 +35,6 @@ void	ft_ldi(t_corevm *vm, t_process *process)
 		//REG_SIZE octets a ladresse (PC + (S % IDX_MOD))
 		process->reg[process->args[2]] = vm->core[(process->pc
 			+ (s % IDX_MOD)) % MEM_SIZE];
+		free (values);
 	}
-	free (values);
 }

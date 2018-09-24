@@ -18,9 +18,8 @@ void	ft_and(t_corevm *vm, t_process *process)
 {
 	int	*values;
 
-	if (g_op_tab[process->type_instruc[0]].nbr_arg > 1)
-		if (!(test_args(process, g_op_tab[process->type_instruc[0]])))
-			return ;
+	if (!(test_args(process, g_op_tab[process->type_instruc[0]])))
+		return ;
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
 
 	values = get_values(vm, process, 3);

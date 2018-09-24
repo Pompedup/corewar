@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/20 15:24:50 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/24 16:21:39 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,19 @@ typedef struct		header_s
   unsigned int		prog_size;
   char				comment[COMMENT_LENGTH + 1];
 }					header_t;
+
+typedef struct		s_op
+{
+	char			*shortcut;
+	int				nbr_arg; // 1 || 2 || 3
+	char			accept[3];
+	int				id;
+	int				nb_cycle_instruction; //10 || 5 || 6 || 20 || 25 || 800 || 1000
+	char			*description;
+	int				ind;
+	int				dir;
+	}					t_op;
+
+extern t_op	g_op_tab[];
 
 #endif
