@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/20 16:42:20 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/24 17:10:55 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,23 @@
 typedef struct		s_file{
 	int				fd;
 	char			*line;
+	char			*current;
 	size_t			index_line;
 	size_t			index_char;
 }					t_file;
 
-typedef struct		s_lines{
-	char			*str;
-	int				num_line;
-	struct s_lines	*next;
-}					t_lines;
+typedef struct		s_arg{
+	int				type;
+	int				value;
+	char			*copy;
+	t_bool			handled;
+	struct s_arg	*next;
+}					t_arg;
 
 typedef struct		s_elems{
 	int				type;
 	int				key;
-	int				first;
-	int				second;
-	int				third;
+	t_arg			*args;
 	t_bool			complete;
 	struct s_elems	*next;
 }					t_elems;
@@ -59,11 +60,19 @@ typedef struct		s_record{
 	char			*name;
 	char			*comment;
 	t_file			file;
-	t_lines			*lines;
 	t_functions		*functions;
 }					t_record;
 
-void	erase(t_record *record);
+/*
+********************************************************************************
+**                                                                            **
+**   check_instruction.c                                                      **
+**                                                                            **
+********************************************************************************
+*/
+
+int		is_label_char(int c);
+int		check_elem(t_record *record, t_file *file, t_elems **current_elem, int type);
 
 /*
 ********************************************************************************
@@ -73,18 +82,7 @@ void	erase(t_record *record);
 ********************************************************************************
 */
 
-void				get_functions(t_record *record, t_lines **current_line,
-						t_functions **current_function);
-
-/*
-********************************************************************************
-**                                                                            **
-**   get_lines.c                                                              **
-**                                                                            **
-********************************************************************************
-*/
-
-int					get_lines(char *file_name, t_lines **lines);
+void	get_functions(t_record *record, t_file *file, t_functions **current_function);
 
 /*
 ********************************************************************************
@@ -94,8 +92,7 @@ int					get_lines(char *file_name, t_lines **lines);
 ********************************************************************************
 */
 
-char				*search_begin(char *line);
-void				get_infos(t_record *record);
+void				get_infos(t_record *record, t_file *file);
 
 /*
 ********************************************************************************
@@ -119,7 +116,7 @@ void		init(t_record *record, char *file_name);
 
 void				del_t_elem(t_elems **current);
 void				del_t_elems(t_elems **current);
-void				new_t_elem(t_elems **current, int type, int key);
+void				new_t_elem(t_elems **current, int type);
 
 /*
 ********************************************************************************
@@ -148,13 +145,13 @@ t_functions			**new_t_function(t_functions **current, char *name, int pos);
 /*
 ********************************************************************************
 **                                                                            **
-**   t_lines.c                                                                **
+**   t_arg.c                                                                **
 **                                                                            **
 ********************************************************************************
 */
 
-void				del_t_line(t_lines **current);
-void				del_t_lines(t_lines **current);
-void				new_t_line(t_lines **current, char *line, int num);
+void				del_t_arg(t_arg **current);
+void				del_t_arg(t_arg **current);
+void				new_t_arg(t_arg **current);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 12:23:45 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/20 16:38:04 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/24 15:03:56 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,19 @@
 	ft_putnbrendl(ret);
 }*/
 
-void		print_lines(t_lines *lines)
-{
-	while (lines)
-	{
-		ft_putendl(lines->str);
-		lines = lines->next;
-	}
-}
-
 void		name_and_comment(t_record record)
 {
+	ft_putendl("in name and comment");
 	ft_putendl(record.name);
 	ft_putendl(record.comment);
+	ft_putendl("out name and comment");
 }
 
 int			main(int ac, char **av)
 {
 	t_record	record;
 	int			i;
-	int			ret;
+	//int			ret;
 
 	if (ac < 2)
 		ft_putendl("usage: ./data/asm [-a] <sourcefile.s>\n\t-a : Instead of \
@@ -47,15 +40,14 @@ int			main(int ac, char **av)
 	while (i < ac)
 	{
 		init(&record, av[i]);
-		if ((ret = get_lines(av[i], &(record.lines))))
-			error(&record, ret);
-		get_infos(&record);
+		get_infos(&record, &record.file);
+		if (!record.name || !record.comment)
+			exit(0);
 		name_and_comment(record);//affichage
-		get_functions(&record, &(record.lines), &(record.functions));
+		get_functions(&record, &record.file, &(record.functions));
 		i++;
 		erase(&record);
 	}
-	record.lines = NULL;
 	//print_lines(record.lines);
 	//verification fichier
 	//creation data pour le .cor
