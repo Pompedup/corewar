@@ -11,8 +11,20 @@
 ** si ce sont des registres, on utilisera leur contenu comme un index
 */
 
-//void    sti(char *reg, char *reg_dir_ind, char *dir_reg)
-int     ft_sti(t_corevm *core, t_player *player)
+//Usage : sti S(RG), S(RG/ID/D2), S(ID/D2)
+void	ft_sti(t_corevm *vm, t_process *process)
 {
+	int	*values;
 
+	if (!(test_args(process, g_op_tab[process->type_instruc[0]])))
+		return ;
+	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
+
+	values = get_values(vm, process, 6); //6 car on veux recup la valeur de 2 derniers arg
+
+	if (values)
+		vm->core[(process->pc + values[1] + values[2])
+			% MEM_SIZE] = process->reg[process->args[0]];
+
+	free(values);
 }

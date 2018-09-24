@@ -8,8 +8,20 @@
 ** modifie le carry
 */
 
-//void	sub(char *reg1, char *reg2, char *reg3)
-int     ft_sub(t_corevm *core, t_player *player)
+//Usage : sub S(RG), S(RG), D(RG)
+void	ft_sub(t_corevm *vm, t_process *process)
 {
+	int	*values;
 
+	if (process->type_instruc[1] != 54)
+		return ;
+	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
+	values = get_values(vm, process, 3);
+
+	if (values)
+		process->reg[process->args[2]] = values[0] - values[1];
+
+	//MODIFIE LE CARRY ????!!!!!
+
+	free(values);
 }

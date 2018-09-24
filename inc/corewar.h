@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/02 18:50:08 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/20 15:25:20 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,6 @@
 
 # include "common.h"
 # include <stdio.h>// Asupprimer
-
-# define LIVE   		0x01
-# define LD				0x02
-# define ST				0x03
-# define ADD			0x04
-# define SUB			0x05
-# define AND			0x06
-# define OR				0x07
-# define XOR			0x08
-# define ZJMP			0x09
-# define LDI			0x0a
-# define STI			0x0b
-# define FORK			0x0c
-# define LLD			0x0d
-# define LLDI			0x0e
-# define LFORK			0x0f
-# define AFF			0x10
 
 typedef struct			s_player
 {
@@ -46,48 +29,57 @@ typedef struct			s_player
 
 typedef struct			s_process
 {
+	char				name[PROG_NAME_LENGTH + 1];
 	int					color;
 	int					reg[REG_NUMBER]; // de REG_SIZE #define REG_SIZE	4 un int 4 octets
 	int					pc; //programme counter
 	int					carry; //une retenu des instructions ou ya des calculs (si jai bien compris!?)
-	int					nb_cycle;
-	//int				last_live; pour voir la derniere foi qu'il a dit quil etait en vie
+
+	int					alive; //pour voir la derniere foi qu'il a dit quil etait en vie
+	int					type_instruc[2];
+	int					args[3];
+	//int					values[3];
+	int					nb_cycle_instruc;
 	struct s_process	*next;
 }						t_process;
 
-typedef struct			s_info_players //structure pour gerer la liste chainée des players
+typedef struct			s_info //structure pour gerer la liste chainée des players
 {
 	int					nb_players;
 	t_player			*first_player;
 	t_process			*first_processus;
-}						t_info_players;
+}						t_info;
 
 typedef struct			s_corevm
 {
 	char				**argv; //pour le parsing
 	int					visu; //option visu librairie possible : OpenGL, SDL, nCurses, ... (bonus)
-	t_info_players		*info_players; // pointeur vers la structure qui gere la liste des players
+	t_info				*info; // pointeur vers la structure qui gere la liste des players
 
 	//ici plus pour la battle
-	char				core[MEM_SIZE]; //larene
-	int					nb_total_cycles; //associer au define CYCLE_TO_DIE qui est le max && Si on n’a pas décrémenté CYCLE_TO_DIE depuis MAX_CHECKS vérifications, on le décrémente
-	int					cycle_to_die; // = CYCLE_TO_DIE ->se decrement quand :
-						//Si on n’a pas décrémenté CYCLE_TO_DIE depuis MAX_CHECKS vérifications,on le décrémente.
-	int					nb_check;	 //??? voir ci dessus
-	int					dump; //je sais pas trop encore
-	int					nb_live; //associer au define NBR_LIVE. Si au cours d’une de ces vérifications on se rend compte qu’il y a eu au moins NBR_LIVE exécutions de live depuis la dernière vérification en date, on décrémente CYCLE_TO_DIE de CYCLE_DELTA unités
+	char				core[MEM_SIZE];
+	int					dump;
+	int					nb_cycle;
+	int					cycle_to_die;
+	int					nb_lives; //associer au define NBR_LIVE. Si au cours d’une de ces vérifications on se rend compte qu’il y a eu au moins NBR_LIVE exécutions de live depuis la dernière vérification en date, on décrémente CYCLE_TO_DIE de CYCLE_DELTA unités
+	int					nb_max_live; //define NBR_LIVE
 }						t_corevm;
 
-/*
-** structure pour faire un tableau de pointeur sur fonction
-** et appeler les instructions comme dans printf (avec le code d'instruction)
-*/
-
-typedef struct			s_ptr_func
+typedef struct		s_op
 {
-	char				*(*ptrfunc) (t_corevm *core, t_player *player);
-	int					code_instruction;
-}						t_ptr_func;
+	char			*shortcut;
+	int				nbr_arg; // 1 || 2 || 3
+	char			accept[3];
+	int				id;
+	int				nb_cycle_instruction; //10 || 5 || 6 || 20 || 25 || 800 || 1000
+	char			*description;
+	int				ind;
+	int				dir;
+	void			(*ptrfunc) (t_corevm *vm, t_process *actual);
+	}					t_op;
+
+extern t_op	g_op_tab[];
+
 /*
 ******************************************************************************** #ecesari
 **								INIT_VM_C								 	  **
@@ -135,11 +127,11 @@ int						unused_num(t_corevm *vm, int num);
 
 /*
 ********************************************************************************
-**						    CHARGE_PLAYERS_C							 	  **
+**						    _PLAYERS_CHARGEDC							 	  **
 ********************************************************************************
 */
 
-void					charge_players_in_core(t_corevm *vm);
+void					players_charged_in_core(t_corevm *vm);
 
 /*
 ********************************************************************************
@@ -147,8 +139,9 @@ void					charge_players_in_core(t_corevm *vm);
 ********************************************************************************
 */
 
-void    				 ft_error(t_corevm *vm,  int num_error);
+void    				ft_error(t_corevm *vm,  int num_error);
 void					ft_read_error(t_corevm *vm, int num_error, int fd);
+void					ft_dump_exit(t_corevm *vm);
 
 /*
 ********************************************************************************
@@ -165,35 +158,82 @@ void					print_memory(const void *addr, size_t size);
 ********************************************************************************
 */
 
-t_process				*create_process(t_corevm *vm, int pc, int num, unsigned int color);
+t_process				*create_process(t_corevm *vm, int pc, t_player *player);
 void					put_process_front(t_process **first, t_process *process);
 
 /*
 ********************************************************************************
-**						      INSTRUCTIONS				     			 	  **
+**						      EXECUTE_THE_BATTLE_C				     		  **
 ********************************************************************************
 */
 
-/*int						ft_live(t_corevm *core, t_player *player);
-int						ft_ld(t_corevm *core, t_player *player);
-int     				ft_st(t_corevm *core, t_player *player);
-int						ft_add(t_corevm *core, t_player *player);
-int     				ft_sub(t_corevm *core, t_player *player);
-int						ft_and(t_corevm *core, t_player *player);
-int     				ft_or(t_corevm *core, t_player *player);
-int     				ft_xor(t_corevm *core, t_player *player);
-int						ft_zjump(t_corevm *core, t_player *player);
-int						ft_ldi(t_corevm *core, t_player *player);
-int     				ft_sti(t_corevm *core, t_player *player);
-int						ft_fork(t_corevm *core, t_player *player);
-int     				ft_lld(t_corevm *core, t_player *player);
-int     				ft_lldi(t_corevm *core, t_player *player);
-int     				ft_lfork(t_corevm *core, t_player *player);
-int						ft_aff(t_corevm *core, t_player *player);*/
+void					execute_the_battle(t_corevm *vm);
+
+/*
+********************************************************************************
+**						      CHECKING_BATTLE_C					     		  **
+********************************************************************************
+*/
+
+void					check_if_process_lives(t_process *process);
+void					check_nb_lives(t_corevm *vm);
+void					check_dump(t_corevm *vm);
+int						check_max_checks(t_corevm *vm, int tmp_cycle);
+
+/*
+********************************************************************************
+**						      GET_INSTRUCTIONS_C			     			  **
+********************************************************************************
+*/
+
+void					manage_instruction(t_corevm *vm, t_process *process);
+void					get_instruction_type(t_corevm *vm, t_process *actual);
+void					execute_instruction(t_corevm *vm, t_process *actual);
+int						is_in_key_tab(unsigned int key, unsigned int *key_tab, int size_tab);
 
 
+/*
+********************************************************************************
+**						      GET_ARGUMENTS_C			     				  **
+********************************************************************************
+*/
 
+void					get_one_octet(t_corevm *vm, t_process *process, int i);
+void					get_two_octets(t_corevm *vm, t_process *process, int i);
+void					get_four_octets(t_corevm *vm, t_process *process, int i);
+int						*get_values(t_corevm *vm, t_process *process, char num_arg);
+t_bool					test_args(t_process *process, t_op g_tab);
+void					get_args(t_corevm *vm, t_process *process, t_op g_tab);
+/*
+********************************************************************************
+**						      INSTRUCTIONS/				     			 	  **
+********************************************************************************
+*/
 
+void					ft_live(t_corevm *vm, t_process *process);
+void					ft_ld(t_corevm *vm, t_process *process);
+void    				ft_st(t_corevm *vm, t_process *process);
+void					ft_add(t_corevm *vm, t_process *process);
+void    				ft_sub(t_corevm *vm, t_process *process);
+void					ft_and(t_corevm *vm, t_process *process);
+void    				ft_or(t_corevm *vm, t_process *process);
+void    				ft_xor(t_corevm *vm, t_process *process);
+void					ft_zjmp(t_corevm *vm, t_process *process);
+void					ft_ldi(t_corevm *vm, t_process *process);
+void    				ft_sti(t_corevm *vm, t_process *process);
+void					ft_fork(t_corevm *vm, t_process *process);
+void    				ft_lld(t_corevm *vm, t_process *process);
+void    				ft_lldi(t_corevm *vm, t_process *process);
+void    				ft_lfork(t_corevm *vm, t_process *process);
+void					ft_aff(t_corevm *vm, t_process *process);
+
+/*
+********************************************************************************
+**						      PRINT_CORE_C				     			 	  **
+********************************************************************************
+*/
+
+void					print_core(t_corevm *vm);
 
 
 //Trois méthodes d’adressage de la mémoire sont possibles

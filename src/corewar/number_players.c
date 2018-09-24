@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   number_players.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:56:15 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/02 18:45:29 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/11 13:46:52 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		unused_num(t_corevm *vm, int num)
 	t_player	*tmp;
 
 	i = 0;
-	tmp = vm->info_players->first_player;
+	tmp = vm->info->first_player;
 	while (tmp && i++ < MAX_PLAYERS)
 	{
 		if (num == tmp->num)
@@ -39,19 +39,19 @@ void	sort_players(t_corevm *vm)
 	t_player	*new;
 
 	prev = NULL;
-	actual = vm->info_players->first_player;
+	actual = vm->info->first_player;
 	while (actual->next)
 	{
 		if (actual->num > actual->next->num)//je me suis peut etre tromper dans l'ordre alors (croissant ou decroissant)??!! < > ?
 		{
 			new = actual->next;
-			if (actual == vm->info_players->first_player)
-				vm->info_players->first_player = new;
+			if (actual == vm->info->first_player)
+				vm->info->first_player = new;
 			else
 				prev->next = new;
 			actual->next = new->next;
 			new->next = actual;
-			actual = vm->info_players->first_player;
+			actual = vm->info->first_player;
 		}
 		else
 		{
@@ -80,7 +80,7 @@ void	number_players(t_corevm *vm)
 	int			i;
 	t_player	*tmp;
 
-	tmp = vm->info_players->first_player;
+	tmp = vm->info->first_player;
 	while (tmp)
 	{
 		if (tmp->num == 0)
@@ -92,13 +92,13 @@ void	number_players(t_corevm *vm)
 		}
 		tmp = tmp->next;
 	}
-	sort_players(vm);
-	tmp = vm->info_players->first_player;
-	tmp->num = 0;
-	while (tmp->next)
-	{
-		if (tmp->next->num != tmp->num + 1)
-			tmp->next->num = tmp->num + 1;
-		tmp = tmp->next;
-	}
+//	sort_players(vm);
+//	tmp = vm->info->first_player;
+//	tmp->num = 0;
+//	while (tmp->next)
+//	{
+//		if (tmp->next->num != tmp->num + 1)
+//			tmp->next->num = tmp->num + 1;
+//		tmp = tmp->next;
+//	}
 }

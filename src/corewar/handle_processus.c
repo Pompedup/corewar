@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_processus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 15:13:34 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/03 14:03:28 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/24 12:35:12 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,22 @@ void        put_process_front(t_process **first, t_process *process)
 ** plus adaptée pour executer le jeu
 */
 
-t_process	*create_process(t_corevm *vm, int pc, int num, unsigned int color)
+t_process	*create_process(t_corevm *vm, int pc, t_player *player)
 {
     int         i;
     t_process   *process;
 
-    if (!(process = malloc(sizeof(t_process))))
+    if (!(process = ft_memalloc(sizeof(t_process))))
         ft_error(vm, -66); //malloc error
-    process->color = color;
+	i = 0;
+    while (i < 2)
+        process->type_instruc[i++] = -1;
+    process->color = player->color;
     process->pc = pc;
 	process->carry = 0;
-	process->reg[0] = num + 1;
-	i = 1;
-	while (i < REG_NUMBER)
-		process->reg[i++] = 0;
-    printf("num %d\n", num);
+	process->reg[0] = player->num;
+    process->alive = 0;
+    ft_strcpy(player->header->prog_name, process->name);
+    printf("player->num %d\n", player->num);
     return (process);
 }

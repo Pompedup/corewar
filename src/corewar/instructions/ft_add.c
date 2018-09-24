@@ -8,8 +8,20 @@
 ** modifie le carry
 */
 
-//void	add(char *reg1, char *reg2, char *reg3)
-int     ft_add(t_corevm *core, t_player *player)
+//Usage : add S(RG), S(RG), D(RG)
+void	ft_add(t_corevm *vm, t_process *process)
 {
+	int	*values;
 
+	if (process->type_instruc[1] != 54)
+		return ;
+	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
+	values = get_values(vm, process, 3);
+
+	if (values)
+		process->reg[process->args[2]] = values[0] + values[1];
+
+	//MODIFIE LE CARRY ????!!!!!
+
+	free(values);
 }

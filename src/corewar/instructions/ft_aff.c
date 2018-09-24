@@ -13,8 +13,8 @@
 ** affiche '*' sur la sortie standard
 */
 
-//void	aff(char *reg)
-int     ft_aff(t_corevm *core, t_player *player)
+//Usage : aff S(RG)
+void	ft_aff(t_corevm *vm, t_process *process)
 {
-
+	get_one_octet(vm, process, 0);
 }
