@@ -3,14 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+         #
+#    By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2018/09/03 21:07:01 by abezanni         ###   ########.fr        #
-=======
-#    Updated: 2018/09/18 15:29:06 by ccoupez          ###   ########.fr        #
->>>>>>> 3af8691380d1bedde8560e5a10c03302afecf980
+#    Updated: 2018/09/24 16:06:18 by ecesari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +26,7 @@ SRC =			$(COMMON_SRC)\
 				$(ASM_SRC)\
 				$(COREWAR_SRC)\
 
-COMMON_FILES =	global.c\
+#COMMON_FILES =	global.c\
 
 ASM_FILES =		asm.c\
 				get_infos.c\
@@ -65,7 +61,7 @@ COREWAR_FILES =	checking_battle.c\
 				parse_argv.c\
 				players_charged.c\
 				read_file_players.c\
-				register_players.c\
+				create_players.c\
 				print_core.c\
 
 COMMON_SRC =	$(addprefix src/common/,$(COMMON_FILES))

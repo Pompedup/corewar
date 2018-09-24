@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 15:13:34 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/24 12:35:12 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/24 17:58:59 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_process	*create_process(t_corevm *vm, int pc, t_player *player)
     t_process   *process;
 
     if (!(process = ft_memalloc(sizeof(t_process))))
-        ft_error(vm, -66); //malloc error
+        ft_error(vm, "malloc error", 0); //malloc error
 	i = 0;
     while (i < 2)
         process->type_instruc[i++] = -1;
