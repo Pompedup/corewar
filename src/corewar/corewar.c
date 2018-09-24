@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 13:17:29 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/13 14:49:38 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/24 17:55:46 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int     main(int ac, char **av)
 	t_player	*tmp;
 
 	if (ac < 2)
-		ft_error(&vm, 0); //// no emought argv - usage: ./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ...
+		ft_error(&vm, ERR_MESS_0, 0);
 	init_vm(av, &vm);
 	parse_argv(&vm);
 	number_players(&vm);

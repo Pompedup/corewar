@@ -1,0 +1,16 @@
+# Object files
+*.o
+
+# Libraries
+*.lib
+*.a
+
+# Executables
+*.out
+corewar
+asm
+
+# Debug files
+*.dSYM/
+
+.DS_Store

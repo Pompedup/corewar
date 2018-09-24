@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/24 17:09:58 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/24 18:20:28 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,35 @@
 # include "common.h"
 # include <stdio.h>// Asupprimer
 
+# define USAGE "Usage: ./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ...\n"
+# define ERR_MESS_0			"not enough arguments.\n" USAGE
+# define ERR_MESS_1			"incorrect arguments.\n" USAGE
+# define ERR_MESS_2			"argument for dump is not an int.\n"
+# define ERR_MESS_3			"argument for dump must be superior to 0.\n"
+# define ERR_MESS_4			"incorrect name of the champion file.\n"
+# define ERR_MESS_5			"cannot open file.\n"
+# define ERR_MESS_6			"cannot close file.\n"
+# define ERR_MESS_7			"incorrect magic number.\n"
+# define ERR_MESS_8			"cannot read magic number from file.\n"
+# define ERR_MESS_9			"cannot read name of player from file.\n"
+# define ERR_MESS_10		"cannot read the lenght of the program of file.\n"
+# define ERR_MESS_11		"champion is too large.\n"
+# define ERR_MESS_12		"cannot read comment from file.\n"
+# define ERR_MESS_13		"cannot read for the lenght of the program of file.\n"
+# define ERR_MESS_14		"difference between size of program read and the size expected.\n"
+# define ERR_MESS_15		"too many players.\n"
+# define ERR_MESS_16		"at least one player is needed.\n"
+# define ERR_MESS_17		"argument for number of player is not an int.\n"
+# define ERR_MESS_18		"a player cannot have number 0 or a number already given.\n"
+# define FAIL_MEMALLOC_0	"ft_memalloc of vm->info failed.\n" USAGE
+# define FAIL_MEMALLOC_1	"ft_memalloc of player failed.\n" USAGE
+# define FAIL_MEMALLOC_2	"ft_memalloc of header failed.\n" USAGE
+
+
 typedef struct			s_player
 {
 	int					num; // num joueur a voir faut peut etre le mettre dans le r1
-	char				*name_file; //a supprimer cest juste pr afficher pendant le parsing
+	char				*name_file;
 	int					color;
 	header_t			*header;
 	char				process[CHAMP_MAX_SIZE + 1];
@@ -34,11 +59,11 @@ typedef struct			s_process
 	int					reg[REG_NUMBER]; // de REG_SIZE #define REG_SIZE	4 un int 4 octets
 	int					pc; //programme counter
 	int					carry; //une retenu des instructions ou ya des calculs (si jai bien compris!?)
-
 	int					alive; //pour voir la derniere foi qu'il a dit quil etait en vie
+
 	int					type_instruc[2];
 	int					args[3];
-	//int					values[3];
+	//int				values[3];
 	int					nb_cycle_instruc;
 	struct s_process	*next;
 }						t_process;
@@ -74,7 +99,7 @@ typedef struct			s_ptr_func
 extern t_ptr_func	g_instruc_func[];
 
 /*
-******************************************************************************** #ecesari
+********************************************************************************
 **								INIT_VM_C								 	  **
 ********************************************************************************
 */
@@ -132,8 +157,8 @@ void					players_charged_in_core(t_corevm *vm);
 ********************************************************************************
 */
 
-void    				ft_error(t_corevm *vm,  int num_error);
-void					ft_read_error(t_corevm *vm, int num_error, int fd);
+void    				ft_error(t_corevm *vm, char *mess_error, int to_free);
+void					ft_read_error(t_corevm *vm, char *mess_error, int fd);
 void					ft_dump_exit(t_corevm *vm);
 
 /*
