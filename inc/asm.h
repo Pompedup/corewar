@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/24 17:10:55 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/25 17:37:05 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct		s_file{
 }					t_file;
 
 typedef struct		s_arg{
+	int				addr;
 	int				type;
 	int				value;
 	char			*copy;
@@ -39,50 +40,72 @@ typedef struct		s_arg{
 	struct s_arg	*next;
 }					t_arg;
 
-typedef struct		s_elems{
+typedef struct		s_elem{
+	int				addr;
 	int				type;
 	int				key;
+	char			*line;
 	t_arg			*args;
 	t_bool			complete;
-	struct s_elems	*next;
-}					t_elems;
+	struct s_elem	*next;
+}					t_elem;
 
-typedef struct		s_functions t_functions;
+typedef struct		s_function t_function;
 
-struct				s_functions{
+struct				s_function{
 	char			*name;
-	int				pos;
-	t_elems			*elems;
-	t_functions		*next;
+	int				addr;
+	t_elem			*elems;
+	t_function		*next;
 };
 
 typedef struct		s_record{
 	char			*name;
 	char			*comment;
 	t_file			file;
-	t_functions		*functions;
+	t_function		*functions;
 }					t_record;
 
 /*
 ********************************************************************************
 **                                                                            **
-**   check_instruction.c                                                      **
+**   get_dir.c                                                                **
+**                                                                            **
+********************************************************************************
+*/
+
+int		get_dir(t_record *record, t_arg *current_arg, t_elem *elem, int i);
+
+/*
+********************************************************************************
+**                                                                            **
+**   get_elem.c                                                               **
 **                                                                            **
 ********************************************************************************
 */
 
 int		is_label_char(int c);
-int		check_elem(t_record *record, t_file *file, t_elems **current_elem, int type);
+int		get_elem(t_record *record, t_file *file, t_elem *current_elem);
 
 /*
 ********************************************************************************
 **                                                                            **
-**   get_functions.c                                                          **
+**   get_function.c                                                           **
 **                                                                            **
 ********************************************************************************
 */
 
-void	get_functions(t_record *record, t_file *file, t_functions **current_function);
+void	get_function(t_record *record, t_file *file, t_function **current_function);
+
+/*
+********************************************************************************
+**                                                                            **
+**   get_ind.c                                                                **
+**                                                                            **
+********************************************************************************
+*/
+
+int		get_ind(t_record *record, t_arg *current_arg, t_elem *elem, int i);
 
 /*
 ********************************************************************************
@@ -93,6 +116,16 @@ void	get_functions(t_record *record, t_file *file, t_functions **current_functio
 */
 
 void				get_infos(t_record *record, t_file *file);
+
+/*
+********************************************************************************
+**                                                                            **
+**   get_reg.c                                                                **
+**                                                                            **
+********************************************************************************
+*/
+
+int		get_reg(t_record *record, t_arg *current_arg, t_elem *elem, int i);
 
 /*
 ********************************************************************************
@@ -109,14 +142,15 @@ void		init(t_record *record, char *file_name);
 /*
 ********************************************************************************
 **                                                                            **
-**   t_elems.c                                                                **
+**   t_elem.c                                                                **
 **                                                                            **
 ********************************************************************************
 */
 
-void				del_t_elem(t_elems **current);
-void				del_t_elems(t_elems **current);
-void				new_t_elem(t_elems **current, int type);
+void				print_elems(t_elem *current);
+void				del_t_elem(t_elem **current);
+void				del_t_elems(t_elem **current);
+void				new_t_elem(t_elem **current, int type, int addr);
 
 /*
 ********************************************************************************
@@ -133,14 +167,15 @@ void				new_t_file(t_record *record, t_file *file, char *file_name);
 /*
 ********************************************************************************
 **                                                                            **
-**   t_functions.c                                                            **
+**   t_function.c                                                            **
 **                                                                            **
 ********************************************************************************
 */
 
-void				del_t_function(t_functions **current);
-void				del_t_functions(t_functions **current);
-t_functions			**new_t_function(t_functions **current, char *name, int pos);
+void				print_functions(t_function *current);
+void				del_t_function(t_function **current);
+void				del_t_functions(t_function **current);
+t_function			**new_t_function(t_function **current, char *name, int pos);
 
 /*
 ********************************************************************************
@@ -150,8 +185,23 @@ t_functions			**new_t_function(t_functions **current, char *name, int pos);
 ********************************************************************************
 */
 
+void				print_args(t_arg *current);
 void				del_t_arg(t_arg **current);
-void				del_t_arg(t_arg **current);
-void				new_t_arg(t_arg **current);
+void				del_t_args(t_arg **current);
+void				new_t_arg(t_arg **current, int addr);
+
+
+
+
+
+
+void	next_comma(t_record *record, t_elem
+ *elem);
+int	is_label_char(int c);
+t_bool	check_authorized_arg(t_record *record, t_elem
+ *elem, int arg_type, int indice);
+int		verif_synrax(t_record *record, char *str);
+void	get_label(t_record *record, t_arg *current_arg, char *str, size_t len);
+
 
 #endif

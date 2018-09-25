@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_functions.c                                    :+:      :+:    :+:   */
+/*   get_function.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:26:00 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/24 17:21:50 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/25 17:30:11 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern t_op	g_op_tab[];
 
-char	*is_new_name(t_functions *functions, char *str)
+char	*is_new_name(t_function *functions, char *str)
 {
 	while (functions)
 	{
@@ -25,7 +25,7 @@ char	*is_new_name(t_functions *functions, char *str)
 	return (ft_strdup(str));
 }
 
-void	get_name(t_functions *functions, char *str, char *label, char **name)
+void	get_name(t_function *functions, char *str, char *label, char **name)
 {
 	int i;
 
@@ -48,7 +48,7 @@ static int	next_data(char *str)
 	return (i);
 }
 
-t_bool	check_line(t_functions *functions, t_file *file, int *type, char **name)
+t_bool	check_line(t_function *functions, t_file *file, int *type, char **name)
 {
 	int		i;
 	char	*label;
@@ -73,27 +73,28 @@ t_bool	check_line(t_functions *functions, t_file *file, int *type, char **name)
 	return (FALSE);
 }
 
-void	get_functions(t_record *record, t_file *file, t_functions **current_function)
+void	get_function(t_record *record, t_file *file, t_function **current_function)
 {
-	t_elems		**current_elem;
+	t_elem		**current_elem;
 	char		*name;
 	int			type;
-	int			pos;
+	int			addr;
 	//rechercher si le debut n'est pas une erreur
 
-	pos = 0;
+	addr = 0;
 	while (file->line)
 	{
 		type = 0;
 		ft_putendl(file->line + file->index_char);
 		if (check_line(record->functions, file, &type, &name) || !(*current_function))
 		{
-			current_function = new_t_function(current_function, name, pos);//si rien de cree ->erreur
+			current_function = new_t_function(current_function, name, addr);//si rien de cree ->erreur
 			current_elem = &((*current_function)->elems);
 		}
 		if (g_op_tab[type].shortcut)
 		{
-			pos += check_elem(record, file, current_elem, type);//si rien de cree ->erreur
+			new_t_elem(current_elem, type, addr);
+			addr += get_elem(record, file, *current_elem);//si rien de cree ->erreur
 			current_elem = &((*current_elem)->next);
 		}
 		read_t_file(record, file);

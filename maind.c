@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_elems.c                                          :+:      :+:    :+:   */
+/*   maind.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/03 15:34:54 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/24 14:39:53 by abezanni         ###   ########.fr       */
+/*   Created: 2018/09/25 13:02:27 by abezanni          #+#    #+#             */
+/*   Updated: 2018/09/25 13:08:35 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include <stdio.h>
+#include "inc/asm.h"
 
-void	del_t_elem(t_elems **current)
+int main()
 {
-	t_elems *to_free;
+	char str[6];
+	char str2[6];
 
-	to_free = *current;
-	*current = (*current)->next;
-}
-
-void	del_t_elems(t_elems **current)
-{
-	while (*current)
-		del_t_elem(current);
-}
-
-void	new_t_elem(t_elems **current, int type)
-{
-	if (!(*current = ft_memalloc(sizeof(t_elems))))
-		return ;
-	(*current)->type = type;
+	*str = 140;
+	*str2 = 250;
+	printf("%d\n", ft_strcmp(NULL, str2));
+	printf("%d\n", strcmp(NULL, str2));
+	return (0);
 }

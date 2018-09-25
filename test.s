@@ -1,11 +1,11 @@
 .name "Nom"
 .comment "Commentaire"
 
-    ld:live%-1
+ld:live%-1
 ld :ld, r3
-ld: ld :ld, r3
+ld :ld, r3
 la:
-ld %10, r3
+ld 10, r3
 ld %:ld, r3
 ld :ld, r3
 ld :ld, r3

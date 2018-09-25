@@ -1,46 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_arg.c                                            :+:      :+:    :+:   */
+/*   t_elem.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/01 17:37:50 by pompedup          #+#    #+#             */
-/*   Updated: 2018/09/25 17:06:31 by abezanni         ###   ########.fr       */
+/*   Created: 2018/09/03 15:34:54 by abezanni          #+#    #+#             */
+/*   Updated: 2018/09/25 17:25:06 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	print_args(t_arg *current)
+void	print_elems(t_elem *current)
 {
 	while (current)
 	{
-		ft_printf("\033[0;34mArg\033[0;0m\nType : %d\nValue %d\nHandled %s\n", current->type,\
-			current->value, current->handled ? "True" : "False");
+		ft_printf("\033[0;32mElems\033[0;0m\nAddr : %d\nType %d\nKey : %d\nHandled %s\n",\
+			current->addr, current->type, current->key, current->complete ? "True" : "False");
+		print_args(current->args);
 		current = current->next;
 	}
 }
 
-void	del_t_arg(t_arg **current)
+void	del_t_elem(t_elem **current)
 {
-	t_arg *to_free;
+	t_elem *to_free;
 
 	to_free = *current;
+	del_t_args(&to_free->args);
 	*current = (*current)->next;
-	//free(to_free->str);
-	free(to_free);
 }
 
-void	del_t_args(t_arg **current)
+void	del_t_elems(t_elem **current)
 {
 	while (*current)
-		del_t_arg(current);
+		del_t_elem(current);
 }
 
-void	new_t_arg(t_arg **current, int addr)
+void	new_t_elem(t_elem **current, int type, int addr)
 {
-	if (!(*current = ft_memalloc(sizeof(t_arg))))
+	if (!(*current = ft_memalloc(sizeof(t_elem))))
 		return ;
+	(*current)->type = type;
 	(*current)->addr = addr;
 }
