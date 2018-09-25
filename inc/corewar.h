@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/25 16:01:08 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/25 19:10:45 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define FAIL_MEMALLOC_0	"ft_memalloc of vm->info failed.\n" USAGE
 # define FAIL_MEMALLOC_1	"ft_memalloc of player failed.\n" USAGE
 # define FAIL_MEMALLOC_2	"ft_memalloc of header failed.\n" USAGE
+# define FAIL_MEMALLOC_3	"ft_memalloc of process failed.\n" USAGE
 
 
 typedef struct			s_player

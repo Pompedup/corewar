@@ -6,11 +6,17 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/24 14:14:41 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/25 19:17:06 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+********************************************************************************
+**
+********************************************************************************
+*/
 
 int		two_players_lives(t_corevm *vm)
 {
@@ -31,7 +37,10 @@ int		two_players_lives(t_corevm *vm)
 }
 
 /*
+********************************************************************************
+** execute_the_battle get instructions for each alive player
 ** recupere les instructions de chaque process
+********************************************************************************
 */
 
 void	execute_the_battle(t_corevm *vm)
@@ -48,7 +57,7 @@ void	execute_the_battle(t_corevm *vm)
 		{
 			if (process->alive > -1)
 			{
-				manage_instruction(vm, process);
+				manage_instruction(vm, process);//get_instructions
 				if (vm->nb_cycle >= vm->cycle_to_die)
 					check_if_process_lives(process);
 			}

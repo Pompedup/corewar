@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 15:13:34 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/25 15:57:14 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/25 19:12:00 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 #include "corewar.h"
 
 /*
+********************************************************************************
+**  put_process_front enables the latest player to play first
 ** le dernier joueur né joue en premier.
+********************************************************************************
 */
 
 void        put_process_front(t_process **first, t_process *process)
@@ -24,9 +27,12 @@ void        put_process_front(t_process **first, t_process *process)
 }
 
 /*
+********************************************************************************
+**  create_process translates the player information into a process
 ** avant de placer les joueurs dans la core
 ** on les transformes en processus (on les mets dans une nouvelle sutructure "process")
 ** plus adaptée pour executer le jeu
+********************************************************************************
 */
 
 t_process	*create_process(t_corevm *vm, int pc, t_player *player)
@@ -34,7 +40,7 @@ t_process	*create_process(t_corevm *vm, int pc, t_player *player)
     t_process   *process;
 
     if (!(process = ft_memalloc(sizeof(t_process))))
-        ft_error(vm, "malloc error", 0); //malloc error
+        ft_error(vm, FAIL_MEMALLOC_3, 0);
     process->color = player->color;
     process->pc = pc;
 	process->carry = 0;

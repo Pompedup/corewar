@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 13:36:25 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/25 16:05:21 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/25 19:14:06 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 /*
 ********************************************************************************
+**	players_charged_in_core transfers players into processes
 ** place les joueurs dans la memoire (l'arenne corewar)
 ** les champions sont chargés en mémoire de façon à espacer équitablement leurs points d’entrée.
 ** on a ca grace au calcul i = .. voir ci dessous
@@ -36,7 +37,7 @@ void	players_charged_in_core(t_corevm *vm)
 		//printf("player->name_file %s \n", player->name_file);
 		i = (place / (float)vm->info->nb_players * (float)MEM_SIZE);
 		printf("player->num %d \n",player->num);
-		process = create_process(vm, i, player);
+		process = create_process(vm, i, player);//handle_processus
 		put_process_front(&(vm->info->first_processus), process);
 		j = 0;
 		while (j < player->len_process)

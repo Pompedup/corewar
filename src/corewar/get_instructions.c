@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/25 17:20:43 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/25 19:19:36 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ t_ptr_func g_instruc_func[] =
 };
 
 /*
+********************************************************************************
 ** add - sub - live - zjmp - fork - lfork - aff (les simples 0 option pour les arg)
 ** combinaison ok : ld - st - ldi - sti - lld - lldi
 ** combinaison ok : and - or - xor meme combinaison possible
+********************************************************************************
 */
 
 void	execute_instruction(t_corevm *vm, t_process *actual)
@@ -48,6 +50,7 @@ void	execute_instruction(t_corevm *vm, t_process *actual)
 }
 
 /*
+********************************************************************************
 # define REG_CODE	1
 # define DIR_CODE	2
 # define IND_CODE	3
@@ -59,6 +62,7 @@ void	execute_instruction(t_corevm *vm, t_process *actual)
 ** : 1 pour reg, 2 pour direct ou 3 pour un indirect
 ** r2,23,%34 donne l’octet de codage 0b 01 11 10 00, soit 0x78
 **                                      re id di les 2 derniers bits tjr a 00
+********************************************************************************
 */
 
 void	get_instruction_type(t_corevm *vm, t_process *actual)
@@ -78,16 +82,17 @@ void	get_instruction_type(t_corevm *vm, t_process *actual)
 		actual->type_instruc[1] = vm->core[actual->pc++ % MEM_SIZE];
 		//actual->pc++;
 	}
-
-
 }
 
-
 /*
+********************************************************************************
+**	manage_instruction reupere l'instruction et ne l'execute qu'a la fin du cycle
+**
 ** je regarde si j'ai deja lu linstruction ou se situe mon pc
 ** si NON : je la recupere avec get_instruction
 ** si OUI : je regarde si on est arrive a la fin de son dernier cycle
 ** pour voir si on peut lexecuter ou non
+********************************************************************************
 */
 
 void	manage_instruction(t_corevm *vm, t_process *process)
