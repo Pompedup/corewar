@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:40:17 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/25 13:14:31 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/25 18:53:11 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 /*
 ********************************************************************************
+**	get_info_player
 ** je remplie la structure header(ds op.h avec magic, name, p_s et comment)
 ** et je recupere le programme du champion
 ********************************************************************************
@@ -54,36 +55,9 @@ void	init_variable(t_corevm *vm, t_player *player, int num)
 
 /*
 ********************************************************************************
+**	create_player uses double pointer to add at the end of the list
+**	vm->info->first_player the latest link containing the player info
 ** je cree un maillon t_player que je lie a la structure t_info_players
-**	EC : je vais changer pour double pointeur
-********************************************************************************
-*/
-
-// void	create_player(t_corevm *vm, int num, int index)
-// {
-	// t_player	*player;
-	// t_player	*tmp;
-//
-	// if (!(player = ft_memalloc(sizeof(t_player))))
-		// ft_error(vm, FAIL_MEMALLOC_1, 0);
-	// player->name_file = vm->argv[index]; // a supprimer quand on a fini le projet cetait juste pour afficher
-	// init_variable(vm, player, num);
-	// get_info_player(player, vm, index);
-	// if (vm->info->first_player == NULL)
-		// vm->info->first_player = player;
-	// else
-	// {
-		// tmp = vm->info->first_player;
-		// while (tmp->next)
-			// tmp = tmp->next;
-		// tmp->next = player;
-	// }
-	// vm->info->nb_players++;
-// }
-
-/*
-********************************************************************************
-** version double pointer
 ********************************************************************************
 */
 
@@ -96,7 +70,8 @@ void	create_player(t_corevm *vm, int num, int index)
 		player = &(*player)->next;
 	if (!(*player = ft_memalloc(sizeof(t_player))))
 		ft_error(vm, FAIL_MEMALLOC_1, 0);
-	(*player)->name_file = vm->argv[index]; // a supprimer quand on a fini le projet cetait juste pour afficher
+	(*player)->name_file = vm->argv[index];
+// a supprimer quand on a fini le projet cetait juste pour afficher
 	init_variable(vm, (*player), num);
 	get_info_player((*player), vm, index);
 	vm->info->nb_players++;

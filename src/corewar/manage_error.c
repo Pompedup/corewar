@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 18:32:47 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/25 12:31:39 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/25 15:32:01 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@
 
 
 /*
-** can't perform open - read - close
+********************************************************************************
+** ft_error
+**  can't perform open - read - close
+********************************************************************************
 */
 
 void     ft_error(t_corevm *vm, char *mess_error, int to_free)
@@ -44,14 +47,16 @@ void     ft_error(t_corevm *vm, char *mess_error, int to_free)
 }
 
 /*
-** can't perform open - read - close
+********************************************************************************
+** ft_read_error
+********************************************************************************
 */
 
 void    ft_read_error(t_corevm *vm, char *mess_error, int fd)
 {
     if (close(fd) == -1)
-		ft_error(vm, ft_strjoin(ERR_MESS_6, ft_itoa(fd)), 1);//of file fd
-    ft_error(vm, ft_strjoin(mess_error, ft_itoa(fd)), 1);
+		ft_error(vm, ft_strjoin(ERR_MESS_6, vm->info->first_player->name_file), 1);
+    ft_error(vm, mess_error, 1);
 }
 
 /*

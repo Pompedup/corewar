@@ -2,4 +2,4 @@
 .comment ""
 
 
-and %9, %6, r3
+and r1, %6, r3

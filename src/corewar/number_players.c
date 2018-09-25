@@ -6,11 +6,18 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:56:15 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/24 18:40:49 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/25 15:31:37 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+********************************************************************************
+**	unused_num returns 0 if num is already used for one of the players
+**	or 1 if the num is indeed unused
+********************************************************************************
+*/
 
 int		unused_num(t_corevm *vm, int num)
 {
@@ -29,7 +36,9 @@ int		unused_num(t_corevm *vm, int num)
 }
 
 /*
+********************************************************************************
 ** je met les joueurs dans l'ordre croissant pour bien les placer dans l'arenne
+********************************************************************************
 */
 
 void	sort_players(t_corevm *vm)
@@ -70,9 +79,12 @@ void	sort_players(t_corevm *vm)
 */
 
 /*
+********************************************************************************
+**	number_players gives to each player a number
 ** j'assigne un num a tout les joueurs qui en on pas et les trie (en commencant par 1 obligatoirement) !!
 ** !!!! ds le sujet --> le dernier né joue en premier.
 ** je me suis peut etre tromper dans l'ordre alors (croissant ou decroissant)??!!
+********************************************************************************
 */
 
 void	number_players(t_corevm *vm)

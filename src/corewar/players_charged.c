@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   players_charged.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 13:36:25 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/18 15:10:36 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/25 16:05:21 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
 /*
+********************************************************************************
 ** place les joueurs dans la memoire (l'arenne corewar)
 ** les champions sont chargés en mémoire de façon à espacer équitablement leurs points d’entrée.
 ** on a ca grace au calcul i = .. voir ci dessous
 ** et la on enregistre le 1er pc du joueur -> premiere case de la ou on a placé le programme du joueur
+********************************************************************************
 */
 
 void	players_charged_in_core(t_corevm *vm)
@@ -49,13 +51,14 @@ void	players_charged_in_core(t_corevm *vm)
 
 
 
+
 	//write(1, vm->core, MEM_SIZE);
-	//ft_print_memory(vm->core, MEM_SIZE);
-	process = vm->info->first_processus;
-	while (process)
-	{
-		printf("process->reg[0] %d\n", process->reg[0]);
-		printf("process->pc %d\n", process->pc);
-		process = process->next;
-	}
+	//  ft_print_memory(vm->core, MEM_SIZE);
+	// process = vm->info->first_processus;
+	// while (process)
+	// {
+		// printf("process->reg[0] %d\n", process->reg[0]);
+		// printf("process->pc %d\n", process->pc);
+		// process = process->next;
+	// }
 }

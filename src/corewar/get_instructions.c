@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_instructions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/24 18:31:23 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/25 17:20:43 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	execute_instruction(t_corevm *vm, t_process *actual)
 			g_instruc_func[i].ptrfunc(vm, actual);
 			i = 0;
 			while (i < 5)
-				actual->type_instruc[i++] = -1;
+				actual->type_instruc[i++] = 0;
 			return ;
 		}
 		i++;
@@ -93,7 +93,7 @@ void	get_instruction_type(t_corevm *vm, t_process *actual)
 void	manage_instruction(t_corevm *vm, t_process *process)
 {
 
-	if (process->type_instruc[0] == -1)
+	if (process->type_instruc[0] == 0)
 		get_instruction_type(vm, process);
 	else
 	{
@@ -101,7 +101,7 @@ void	manage_instruction(t_corevm *vm, t_process *process)
 		if (process->nb_cycle_instruc == 1)
 			execute_instruction(vm, process);
 	}
-	//execute_instruction(vm, process);
+	execute_instruction(vm, process);
 }
 
 

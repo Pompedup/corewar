@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_arguments.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 15:16:23 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/24 11:46:10 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/25 17:24:21 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg)
 		if (num_arg & (1 << i))
 		{
 			if (((process->type_instruc[1] >> dec) & 3) == 1)
-				values[i] = process->reg[process->args[i]];
+				values[i] = process->reg[process->args[i] - 1];
 			else if (((process->type_instruc[1] >> dec) & 3) == 2)
 				values[i] = process->args[i];
 			else if (((process->type_instruc[1] >> dec) & 3) == 3)

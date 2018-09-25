@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 14:08:14 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/24 18:03:38 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/25 16:03:13 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ void	read_comment(t_player *player, t_corevm *vm, int fd)
 	if ((ret = read(fd, player->header->comment, COMMENT_LENGTH + 4)) == -1)// +4 pour le '\0'
 		ft_read_error(vm, ft_strjoin(ERR_MESS_12, player->name_file), fd); // num error probleme de lecture!!!
 	player->header->comment[ret] = '\0';
-	//write(1, "comment : ", 10);
-	//write(1, player->header->comment, ret);
-	//write(1, "\n", 1);
-	//print_memory(player->header->comment, ret);
+	 write(1, "comment : ", 10);
+	// write(1, player->header->comment, ret);
+	// write(1, "\n", 1);
+	//ft_print_memory(player->header->comment, ret);
 }
 
 /*
@@ -115,6 +115,6 @@ void	read_programme(t_player *player, t_corevm *vm, int fd)
 		ft_error(vm, ERR_MESS_14, 0); //difference entre la taille reel de votre proramme et l'int prog_size :0 !!
 	player->len_process = ret; //potentiellement a retirer car doublon avec header->prog_size
 	//write(1, "process : \n", 11);
-	//print_memory(player->process, ret);
+	ft_print_memory(player->process, ret);
 	//	write(1, "\n", 1);
 }

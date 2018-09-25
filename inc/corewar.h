@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/25 12:38:50 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/25 16:01:08 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@
 # define ERR_MESS_5			"cannot open file "
 # define ERR_MESS_6			"cannot close file "
 # define ERR_MESS_7			"incorrect magic number"
-# define ERR_MESS_8			"cannot read magic number from file"
-# define ERR_MESS_9			"cannot read name of player from file"
-# define ERR_MESS_10		"cannot read the lenght of the program of file"
+# define ERR_MESS_8			"cannot read magic number from file "
+# define ERR_MESS_9			"cannot read name of player from file "
+# define ERR_MESS_10		"cannot read the size of the program of file "
 # define ERR_MESS_11		"champion is too large"
-# define ERR_MESS_12		"cannot read comment from file"
-# define ERR_MESS_13		"cannot read for the lenght of the program of file"
-# define ERR_MESS_14		"difference between size of program read and the size expected"
+# define ERR_MESS_12		"cannot read comment from file "
+# define ERR_MESS_13		"cannot read the program of file "
+# define ERR_MESS_14		"difference between progam size expected and the one read"
 # define ERR_MESS_15		"too many players"
 # define ERR_MESS_16		"at least one player is needed"
 # define ERR_MESS_17		"argument for number of player is not an int"
@@ -63,7 +63,6 @@ typedef struct			s_process
 
 	int					type_instruc[2];
 	int					args[3];
-	//int				values[3];
 	int					nb_cycle_instruc;
 	struct s_process	*next;
 }						t_process;

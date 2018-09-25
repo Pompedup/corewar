@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 12:02:04 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/25 12:37:21 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/25 15:12:26 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,31 @@
 
 /*
 ********************************************************************************
-**	add_player__with_num
+**	add_player_with_num checks that the argv following -n is a positive int
+**	then creates the player with that number
 ********************************************************************************
 */
 
 void	add_player_with_num(t_corevm *vm, int i)
 {
-	int j;
 	int num;
 
-	j = 0;
 	if ((!(ft_strisall(vm->argv[i + 1], &ft_isdigit)))\
 		|| (ft_strlen(vm->argv[i]) > 10 || (ft_strlen(vm->argv[i]) == 10\
-		&& ft_strcmp(vm->argv[i], "2147483647") > 0))) //verifier que vm->argv[i] est un int
-		ft_error(vm, ERR_MESS_17, 0); // -n veut un num apres
+		&& ft_strcmp(vm->argv[i], "2147483647") > 0)))
+		ft_error(vm, ERR_MESS_17, 0);
 	num = ft_atoi(vm->argv[i + 1]);
 	if (num == 0 || !unused_num(vm, num))
-		ft_error(vm, ERR_MESS_18, 0); //un joueur ne peux pas avoir le num 0 ou un num deja assigné
-	if (ft_strlen(vm->argv[i + 2]) < 4 || ft_strcmp(ft_strstr(vm->argv[i + 2], ".cor"), ".cor") == 0)
-		ft_error(vm, ERR_MESS_4, 0); //le fichier champion nest pas bon
+		ft_error(vm, ERR_MESS_18, 0);
+	if (ft_strlen(vm->argv[i + 2]) < 4\
+		|| ft_strcmp(ft_strstr(vm->argv[i + 2], ".cor"), ".cor"))
+		ft_error(vm, ERR_MESS_4, 0);
 	create_player(vm, num, i + 2);
 }
 
 /*
 ********************************************************************************
-**	add_player checks that the file name is not empty and the
+**	add_player checks that the file name is not empty
 **	ajoute un joueur (sans numero pour le moment)
 ********************************************************************************
 */
@@ -54,8 +54,8 @@ void	add_player(t_corevm *vm, int i)
 ********************************************************************************
 **	get_dump checks that the number of cycles given is a positive int
 **	recupère	dump :
-** Au bout de nbr_cycles cycles d’exécution, dump la mémoire sur la sortie standard,
-** puis quitte la partie. (mémoire dumpée au format hexadécimal)
+** Au bout de nbr_cycles cycles d’exécution, dump la mémoire sur la sortie
+** standard,puis quitte la partie. (mémoire dumpée au format hexadécimal)
 ** avec 32 octets par ligne.
 ********************************************************************************
 */
@@ -98,8 +98,8 @@ void	parse_argv(t_corevm *vm)
 		else
 			ft_error(vm, ERR_MESS_1, 0);
 		if (vm->info->nb_players > MAX_PLAYERS)
-			ft_error(vm, ERR_MESS_15, 0); //num error Too many players for the battle :O!!
+			ft_error(vm, ERR_MESS_15, 0);
 	}
 	if (vm->info->nb_players < 1)
-		ft_error(vm, ERR_MESS_16, 0); //num error il faut au moins 1 joueurs!!
+		ft_error(vm, ERR_MESS_16, 0);
 }

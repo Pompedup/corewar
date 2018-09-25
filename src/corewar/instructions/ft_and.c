@@ -11,6 +11,7 @@ résultat dans le registre qui est le 3ème paramètre. Opcode 0x06. Modifie le 
 ** ET bit à bit : l'arg1 & l'arg2 et met le resultat dans l'arg3
 ** and r2,%0,r3 - met r2 & 0 dans r3
 ** modifie le carry
+** Si la valeur resultante est egale a zero, alors le carry passe a l'etat un, sinon a l'etat zero
 */
 
 //Usage : and S(RG/ID/D4), S(RG/ID/D4), D(RG)
@@ -26,8 +27,10 @@ void	ft_and(t_corevm *vm, t_process *process)
 	printf("values[0] %d  values[1] %d\n", values[0], values[1]);
 	if (values)
 	{
-		process->reg[process->args[2]] = values[0] & values[1];
-		printf("process->reg[process->args[2]] %d\n", process->reg[process->args[2]]);
+		process->reg[process->args[2] - 1] = values[0] & values[1];
+		if (process->reg[process->args[2] - 1] == 0)
+			vm->info->first_processus->carry = 1; //comme ca pour modifier le carry?
+		printf("process->reg[process->args[2] - 1] %d\n", process->reg[process->args[2] - 1]);
 		free(values);
 	}
 
