@@ -3,14 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+         #
+#    By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/09/24 18:31:33 by ccoupez          ###   ########.fr        #
+#    Updated: 2018/09/25 12:11:50 by ecesari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+.PHONY : all clean fclean re libftcomp corewar asm
+
 CC =			@gcc
+
+FSANITIZE_FLAG = -fsanitize=address
 
 OBJ =			$(COMMON_OBJ)\
 				$(ASM_OBJ)\
@@ -84,13 +88,23 @@ CFLAGS = -Wall -Wextra -Werror $(INCLUDE)
 
 all : libftcomp $(ASM_NAME) $(COREWAR_NAME)
 
+$(COREWAR_NAME) : $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
+	$(CC) -o $(COREWAR_NAME) $(CFLAGS) $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
+	@echo "\033[1;32mSucced corewar\033[0m"
+
 $(ASM_NAME) : $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
 	$(CC) -o $(ASM_NAME) $(CFLAGS) $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
 	@echo "\033[1;32mSucced asm\033[0m"
 
-$(COREWAR_NAME) : $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
-	$(CC) -o $(COREWAR_NAME) $(CFLAGS) $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
-	@echo "\033[1;32mSucced corewar\033[0m"
+DEBUG : libftcomp $(ASM_NAME_DEBUG) $(COREWAR_NAME_DEBUG)
+
+$(ASM_NAME_DEBUG) : $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
+	$(CC) $(CFLAGS) $(FSANITIZE_FLAG) -o $(ASM_NAME) $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
+	@echo "\033[1;32mSucced asm with $(FSANITIZE_FLAG)\033[0m"
+
+$(COREWAR_NAME_DEBUG) : $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
+	$(CC) $(CFLAGS) $(FSANITIZE_FLAG) -o $(COREWAR_NAME) $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
+	@echo "\033[1;32mSucced corewar with $(FSANITIZE_FLAG)\033[0m"
 
 $(COMMON_OBJ) : inc/common.h
 $(ASM_OBJ) : inc/asm.h inc/common.h

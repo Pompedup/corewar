@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 18:32:47 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/24 18:09:54 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/25 12:31:39 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 void     ft_error(t_corevm *vm, char *mess_error, int to_free)
 {
     (void)vm;
-    ft_fprintf(2, "Error: %s\n", mess_error);
+    ft_fprintf(2, "Error: %s.\n", mess_error);
     if (to_free)
         ft_strdel(&mess_error);
     //free toute la vm

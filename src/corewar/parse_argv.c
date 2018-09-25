@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 12:02:04 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/24 18:02:42 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/25 12:37:21 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	add_player_with_num(t_corevm *vm, int i)
 
 void	add_player(t_corevm *vm, int i)
 {
-	if (ft_strlen(vm->argv[i]) < 4 && !ft_strstr(vm->argv[i], ".cor\0"))
+	if (ft_strlen(vm->argv[i]) < 4)
 		ft_error(vm, ERR_MESS_4, 0);
 	create_player(vm, 0, i);
 }
@@ -88,7 +88,7 @@ void	parse_argv(t_corevm *vm)
 			get_dump(vm, ++i);
 		else if (ft_strequ(vm->argv[i], "-visu"))
 			vm->visu = 1;
-		else if (ft_strcmp(ft_strstr(vm->argv[i], ".cor"), ".cor") == 0) //
+		else if (ft_strcmp(ft_strstr(vm->argv[i], ".cor"), ".cor") == 0)
 			add_player(vm, i);
 		else if (ft_strequ(vm->argv[i], "-n"))
 		{

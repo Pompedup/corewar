@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/24 18:20:28 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/25 12:38:50 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,26 @@
 # include "common.h"
 # include <stdio.h>// Asupprimer
 
-# define USAGE "Usage: ./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ...\n"
+# define USAGE "Usage: ./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ..."
 # define ERR_MESS_0			"not enough arguments.\n" USAGE
 # define ERR_MESS_1			"incorrect arguments.\n" USAGE
-# define ERR_MESS_2			"argument for dump is not an int.\n"
-# define ERR_MESS_3			"argument for dump must be superior to 0.\n"
-# define ERR_MESS_4			"incorrect name of the champion file.\n"
-# define ERR_MESS_5			"cannot open file.\n"
-# define ERR_MESS_6			"cannot close file.\n"
-# define ERR_MESS_7			"incorrect magic number.\n"
-# define ERR_MESS_8			"cannot read magic number from file.\n"
-# define ERR_MESS_9			"cannot read name of player from file.\n"
-# define ERR_MESS_10		"cannot read the lenght of the program of file.\n"
-# define ERR_MESS_11		"champion is too large.\n"
-# define ERR_MESS_12		"cannot read comment from file.\n"
-# define ERR_MESS_13		"cannot read for the lenght of the program of file.\n"
-# define ERR_MESS_14		"difference between size of program read and the size expected.\n"
-# define ERR_MESS_15		"too many players.\n"
-# define ERR_MESS_16		"at least one player is needed.\n"
-# define ERR_MESS_17		"argument for number of player is not an int.\n"
-# define ERR_MESS_18		"a player cannot have number 0 or a number already given.\n"
+# define ERR_MESS_2			"argument for dump is not an unsigned int"
+# define ERR_MESS_3			"argument for dump must be superior to 0"
+# define ERR_MESS_4			"incorrect name of the champion file"
+# define ERR_MESS_5			"cannot open file "
+# define ERR_MESS_6			"cannot close file "
+# define ERR_MESS_7			"incorrect magic number"
+# define ERR_MESS_8			"cannot read magic number from file"
+# define ERR_MESS_9			"cannot read name of player from file"
+# define ERR_MESS_10		"cannot read the lenght of the program of file"
+# define ERR_MESS_11		"champion is too large"
+# define ERR_MESS_12		"cannot read comment from file"
+# define ERR_MESS_13		"cannot read for the lenght of the program of file"
+# define ERR_MESS_14		"difference between size of program read and the size expected"
+# define ERR_MESS_15		"too many players"
+# define ERR_MESS_16		"at least one player is needed"
+# define ERR_MESS_17		"argument for number of player is not an int"
+# define ERR_MESS_18		"a player cannot have number 0 or a number already given"
 # define FAIL_MEMALLOC_0	"ft_memalloc of vm->info failed.\n" USAGE
 # define FAIL_MEMALLOC_1	"ft_memalloc of player failed.\n" USAGE
 # define FAIL_MEMALLOC_2	"ft_memalloc of header failed.\n" USAGE
@@ -83,7 +83,7 @@ typedef struct			s_corevm
 
 	//ici plus pour la battle
 	char				core[MEM_SIZE];
-	int					dump;
+	int					dump;//unsigned int
 	int					nb_cycle;
 	int					cycle_to_die;
 	int					nb_lives; //associer au define NBR_LIVE. Si au cours d’une de ces vérifications on se rend compte qu’il y a eu au moins NBR_LIVE exécutions de live depuis la dernière vérification en date, on décrémente CYCLE_TO_DIE de CYCLE_DELTA unités

@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:40:17 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/24 18:03:51 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/25 13:14:31 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,21 @@ void	get_info_player(t_player *player, t_corevm *vm, int i)
 {
 	int	fd;
 
-	//printf(" get file vm->argv[i] -%s-\n", vm->argv[i]);
-	if (ft_strlen(vm->argv[i]) > 4 && ft_strstr(vm->argv[i], ".cor\0"))
-	{
-		if ((fd = open(vm->argv[i], O_RDONLY)) == -1)
-			ft_error(vm, ft_strjoin(ERR_MESS_5, vm->argv[i]), 1);
-		read_magic(player, vm, fd);
-		read_name(player, vm, fd);
-		read_prog_size(player, vm, fd);
-		read_comment(player, vm, fd);
-		read_programme(player, vm, fd);
-		if (close(fd) == -1)
-			ft_error(vm, ft_strjoin(ERR_MESS_6, vm->argv[i]), 1);
-	}
-	else
-		ft_error(vm, ERR_MESS_4, 0);
+//printf(" get file vm->argv[i] -%s-\n", vm->argv[i]);
+	if ((fd = open(vm->argv[i], O_RDONLY)) == -1)
+		ft_error(vm, ft_strjoin(ERR_MESS_5, vm->argv[i]), 1);
+	read_magic(player, vm, fd);
+	read_name(player, vm, fd);
+	read_prog_size(player, vm, fd);
+	read_comment(player, vm, fd);
+	read_programme(player, vm, fd);
+	if (close(fd) == -1)
+		ft_error(vm, ft_strjoin(ERR_MESS_6, vm->argv[i]), 1);
 }
 
 /*
 ********************************************************************************
-**	init_variable
+**	init_variable initializes the attributes of t_player elements
 ********************************************************************************
 */
 
@@ -54,8 +49,7 @@ void	init_variable(t_corevm *vm, t_player *player, int num)
 		ft_error(vm, FAIL_MEMALLOC_2, 0);
 	player->header = header;
 	player->num = num;
-	player->color = 0; //?voir comment on met les couleurs (avec des defines?)
-
+	player->color = 0;//?voir comment on met les couleurs (avec des defines?)
 }
 
 /*
@@ -65,24 +59,45 @@ void	init_variable(t_corevm *vm, t_player *player, int num)
 ********************************************************************************
 */
 
+// void	create_player(t_corevm *vm, int num, int index)
+// {
+	// t_player	*player;
+	// t_player	*tmp;
+//
+	// if (!(player = ft_memalloc(sizeof(t_player))))
+		// ft_error(vm, FAIL_MEMALLOC_1, 0);
+	// player->name_file = vm->argv[index]; // a supprimer quand on a fini le projet cetait juste pour afficher
+	// init_variable(vm, player, num);
+	// get_info_player(player, vm, index);
+	// if (vm->info->first_player == NULL)
+		// vm->info->first_player = player;
+	// else
+	// {
+		// tmp = vm->info->first_player;
+		// while (tmp->next)
+			// tmp = tmp->next;
+		// tmp->next = player;
+	// }
+	// vm->info->nb_players++;
+// }
+
+/*
+********************************************************************************
+** version double pointer
+********************************************************************************
+*/
+
 void	create_player(t_corevm *vm, int num, int index)
 {
-	t_player	*player;
-	t_player	*tmp;
+	t_player	**player;
 
-	if (!(player = ft_memalloc(sizeof(t_player))))
+	player = &vm->info->first_player;
+	while (*player)
+		player = &(*player)->next;
+	if (!(*player = ft_memalloc(sizeof(t_player))))
 		ft_error(vm, FAIL_MEMALLOC_1, 0);
-	player->name_file = vm->argv[index]; // a supprimer quand on a fini le projet cetait juste pour afficher
-	init_variable(vm, player, num);
-	get_info_player(player, vm, index);
-	if (vm->info->first_player == NULL)
-		vm->info->first_player = player;
-	else
-	{
-		tmp = vm->info->first_player;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = player;
-	}
+	(*player)->name_file = vm->argv[index]; // a supprimer quand on a fini le projet cetait juste pour afficher
+	init_variable(vm, (*player), num);
+	get_info_player((*player), vm, index);
 	vm->info->nb_players++;
 }
