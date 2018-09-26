@@ -6,11 +6,15 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/25 19:19:36 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/26 15:54:56 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+**	tableau de pointeurs sur fonctions liees a l'opcode
+*/
 
 t_ptr_func g_instruc_func[] =
 {
@@ -34,14 +38,14 @@ void	execute_instruction(t_corevm *vm, t_process *actual)
 	int	i;
 
 	i = 0;
-	while (g_op_tab[i].id != 0)
+	while (g_instruc_func[i].code_instruction != 0)
 	{
-		if (g_op_tab[i].id == actual->type_instruc[0])
+		if (g_instruc_func[i].code_instruction == actual->type_instruc[0])
 		{
 			printf("g_op_tab[i].ptrfunc(vm, actual); %d \n", actual->type_instruc[0]);
 			g_instruc_func[i].ptrfunc(vm, actual);
 			i = 0;
-			while (i < 5)
+			while (i < 2)
 				actual->type_instruc[i++] = 0;
 			return ;
 		}
@@ -72,14 +76,14 @@ void	get_instruction_type(t_corevm *vm, t_process *actual)
 	i = 0;
 	while (g_op_tab[i].id != (vm->core[actual->pc % MEM_SIZE]))
 		i++;
+	actual->pc++;
 	if (g_op_tab[i].id == 0)
 		return ; //return et je continue la partie voir si on avance le pc ou nn
 	actual->nb_cycle_instruc = g_op_tab[i].nb_cycle_instruction;
 	actual->type_instruc[0] = g_op_tab[i].id;
-	actual->pc++;
 	if (g_op_tab[i].nbr_arg > 1)
 	{
-		actual->type_instruc[1] = vm->core[actual->pc++ % MEM_SIZE];
+		actual->type_instruc[1] = vm->core[actual->pc++ % MEM_SIZE];//recuperer la cle
 		//actual->pc++;
 	}
 }
@@ -106,7 +110,7 @@ void	manage_instruction(t_corevm *vm, t_process *process)
 		if (process->nb_cycle_instruc == 1)
 			execute_instruction(vm, process);
 	}
-	execute_instruction(vm, process);
+	// execute_instruction(vm, process);
 }
 
 

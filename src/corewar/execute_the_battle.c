@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/25 19:17:06 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/26 15:29:45 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,13 @@ void	execute_the_battle(t_corevm *vm)
 		{
 			if (process->alive > -1)
 			{
-				manage_instruction(vm, process);//get_instructions
+				manage_instruction(vm, process);//get_instructions.c
 				if (vm->nb_cycle >= vm->cycle_to_die)
-					check_if_process_lives(process);
+					check_if_process_lives(process);//checking_the_battle.c
 			}
 			process = process->next;
 		}
 		print_core(vm);
-		// ft_st(vm, process);
 		//tmp_cycle = check_max_checks(vm, tmp_cycle);
 		//check_nb_lives(vm);
 		//check_cycles(vm);

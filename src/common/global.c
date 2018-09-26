@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 21:06:11 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/25 18:33:39 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/26 15:39:40 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,20 @@ t_op	g_op_tab[] =
 	{0, 0, {0}, 0, 0, 0, 0, 0},
 };
 
-
-
-
+/*
+{shortcut, nbr_arg, accept[], id (=opcode), nb_cycle_instruction, descirption, ind(a revoir), dir(4 ou 2)}
+typedef struct		s_op
+{
+	char			*shortcut;
+	int				nbr_arg; // 1 || 2 || 3
+	char			accept[3];
+	int				id;
+	int				nb_cycle_instruction; //10 || 5 || 6 || 20 || 25 || 800 || 1000
+	char			*description;
+	int				ind;
+	int				dir;
+	}					t_op;
+*/
 /*
 {T_REG | T_DIR | T_IND,  1 | 2 | 4 -> 00 00 01 11
 

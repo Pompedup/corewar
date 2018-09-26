@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 14:08:14 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/26 11:20:37 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/26 16:24:45 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	read_name(t_player *player, t_corevm *vm, int fd)
 
 /*
 ********************************************************************************
-**  read_prog_size
+**  read_prog_size saves the size of the program into player->header->prog_size
 ********************************************************************************
 */
 
@@ -79,7 +79,7 @@ void	read_prog_size(t_player *player, t_corevm *vm, int fd)
 
 /*
 ********************************************************************************
-**  read_comment
+**  read_comment saves the comment into player->header->comment
 ********************************************************************************
 */
 
@@ -98,7 +98,8 @@ void	read_comment(t_player *player, t_corevm *vm, int fd)
 
 /*
 ********************************************************************************
-**  read_programme
+**  read_programme saves the program into player->process
+**	and the lenght of the program into player->len_process
 ********************************************************************************
 */
 
@@ -109,7 +110,7 @@ void	read_programme(t_player *player, t_corevm *vm, int fd)
 	if ((ret = read(fd, player->process, CHAMP_MAX_SIZE + 1)) == -1)
 		ft_read_error(vm, ft_strjoin(ERR_MESS_13, player->name_file), fd); // num error probleme de lecture!!!
 	if (ret > CHAMP_MAX_SIZE)
-		ft_error(vm, ERR_MESS_11, 0); //votre champion est trop gros!!
+		ft_error(vm, ft_strjoin(player->name_file, ERR_MESS_11), 1); //votre champion est trop gros!! (∩｀-´)
 	player->process[ret] = '\0';
 	if ((unsigned int)ret != player->header->prog_size)
 		ft_error(vm, ERR_MESS_14, 0); //difference entre la taille reel de votre proramme et l'int prog_size :0 !!

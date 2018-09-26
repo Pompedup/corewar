@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 13:36:25 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/25 19:14:06 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/26 14:34:14 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 /*
 ********************************************************************************
 **	players_charged_in_core transfers players into processes
+**	i will be the index in core (relative position of every player in core)
+**	(that will be the very first value of pc, the address of the first instruction)
+**	place takes on values from 0 to nb->players
 ** place les joueurs dans la memoire (l'arenne corewar)
 ** les champions sont chargés en mémoire de façon à espacer équitablement leurs points d’entrée.
 ** on a ca grace au calcul i = .. voir ci dessous

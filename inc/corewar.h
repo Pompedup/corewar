@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/26 11:18:10 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/26 14:53:55 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@
 # define FAIL_MEMALLOC_2	"ft_memalloc of vm->info->player->header failed"
 # define FAIL_MEMALLOC_3	"ft_memalloc of vm->info->process failed"//voir si on laisse vm->info->player
 
+/*
+********************************************************************************
+**
+********************************************************************************
+*/
+
 typedef struct			s_player
 {
 	int					num; // num joueur a voir faut peut etre le mettre dans le r1
@@ -51,6 +57,12 @@ typedef struct			s_player
 	int					len_process;
 	struct s_player		*next;
 }						t_player;
+
+/*
+********************************************************************************
+**
+********************************************************************************
+*/
 
 typedef struct			s_process
 {
@@ -67,12 +79,28 @@ typedef struct			s_process
 	struct s_process	*next;
 }						t_process;
 
+/*
+********************************************************************************
+**
+********************************************************************************
+*/
+
 typedef struct			s_info //structure pour gerer la liste chainée des players
 {
 	int					nb_players;
 	t_player			*first_player;
 	t_process			*first_processus;
 }						t_info;
+
+/*
+********************************************************************************
+**	t_corevm
+**	- core[MEM_SIZE] represents the actual vm (an array of char)
+**	- dump will be the nbr of cycles after which core will be printed on the standard output
+**	- nb_cycle
+**	-
+********************************************************************************
+*/
 
 typedef struct			s_corevm
 {

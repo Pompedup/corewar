@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 15:13:34 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/25 19:12:00 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/26 12:47:12 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ t_process	*create_process(t_corevm *vm, int pc, t_player *player)
         ft_error(vm, FAIL_MEMALLOC_3, 0);
     process->color = player->color;
     process->pc = pc;
-	process->carry = 0;
+	// process->carry = 0;
 	process->reg[0] = player->num;
-    process->alive = 0;
+    // process->alive = 0;
     ft_strcpy(player->header->prog_name, process->name);
     // printf("player->num %d\n", player->num);
     return (process);

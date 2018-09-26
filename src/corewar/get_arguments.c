@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 15:16:23 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/25 17:24:21 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/26 18:42:41 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,14 @@ void	get_four_octets(t_corevm *vm, t_process *process, int i)
 }
 
 /*
+********************************************************************************
 ** je parse mes argment sur le bon nombre doctet quils sont codé
 ** registre -> 01 - codé sur 1 octet
 ** direct -> 10 - codé sur 2 ou 4 octets (indiqué dans la global)
 ** indirect -> 11 - codé 2 octets
 ** jutilise le meme type de boucle que dans test_args
 ** while nb d'arg
+********************************************************************************
 */
 
 void	get_args(t_corevm *vm, t_process *process, t_op g_tab)
@@ -120,6 +122,18 @@ void	get_args(t_corevm *vm, t_process *process, t_op g_tab)
 }
 
 /*
+********************************************************************************
+**	test_args checks if process->type_instruc[1] is the instruction accepted by g_op_tab[process->type_instruc[0]]
+**	process->type_instruc[0] = g_op_tab[i].id => opcode
+**		0x10 pour aff
+**	process->type_instruc[1] = key unique representant la nature des arguments
+**		T_REG -> 1 -> 01 - codé sur 1 octet
+**	 	T_DIR -> 2 -> 10 - codé sur 2 ou 10 4 octets
+**	 	T_IND -> 4 -> 11 - codé 2 octets (11 = 3 alors que 4 0100 ce qui revient 1 << (3-1))
+**		exemple {T_REG , T_REG , T_REG} -> 54 -> 0101 0100
+**		autre exemple {T_DIR, T_IND , T_REG} -> B4 ->
+**		dans le tableau de global.c T_IND -> 4 (0100) dans la process->type_instruc[1] c'est 3
+**
 ** on va checker la key de nos arg pour voir
 ** si elle est toujours ok
 ** on fait une boucle avec le nb dagr de linstruction
@@ -127,9 +141,10 @@ void	get_args(t_corevm *vm, t_process *process, t_op g_tab)
 ** et a chque tours
 ** on compare le resultat avec la global a la colone accept
 ** si le type de larg est accepté par linstruc ok sinn FALSE
+********************************************************************************
 */
 
-t_bool	test_args(t_process *process, t_op g_tab)
+t_bool	test_args(t_process *process, t_op g_op_tab)
 {
 	char	key;
 	int		i;
@@ -141,12 +156,12 @@ t_bool	test_args(t_process *process, t_op g_tab)
 	while (i < 4)
 	{
 		key = (process->type_instruc[1] >> dec) & 3;
-		if (i < g_tab.nbr_arg && key)
+		if (i < g_op_tab.nbr_arg && key)
 		{
-			if (!(g_tab.accept[i] & (1 << (key - 1))))
+			if (!(g_op_tab.accept[i] & (1 << (key - 1))))
 				return (FALSE);
 		}
-		else if (key || i < g_tab.nbr_arg)
+		else if (key || i < g_op_tab.nbr_arg)
 			return (FALSE);
 		dec -= 2;
 		i++;
