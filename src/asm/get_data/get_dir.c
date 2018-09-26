@@ -6,11 +6,22 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 17:31:48 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/25 17:33:45 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/26 18:13:37 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+void	check_authorized_dir(t_record *record, t_elem *elem, int arg_type,\
+			int indice)
+{
+	(void)arg_type;
+	if (!(g_op_tab[elem->type].accept[indice] & T_DIR))
+	{
+		exit(0);//gerer l'erreur
+		(void)record;
+	}
+}
 
 int		get_dir(t_record *record, t_arg *current_arg, t_elem *elem, int i)
 {
@@ -23,7 +34,10 @@ int		get_dir(t_record *record, t_arg *current_arg, t_elem *elem, int i)
 	str++;
 	if (*str == ':')
 	{
+		str++;
 		get_label(record, current_arg, str, len);
+		if (!current_arg->handled)
+			elem->complete = FALSE;
 		//it will be complique
 		while (*str && *str != ',')
 			str++;
@@ -42,5 +56,6 @@ int		get_dir(t_record *record, t_arg *current_arg, t_elem *elem, int i)
 	if (*str && !ft_isspace(*str) && *str != ',')
 		exit(0);
 	current_arg->type = 2;
+	elem->size += 4;
 	return (2 << (6 - (2 * i)));
 }

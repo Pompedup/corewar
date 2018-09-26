@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:34:54 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/25 17:25:06 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/26 17:38:09 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_elems(t_elem *current)
 {
 	while (current)
 	{
-		ft_printf("\033[0;32mElems\033[0;0m\nAddr : %d\nType %d\nKey : %d\nHandled %s\n",\
+		ft_printf("\033[0;32mElems\033[0;0m\nAddr : %x\nType %d\nKey : %x\nHandled %s\n",\
 			current->addr, current->type, current->key, current->complete ? "True" : "False");
 		print_args(current->args);
 		current = current->next;
@@ -43,5 +43,7 @@ void	new_t_elem(t_elem **current, int type, int addr)
 	if (!(*current = ft_memalloc(sizeof(t_elem))))
 		return ;
 	(*current)->type = type;
+	(*current)->complete = TRUE;
 	(*current)->addr = addr;
+	(*current)->size = 1;
 }

@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 17:31:14 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/25 17:59:29 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/26 17:39:29 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	check_authorized_ind(t_record *record, t_elem *elem, int arg_type,\
 			int indice)
 {
+	(void)arg_type;
 	if (!(g_op_tab[elem->type].accept[indice] & T_IND))
 	{
 		exit(0);//gerer l'erreur
@@ -24,17 +25,17 @@ void	check_authorized_ind(t_record *record, t_elem *elem, int arg_type,\
 
 int		get_ind(t_record *record, t_arg *current_arg, t_elem *elem, int i)
 {
-	char *str;
-	size_t len;
-	(void)i;
+	char	*str;
+	size_t	len;
 
-		str = elem->line;
-	(void)record; //pour les erreurs
+	str = elem->line;
 	len = verif_synrax(record, str);
 	if (*str == ':')
 	{
 		str++;
 		get_label(record, current_arg, str, len);
+		if (!current_arg->handled)
+			elem->complete = FALSE;
 		//it will be complique
 		//str += ft_strlen(current_arg->copy);
 		while (*str && *str != ',')
@@ -55,5 +56,6 @@ int		get_ind(t_record *record, t_arg *current_arg, t_elem *elem, int i)
 	if (*str && !ft_isspace(*str) && *str != ',')
 		exit(0);
 	current_arg->type = 4;
+	elem->size += 2;
 	return (3 << (6 - (2 * i)));
 }

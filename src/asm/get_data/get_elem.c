@@ -13,8 +13,6 @@
 
 #include "asm.h"
 
-extern t_op	g_op_tab[];
-
 int	is_label_char(int c)
 {
 	return ((47 < c && c < 58) || 95 == c
@@ -79,32 +77,7 @@ int		verif_synrax(t_record *record, char *str)
 	return (end);
 }
 
-void	get_label(t_record *record, t_arg *current_arg, char *str, size_t len)
-{
-	t_function *functions;
-
-	functions = record->functions;
-	ft_putendl("here");
-	ft_putendl(str);
-	while (functions)
-	{
-			ft_putendl(functions->name);
-		if (!ft_strncmp(functions->name, str, len))
-		{
-			(void)current_arg;
-			//position blablabla
-			ft_printf("founded\n");
-			current_arg->value = functions->addr - current_arg->addr;
-			current_arg->handled = TRUE;
-			return ;
-		}
-		functions = functions->next;
-	}
-	current_arg->copy = ft_strndup(str, len);
-}
-
-int		get_elem(t_record *record, t_file *file, t_elem
- *elem)
+int		get_elem(t_record *record, t_file *file, t_elem *elem)
 {
 	int		i;
 	t_arg	**arg;
@@ -116,7 +89,6 @@ int		get_elem(t_record *record, t_file *file, t_elem
 	arg = &(elem->args);
 	while (i < g_op_tab[elem->type].arg_authorized)
 	{
-		ft_putendl(elem->line);
 		if (*arg)
 			arg = &((*arg)->next);
 		new_t_arg(arg, elem->addr);
@@ -130,11 +102,11 @@ int		get_elem(t_record *record, t_file *file, t_elem
 			next_comma(record, elem);
 		i++;
 	}
-	ft_printf("%s\n", elem->line);
 	if (elem->line || i < g_op_tab[elem->type].arg_authorized)
 		exit(0);//gerer l'erreur
 	if (i == 1)
 		elem->key = 0;
-	ft_printf("%x\n", elem->key);
-	return (10);
+	else
+		elem->size++;
+	return (elem->key ? elem->size : 5);
 }
