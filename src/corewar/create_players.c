@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:40:17 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/25 18:53:11 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/26 11:11:10 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 ********************************************************************************
-**	get_info_player
+**	get_info_player fills in player->header
 ** je remplie la structure header(ds op.h avec magic, name, p_s et comment)
 ** et je recupere le programme du champion
 ********************************************************************************

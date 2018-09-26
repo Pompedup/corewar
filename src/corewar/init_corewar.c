@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 15:22:28 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/25 15:10:41 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/26 10:34:04 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 /*
 ********************************************************************************
-**	init_vm initializes every attributes of t_corevm *vm and mallocs vm->info
+**	init_vm initializes every attributes of t_corevm *vm
+**	and mallocs vm->info
 ** la seule chose qui est malloc pour le moment
 ** cest les mailons de la liste chainee des joueurs
 ** et la structure info_player (1 int et lie a la liste chaine des joueurs)

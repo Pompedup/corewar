@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 13:17:29 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/25 15:14:11 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/26 10:29:43 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int     main(int ac, char **av)
 {
 	t_corevm    vm;
-	t_player	*tmp;
+	// t_player	*tmp;
 
 	if (ac < 2)
 		ft_error(&vm, ERR_MESS_0, 0);
@@ -27,7 +27,7 @@ int     main(int ac, char **av)
 
 
 	//dump the core and print the winner ( ˘ ³˘)♥ ♥ ♥ ♥
-	tmp = vm.info->first_player;
+	// tmp = vm.info->first_player;
 	//printf("main vm.dummp %d\n", vm.dump);
 	//int i = 0;
 	//while (tmp)

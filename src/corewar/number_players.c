@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:56:15 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/25 18:57:57 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/26 11:07:12 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,7 @@ void	sort_players(t_corevm *vm)
 ********************************************************************************
 **	number_players gives to each player that did not already had a number
 **	the incremented number available starting from 1
-**	(for players created through add_player only)
-**
-**	∆ est-ce que ca reassigne vraiment tous les numeros ?
+**	(only for players created through add_player, meaning num == 0)
 **
 ** j'assigne un num a tout les joueurs qui en on pas et les trie (en commencant par 1 obligatoirement) !!
 ** !!!! ds le sujet --> le dernier né joue en premier.

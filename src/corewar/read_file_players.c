@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 14:08:14 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/25 16:03:13 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/26 11:20:37 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	read_magic(t_player *player, t_corevm *vm, int fd)
 
 /*
 ********************************************************************************
-**  read_name
+**  read_name saves the program name into player->header->prog_name
 ********************************************************************************
 */
 
@@ -72,7 +72,7 @@ void	read_prog_size(t_player *player, t_corevm *vm, int fd)
 	ft_memrev(psize, 4);
 	player->header->prog_size = *(unsigned int *)psize;
 	if (player->header->prog_size > CHAMP_MAX_SIZE)
-		ft_error(vm, ERR_MESS_11, 0); //votre champion est trop gros!! (∩｀-´)
+		ft_error(vm, ft_strjoin(player->name_file, ERR_MESS_11), 1); //votre champion est trop gros!! (∩｀-´)
 	//printf("player->header->prog_size %x \n", player->header->prog_size);
 	//print_memory(psize, 4);
 }

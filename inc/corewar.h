@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/25 19:10:45 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/26 11:18:10 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define ERR_MESS_8			"cannot read magic number from file "
 # define ERR_MESS_9			"cannot read name of player from file "
 # define ERR_MESS_10		"cannot read the size of the program of file "
-# define ERR_MESS_11		"champion is too large"
+# define ERR_MESS_11		" is larger than"
 # define ERR_MESS_12		"cannot read comment from file "
 # define ERR_MESS_13		"cannot read the program of file "
 # define ERR_MESS_14		"difference between progam size expected and the one read"
@@ -36,11 +36,10 @@
 # define ERR_MESS_16		"at least one player is needed"
 # define ERR_MESS_17		"argument for number of player is not an int"
 # define ERR_MESS_18		"a player cannot have number 0 or a number already given"
-# define FAIL_MEMALLOC_0	"ft_memalloc of vm->info failed.\n" USAGE
-# define FAIL_MEMALLOC_1	"ft_memalloc of player failed.\n" USAGE
-# define FAIL_MEMALLOC_2	"ft_memalloc of header failed.\n" USAGE
-# define FAIL_MEMALLOC_3	"ft_memalloc of process failed.\n" USAGE
-
+# define FAIL_MEMALLOC_0	"ft_memalloc of vm->info failed"
+# define FAIL_MEMALLOC_1	"ft_memalloc of vm->info->player failed"
+# define FAIL_MEMALLOC_2	"ft_memalloc of vm->info->player->header failed"
+# define FAIL_MEMALLOC_3	"ft_memalloc of vm->info->process failed"//voir si on laisse vm->info->player
 
 typedef struct			s_player
 {
