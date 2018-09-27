@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/26 15:54:56 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/27 14:00:32 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,11 @@ void	get_instruction_type(t_corevm *vm, t_process *actual)
 		return ; //return et je continue la partie voir si on avance le pc ou nn
 	actual->nb_cycle_instruc = g_op_tab[i].nb_cycle_instruction;
 	actual->type_instruc[0] = g_op_tab[i].id;
+ft_printf("ec pour m'aider a comprendre actual->type_instruc[0] %d g_op_tab[i].id %d\n", actual->type_instruc[0],  g_op_tab[i].id);
 	if (g_op_tab[i].nbr_arg > 1)
 	{
 		actual->type_instruc[1] = vm->core[actual->pc++ % MEM_SIZE];//recuperer la cle
+		ft_printf("ec pour m'aider a comprendre actual->type_instruc[1] %d\n", actual->type_instruc[1]);
 		//actual->pc++;
 	}
 }

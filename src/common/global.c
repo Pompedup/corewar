@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 21:06:11 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/26 15:39:40 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/27 18:03:33 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_op	g_op_tab[] =
 {
 	{"live",  1, {T_DIR}, 1, 10, 				"alive", 								0, 0},
 	{"ld",    2, {T_DIR | T_IND, T_REG}, 2, 5, 	"load", 								1, 0},
-	{"st",    2, {T_REG, T_IND | T_REG}, 3, 5, 	"store", 								1, 0},
+	{"st",    2, {T_REG, T_IND | T_REG}, 3, 5, 	"store", 								0, 0},
 	{"add",   3, {T_REG, T_REG, T_REG}, 4, 10, 	"addition", 							1, 0},
 	{"sub",   3, {T_REG, T_REG, T_REG}, 5, 10, 	"soustraction", 						1, 0},
 	{"and",   3, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, 6, 6,	"et", 	1, 0},
@@ -25,7 +25,7 @@ t_op	g_op_tab[] =
 	{"xor",   3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 8, 6, 	"xou",	1, 0},
 	{"zjmp",  1, {T_DIR}, 9, 20, 				"jump if zero",							0, 1},
 	{"ldi",   3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 10, 25,			"load index",	1, 1},
-	{"sti",   3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25,			"store index", 	1, 1},
+	{"sti",   3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25,			"store index", 	0, 1},
 	{"fork",  1, {T_DIR}, 12, 800,				 "fork", 								0, 1},
 	{"lld",   2, {T_DIR | T_IND, T_REG}, 13, 10, "long load", 							1, 0},
 	{"lldi",  3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 14, 50,			"long load 	index",	1, 1},
@@ -35,7 +35,7 @@ t_op	g_op_tab[] =
 };
 
 /*
-{shortcut, nbr_arg, accept[], id (=opcode), nb_cycle_instruction, descirption, ind(a revoir), dir(4 ou 2)}
+{shortcut, nbr_arg, accept[], id (=opcode), nb_cycle_instruction, descirption, ind(qui modifie carry), dir(4 ou 2)}
 typedef struct		s_op
 {
 	char			*shortcut;
@@ -44,10 +44,13 @@ typedef struct		s_op
 	int				id;
 	int				nb_cycle_instruction; //10 || 5 || 6 || 20 || 25 || 800 || 1000
 	char			*description;
-	int				ind;
+	int				ind;//a renommer en flag_carry (si l'instruction modifie le carry flag actif)
+//verifier aue pour ld le carry passe a 0 si la valeur ld est != 0 et a 1 si la valeur de ld est == 0
+//verifier pour le st et le sti
 	int				dir;
 	}					t_op;
 */
+
 /*
 {T_REG | T_DIR | T_IND,  1 | 2 | 4 -> 00 00 01 11
 
