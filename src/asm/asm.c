@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 12:23:45 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/26 18:07:44 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/27 15:35:46 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int			main(int ac, char **av)
 		name_and_comment(record);//affichage
 		get_function(&record, &record.file, &(record.functions));
 		last_verifications(&record);
+		write_file(&record, record.functions);
 		i++;
 		print_functions(record.functions);
 		erase(&record);

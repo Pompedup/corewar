@@ -6,7 +6,7 @@
 #    By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/09/26 18:06:17 by abezanni         ###   ########.fr        #
+#    Updated: 2018/09/27 15:32:53 by abezanni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,10 +42,13 @@ ASM_GET_DATA =	get_dir.c\
 				get_reg.c\
 				last_verifications.c\
 
+ASM_WRITE =		write.c\
+
 ASM_FILES =		asm.c\
 				step.c\
 				$(addprefix get_data/,$(ASM_GET_DATA))\
 				$(addprefix struct/,$(ASM_STRUCT))\
+				$(addprefix write/,$(ASM_WRITE))\
 
 COREWAR_FILES =	charge_players_in_core.c\
 				execute_the_battle.c\

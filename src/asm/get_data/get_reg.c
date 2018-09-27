@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 17:32:06 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/26 17:32:59 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/27 17:28:04 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int		get_reg(t_record *record, t_arg *current_arg, t_elem *elem, int i)
 {
+ft_putendl("REGISTRE");
+
 	char *str;
 
 	str = elem->line;
@@ -29,6 +31,7 @@ int		get_reg(t_record *record, t_arg *current_arg, t_elem *elem, int i)
 		exit(0);
 	current_arg->type = 1;
 	current_arg->handled = TRUE;
+	current_arg->size = 1;
 	elem->size++;
 	return (1 << (6 - (2 * i)));
 }

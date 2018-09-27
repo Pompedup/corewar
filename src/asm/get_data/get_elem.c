@@ -26,14 +26,17 @@ void	next_comma(t_record *record, t_elem
 
 	virgule = FALSE;
 	(void)record;
-	while (*elem->line == ' ' || *elem->line == ',')
+	while (ft_isspace(*elem->line) || *elem->line == ',')
 	{
 		if (*elem->line == ',')
 		{
 			if (!virgule)
 				virgule = TRUE;
 			else
+			{
+				ft_putendl("impossible");
 				exit(0); //gerer l'erreur
+			}
 		}
 		elem->line++;
 	}
@@ -87,8 +90,10 @@ int		get_elem(t_record *record, t_file *file, t_elem *elem)
 	elem->line = elem->line + ft_strlen(g_op_tab[elem->type].shortcut);
 	next_comma(record, elem);
 	arg = &(elem->args);
+	ft_putendl("Entree elem");
 	while (i < g_op_tab[elem->type].arg_authorized)
 	{
+		ft_putendl("debut de boucle");
 		if (*arg)
 			arg = &((*arg)->next);
 		new_t_arg(arg, elem->addr);
@@ -101,12 +106,14 @@ int		get_elem(t_record *record, t_file *file, t_elem *elem)
 		if ((elem->line = ft_strchr(elem->line, ',')))
 			next_comma(record, elem);
 		i++;
+		ft_putendl("fin de boucle");
 	}
+	ft_putendl("Sortie elem");
 	if (elem->line || i < g_op_tab[elem->type].arg_authorized)
 		exit(0);//gerer l'erreur
 	if (i == 1)
 		elem->key = 0;
 	else
 		elem->size++;
-	return (elem->key ? elem->size : 5);
+	return (elem->size);
 }

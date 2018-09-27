@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/26 18:06:01 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/27 18:40:39 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ extern t_op	g_op_tab[];
 typedef struct		s_file{
 	int				fd;
 	char			*line;
-	char			*current;
+	//char			*current;
 	size_t			index_line;
 	size_t			index_char;
 }					t_file;
@@ -38,6 +38,7 @@ typedef struct		s_arg{
 	int				type;
 	int				value;
 	char			*copy;
+	int				size;
 	t_bool			handled;
 	struct s_arg	*next;
 }					t_arg;
@@ -63,6 +64,7 @@ struct				s_function{
 };
 
 typedef struct		s_record{
+	char			*name_file;
 	char			*name;
 	char			*comment;
 	t_file			file;
@@ -225,6 +227,6 @@ t_bool	check_authorized_arg(t_record *record, t_elem
  *elem, int arg_type, int indice);
 int		verif_synrax(t_record *record, char *str);
 void	get_label(t_record *record, t_arg *current_arg, char *str, size_t len);
-
+void	write_file(t_record *record, t_function *functions);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/20 15:46:56 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/24 13:21:45 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/27 15:14:53 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void			del_t_file(t_file *file)
 
 void			new_t_file(t_record *record, t_file *file, char *file_name)
 {
+	//record->name = file_name;
 	if ((file->fd = open(file_name, O_RDONLY)) == -1)
 		error(record, NO_FILE);
 	read_t_file(record, file);

@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:43:02 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/26 17:33:57 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/27 18:43:02 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ t_function	**new_t_function(t_function **current, char *name, int addr)
 		current = &((*current)->next);
 	if (!(*current = ft_memalloc(sizeof(t_function))))
 		return (NULL);
-	bzero(*current, sizeof(t_function));
 	(*current)->name = name;
 	(*current)->addr = addr;
 	return (current);

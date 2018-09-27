@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:34:54 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/26 17:38:09 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/27 16:54:58 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	del_t_elem(t_elem **current)
 	to_free = *current;
 	del_t_args(&to_free->args);
 	*current = (*current)->next;
+	free(to_free);
 }
 
 void	del_t_elems(t_elem **current)

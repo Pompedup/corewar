@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/19 15:07:22 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/18 16:44:13 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/27 16:11:10 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,64 +14,56 @@
 
 int	calc_print(unsigned char *str)
 {
-	if (*str == 1)
+	unsigned char c;
+	if (*str == 1 || *str == 4 || *str == 5)
 		return (5);
-	if (*str == 2)
-	{
-		if (*(str + 1) == 208)
-			return (5);
-		return (7);
-	}
-	if (*str == 3)
-	{
-		if (*(str + 1) == 80)
-			return (4);
+	if (*str == 9 || *str == 12)
+		return (3);
+	c = *(str + 1);
+	if (c == 80)
+		return (4);
+	if (c == 84)
 		return (5);
-	}
-	if (*str == 4)
-		return (5);
-	if (*str == 5)
-		return (5);
-	if (*str == 6)
-	{
-		if (*(str + 1) == 84)
-			return (5);
-		if (*(str + 1) == 116)
-			return (6);
+	if (c == 100)
 		return (8);
-	}
-	if (*str == 7)
-	{
-		 if (*(str + 1) == 228)
-		 	return (9);
+	if (c == 104)
+		return (7);
+	if (c == 108)
+		return (9);
+	if (c == 112)
 		return (5);
-	}
-	if (*str == 8)
-	{
-		 if (*(str + 1) == 228)
-		 	return (9);
-		if (*(str + 1) == 100)
-			return (8);
+	if (c == 116)
+		return (6);
+	if (c == 124)
+		return (11);
+	if (c == 144)
+		return (7);
+	if (c == 164)
+		return (11);
+	if (c == 208)
 		return (5);
-	}
-	if (*str == 9)
-		return (3);
-	if (*str == 10)
-	{
-		if (*(str + 1) == 164)
-			return (7);
-		return (6);
-	}
-	if (*str == 11)
-	{
-		if (*(str + 1) == 104)
-			return (7);
-		if (*(str + 1) == 84)
-			return (5);
-		return (6);
-	}
-	if (*str == 12)
-		return (3);
+	if (c == 228)
+		return (9);
+	// if (c == )
+	// 	return ();
+	// if (c == )
+	// 	return ();
+	// if (c == )
+	// 	return ();
+	// if (c == )
+	// 	return ();
+	// if (c == )
+	// 	return ();
+	// if (c == )
+	// 	return ();
+	// if (c == )
+	// 	return ();
+	// if (c == )
+	// 	return ();
+	// if (c == )
+	// 	return ();
+	// if (c == )
+	// 	return ();
 	if (*str == 13)
 		return (10000);
 	return (10000);
