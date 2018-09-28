@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 17:32:06 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/27 17:28:04 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/28 17:25:03 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		get_reg(t_record *record, t_arg *current_arg, t_elem *elem, int i)
 {
-ft_putendl("REGISTRE");
+	//ft_putendl("REGISTRE");
 
 	char *str;
 

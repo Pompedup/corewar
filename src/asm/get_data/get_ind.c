@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 17:31:14 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/27 17:28:00 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/28 16:29:35 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	check_authorized_ind(t_record *record, t_elem *elem, int arg_type,\
 
 int		get_ind(t_record *record, t_arg *current_arg, t_elem *elem, int i)
 {
-	ft_putendl("INDIRECT");
+	// ft_putendl("INDIRECT");
 
 	char	*str;
 	size_t	len;
@@ -69,20 +69,20 @@ int		get_ind(t_record *record, t_arg *current_arg, t_elem *elem, int i)
 		//str += ft_strlen(current_arg->copy);
 		while (*str && *str != ',')
 			str++;
-		ft_putendl(str);
+		// ft_putendl(str);
 	}
 	else if (ft_isdigit(*str) || *str == '-')
 	{
 		len = nbr_len(str);
 		if (ft_strnis(*str == '-' ? str + 1 : str, &ft_isdigit, len))
 			current_arg->value = ft_atoi(str);
-		ft_printf("VALUE [%s] %d\n", str, current_arg->value);
+		// ft_printf("VALUE [%s] %d\n", str, current_arg->value);
 		str += ft_nbr_len(current_arg->value);
 		current_arg->handled = TRUE;
 	}
 	else
 		exit(0); //gerer l'erreur;
-	ft_putendl(str);
+	// ft_putendl(str);
 	if (*str && !ft_isspace(*str) && *str != ',')
 		exit(0);
 	current_arg->type = 4;

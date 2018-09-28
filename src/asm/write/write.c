@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 15:10:17 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/27 18:41:04 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/28 17:30:35 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,18 @@ void	write_file(t_record *record, t_function *functions)
 		exit(0); //gerer l'erreur
 	}
 	char *test;
-	test = ft_memalloc(1000);
-	if (write(fd, test, 1000) == -1)
+	test = ft_memalloc(2192);
+	if (write(fd, test, 2192) == -1)
 		ft_putendl("that's why");
+	free(test);
 	while (functions)
 	{
 		elems = functions->elems;
 		while (elems)
 		{
 			write_key(elems, fd);
+			if (!elems->next)
+				ft_printf("%d\n", elems->addr);
 			elems = elems->next;
 		}
 		functions = functions->next;

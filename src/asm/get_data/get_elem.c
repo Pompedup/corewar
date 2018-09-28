@@ -90,10 +90,10 @@ int		get_elem(t_record *record, t_file *file, t_elem *elem)
 	elem->line = elem->line + ft_strlen(g_op_tab[elem->type].shortcut);
 	next_comma(record, elem);
 	arg = &(elem->args);
-	ft_putendl("Entree elem");
+	// ft_putendl("Entree elem");
 	while (i < g_op_tab[elem->type].arg_authorized)
 	{
-		ft_putendl("debut de boucle");
+		// ft_putendl("debut de boucle");
 		if (*arg)
 			arg = &((*arg)->next);
 		new_t_arg(arg, elem->addr);
@@ -106,9 +106,9 @@ int		get_elem(t_record *record, t_file *file, t_elem *elem)
 		if ((elem->line = ft_strchr(elem->line, ',')))
 			next_comma(record, elem);
 		i++;
-		ft_putendl("fin de boucle");
+		// ft_putendl("fin de boucle");
 	}
-	ft_putendl("Sortie elem");
+	// ft_putendl("Sortie elem");
 	if (elem->line || i < g_op_tab[elem->type].arg_authorized)
 		exit(0);//gerer l'erreur
 	if (i == 1)

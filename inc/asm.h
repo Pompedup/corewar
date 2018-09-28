@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/27 18:40:39 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/28 13:39:40 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ void				new_t_file(t_record *record, t_file *file, char *file_name);
 void				print_functions(t_function *current);
 void				del_t_function(t_function **current);
 void				del_t_functions(t_function **current);
-t_function			**new_t_function(t_function **current, char *name, int pos);
+void				new_t_function(t_function **current, char *name, int pos);
 
 /*
 ********************************************************************************

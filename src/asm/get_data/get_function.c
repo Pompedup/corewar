@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:26:00 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/27 15:40:46 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/28 16:29:15 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,12 @@ void	get_function(t_record *record, t_file *file, t_function **current_function)
 	while (file->line)
 	{
 		type = 0;
-		ft_putendl(file->line + file->index_char);
+	//	ft_putendl(file->line + file->index_char);
 		if (check_line(record->functions, file, &type, &name) || !(*current_function))
 		{
-			current_function = new_t_function(current_function, name, addr);//si rien de cree ->erreur
+			if (*current_function)
+				current_function = &((*current_function)->next);
+			new_t_function(current_function, name, addr);//si rien de cree ->erreur
 			current_elem = &((*current_function)->elems);
 		}
 		if (g_op_tab[type].shortcut)

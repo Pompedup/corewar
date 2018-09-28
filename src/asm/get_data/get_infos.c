@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 17:02:50 by pompedup          #+#    #+#             */
-/*   Updated: 2018/09/24 14:32:10 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/09/28 17:30:04 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,7 @@ void			get_infos(t_record *record, t_file *file)
 	}
 }
 
-//Nom max length 128
-//comment max length 2048
+
+// 4
+//Nom max length 128 + 4 + 4
+//comment max length 2048 + 4
