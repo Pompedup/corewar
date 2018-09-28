@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_instructions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/27 14:00:32 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/28 15:55:21 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	get_instruction_type(t_corevm *vm, t_process *actual)
 	int i;
 
 	i = 0;
-	while (g_op_tab[i].id != (vm->core[actual->pc % MEM_SIZE]))
+	while (g_op_tab[i].id != (vm->core[actual->pc & (MEM_SIZE - 1)]))
 		i++;
 	actual->pc++;
 	if (g_op_tab[i].id == 0)
@@ -84,7 +84,7 @@ void	get_instruction_type(t_corevm *vm, t_process *actual)
 ft_printf("ec pour m'aider a comprendre actual->type_instruc[0] %d g_op_tab[i].id %d\n", actual->type_instruc[0],  g_op_tab[i].id);
 	if (g_op_tab[i].nbr_arg > 1)
 	{
-		actual->type_instruc[1] = vm->core[actual->pc++ % MEM_SIZE];//recuperer la cle
+		actual->type_instruc[1] = vm->core[actual->pc++ & (MEM_SIZE - 1)];//recuperer la cle
 		ft_printf("ec pour m'aider a comprendre actual->type_instruc[1] %d\n", actual->type_instruc[1]);
 		//actual->pc++;
 	}

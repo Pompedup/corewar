@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 11:08:35 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/28 13:17:05 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/28 15:52:10 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,11 @@
 **
 */
 
-void	check_if_process_lives(t_corevm *vm, t_process *process)
+void	check__live(t_corevm *vm, t_process *process)
 {
 	if (process->live > 0)
 	{
 		process->live = 0; //toujours en vie mais passe a un autre cycle
-		if (vm->nb_lives >= vm->nb_max_live)
-		{
-			vm->cycle_to_die -= CYCLE_DELTA;
-			vm->nb_lives = 0;
-		}
-
 	}
 	else
 		process->live = -1; //DEAD!!!
