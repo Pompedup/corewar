@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 21:06:11 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/27 18:03:33 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/28 15:21:25 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct		s_op
 	char			*shortcut;
 	int				nbr_arg; // 1 || 2 || 3
 	char			accept[3];
-	int				id;
+	int				id;//opcode
 	int				nb_cycle_instruction; //10 || 5 || 6 || 20 || 25 || 800 || 1000
 	char			*description;
 	int				ind;//a renommer en flag_carry (si l'instruction modifie le carry flag actif)

@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/27 14:00:32 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/28 15:22:57 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ void	execute_instruction(t_corevm *vm, t_process *actual)
 
 /*
 ********************************************************************************
-# define REG_CODE	1
-# define DIR_CODE	2
-# define IND_CODE	3
+**
+**	# define REG_CODE	1
+**	# define DIR_CODE	2
+**	# define IND_CODE	3
 ** pour connaitre le type de notre argument on a 1 octet qui nous indique :
 ** si l'arg et un registre -> 01 - codé sur 1 octet
 ** si l'arg et un direct -> 10 - codé sur 2 ou 4 octets
@@ -81,7 +82,7 @@ void	get_instruction_type(t_corevm *vm, t_process *actual)
 		return ; //return et je continue la partie voir si on avance le pc ou nn
 	actual->nb_cycle_instruc = g_op_tab[i].nb_cycle_instruction;
 	actual->type_instruc[0] = g_op_tab[i].id;
-ft_printf("ec pour m'aider a comprendre actual->type_instruc[0] %d g_op_tab[i].id %d\n", actual->type_instruc[0],  g_op_tab[i].id);
+ft_printf("ec pour m'aider a comprendre actual->type_instruc[0] %d\n", actual->type_instruc[0]);
 	if (g_op_tab[i].nbr_arg > 1)
 	{
 		actual->type_instruc[1] = vm->core[actual->pc++ % MEM_SIZE];//recuperer la cle
@@ -96,7 +97,7 @@ ft_printf("ec pour m'aider a comprendre actual->type_instruc[0] %d g_op_tab[i].i
 **
 ** je regarde si j'ai deja lu linstruction ou se situe mon pc
 ** si NON : je la recupere avec get_instruction
-** si OUI : je regarde si on est arrive a la fin de son dernier cycle
+** si OUI : je regard	e si on est arrive a la fin de son dernier cycle
 ** pour voir si on peut lexecuter ou non
 ********************************************************************************
 */
