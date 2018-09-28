@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 11:08:35 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/18 12:04:03 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/09/28 13:17:05 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,20 @@
 **
 */
 
-void	check_if_process_lives(t_process *process)
+void	check_if_process_lives(t_corevm *vm, t_process *process)
 {
-	if (process->alive > 0)
-		process->alive = 0; //toujours en vie mais passe a un autre cycle
-	else
-		process->alive = -1; //DEAD!!!
-}
-
-/*
-** S’il y a eu au moins NBR_LIVE exécutions de live depuis la dernière
-** vérification, on décrémente CYCLE_TO_DIE de CYCLE_DELTA unités.
-*/
-
-void	check_nb_lives(t_corevm *vm)
-{
-	if (vm->nb_lives >= vm->nb_max_live)
+	if (process->live > 0)
 	{
-		vm->cycle_to_die -= CYCLE_DELTA;
-		vm->nb_lives = 0;
+		process->live = 0; //toujours en vie mais passe a un autre cycle
+		if (vm->nb_lives >= vm->nb_max_live)
+		{
+			vm->cycle_to_die -= CYCLE_DELTA;
+			vm->nb_lives = 0;
+		}
+
 	}
+	else
+		process->live = -1; //DEAD!!!
 }
 
 /*

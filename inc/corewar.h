@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/26 14:53:55 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/09/28 09:50:56 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct			s_process
 	int					reg[REG_NUMBER]; // de REG_SIZE #define REG_SIZE	4 un int 4 octets
 	int					pc; //programme counter
 	int					carry; //une retenu des instructions ou ya des calculs (si jai bien compris!?)
-	int					alive; //pour voir la derniere foi qu'il a dit quil etait en vie
+	int					live; //pour voir la derniere foi qu'il a dit quil etait en vie
 
 	int					type_instruc[2];
 	int					args[3];
@@ -220,7 +220,7 @@ void					execute_the_battle(t_corevm *vm);
 ********************************************************************************
 */
 
-void					check_if_process_lives(t_process *process);
+void					check_if_process_lives(t_corevm *vm, t_process *process);
 void					check_nb_lives(t_corevm *vm);
 void					check_dump(t_corevm *vm);
 int						check_max_checks(t_corevm *vm, int tmp_cycle);
