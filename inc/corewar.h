@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/01 11:30:29 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/01 18:03:02 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,7 @@ void					execute_instruction(t_corevm *vm, t_process *actual);
 void					get_one_octet(t_corevm *vm, t_process *process, int i);
 void					get_two_octets(t_corevm *vm, t_process *process, int i);
 void					get_four_octets(t_corevm *vm, t_process *process, int i);
-int						*get_values(t_corevm *vm, t_process *process, char num_arg);
+int						*get_values(t_corevm *vm, t_process *process, char num_arg, int l);
 t_bool					test_args(t_process *process, t_op g_tab);
 void					get_args(t_corevm *vm, t_process *process, t_op g_tab);
 /*

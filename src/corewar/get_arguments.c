@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 15:16:23 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/01 14:29:49 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/01 18:05:29 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 */
 
-int		*get_values(t_corevm *vm, t_process *process, char num_arg)
+int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 {
 	int	*values;
 	int	dec;
@@ -34,21 +34,20 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg)
 	if (!(values = malloc(sizeof(int) * 3)))
 		return (NULL);
 	dec = 6;
-	i = 0;
-	while (i < 3)
+	i = -1;
+	while (++i < 3)
 	{
 		if (num_arg & (1 << i))
 		{
 			if (((process->type_instruc[1] >> dec) & 3) == 1)
-				values[i] = process->reg[process->args[i] - 1];
+				values[i] = process->reg[process->args[i]];
 			else if (((process->type_instruc[1] >> dec) & 3) == 2)
 				values[i] = process->args[i];
 			else if (((process->type_instruc[1] >> dec) & 3) == 3)
 				values[i] = vm->core[(process->pc
-					+ (process->args[i] % IDX_MOD)) & (MEM_SIZE - 1)];
+					+ (process->args[i] % (l ? 1 : IDX_MOD))) & (MEM_SIZE - 1)];
 		}
 		dec -= 2;
-		i++;
 	}
 	return (values);
 }
@@ -59,7 +58,7 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg)
 
 void	get_one_octet(t_corevm *vm, t_process *process, int i)
 {
-	process->args[i] = *(vm->core + (process->pc & (MEM_SIZE - 1)));
+	process->args[i] = *(vm->core + (process->pc & (MEM_SIZE - 1))) - 1;
 	process->pc += 1;
 	printf("arg 1 octet %x\n", process->args[i]);
 	// ft_printf("vm->core[process->pc] %x\n", vm->core[process->pc]);
@@ -113,7 +112,7 @@ void	get_args(t_corevm *vm, t_process *process, t_op g_tab)
 	dec = 6;
 	while (i < g_tab.nbr_arg)
 	{
-		// printf("get arg\n");
+		printf("get arg process->type_instruc[0] hexa %x\n", process->type_instruc[0]);
 		key = (process->type_instruc[1] >> dec) & 3;
 		if (key == 1) //un registre
 			get_one_octet(vm, process, i);
@@ -160,14 +159,23 @@ t_bool	test_args(t_process *process, t_op g_op_tab)
 
 	while (i < 4)
 	{
+	ft_printf("dans test_args process->type_instruc[1]>> dec hexa %x\n", process->type_instruc[1]>> dec);
 		key = (process->type_instruc[1] >> dec) & 3;
 		if (i < g_op_tab.nbr_arg && key)
 		{
 			if (!(g_op_tab.accept[i] & (1 << (key - 1))))
+			{
+				ft_printf("sortie 1 g_op_tab.accept[%d] %d g_op_tab.shortcut %s\n\n", i, g_op_tab.accept[i], g_op_tab.shortcut);
 				return (FALSE);
+			}
+
 		}
 		else if (key || i < g_op_tab.nbr_arg)
+			{
+
+			ft_printf("sortie 2\n\n");
 			return (FALSE);
+			}
 		dec -= 2;
 		i++;
 	}

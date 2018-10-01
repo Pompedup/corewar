@@ -17,12 +17,12 @@ void	ft_sub(t_corevm *vm, t_process *process)
 		return ;
 	ft_printf("	process->type_instruc[1] %x \nsub\n", process->type_instruc[1]);
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
-	values = get_values(vm, process, 3);
+	values = get_values(vm, process, 3, 0);
 	printf(" SUB values[0] %d  values[1] %d\n", values[0], values[1]);
 	if (values)
 	{
 		process->reg[process->args[2]] = values[0] - values[1];
-		vm->info->first_processus->carry = (process->reg[process->args[2] - 1]) ? 0 : 1;//comme ca pour modifier le carry?
+		process->carry = (process->reg[process->args[2]]) ? 0 : 1;//comme ca pour modifier le carry?
 		free(values);
 	}
 }

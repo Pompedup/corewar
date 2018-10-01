@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/01 14:30:04 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/01 17:16:56 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	execute_the_battle(t_corevm *vm)
 		process = vm->info->first_processus;
 		while (process)
 		{
+			ft_printf(" dans execute process->pc %x\n", vm->core[process->pc & (MEM_SIZE -1)]);
 			if (process->live > -1)
 			{
 				// ft_printf(" process->pc %x\n", vm->core[process->pc & (MEM_SIZE -1)]);

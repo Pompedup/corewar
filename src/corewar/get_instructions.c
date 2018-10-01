@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/01 14:29:20 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/01 17:42:16 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,20 @@ void	execute_instruction(t_corevm *vm, t_process *actual)
 	int	i;
 
 	i = 0;
-	while (g_instruc_func[i].code_instruction != 0)
-	{
-		if (g_instruc_func[i].code_instruction == actual->type_instruc[0])
-		{
-			g_instruc_func[i].ptrfunc(vm, actual);
+		ft_printf("	test\n");
+	// while (g_instruc_func[i].code_instruction != 0)
+	// {
+		ft_printf(" actual->type_instruc[1] %x\n", actual->type_instruc[1]);
+		// if (g_instruc_func[i].code_instruction == actual->type_instruc[0])
+		// {
+			g_instruc_func[actual->type_instruc[0]].ptrfunc(vm, actual);
 			i = 0;
 			while (i < 2)
 				actual->type_instruc[i++] = 0;
 			return ;
-		}
-		i++;
-	}
+		// }
+		// i++;
+	// }
 }
 
 /*
@@ -74,18 +76,19 @@ void	get_instruction_type(t_corevm *vm, t_process *actual)
 	int i;
 
 	i = 0;
-	while (g_op_tab[i].id != (vm->core[actual->pc & (MEM_SIZE - 1)]))
+ft_printf(" dans get_instruction vm->core[process->pc] %x\n", vm->core[actual->pc]);
+	while (g_op_tab[i].id != (vm->core[actual->pc & (MEM_SIZE - 1)]) && g_op_tab[i].id)
 		i++;
 	actual->pc++;
 	if (g_op_tab[i].id == 0)
 		return ; //return et je continue la partie voir si on avance le pc ou nn
 	actual->nb_cycle_instruc = g_op_tab[i].nb_cycle_instruction;
-	actual->type_instruc[0] = g_op_tab[i].id;
-ft_printf("vm->core[process->pc] %x\n", vm->core[actual->pc]);
+	actual->type_instruc[0] = i;
 	if (g_op_tab[i].nbr_arg > 1)
 	{
-		actual->type_instruc[1] = vm->core[actual->pc++ & (MEM_SIZE - 1)];//recuperer la cle
-		// ft_printf("ec pour m'aider a comprendre actual->type_instruc[1] %x\n", actual->type_instruc[1]);
+		actual->type_instruc[1] = (unsigned char)(vm->core[actual->pc++ & (MEM_SIZE - 1)]);//recuperer la cle
+		ft_printf("ec pour m'aider a comprendre actual->type_instruc[1] int %d\n", actual->type_instruc[1]);
+		ft_printf("ec pour m'aider a comprendre (vm->core[actual->pc++ & (MEM_SIZE - 1)]) int %d\n", (unsigned char)(vm->core[(actual->pc -1) & (MEM_SIZE - 1)]));
 		// ft_printf("ec pour m'aider a comprendre actual->type_instruc[1] %hhx\n", actual->type_instruc[1]);
 		// ft_printf("vm->core[process->pc] %x\n", vm->core[actual->pc]);
 	}
@@ -110,8 +113,13 @@ void	manage_instruction(t_corevm *vm, t_process *process)
 	else
 	{
 		process->nb_cycle_instruc--;
+			// ft_putendl("TEST");
 		if (process->nb_cycle_instruc == 1)
+		{
+			ft_printf("	process->type_instruc[1] %x\n", process->type_instruc[1]);
 			execute_instruction(vm, process);
+		}
+		// ft_printf("sortie\n");
 	}
 	// execute_instruction(vm, process);
 }

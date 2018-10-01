@@ -20,7 +20,7 @@ void	ft_sti(t_corevm *vm, t_process *process)
 		return ;
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
 
-	values = get_values(vm, process, 6); //6 car on veux recup la valeur de 2 derniers arg
+	values = get_values(vm, process, 6, 0); //6 car on veux recup la valeur de 2 derniers arg
 
 	if (values)
 		vm->core[(process->pc + values[1] + values[2])

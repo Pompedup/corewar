@@ -6,7 +6,7 @@
 #    By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/09/25 12:11:50 by ecesari          ###   ########.fr        #
+#    Updated: 2018/10/01 17:11:29 by ecesari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,8 +75,10 @@ ASM_SRC =		$(addprefix src/asm/,$(ASM_FILES))
 COREWAR_SRC =	$(addprefix src/corewar/,$(COREWAR_FILES))
 
 ASM_NAME =		asm
+ASM_NAME_DEBUG =		asm_debug
 
 COREWAR_NAME =	corewar
+COREWAR_NAME_DEBUG =	corewar_debug
 
 LIB_PATH =		libft
 
@@ -96,7 +98,6 @@ $(ASM_NAME) : $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
 	$(CC) -o $(ASM_NAME) $(CFLAGS) $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
 	@echo "\033[1;32mSucced asm\033[0m"
 
-DEBUG : libftcomp $(ASM_NAME_DEBUG) $(COREWAR_NAME_DEBUG)
 
 $(ASM_NAME_DEBUG) : $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
 	$(CC) $(CFLAGS) $(FSANITIZE_FLAG) -o $(ASM_NAME) $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
@@ -105,6 +106,8 @@ $(ASM_NAME_DEBUG) : $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
 $(COREWAR_NAME_DEBUG) : $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
 	$(CC) $(CFLAGS) $(FSANITIZE_FLAG) -o $(COREWAR_NAME) $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
 	@echo "\033[1;32mSucced corewar with $(FSANITIZE_FLAG)\033[0m"
+
+DEBUG : libftcomp $(ASM_NAME_DEBUG) $(COREWAR_NAME_DEBUG)
 
 $(COMMON_OBJ) : inc/common.h
 $(ASM_OBJ) : inc/asm.h inc/common.h

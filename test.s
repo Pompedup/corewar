@@ -2,6 +2,5 @@
 .comment "commentaires pour test"
 
 
-and %2, %2, r3
-add r2, r3, r4
-zjmp %180
+ld %122, r3
+aff r3
