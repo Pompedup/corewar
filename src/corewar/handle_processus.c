@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 15:13:34 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/26 12:47:12 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/01 13:36:16 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ t_process	*create_process(t_corevm *vm, int pc, t_player *player)
 	// process->carry = 0;
 	process->reg[0] = player->num;
     // process->alive = 0;
-    ft_strcpy(player->header->prog_name, process->name);
+    ft_strcpy(process->name, player->header->prog_name);
+
     // printf("player->num %d\n", player->num);
     return (process);
 }

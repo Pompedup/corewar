@@ -18,9 +18,9 @@ void	ft_aff(t_corevm *vm, t_process *process)
 {
 	char	c;
 
-	if (process->type_instruc[1] != 40)
-		return ;
 	get_one_octet(vm, process, 0);
 	c = process->reg[process->args[0] % 256];
+	ft_printf("AFF");
 	write(1, &c, 1);
+	ft_printf("\n");
 }

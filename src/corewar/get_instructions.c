@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_instructions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2018/09/28 15:22:57 by ecesari          ###   ########.fr       */
-=======
-/*   Updated: 2018/09/28 15:55:21 by ccoupez          ###   ########.fr       */
->>>>>>> 6ea42341df11ae882cc9b81805f3024cc712a348
+/*   Updated: 2018/10/01 14:29:20 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +42,6 @@ void	execute_instruction(t_corevm *vm, t_process *actual)
 	{
 		if (g_instruc_func[i].code_instruction == actual->type_instruc[0])
 		{
-			printf("g_op_tab[i].ptrfunc(vm, actual); %d \n", actual->type_instruc[0]);
 			g_instruc_func[i].ptrfunc(vm, actual);
 			i = 0;
 			while (i < 2)
@@ -86,12 +81,13 @@ void	get_instruction_type(t_corevm *vm, t_process *actual)
 		return ; //return et je continue la partie voir si on avance le pc ou nn
 	actual->nb_cycle_instruc = g_op_tab[i].nb_cycle_instruction;
 	actual->type_instruc[0] = g_op_tab[i].id;
-ft_printf("ec pour m'aider a comprendre actual->type_instruc[0] %d\n", actual->type_instruc[0]);
+ft_printf("vm->core[process->pc] %x\n", vm->core[actual->pc]);
 	if (g_op_tab[i].nbr_arg > 1)
 	{
 		actual->type_instruc[1] = vm->core[actual->pc++ & (MEM_SIZE - 1)];//recuperer la cle
-		ft_printf("ec pour m'aider a comprendre actual->type_instruc[1] %d\n", actual->type_instruc[1]);
-		//actual->pc++;
+		// ft_printf("ec pour m'aider a comprendre actual->type_instruc[1] %x\n", actual->type_instruc[1]);
+		// ft_printf("ec pour m'aider a comprendre actual->type_instruc[1] %hhx\n", actual->type_instruc[1]);
+		// ft_printf("vm->core[process->pc] %x\n", vm->core[actual->pc]);
 	}
 }
 

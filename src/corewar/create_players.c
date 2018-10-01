@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:40:17 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/26 11:11:10 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/01 11:20:37 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	create_player(t_corevm *vm, int num, int index)
 	if (!(*player = ft_memalloc(sizeof(t_player))))
 		ft_error(vm, FAIL_MEMALLOC_1, 0);
 	(*player)->name_file = vm->argv[index];
-// a supprimer quand on a fini le projet cetait juste pour afficher
+// a supprimer quand on a fini le projet cetait juste pour afficher ! a voir peut etre a garder
 	init_variable(vm, (*player), num);
 	get_info_player((*player), vm, index);
 	vm->info->nb_players++;

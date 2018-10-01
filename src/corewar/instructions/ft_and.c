@@ -26,12 +26,11 @@ void	ft_and(t_corevm *vm, t_process *process)
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
 
 	values = get_values(vm, process, 3);
-	printf("values[0] %d  values[1] %d\n", values[0], values[1]);
+	printf(" AND values[0] %d  values[1] %d\n", values[0], values[1]);
 	if (values)
 	{
-		vm->info->first_processus->carry = (process->reg[process->args[2] - 1] = values[0] & values[1]) ? 1 : 0;//comme ca pour modifier le carry?
-		// if (process->reg[process->args[2] - 1] == 0)//voir si ternaire
-			// vm->info->first_processus->carry = 1;
+		process->reg[process->args[2] - 1] = values[0] & values[1];
+		vm->info->first_processus->carry = (process->reg[process->args[2] - 1]) ? 0 : 1;//comme ca pour modifier le carry?
 		printf("process->reg[process->args[2] - 1] %d\n", process->reg[process->args[2] - 1]);
 		free(values);
 	}

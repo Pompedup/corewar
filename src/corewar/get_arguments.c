@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_arguments.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 15:16:23 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/28 16:07:43 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/01 14:29:49 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	get_one_octet(t_corevm *vm, t_process *process, int i)
 	process->args[i] = *(vm->core + (process->pc & (MEM_SIZE - 1)));
 	process->pc += 1;
 	printf("arg 1 octet %x\n", process->args[i]);
+	// ft_printf("vm->core[process->pc] %x\n", vm->core[process->pc]);
 }
 
 /*
@@ -74,6 +75,7 @@ void	get_two_octets(t_corevm *vm, t_process *process, int i)
 		*((unsigned short*)(vm->core + (process->pc & (MEM_SIZE - 1))));
 	ft_memrev((char*)&process->args[i], 2);
 	process->pc += 2;
+	// ft_printf("vm->core[process->pc] %x\n", vm->core[process->pc]);
 	printf("arg 2 octets %x\n", process->args[i]);
 }
 
@@ -83,9 +85,10 @@ void	get_two_octets(t_corevm *vm, t_process *process, int i)
 
 void	get_four_octets(t_corevm *vm, t_process *process, int i)
 {
-	process->args[i] = *((int*)(vm->core + (process->pc & (MEM_SIZE - 1))));
+	process->args[i] = *((unsigned int*)(vm->core + (process->pc & (MEM_SIZE - 1))));
 	ft_memrev((char*)&process->args[i], 4);
 	process->pc += 4;
+	// ft_printf("vm->core[process->pc] %x\n", vm->core[process->pc]);
 	printf("arg 4 octets %x\n", process->args[i]);
 }
 
@@ -110,6 +113,7 @@ void	get_args(t_corevm *vm, t_process *process, t_op g_tab)
 	dec = 6;
 	while (i < g_tab.nbr_arg)
 	{
+		// printf("get arg\n");
 		key = (process->type_instruc[1] >> dec) & 3;
 		if (key == 1) //un registre
 			get_one_octet(vm, process, i);

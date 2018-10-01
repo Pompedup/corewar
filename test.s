@@ -1,6 +1,7 @@
-.name ""
-.comment ""
+.name "TEST"
+.comment "commentaires pour test"
 
 
-sub  r10,r11,r10		#5
-and r1, %6, r3
+and %2, %2, r3
+add r2, r3, r4
+zjmp %180

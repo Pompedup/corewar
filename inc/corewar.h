@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/28 09:50:56 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/01 11:30:29 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,7 @@ void					execute_the_battle(t_corevm *vm);
 ********************************************************************************
 */
 
-void					check_if_process_lives(t_corevm *vm, t_process *process);
+void					check_live(t_corevm *vm, t_process *process);
 void					check_nb_lives(t_corevm *vm);
 void					check_dump(t_corevm *vm);
 int						check_max_checks(t_corevm *vm, int tmp_cycle);

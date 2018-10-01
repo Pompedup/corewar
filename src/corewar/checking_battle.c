@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checking_battle.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 11:08:35 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/28 15:52:10 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/01 11:30:03 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@
 **
 */
 
-void	check__live(t_corevm *vm, t_process *process)
+void	check_live(t_corevm *vm, t_process *process)
 {
+	(void)vm;
 	if (process->live > 0)
 	{
 		process->live = 0; //toujours en vie mais passe a un autre cycle
