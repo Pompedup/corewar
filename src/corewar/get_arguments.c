@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 15:16:23 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/01 18:05:29 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/01 18:28:43 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 				values[i] = process->args[i];
 			else if (((process->type_instruc[1] >> dec) & 3) == 3)
 				values[i] = vm->core[(process->pc
-					+ (process->args[i] % (l ? 1 : IDX_MOD))) & (MEM_SIZE - 1)];
+					+ (process->args[i] & (l ? MEM_SIZE - 1 : IDX_MOD - 1))) & (MEM_SIZE - 1)];
 		}
 		dec -= 2;
 	}

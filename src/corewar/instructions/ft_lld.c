@@ -17,19 +17,21 @@
 //Usage : lld S(ID/D4), D(RG)
 void	ft_lld(t_corevm *vm, t_process *process)
 {
-	//int	*values;
-
+	int	*values;
+	printf(" DANS LLD process->type_instruc[1] hexa  %x\n", process->type_instruc[1]);
 	if (!(test_args(process, g_op_tab[process->type_instruc[0]])))
+	{
 		return ;
+	}
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
 
-	//voir comment on recup les value car
-	//pour cette instruction
-	//ladressage est relatif au pc mais sans IDX_MOD !!
-	//
-	//if (values)
-	//{
-//
-	//	free(values);
-	//}
+	values = get_values(vm, process, 1, 1); //1 on recupere seulement la valeur de larg 1
+
+	printf(" LONG LOAD values[0] hexa %x\n", values[0]);
+	if (values)
+	{
+		process->reg[process->args[1]] = values[0];
+		process->carry = values[0] = 0 ? 1 : 0; //MODIFIE LE CARRY ????!!!!!
+		free(values);
+	}
 }

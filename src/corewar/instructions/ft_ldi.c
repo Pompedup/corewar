@@ -28,7 +28,7 @@ void	ft_ldi(t_corevm *vm, t_process *process)
 		return ;
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
 
-	values = get_values(vm, process, 3, 1);
+	values = get_values(vm, process, 3, 0);
 	if (values)
 	{
 		s = values[0] + values[1];

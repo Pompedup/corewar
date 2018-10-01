@@ -1,6 +1,5 @@
 .name "TEST 2"
 .comment "commentaires pour test2"
 
-sub  r10,r11,r10		#5
-live %2
-live %2
+sub  r12,r11,r13		#5
+add r1, r2, r3
