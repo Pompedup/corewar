@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/28 13:39:40 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/01 15:58:50 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,10 @@ struct				s_function{
 
 typedef struct		s_record{
 	char			*name_file;
-	char			*name;
-	char			*comment;
+	char			name[128];
+	t_bool			name_complete;
+	char			comment[2052];
+	t_bool			comment_complete;
 	t_file			file;
 	t_function		*functions;
 }					t_record;
@@ -120,7 +122,7 @@ int		get_ind(t_record *record, t_arg *current_arg, t_elem *elem, int i);
 ********************************************************************************
 */
 
-void				get_infos(t_record *record, t_file *file);
+t_bool				get_infos(t_record *record, t_file *file);
 
 /*
 ********************************************************************************
