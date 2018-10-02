@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_arguments.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 15:16:23 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/01 18:28:43 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/02 10:57:51 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,13 @@
 
 
 /*
-** avec get_args on a parse le joueur et recupéré les arguments de la fonction
+** avec get_args on a parse la core et recupéré les arguments de la fonction
 ** ensuite ici on recupère la valeur de ces arguments
-** (on les recupère de manière différentes selon qu'ils soient des registre direct ou indirect)
-** cette fonction est génériaue à les toutes les fonctions
-** on boucle 3 fois car 3 nb ax d'argument
+** cette fonction est génériale à les toutes les fonctions
+** on boucle 3 fois car il y a 3 arguments max
 ** le num_arg quon envoie nous permet de connaitre les args quon veut recuperer
 ** 001 on recup que le 1er arg 011 les 2 premier 101 le permier et le 3eme...
-** et ensuite en fonction de la key de linstruction on recup larg selon son type
-
+** en fonction de la key de l'instruction on recup larg selon son type
 */
 
 int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
@@ -45,7 +43,8 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 				values[i] = process->args[i];
 			else if (((process->type_instruc[1] >> dec) & 3) == 3)
 				values[i] = vm->core[(process->pc
-					+ (process->args[i] & (l ? MEM_SIZE - 1 : IDX_MOD - 1))) & (MEM_SIZE - 1)];
+					+ (process->args[i] & (l ? MEM_SIZE - 1 : IDX_MOD - 1)))
+						& (MEM_SIZE - 1)];
 		}
 		dec -= 2;
 	}
@@ -53,7 +52,7 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 }
 
 /*
-** recupère seulement les registres (codé sur 1 octet)
+** recupère seulement les registres codés sur 1 octet
 */
 
 void	get_one_octet(t_corevm *vm, t_process *process, int i)
@@ -65,7 +64,7 @@ void	get_one_octet(t_corevm *vm, t_process *process, int i)
 }
 
 /*
-** recupère les indirects et une partie des directs codé sur 2 octets
+** recupère les indirects et une partie des directs codés sur 2 octets
 */
 
 void	get_two_octets(t_corevm *vm, t_process *process, int i)
@@ -79,7 +78,7 @@ void	get_two_octets(t_corevm *vm, t_process *process, int i)
 }
 
 /*
-** recupère une partie des directs codé sur 4 octets)
+** recupère une partie des directs codés sur 4 octets)
 */
 
 void	get_four_octets(t_corevm *vm, t_process *process, int i)
@@ -159,7 +158,7 @@ t_bool	test_args(t_process *process, t_op g_op_tab)
 
 	while (i < 4)
 	{
-	ft_printf("dans test_args process->type_instruc[1]>> dec hexa %x\n", process->type_instruc[1]>> dec);
+	ft_printf("dans test_args process->type_instruc[1]> hexa %x\n", process->type_instruc[1]>> dec);
 		key = (process->type_instruc[1] >> dec) & 3;
 		if (i < g_op_tab.nbr_arg && key)
 		{
@@ -168,14 +167,12 @@ t_bool	test_args(t_process *process, t_op g_op_tab)
 				ft_printf("sortie 1 g_op_tab.accept[%d] %d g_op_tab.shortcut %s\n\n", i, g_op_tab.accept[i], g_op_tab.shortcut);
 				return (FALSE);
 			}
-
 		}
 		else if (key || i < g_op_tab.nbr_arg)
-			{
-
+		{
 			ft_printf("sortie 2\n\n");
 			return (FALSE);
-			}
+		}
 		dec -= 2;
 		i++;
 	}

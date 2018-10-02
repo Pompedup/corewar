@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_the_battle.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/01 17:16:56 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/02 11:01:00 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,18 +82,3 @@ void	execute_the_battle(t_corevm *vm)
 		cycle++;
 	}
 }
-
-
-
-/*
-	process = vm->info->first_processus;
-	while (process)
-	{
-		printf("process->type_instruc[0] %d\n", process->type_instruc[0]);
-		printf("process->type_instruc[1] %d\n", process->type_instruc[1]);
-		printf("process->type_instruc[2] %d\n", process->type_instruc[2]);
-		printf("process->type_instruc[3] %d\n", process->type_instruc[3]);
-		printf("process->type_instruc[4] %d\n", process->type_instruc[4]);
-		process = process->next;
-	}
-*/

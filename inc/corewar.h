@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/01 18:03:02 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/02 10:51:22 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,8 +232,8 @@ int						check_max_checks(t_corevm *vm, int tmp_cycle);
 */
 
 void					manage_instruction(t_corevm *vm, t_process *process);
-void					get_instruction_type(t_corevm *vm, t_process *actual);
-void					execute_instruction(t_corevm *vm, t_process *actual);
+void					get_instruction_type(t_corevm *vm, t_process *process);
+void					execute_instruction(t_corevm *vm, t_process *process);
 
 
 /*

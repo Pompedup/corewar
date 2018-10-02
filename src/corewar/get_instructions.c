@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_instructions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/01 17:42:16 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/02 10:52:39 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,17 @@ t_ptr_func g_instruc_func[] =
 ********************************************************************************
 */
 
-void	execute_instruction(t_corevm *vm, t_process *actual)
+void	execute_instruction(t_corevm *vm, t_process *process)
 {
 	int	i;
 
 	i = 0;
-		ft_printf("	test\n");
-	// while (g_instruc_func[i].code_instruction != 0)
-	// {
-		ft_printf(" actual->type_instruc[1] %x\n", actual->type_instruc[1]);
-		// if (g_instruc_func[i].code_instruction == actual->type_instruc[0])
-		// {
-			g_instruc_func[actual->type_instruc[0]].ptrfunc(vm, actual);
-			i = 0;
-			while (i < 2)
-				actual->type_instruc[i++] = 0;
-			return ;
-		// }
-		// i++;
-	// }
+	ft_printf(" process->type_instruc[1] %x\n", process->type_instruc[1]);
+	g_instruc_func[process->type_instruc[0]].ptrfunc(vm, process);
+	i = 0;
+	while (i < 2)
+		process->type_instruc[i++] = 0;
+	return ;
 }
 
 /*
@@ -71,26 +63,26 @@ void	execute_instruction(t_corevm *vm, t_process *actual)
 ********************************************************************************
 */
 
-void	get_instruction_type(t_corevm *vm, t_process *actual)
+void	get_instruction_type(t_corevm *vm, t_process *process)
 {
 	int i;
 
 	i = 0;
-ft_printf(" dans get_instruction vm->core[process->pc] %x\n", vm->core[actual->pc]);
-	while (g_op_tab[i].id != (vm->core[actual->pc & (MEM_SIZE - 1)]) && g_op_tab[i].id)
+ft_printf(" dans get_instruction vm->core[process->pc] %x\n", vm->core[process->pc]);
+	while (g_op_tab[i].id != (vm->core[process->pc & (MEM_SIZE - 1)]) && g_op_tab[i].id)
 		i++;
-	actual->pc++;
 	if (g_op_tab[i].id == 0)
-		return ; //return et je continue la partie voir si on avance le pc ou nn
-	actual->nb_cycle_instruc = g_op_tab[i].nb_cycle_instruction;
-	actual->type_instruc[0] = i;
+		return ;
+	process->pc++;
+	process->nb_cycle_instruc = g_op_tab[i].nb_cycle_instruction;
+	process->type_instruc[0] = i;
 	if (g_op_tab[i].nbr_arg > 1)
 	{
-		actual->type_instruc[1] = (unsigned char)(vm->core[actual->pc++ & (MEM_SIZE - 1)]);//recuperer la cle
-		ft_printf("ec pour m'aider a comprendre actual->type_instruc[1] int %d\n", actual->type_instruc[1]);
-		ft_printf("ec pour m'aider a comprendre (vm->core[actual->pc++ & (MEM_SIZE - 1)]) int %d\n", (unsigned char)(vm->core[(actual->pc -1) & (MEM_SIZE - 1)]));
-		// ft_printf("ec pour m'aider a comprendre actual->type_instruc[1] %hhx\n", actual->type_instruc[1]);
-		// ft_printf("vm->core[process->pc] %x\n", vm->core[actual->pc]);
+		process->type_instruc[1] = (unsigned char)(vm->core[process->pc++ & (MEM_SIZE - 1)]);
+		ft_printf(" process->type_instruc[1] int %d\n", process->type_instruc[1]);
+		ft_printf(" (vm->core[process->pc++ & (MEM_SIZE - 1)]) int %d\n", (unsigned char)(vm->core[(process->pc -1) & (MEM_SIZE - 1)]));
+		// ft_printf("process->type_instruc[1] hexa %hhx\n", process->type_instruc[1]);
+		// ft_printf("vm->core[process->pc] hexa %x\n", vm->core[process->pc]);
 	}
 }
 
@@ -107,7 +99,6 @@ ft_printf(" dans get_instruction vm->core[process->pc] %x\n", vm->core[actual->p
 
 void	manage_instruction(t_corevm *vm, t_process *process)
 {
-
 	if (process->type_instruc[0] == 0)
 		get_instruction_type(vm, process);
 	else
@@ -130,6 +121,16 @@ void	manage_instruction(t_corevm *vm, t_process *process)
 ** si l'arg et un direct -> 10 - codé sur 2 ou 4 octets
 ** si l'arg et un indirect -> 11 - codé 2 octets
 
+
+
+taille live {T_DIR} D4             -> process->pc += 5
+
+taille zjmp {T_DIR} D2             -> process->pc += 3
+
+taille fork  {T_DIR} D2            -> process->pc += 3
+taille lfork {T_DIR} D2            -> process->pc += 3
+
+taille aff {T_REG}                -> process->pc += 3
 
 Combinaison pour add - sub :
 
