@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 15:10:17 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/01 15:37:02 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/02 17:23:28 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	write_file(t_record *record, t_function *functions)
 		ft_putendl("naaaan");
 		exit(0); //gerer l'erreur
 	}
-	write(fd, &COREWAR_EXEC_MAGIC, 4);
+	//write(fd, &COREWAR_EXEC_MAGIC, 4);
 	write(fd, record->name, 128);
-	write(fd, &10, 4);
+	//write(fd, &10, 4);
 	write(fd, record->comment, 2052);
 	while (functions)
 	{

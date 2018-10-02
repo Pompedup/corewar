@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:26:00 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/28 16:29:15 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/02 15:34:21 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_bool	check_line(t_function *functions, t_file *file, int *type, char **name)
 	return (FALSE);
 }
 
-void	get_function(t_record *record, t_file *file, t_function **current_function)
+t_bool	get_function(t_record *record, t_file *file, t_function **current_function)
 {
 	t_elem		**current_elem;
 	char		*name;
@@ -101,4 +101,5 @@ void	get_function(t_record *record, t_file *file, t_function **current_function)
 		}
 		read_t_file(record, file);
 	}
+	return (TRUE);
 }

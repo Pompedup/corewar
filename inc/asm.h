@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/01 15:58:50 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/02 15:33:44 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int		get_elem(t_record *record, t_file *file, t_elem *current_elem);
 ********************************************************************************
 */
 
-void	get_function(t_record *record, t_file *file, t_function **current_function);
+t_bool	get_function(t_record *record, t_file *file, t_function **current_function);
 
 /*
 ********************************************************************************
@@ -152,7 +152,7 @@ int		get_reg(t_record *record, t_arg *current_arg, t_elem *elem, int i);
 ********************************************************************************
 */
 
-void	last_verifications(t_record *record);
+t_bool	last_verifications(t_record *record);
 
 /*
 ********************************************************************************

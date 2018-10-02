@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 17:56:26 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/26 18:07:38 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/02 17:19:45 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	handle_elem(t_record *record, t_elem *elem)
 	elem->complete = TRUE;
 }
 
-void	last_verifications(t_record *record)
+t_bool	last_verifications(t_record *record)
 {
 	t_function	*functions;
 	t_elem		*elems;
@@ -60,4 +60,5 @@ void	last_verifications(t_record *record)
 		}
 		functions = functions->next;
 	}
+	return (TRUE);
 }

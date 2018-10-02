@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 17:02:50 by pompedup          #+#    #+#             */
-/*   Updated: 2018/10/01 16:07:04 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/02 17:19:06 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int				skip_spaces(char *str)
 }
 
 // a verifier
-static t_bool	get_string(char *str, char *addr_dest, t_file *file)
+static t_bool	get_string(t_record *record, char *str, char *addr_dest, t_file *file)
 {
 	char *quote;
 
@@ -40,32 +40,32 @@ static t_bool	get_string(char *str, char *addr_dest, t_file *file)
 	}
 	str++;
 	if (((quote = ft_strchr(str, '"'))))
-		ft_strncat(addr_dest, str, quote - str);
+	{
+		ft_strncpy(addr_dest, str, quote - str);
+		return (TRUE);
+	}
 	else
 	{
 		ft_strcat(addr_dest, str);
 		while (TRUE)
 		{
 			read_t_file(record, file);
-
 		}
 	}
-	else if (*addr_dest)
+	while (file->line)
 	{
 		if (((quote = ft_strchr(str, '"'))))
 		{
 			if (*(quote + 1))
 				return (YET);//mauvaise fin de ligne
 			*quote = '\0';
-			*addr_dest = ft_strmjoin(*addr_dest, str, 1);
+			ft_strcat(addr_dest, str);
+			return (TRUE);
 		}
 		else
-		{
-			*addr_dest = ft_strmjoin(*addr_dest, str, 1);
-			return (45);
-		}
+			ft_strcat(addr_dest, str);
 	}
-	return (OK);
+	return (FALSE);
 }
 
 /*
@@ -90,7 +90,7 @@ static t_bool	check_line(t_record *record, t_file *file, char *cmp,\
 		else
 			exit(0);//gerer lerreur
 		file->index_char += len;
-		return (get_string(file->line + file->index_char, dest, file));
+		return (get_string(record, file->line + file->index_char, dest, file));
 	}
 	return (FALSE);
 }
@@ -102,7 +102,7 @@ static t_bool	check_line(t_record *record, t_file *file, char *cmp,\
 
 t_bool			get_infos(t_record *record, t_file *file)
 {
-	while (file->line && !(record->name && record->comment))
+	while (file->line && !(record->name_complete && record->comment_complete))
 	{
 		if (!check_line(record, file, NAME_CMD_STRING, record->name))
 			if(!check_line(record, file, COMMENT_CMD_STRING, record->comment))

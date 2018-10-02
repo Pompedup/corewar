@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 12:23:45 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/01 15:57:14 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/02 17:16:26 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ int			main(int ac, char **av)
 			return (0);
 		init(&record, av[i]);
 		if (get_infos(&record, &record.file))
+		{
 			if (!record.name_complete || !record.comment_complete)
-				ft_putendl("Manque le nom ou le comment")
+				ft_putendl("Manque le nom ou le comment");
 			else
 			{
 				name_and_comment(record);//affichage
@@ -54,6 +55,7 @@ int			main(int ac, char **av)
 					if (last_verifications(&record))
 						write_file(&record, record.functions);
 			}
+		}
 		i++;
 		//print_functions(record.functions);
 		erase(&record);
@@ -62,6 +64,5 @@ int			main(int ac, char **av)
 	//verification fichier
 	//creation data pour le .cor
 	//creation du .cor
-	//sleep(10);
 	return (0);
 }
