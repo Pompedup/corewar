@@ -20,12 +20,14 @@ int		ft_sti(t_corevm *vm, t_process *process)
 		return (0);
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
 
-	values = get_values(vm, process, 6, 0); //6 car on veux recup la valeur de 2 derniers arg
-
+	values = get_values(vm, process, 7, 0); //6 car on veux recup la valeur de 2 derniers arg
+printf(" STORE INDIRECT values[0] hexa '%x' values[1] hexa '%x' values[2] hexa '%x'\n", values[0], values[1], values[2]);
 	if (values)
-		vm->core[(process->pc + values[1] + values[2])
-			% MEM_SIZE] = process->reg[process->args[0]];
-
-	free(values);
+	{
+		vm->core[(process->pc + values[1] + values[2]) & (MEM_SIZE - 1)] = values[0];
+printf(" STORE INDIRECT vm->core[(process->pc + values[1] + values[2]) & (MEM_SIZE - 1)] hexa '%x'\n", vm->core[(process->pc + values[1] + values[2])
+			& (MEM_SIZE - 1)]);
+		free(values);
+	}
 	return (1);
 }

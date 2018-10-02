@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/02 15:21:13 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/02 16:33:52 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,13 +193,13 @@ ________________________________________
 Combinaison pour sti :
 {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}
 
-{T_REG, T_REG, T_DIR} -> 58  size  process->pc += 6;
-{T_REG, T_REG , T_REG} -> 54  size  process->pc += 5;
+{T_REG, T_REG, T_DIR} -> 0x58  size  process->pc += 6;
+{T_REG, T_REG , T_REG} -> 0x54  size  process->pc += 5;
 
-{T_REG, T_DIR, T_DIR } -> 68  size  process->pc += 7;
-{T_REG, T_DIR, T_REG} -> 64  size  process->pc += 6;
+{T_REG, T_DIR, T_DIR } -> 0x68  size  process->pc += 7;
+{T_REG, T_DIR, T_REG} -> 0x64  size  process->pc += 6;
 
-{T_REG, T_IND, T_DIR } -> 78  size  process->pc += 7;
-{T_REG, T_IND, T_REG} -> 74  size  process->pc += 6;
+{T_REG, T_IND, T_DIR } -> 0x78  size  process->pc += 7;
+{T_REG, T_IND, T_REG} -> 0x74  size  process->pc += 6;
 
 */
