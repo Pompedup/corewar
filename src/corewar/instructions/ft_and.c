@@ -29,9 +29,9 @@ int		ft_and(t_corevm *vm, t_process *process)
 	printf(" AND values[0] hexa %x  values[1] hexa %x\n", values[0], values[1]);
 	if (values)
 	{
-		process->reg[process->args[2] - 1] = values[0] & values[1];
+		process->reg[process->args[2]] = values[0] & values[1];
 		process->carry = (process->reg[process->args[2]]) ? 0 : 1;//comme ca pour modifier le carry?
-		printf("process->reg[process->args[2] - 1] hexa %x\n", process->reg[process->args[2] - 1]);
+		printf("process->reg[process->args[2]] hexa %x\n", process->reg[process->args[2]]);
 		free(values);
 	}
 	return (1);

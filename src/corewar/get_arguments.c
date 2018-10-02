@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_arguments.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 15:16:23 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/02 13:27:43 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/02 16:03:56 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 	int	dec;
 	int	i;
 
-	if (!(values = malloc(sizeof(int) * 3)))
+	if (!(values = ft_memalloc(sizeof(int) * 3)))
 		return (NULL);
 	dec = 6;
 	i = -1;
@@ -42,7 +42,7 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 			else if (((process->type_instruc[1] >> dec) & 3) == 2)
 				values[i] = process->args[i];
 			else if (((process->type_instruc[1] >> dec) & 3) == 3)
-				values[i] = vm->core[((process->pc + process->pc_tmp) + (process->args[i] & (l ? MEM_SIZE - 1 : IDX_MOD - 1)))
+				values[i] = vm->core[(process->pc + (process->args[i] & (l ? MEM_SIZE - 1 : IDX_MOD - 1)))
 						& (MEM_SIZE - 1)];
 		}
 		dec -= 2;

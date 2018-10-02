@@ -12,15 +12,21 @@
 //Usage : or S(RG/ID/D4), S(RG/ID/D4), D(RG)
 int		ft_or(t_corevm *vm, t_process *process)
 {
-	(void)vm;
-	(void)process;/*
-	int	*args;
+	int	*values;
 
-	args = get_args_and_or_xor(vm, process);
-	if (args)
+	if (!(test_args(process, g_op_tab[process->type_instruc[0]])))
+		return (0);
+	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
+
+	values = get_values(vm, process, 3, 0);
+	printf(" OR values[0] hexa %x  values[1] hexa %x\n", values[0], values[1]);
+	if (values)
 	{
-		get_one_octet(vm, process, 2);
-		process->reg[process->args[2]] = args[0] || args[1];
-	}*/
-		return (1);
+		process->reg[process->args[2]] = values[0] | values[1];
+		process->carry = (process->reg[process->args[2]]) ? 0 : 1;//comme ca pour modifier le carry?
+		ft_printf("\tOORRR   process->args[2] hexa '%x'\n", process->args[2]);
+		printf("process->reg[process->args[2]] hexa %x\n", process->reg[process->args[2]]);
+		free(values);
+	}
+	return (1);
 }

@@ -16,15 +16,16 @@
 //Usage : aff S(RG)
 int		ft_aff(t_corevm *vm, t_process *process)
 {
-	char	c;
+	unsigned char	c;
 
 	ft_printf("\tAFFFFF'\n");
-	if (vm->core[process->pc + process->pc_tmp & (MEM_SIZE - 1)] != 0x40)
+	if (vm->core[(process->pc + process->pc_tmp) & (MEM_SIZE - 1)] != 0x40)
 		return (0);
 	process->pc_tmp++;
 	get_one_octet(vm, process, 0);
+	ft_printf("\tprocess->args[0] hexa '%x'\n", process->args[0]);
 	ft_printf("\tAFFFFFprocess->reg[process->args[0]] hexa '%x'\n", process->reg[process->args[0]]);
-	c = process->reg[process->args[0]] % 256;
+	c = (unsigned char)(process->reg[process->args[0]] % 256);
 	ft_printf("AFF c '%c'\t", c);
 	write(1, &c, 1);
 	ft_printf("\n");

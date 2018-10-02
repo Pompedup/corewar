@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/02 14:53:36 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/02 15:21:13 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		execute_instruction(t_corevm *vm, t_process *process)
 	int	i;
 
 	i = 0;
-	ft_printf(" process->type_instruc[1] %x\n", process->type_instruc[1]);
+	ft_printf(" execute i process->type_instruc[0] hexa %x\n", process->type_instruc[0]);
 	if (!(g_instruc_func[process->type_instruc[0]].ptrfunc(vm, process)))
 		return (0);
 	i = 0;
