@@ -1,8 +1,9 @@
 .name "TEST"
 .comment "commentaires pour test"
 
-sti r1, 0, %-11
-aff r1
+and %1, %1, r3
+zjmp %5
+
 
 ##TEST POUR XOR AVEC IND
 #xor r1, 0, r3
