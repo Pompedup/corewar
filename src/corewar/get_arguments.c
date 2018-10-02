@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 15:16:23 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/02 10:57:51 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/02 13:27:43 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 			else if (((process->type_instruc[1] >> dec) & 3) == 2)
 				values[i] = process->args[i];
 			else if (((process->type_instruc[1] >> dec) & 3) == 3)
-				values[i] = vm->core[(process->pc
-					+ (process->args[i] & (l ? MEM_SIZE - 1 : IDX_MOD - 1)))
+				values[i] = vm->core[((process->pc + process->pc_tmp) + (process->args[i] & (l ? MEM_SIZE - 1 : IDX_MOD - 1)))
 						& (MEM_SIZE - 1)];
 		}
 		dec -= 2;
@@ -57,8 +56,9 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 
 void	get_one_octet(t_corevm *vm, t_process *process, int i)
 {
-	process->args[i] = *(vm->core + (process->pc & (MEM_SIZE - 1))) - 1;
-	process->pc += 1;
+	process->args[i] =
+		*(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))) - 1;
+	process->pc_tmp += 1;
 	printf("arg 1 octet %x\n", process->args[i]);
 	// ft_printf("vm->core[process->pc] %x\n", vm->core[process->pc]);
 }
@@ -70,9 +70,9 @@ void	get_one_octet(t_corevm *vm, t_process *process, int i)
 void	get_two_octets(t_corevm *vm, t_process *process, int i)
 {
 	process->args[i] =
-		*((unsigned short*)(vm->core + (process->pc & (MEM_SIZE - 1))));
+		*((unsigned short*)(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))));
 	ft_memrev((char*)&process->args[i], 2);
-	process->pc += 2;
+	process->pc_tmp += 2;
 	// ft_printf("vm->core[process->pc] %x\n", vm->core[process->pc]);
 	printf("arg 2 octets %x\n", process->args[i]);
 }
@@ -83,9 +83,10 @@ void	get_two_octets(t_corevm *vm, t_process *process, int i)
 
 void	get_four_octets(t_corevm *vm, t_process *process, int i)
 {
-	process->args[i] = *((unsigned int*)(vm->core + (process->pc & (MEM_SIZE - 1))));
+	process->args[i] =
+		*((unsigned int*)(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))));
 	ft_memrev((char*)&process->args[i], 4);
-	process->pc += 4;
+	process->pc_tmp += 4;
 	// ft_printf("vm->core[process->pc] %x\n", vm->core[process->pc]);
 	printf("arg 4 octets %x\n", process->args[i]);
 }

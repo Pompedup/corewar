@@ -18,10 +18,10 @@
 */
 
 //Usage : fork S(D2)
-void	ft_fork(t_corevm *vm, t_process *process)
+int		ft_fork(t_corevm *vm, t_process *process)
 {
 	get_two_octets(vm, process, 0);
 	// vm->core[(process->pc + (process->args[0] % IDX_MOD)) % MEM_SIZE] =
 	//un nouveau programme herite des differents etats du pere;
-
+	return (1);
 }

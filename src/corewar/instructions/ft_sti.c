@@ -12,12 +12,12 @@
 */
 
 //Usage : sti S(RG), S(RG/ID/D2), S(ID/D2)
-void	ft_sti(t_corevm *vm, t_process *process)
+int		ft_sti(t_corevm *vm, t_process *process)
 {
 	int	*values;
 
 	if (!(test_args(process, g_op_tab[process->type_instruc[0]])))
-		return ;
+		return (0);
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
 
 	values = get_values(vm, process, 6, 0); //6 car on veux recup la valeur de 2 derniers arg
@@ -27,4 +27,5 @@ void	ft_sti(t_corevm *vm, t_process *process)
 			% MEM_SIZE] = process->reg[process->args[0]];
 
 	free(values);
+	return (1);
 }

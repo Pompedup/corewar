@@ -14,18 +14,19 @@
 */
 
 //Usage : aff S(RG)
-void	ft_aff(t_corevm *vm, t_process *process)
+int		ft_aff(t_corevm *vm, t_process *process)
 {
 	char	c;
 
-	if (vm->core[process->pc & (MEM_SIZE - 1)] != 0x40)
-		return ;
-	process->pc++;
+	ft_printf("\tAFFFFF'\n");
+	if (vm->core[process->pc + process->pc_tmp & (MEM_SIZE - 1)] != 0x40)
+		return (0);
+	process->pc_tmp++;
 	get_one_octet(vm, process, 0);
-	ft_printf("\tprocess->args[0] hexa '%x'\n", process->args[0]);
-	ft_printf("\tprocess->reg[process->args[0] - 1] hexa '%x'\n", process->reg[process->args[0] - 1]);
+	ft_printf("\tAFFFFFprocess->reg[process->args[0]] hexa '%x'\n", process->reg[process->args[0]]);
 	c = process->reg[process->args[0]] % 256;
 	ft_printf("AFF c '%c'\t", c);
 	write(1, &c, 1);
 	ft_printf("\n");
+	return (1);
 }

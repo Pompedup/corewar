@@ -28,14 +28,14 @@ et il changera le carry.
 */
 
 //Usage : ld S(ID/D4), D(RG)
-void	ft_ld(t_corevm *vm, t_process *process)
+int		ft_ld(t_corevm *vm, t_process *process)
 {
 	int	*values;
 
 	printf(" DANS LD process->type_instruc[1] hexa  %x\n", process->type_instruc[1]);
 	if (!(test_args(process, g_op_tab[process->type_instruc[0]])))
 	{
-		return ;
+		return (0);
 	}
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
 
@@ -48,4 +48,5 @@ void	ft_ld(t_corevm *vm, t_process *process)
 		process->carry = values[0] = 0 ? 1 : 0; //MODIFIE LE CARRY ????!!!!!
 		free(values);
 	}
+	return (1);
 }

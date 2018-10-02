@@ -10,7 +10,7 @@
 */
 
 //Usage : or S(RG/ID/D4), S(RG/ID/D4), D(RG)
-void	ft_or(t_corevm *vm, t_process *process)
+int		ft_or(t_corevm *vm, t_process *process)
 {
 	(void)vm;
 	(void)process;/*
@@ -22,4 +22,5 @@ void	ft_or(t_corevm *vm, t_process *process)
 		get_one_octet(vm, process, 2);
 		process->reg[process->args[2]] = args[0] || args[1];
 	}*/
+		return (1);
 }

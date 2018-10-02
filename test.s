@@ -2,5 +2,5 @@
 .comment "commentaires pour test"
 
 
-lld 2048, r3
+ldi %1, %0, r3
 aff r3

@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/02 10:52:39 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/02 13:47:55 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,41 @@ t_ptr_func g_instruc_func[] =
 ********************************************************************************
 */
 
-void	execute_instruction(t_corevm *vm, t_process *process)
+int		execute_instruction(t_corevm *vm, t_process *process)
 {
 	int	i;
 
 	i = 0;
 	ft_printf(" process->type_instruc[1] %x\n", process->type_instruc[1]);
-	g_instruc_func[process->type_instruc[0]].ptrfunc(vm, process);
+	if (!(g_instruc_func[process->type_instruc[0]].ptrfunc(vm, process)))
+		return (0);
 	i = 0;
 	while (i < 2)
 		process->type_instruc[i++] = 0;
-	return ;
+	return (1);
+}
+
+void	move_pc(t_process *process, t_op g_tab)
+{
+	int		i;
+	char	key;
+	int		dec;
+
+	i = 0;
+	dec = 6;
+	while (i < g_tab.nbr_arg)
+	{
+		printf("get arg process->type_instruc[0] hexa %x\n", process->type_instruc[0]);
+		key = (process->type_instruc[1] >> dec) & 3;
+		if (key == 1) //un registre
+			process->pc++;
+		else if (key == 2 && !g_tab.dir) //un direct sur 4
+			process->pc += 2;
+		else if (key == 3 || (key == 2 && g_tab.dir)) //un indirect ou un direct sur 2
+			process->pc += 4;
+		dec -= 2;
+		i++;
+	}
 }
 
 /*
@@ -73,14 +97,14 @@ ft_printf(" dans get_instruction vm->core[process->pc] %x\n", vm->core[process->
 		i++;
 	if (g_op_tab[i].id == 0)
 		return ;
-	process->pc++;
+	process->pc_tmp++;
 	process->nb_cycle_instruc = g_op_tab[i].nb_cycle_instruction;
 	process->type_instruc[0] = i;
 	if (g_op_tab[i].nbr_arg > 1)
 	{
-		process->type_instruc[1] = (unsigned char)(vm->core[process->pc++ & (MEM_SIZE - 1)]);
+		process->type_instruc[1] = (unsigned char)(vm->core[(process->pc + process->pc_tmp++) & (MEM_SIZE - 1)]);
 		ft_printf(" process->type_instruc[1] int %d\n", process->type_instruc[1]);
-		ft_printf(" (vm->core[process->pc++ & (MEM_SIZE - 1)]) int %d\n", (unsigned char)(vm->core[(process->pc -1) & (MEM_SIZE - 1)]));
+		ft_printf(" (vm->core[process->pc & (MEM_SIZE - 1)]) int %d\n", (unsigned char)(vm->core[(process->pc) & (MEM_SIZE - 1)]));
 		// ft_printf("process->type_instruc[1] hexa %hhx\n", process->type_instruc[1]);
 		// ft_printf("vm->core[process->pc] hexa %x\n", vm->core[process->pc]);
 	}
@@ -108,7 +132,12 @@ void	manage_instruction(t_corevm *vm, t_process *process)
 		if (process->nb_cycle_instruc == 1)
 		{
 			ft_printf("	process->type_instruc[1] %x\n", process->type_instruc[1]);
-			execute_instruction(vm, process);
+			if (execute_instruction(vm, process))
+			{
+				process->pc += process->pc_tmp;
+				process->pc_tmp = 0;
+			}
+				//move_pc(process, g_op_tab[process->type_instruc[0]]);
 		}
 		// ft_printf("sortie\n");
 	}

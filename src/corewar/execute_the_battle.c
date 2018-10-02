@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/02 11:01:00 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/02 13:35:28 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		two_players_lives(t_corevm *vm)
 	process = vm->info->first_processus;
 	while (process)
 	{
-		ft_printf("process->live %d\n", process->live);
+		//ft_printf("process->live %d\n", process->live);
 		if (process->live > -1)
 			nb++;
 		process = process->next;
@@ -74,7 +74,7 @@ void	execute_the_battle(t_corevm *vm)
 			vm->cycle_to_die -= CYCLE_DELTA;
 			vm->nb_lives = 0;
 		}
-		if (cycle > 15)
+		if (cycle > 30)
 			return ;
 		print_core(vm);
 		//tmp_cycle = check_max_checks(vm, tmp_cycle);
