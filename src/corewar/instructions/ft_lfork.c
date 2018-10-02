@@ -14,13 +14,30 @@
 //Usage : lfork S(D2)
 int		ft_lfork(t_corevm *vm, t_process *process)
 {
-	(void)vm;
 
-	//il y a un seul arg donc pas de key arg a checker!!
+	t_player	*tmp;
+	t_process	*fork;
 
-	process->pc += 3;
-	//on avance le pc pour la mettre au niveau de la prochaine instruction
-	//pourquoi +2 : 1 octet pour linstrution 1 (comme il y a quun arg pour cette fonction on a pas de key argument)
-	//et + 1 pour l'argument de type direct codé sur deux octets
+	tmp = vm->info->first_player;
+	fork = NULL;
+		printf("test LONG fork\n");
+	get_two_octets(vm, process, 0);
+	while (ft_strcmp(process->name, tmp->header->prog_name) && tmp)
+	{
+		printf("test\n");
+		tmp = tmp->next;
+	}
+	if (tmp)
+	{
+		fork = create_process(vm, (process->pc + (process->args[0])), tmp);
+	}
+	put_process_front(&vm->info->first_processus, fork);
+	while (fork)
+	{
+		ft_printf("YOU LFORK IT!\n, fork->pc %d \n", fork->pc);
+		fork = fork->next;
+	}
+	// vm->core[(process->pc + (process->args[0] % IDX_MOD)) % MEM_SIZE] =
+	//un nouveau programme herite des differents etats du pere;
 	return (1);
 }

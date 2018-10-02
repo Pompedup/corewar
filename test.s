@@ -1,7 +1,7 @@
 .name "TEST"
 .comment "commentaires pour test"
 
-fork %5
+lfork %5
 
 ##TEST POUR XOR AVEC IND
 #xor r1, 0, r3
