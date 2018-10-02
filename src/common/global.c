@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 21:06:11 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/28 15:21:25 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/02 17:32:30 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_op	g_op_tab[] =
 	{"zjmp",  1, {T_DIR}, 9, 20, 				"jump if zero",							0, 1},
 	{"ldi",   3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 10, 25,			"load index",	1, 1},
 	{"sti",   3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25,			"store index", 	0, 1},
-	{"fork",  1, {T_DIR}, 12, 800,				 "fork", 								0, 1},
+	{"fork",  1, {T_DIR}, 12, 10,				 "fork", 								0, 1},
 	{"lld",   2, {T_DIR | T_IND, T_REG}, 13, 10, "long load", 							1, 0},
 	{"lldi",  3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 14, 50,			"long load 	index",	1, 1},
 	{"lfork", 1, {T_DIR}, 15, 1000, 			"long fork", 							0, 1},

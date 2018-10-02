@@ -6,14 +6,14 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 15:16:23 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/02 16:03:56 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/02 17:10:04 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-
 /*
+********************************************************************************
 ** avec get_args on a parse la core et recupéré les arguments de la fonction
 ** ensuite ici on recupère la valeur de ces arguments
 ** cette fonction est génériale à les toutes les fonctions
@@ -21,6 +21,7 @@
 ** le num_arg quon envoie nous permet de connaitre les args quon veut recuperer
 ** 001 on recup que le 1er arg 011 les 2 premier 101 le permier et le 3eme...
 ** en fonction de la key de l'instruction on recup larg selon son type
+********************************************************************************
 */
 
 int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
@@ -51,7 +52,9 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 }
 
 /*
+********************************************************************************
 ** recupère seulement les registres codés sur 1 octet
+********************************************************************************
 */
 
 void	get_one_octet(t_corevm *vm, t_process *process, int i)
@@ -64,7 +67,9 @@ void	get_one_octet(t_corevm *vm, t_process *process, int i)
 }
 
 /*
+********************************************************************************
 ** recupère les indirects et une partie des directs codés sur 2 octets
+********************************************************************************
 */
 
 void	get_two_octets(t_corevm *vm, t_process *process, int i)
@@ -78,7 +83,9 @@ void	get_two_octets(t_corevm *vm, t_process *process, int i)
 }
 
 /*
+********************************************************************************
 ** recupère une partie des directs codés sur 4 octets)
+********************************************************************************
 */
 
 void	get_four_octets(t_corevm *vm, t_process *process, int i)
