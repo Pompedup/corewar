@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_instructions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/02 13:47:55 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/02 14:53:36 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,31 +43,8 @@ int		execute_instruction(t_corevm *vm, t_process *process)
 		return (0);
 	i = 0;
 	while (i < 2)
-		process->type_instruc[i++] = 0;
+		process->type_instruc[i++] = -1;
 	return (1);
-}
-
-void	move_pc(t_process *process, t_op g_tab)
-{
-	int		i;
-	char	key;
-	int		dec;
-
-	i = 0;
-	dec = 6;
-	while (i < g_tab.nbr_arg)
-	{
-		printf("get arg process->type_instruc[0] hexa %x\n", process->type_instruc[0]);
-		key = (process->type_instruc[1] >> dec) & 3;
-		if (key == 1) //un registre
-			process->pc++;
-		else if (key == 2 && !g_tab.dir) //un direct sur 4
-			process->pc += 2;
-		else if (key == 3 || (key == 2 && g_tab.dir)) //un indirect ou un direct sur 2
-			process->pc += 4;
-		dec -= 2;
-		i++;
-	}
 }
 
 /*
@@ -123,15 +100,17 @@ ft_printf(" dans get_instruction vm->core[process->pc] %x\n", vm->core[process->
 
 void	manage_instruction(t_corevm *vm, t_process *process)
 {
-	if (process->type_instruc[0] == 0)
+ft_printf("	process->type_instruc[0] %d\n", process->type_instruc[0]);
+	if (process->type_instruc[0] == -1)
 		get_instruction_type(vm, process);
 	else
 	{
 		process->nb_cycle_instruc--;
 			// ft_putendl("TEST");
+ft_printf("	process->nb_cycle_instruc %d\n", process->nb_cycle_instruc);
 		if (process->nb_cycle_instruc == 1)
 		{
-			ft_printf("	process->type_instruc[1] %x\n", process->type_instruc[1]);
+			// ft_printf("	process->type_instruc[1] %x\n", process->type_instruc[1]);
 			if (execute_instruction(vm, process))
 			{
 				process->pc += process->pc_tmp;

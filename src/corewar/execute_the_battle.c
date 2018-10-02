@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_the_battle.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/02 13:35:28 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/02 15:03:07 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	execute_the_battle(t_corevm *vm)
 		process = vm->info->first_processus;
 		while (process)
 		{
-			ft_printf(" dans execute process->pc %x\n", vm->core[process->pc & (MEM_SIZE -1)]);
+			// ft_printf(" dans execute process->pc %x\n", vm->core[process->pc & (MEM_SIZE -1)]);
 			if (process->live > -1)
 			{
 				// ft_printf(" process->pc %x\n", vm->core[process->pc & (MEM_SIZE -1)]);
@@ -74,7 +74,7 @@ void	execute_the_battle(t_corevm *vm)
 			vm->cycle_to_die -= CYCLE_DELTA;
 			vm->nb_lives = 0;
 		}
-		if (cycle > 30)
+		if (cycle > 51)
 			return ;
 		print_core(vm);
 		//tmp_cycle = check_max_checks(vm, tmp_cycle);

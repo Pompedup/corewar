@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 15:13:34 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/01 13:36:16 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/02 14:53:22 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,20 @@ void        put_process_front(t_process **first, t_process *process)
 t_process	*create_process(t_corevm *vm, int pc, t_player *player)
 {
     t_process   *process;
+    int			i;
 
+	i = 0;
     if (!(process = ft_memalloc(sizeof(t_process))))
         ft_error(vm, FAIL_MEMALLOC_3, 0);
     process->color = player->color;
     process->pc = pc;
-	// process->carry = 0;
+    // process->carry = 0;
 	process->reg[0] = player->num;
+    while (i < 2)
+	{
+		process->type_instruc[i] = -1;
+		i++;
+	}
     // process->alive = 0;
     ft_strcpy(process->name, player->header->prog_name);
 

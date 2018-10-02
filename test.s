@@ -1,6 +1,5 @@
 .name "TEST"
 .comment "commentaires pour test"
 
-
-ldi %1, %0, r3
+lldi %8, %2040, r3
 aff r3

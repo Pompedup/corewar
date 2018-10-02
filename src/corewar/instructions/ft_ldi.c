@@ -40,6 +40,7 @@ int		ft_ldi(t_corevm *vm, t_process *process)
 		//REG_SIZE octets a ladresse (PC + (S % IDX_MOD))
 		process->reg[process->args[2]] = (unsigned char)(vm->core[((process->pc)
 			+ (s & (IDX_MOD - 1))) & (MEM_SIZE - 1)]);
+		process->carry = (process->reg[process->args[2]]) ? 0 : 1;
 			printf(" ---------LOAD INDICE values[0] hexa %x\n", process->reg[process->args[2]]);
 			printf(" ---------LOAD INDICE reg final d %d\n", process->reg[process->args[2]]);
 		free (values);
