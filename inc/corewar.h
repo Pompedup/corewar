@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/03 11:56:53 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/03 14:30:09 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 # include "common.h"
 # include <stdio.h>// Asupprimer
 
-# define SHORT	32767
+# define SHORT	32768
+# define UNSIGNED_CHAR 128
 # define USAGE "Usage: ./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ..."
 # define ERR_MESS_00		"incorrect defines"
 # define ERR_MESS_0			"not enough arguments.\n" USAGE
@@ -114,8 +115,8 @@ typedef struct			s_corevm
 	//ici plus pour la battle
 	char				core[MEM_SIZE];
 	int					dump;//unsigned int
-	int					nb_cycle;
 	int					cycle_to_die;
+	int					nb_cycles_to_die;
 	int					nb_lives; //associer au define NBR_LIVE. Si au cours d’une de ces vérifications on se rend compte qu’il y a eu au moins NBR_LIVE exécutions de live depuis la dernière vérification en date, on décrémente CYCLE_TO_DIE de CYCLE_DELTA unités
 	int					nb_max_live; //define NBR_LIVE
 }						t_corevm;
@@ -223,7 +224,7 @@ void					execute_the_battle(t_corevm *vm);
 ********************************************************************************
 */
 
-void					check_live(t_corevm *vm, t_process *process);
+int						check_live(t_corevm *vm);
 void					check_nb_lives(t_corevm *vm);
 void					check_dump(t_corevm *vm);
 int						check_max_checks(t_corevm *vm, int tmp_cycle);

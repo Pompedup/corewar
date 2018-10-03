@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 13:17:29 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/03 13:04:35 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/03 13:41:49 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_include(void)
 
 	inc = 1;
 	nb_one = 0;
-	if (!MEM_SIZE && MEM_SIZE > SHORT)
+	if (!MEM_SIZE && MEM_SIZE > SHORT && REG_NUMBER > UNSIGNED_CHAR)
 		return (0);
 	while (inc < SHORT && inc <= MEM_SIZE)
 	{
@@ -35,19 +35,16 @@ int	check_include(void)
 int     main(int ac, char **av)
 {
 	t_corevm    vm;
-	// t_player	*tmp;
 
-	(void)av;
 	if (ac < 2)
 		ft_error(&vm, ERR_MESS_0, 0);
 	if (!check_include())
 		ft_error(&vm, ERR_MESS_00, 0);
-	ft_printf("ok memsize\n");
-	// init_vm(av, &vm);
-	// parse_argv(&vm);
-	// number_players(&vm);
-	// players_charged_in_core(&vm);
-	// execute_the_battle(&vm); // !!!!!! :D (ง •̀_•́)ง  ᕙ༼*◕_◕*༽ᕤ
+	init_vm(av, &vm);
+	parse_argv(&vm);
+	number_players(&vm);
+	players_charged_in_core(&vm);
+	execute_the_battle(&vm); // !!!!!! :D (ง •̀_•́)ง  ᕙ༼*◕_◕*༽ᕤ
 
 
 	//dump the core and print the winner ( ˘ ³˘)♥ ♥ ♥ ♥

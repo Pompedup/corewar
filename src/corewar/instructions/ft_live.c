@@ -15,6 +15,7 @@ int		ft_live(t_corevm *vm, t_process *process)
 
 ft_printf("\nLIVE ???\n");
 	//a voir sil y a des mooment ou on renvoie 0
+	//surement quand le joueur est mort
 	get_four_octets(vm, process, 0);
 	number_to_be_alive = vm->info->first_processus;
 	while (number_to_be_alive && process->args[0] != number_to_be_alive->reg[0])

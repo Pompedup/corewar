@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/02 16:40:26 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/03 14:43:38 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		two_players_lives(t_corevm *vm)
 			nb++;
 		process = process->next;
 	}
-	if (nb > 0)
+	if (nb > 1)
 		{
 
 		return (1);
@@ -51,10 +51,11 @@ void	execute_the_battle(t_corevm *vm)
 {
 	//int i = 0;
 	int			cycle;
+	int			max_check;
 	t_process	*process;
 
 	cycle = 0;
-	while (two_players_lives(vm))
+	while (two_players_lives(vm) || vm->nb_cycles_to_die == 0) // a revoir
 	{
 		process = vm->info->first_processus;
 		while (process)
@@ -63,22 +64,32 @@ void	execute_the_battle(t_corevm *vm)
 			if (process->live > -1)
 			{
 				// ft_printf(" process->pc %x\n", vm->core[process->pc & (MEM_SIZE -1)]);
-				manage_instruction(vm, process);//get_instructions.c
-				if (cycle >= vm->cycle_to_die)
-					check_live(vm, process);//checking_the_battle.c
+				if (vm->core[process->pc & (MEM_SIZE - 1)] == 0)
+					process->pc++;
+				else
+					manage_instruction(vm, process);//get_instructions.c
 			}
 			process = process->next;
 		}
-		if (vm->nb_lives >= vm->nb_max_live)
+
+
+		if (cycle == vm->cycle_to_die)
 		{
-			vm->cycle_to_die -= CYCLE_DELTA;
-			vm->nb_lives = 0;
+			cycle = 0;
+			vm->nb_cycles_to_die++;
+			max_check = check_live(vm);
 		}
+		if (vm->nb_cycles_to_die % MAX_CHECKS == 0)
+		{
+			if (!max_check)
+				vm->cycle_to_die -= CYCLE_DELTA;
+			max_check = 0;
+		}
+		cycle++;
 		if (cycle > 30)
 			return ;
 		print_core(vm);
 		//tmp_cycle = check_max_checks(vm, tmp_cycle);
 		//check_cycles(vm);
-		cycle++;
 	}
 }
