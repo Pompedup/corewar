@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/03 14:30:09 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/03 15:49:11 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 
 # define SHORT	32768
 # define UNSIGNED_CHAR 128
-# define USAGE "Usage: ./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ..."
+# define USAGE 				USAGE1 USAGE2
+# define USAGE1				"Usage: ./corewar [-dump nbr_cycles]"
+# define USAGE2				"[[-n number] champion1.cor] ..."
 # define ERR_MESS_00		"incorrect defines"
 # define ERR_MESS_0			"not enough arguments.\n" USAGE
 # define ERR_MESS_1			"incorrect arguments.\n" USAGE
@@ -34,15 +36,15 @@
 # define ERR_MESS_11		" is larger than"
 # define ERR_MESS_12		"cannot read comment from file "
 # define ERR_MESS_13		"cannot read the program of file "
-# define ERR_MESS_14		"difference between progam size expected and the one read"
+# define ERR_MESS_14		"difference between progam size expected and read"
 # define ERR_MESS_15		"too many players"
 # define ERR_MESS_16		"at least one player is needed"
 # define ERR_MESS_17		"argument for number of player is not an int"
-# define ERR_MESS_18		"a player cannot have number 0 or a number already given"
+# define ERR_MESS_18		"a player cannot have a number already given or 0"
 # define FAIL_MEMALLOC_0	"ft_memalloc of vm->info failed"
 # define FAIL_MEMALLOC_1	"ft_memalloc of vm->info->player failed"
 # define FAIL_MEMALLOC_2	"ft_memalloc of vm->info->player->header failed"
-# define FAIL_MEMALLOC_3	"ft_memalloc of vm->info->process failed"//voir si on laisse vm->info->player
+# define FAIL_MEMALLOC_3	"ft_memalloc of vm->info->process failed"
 
 /*
 ********************************************************************************
@@ -52,7 +54,7 @@
 
 typedef struct			s_player
 {
-	int					num; // num joueur a voir faut peut etre le mettre dans le r1
+	int					num;//num joueur faut peut etre le mettre dans le r1
 	char				*name_file;
 	int					color;
 	header_t			*header;
@@ -71,12 +73,11 @@ typedef struct			s_process
 {
 	char				name[PROG_NAME_LENGTH + 1];
 	int					color;
-	int					reg[REG_NUMBER]; // de REG_SIZE #define REG_SIZE	4 un int 4 octets
-	int					pc; //programme counter
+	int					reg[REG_NUMBER];//de REG_SIZE un int 4 octets
+	int					pc;
 	int					pc_tmp;
-	int					carry; //une retenu des instructions ou ya des calculs (si jai bien compris!?)
-	int					live; //pour voir la derniere foi qu'il a dit quil etait en vie
-
+	int					carry;
+	int					live;
 	int					type_instruc[2];
 	int					args[3];
 	int					nb_cycle_instruc;
@@ -85,11 +86,11 @@ typedef struct			s_process
 
 /*
 ********************************************************************************
-**
+** structure pour gerer la liste chainée des players
 ********************************************************************************
 */
 
-typedef struct			s_info //structure pour gerer la liste chainée des players
+typedef struct			s_info
 {
 	int					nb_players;
 	t_player			*first_player;
@@ -100,7 +101,8 @@ typedef struct			s_info //structure pour gerer la liste chainée des players
 ********************************************************************************
 **	t_corevm
 **	- core[MEM_SIZE] represents the actual vm (an array of char)
-**	- dump will be the nbr of cycles after which core will be printed on the standard output
+**	- dump will be the nbr of cycles after which core will be printed on the
+**		standard output
 **	- nb_cycle
 **	-
 ********************************************************************************
@@ -131,7 +133,7 @@ extern t_ptr_func	g_instruc_func[];
 
 /*
 ********************************************************************************
-**								INIT_VM_C								 	  **
+**						INIT_VM_C									 		  **
 ********************************************************************************
 */
 
@@ -139,7 +141,7 @@ void					init_vm(char **av, t_corevm *vm);
 
 /*
 ********************************************************************************
-**						     PARSE_ARGV_C								 	  **
+**						PARSE_ARGV_C								 		  **
 ********************************************************************************
 */
 
@@ -147,7 +149,7 @@ void   					parse_argv(t_corevm *vm);
 
 /*
 ********************************************************************************
-**						   REGISTER_PLAYERS_C							 	  **
+**						REGISTER_PLAYERS_C							 		  **
 ********************************************************************************
 */
 
@@ -155,7 +157,7 @@ void					create_player(t_corevm *vm, int num,  int index);
 
 /*
 ********************************************************************************
-**						     READ_FILE_PLAYER_C							 	  **
+**						READ_FILE_PLAYER_C							 		  **
 ********************************************************************************
 */
 
@@ -167,7 +169,7 @@ void					read_programme(t_player *player, t_corevm *vm, int fd);
 
 /*
 ********************************************************************************
-**						    NUMBER_PLAYERS_C							 	  **
+**						NUMBER_PLAYERS_C							 		  **
 ********************************************************************************
 */
 
@@ -176,7 +178,7 @@ int						unused_num(t_corevm *vm, int num);
 
 /*
 ********************************************************************************
-**						    _PLAYERS_CHARGEDC							 	  **
+**						PLAYERS_CHARGED								 	 	 **
 ********************************************************************************
 */
 
@@ -184,7 +186,7 @@ void					players_charged_in_core(t_corevm *vm);
 
 /*
 ********************************************************************************
-**						      MANAGE_ERROR_C							 	  **
+**						MANAGE_ERROR_C									 	  **
 ********************************************************************************
 */
 
@@ -194,7 +196,7 @@ void					ft_dump_exit(t_corevm *vm);
 
 /*
 ********************************************************************************
-**						      PRINT_MEMORY_C							 	  **
+**						PRINT_MEMORY_C									 	  **
 ********************************************************************************
 */
 
@@ -203,16 +205,17 @@ void					print_memory(const void *addr, size_t size);
 
 /*
 ********************************************************************************
-**						      HANDLE_PROCESSUS_C				     		  **
+**						HANDLE_PROCESSUS_C						     		  **
 ********************************************************************************
 */
 
 t_process				*create_process(t_corevm *vm, int pc, t_player *player);
-void					put_process_front(t_process **first, t_process *process);
+void					put_process_front(t_process **first, \
+						t_process *process);
 
 /*
 ********************************************************************************
-**						      EXECUTE_THE_BATTLE_C				     		  **
+**						EXECUTE_THE_BATTLE_C						     	  **
 ********************************************************************************
 */
 
@@ -220,7 +223,7 @@ void					execute_the_battle(t_corevm *vm);
 
 /*
 ********************************************************************************
-**						      CHECKING_BATTLE_C					     		  **
+**						CHECKING_BATTLE_C							     	  **
 ********************************************************************************
 */
 
@@ -231,7 +234,7 @@ int						check_max_checks(t_corevm *vm, int tmp_cycle);
 
 /*
 ********************************************************************************
-**						      GET_INSTRUCTIONS_C			     			  **
+**						GET_INSTRUCTIONS_C					     		  	  **
 ********************************************************************************
 */
 
@@ -242,19 +245,21 @@ void					move_pc(t_process *process, t_op g_tab);
 
 /*
 ********************************************************************************
-**						      GET_ARGUMENTS_C			     				  **
+**						GET_ARGUMENTS_C			     						  **
 ********************************************************************************
 */
 
 void					get_one_octet(t_corevm *vm, t_process *process, int i);
 void					get_two_octets(t_corevm *vm, t_process *process, int i);
-void					get_four_octets(t_corevm *vm, t_process *process, int i);
-int						*get_values(t_corevm *vm, t_process *process, char num_arg, int l);
+void					get_four_octets(t_corevm *vm, t_process *process,\
+						int i);
+int						*get_values(t_corevm *vm, t_process *process,\
+						char num_arg, int l);
 t_bool					test_args(t_process *process, t_op g_tab);
 void					get_args(t_corevm *vm, t_process *process, t_op g_tab);
 /*
 ********************************************************************************
-**						      INSTRUCTIONS/				     			 	  **
+**						INSTRUCTIONS/				     				 	  **
 ********************************************************************************
 */
 
@@ -277,7 +282,7 @@ int						ft_aff(t_corevm *vm, t_process *process);
 
 /*
 ********************************************************************************
-**						      PRINT_CORE_C				     			 	  **
+**						PRINT_CORE_C					     			 	  **
 ********************************************************************************
 */
 

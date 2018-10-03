@@ -6,11 +6,19 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 13:17:29 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/03 13:41:49 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/03 16:03:14 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+********************************************************************************
+**	check_include aims at protecting corewar against inccorrect defines in
+**	common.h (for MEM_SIZE that must be a multiple of 1024,
+**	REG_NUMBER must be in a single)
+********************************************************************************
+*/
 
 int	check_include(void)
 {
@@ -31,6 +39,12 @@ int	check_include(void)
 		return (0);
 	return (1);
 }
+
+/*
+********************************************************************************
+**
+********************************************************************************
+*/
 
 int     main(int ac, char **av)
 {
