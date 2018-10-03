@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/02 15:33:44 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/03 18:14:34 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct		s_record{
 	t_bool			name_complete;
 	char			comment[2052];
 	t_bool			comment_complete;
+	int				tot;
 	t_file			file;
 	t_function		*functions;
 }					t_record;
@@ -177,7 +178,7 @@ void		init(t_record *record, char *file_name);
 void				print_elems(t_elem *current);
 void				del_t_elem(t_elem **current);
 void				del_t_elems(t_elem **current);
-void				new_t_elem(t_elem **current, int type, int addr);
+t_bool				new_t_elem(t_record *record, t_elem **current, int type, int addr);
 
 /*
 ********************************************************************************
@@ -202,7 +203,7 @@ void				new_t_file(t_record *record, t_file *file, char *file_name);
 void				print_functions(t_function *current);
 void				del_t_function(t_function **current);
 void				del_t_functions(t_function **current);
-void				new_t_function(t_function **current, char *name, int pos);
+t_bool				new_t_function(t_record *record, t_function **current, char *name, int pos);
 
 /*
 ********************************************************************************

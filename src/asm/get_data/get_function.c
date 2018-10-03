@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:26:00 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/02 15:34:21 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/03 18:16:06 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern t_op	g_op_tab[];
 
-char	*is_new_name(t_function *functions, char *str)
+char		*is_new_name(t_function *functions, char *str)
 {
 	while (functions)
 	{
@@ -25,7 +25,7 @@ char	*is_new_name(t_function *functions, char *str)
 	return (ft_strdup(str));
 }
 
-void	get_name(t_function *functions, char *str, char *label, char **name)
+void		get_name(t_function *functions, char *str, char *label, char **name)
 {
 	int i;
 
@@ -48,7 +48,23 @@ static int	next_data(char *str)
 	return (i);
 }
 
-t_bool	check_line(t_function *functions, t_file *file, int *type, char **name)
+t_bool		cmp_instruction(char *str, char *shortcut, int len)
+{
+	int i;
+
+	i = 0;
+	while (i < len)
+	{
+		if (str[i] != shortcut[i])
+			return (FALSE);
+		i++;
+	}
+	if (ft_isalpha(str[i]))
+		return (FALSE);
+	return (TRUE);
+}
+
+t_bool		check_line(t_function *functions, t_file *file, int *type, char **name)
 {
 	int		i;
 	char	*label;
@@ -64,8 +80,8 @@ t_bool	check_line(t_function *functions, t_file *file, int *type, char **name)
 	}
 	while (g_op_tab[*type].shortcut)
 	{
-		if (!ft_strncmp(file->line + file->index_char, g_op_tab[*type].shortcut, ft_strlen(g_op_tab[*type].shortcut)))
-			break;
+		if (cmp_instruction(file->line + file->index_char, g_op_tab[*type].shortcut, ft_strlen(g_op_tab[*type].shortcut)))
+			break ;
 		(*type)++;
 	}
 	if (*name)
@@ -73,33 +89,35 @@ t_bool	check_line(t_function *functions, t_file *file, int *type, char **name)
 	return (FALSE);
 }
 
-t_bool	get_function(t_record *record, t_file *file, t_function **current_function)
+t_bool		get_function(t_record *record, t_file *file, t_function **current_function)
 {
 	t_elem		**current_elem;
 	char		*name;
 	int			type;
 	int			addr;
-	//rechercher si le debut n'est pas une erreur
 
 	addr = 0;
 	while (file->line)
 	{
 		type = 0;
-	//	ft_putendl(file->line + file->index_char);
 		if (check_line(record->functions, file, &type, &name) || !(*current_function))
 		{
 			if (*current_function)
 				current_function = &((*current_function)->next);
-			new_t_function(current_function, name, addr);//si rien de cree ->erreur
+			if (!(new_t_function(record, current_function, name, addr)))
+				return (FALSE);
 			current_elem = &((*current_function)->elems);
 		}
 		if (g_op_tab[type].shortcut)
 		{
-			new_t_elem(current_elem, type, addr);
-			addr += get_elem(record, file, *current_elem);//si rien de cree ->erreur
+			if (!(new_t_elem(record, current_elem, type, addr)))
+				return (FALSE);
+			if ((addr += get_elem(record, file, *current_elem)) == -1)
+				return (FALSE);
 			current_elem = &((*current_elem)->next);
 		}
 		read_t_file(record, file);
 	}
+	record->tot = addr;
 	return (TRUE);
 }

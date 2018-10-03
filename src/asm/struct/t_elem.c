@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:34:54 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/27 16:54:58 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/03 18:15:49 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,17 @@ void	del_t_elems(t_elem **current)
 		del_t_elem(current);
 }
 
-void	new_t_elem(t_elem **current, int type, int addr)
+t_bool	new_t_elem(t_record *record, t_elem **current, int type, int addr)
 {
 	if (!(*current = ft_memalloc(sizeof(t_elem))))
-		return ;
+	{
+		ft_printf("Allocation in new_t_elem didn't work for : %s\n",
+			record->name_file);
+		return (FALSE);
+	}
 	(*current)->type = type;
 	(*current)->complete = TRUE;
 	(*current)->addr = addr;
 	(*current)->size = 1;
+	return (TRUE);
 }

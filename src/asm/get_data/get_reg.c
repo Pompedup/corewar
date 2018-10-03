@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 17:32:06 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/28 17:25:03 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/03 18:17:16 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int		get_reg(t_record *record, t_arg *current_arg, t_elem *elem, int i)
 {
-	//ft_putendl("REGISTRE");
-
 	char *str;
 
 	str = elem->line;
@@ -27,8 +25,8 @@ int		get_reg(t_record *record, t_arg *current_arg, t_elem *elem, int i)
 			exit(0);//expliquer l'erreur
 		str++;
 	}
-	if (*str && !ft_isspace(*str) && *str != ',')
-		exit(0);
+	if (*str && !ft_isspace(*str) && *str != ',' && *str != '#')
+		return (-1);
 	current_arg->type = 1;
 	current_arg->handled = TRUE;
 	current_arg->size = 1;

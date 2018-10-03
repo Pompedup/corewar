@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/20 16:34:11 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/28 16:56:42 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/03 18:27:42 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	error(t_record *record, int error)
 
 void	erase(t_record *record)
 {
-	free(record->name);
-	free(record->comment);
 	del_t_file(&record->file);
 	del_t_functions(&record->functions);
 }
@@ -30,5 +28,6 @@ void	erase(t_record *record)
 void	init(t_record *record, char *file_name)
 {
 	ft_bzero(record, sizeof(t_record));
+	record->name_file = file_name;
 	new_t_file(record, &record->file, file_name);
 }

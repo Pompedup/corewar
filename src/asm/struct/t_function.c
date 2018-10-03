@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:43:02 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/28 16:54:34 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/03 18:15:15 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,15 @@ void	del_t_functions(t_function **current)
 		del_t_function(current);
 }
 
-void	new_t_function(t_function **current, char *name, int addr)
+t_bool	new_t_function(t_record *record, t_function **current, char *name, int addr)
 {
 	if (!(*current = ft_memalloc(sizeof(t_function))))
-		return ;//cas derreur a gerer
+	{
+		ft_printf("Allocation in new_t_function didn't work for : %s\n",
+			record->name_file);
+		return (FALSE);//cas derreur a gerer
+	}
 	(*current)->name = name;
 	(*current)->addr = addr;
+	return (TRUE);
 }

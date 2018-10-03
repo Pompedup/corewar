@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_elem
-.c                                        :+:      :+:    :+:   */
+/*   get_elem.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 14:27:56 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/25 17:22:27 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/03 17:23:43 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-int	is_label_char(int c)
+int		is_label_char(int c)
 {
 	return ((47 < c && c < 58) || 95 == c
 		|| (96 < c && c < 123));
 }
 
-void	next_comma(t_record *record, t_elem
- *elem)
+void	next_comma(t_record *record, t_elem *elem)
 {
 	t_bool virgule;
 
@@ -42,8 +40,8 @@ void	next_comma(t_record *record, t_elem
 	}
 }
 
-t_bool	check_authorized_arg(t_record *record, t_elem
- *elem, int arg_type, int indice)
+t_bool	check_authorized_arg(t_record *record,
+									t_elem *elem, int arg_type, int indice)
 {
 	if (!(g_op_tab[elem->type].accept[indice] & arg_type))
 	{
@@ -90,10 +88,8 @@ int		get_elem(t_record *record, t_file *file, t_elem *elem)
 	elem->line = elem->line + ft_strlen(g_op_tab[elem->type].shortcut);
 	next_comma(record, elem);
 	arg = &(elem->args);
-	// ft_putendl("Entree elem");
 	while (i < g_op_tab[elem->type].arg_authorized)
 	{
-		// ft_putendl("debut de boucle");
 		if (*arg)
 			arg = &((*arg)->next);
 		new_t_arg(arg, elem->addr);
@@ -106,9 +102,7 @@ int		get_elem(t_record *record, t_file *file, t_elem *elem)
 		if ((elem->line = ft_strchr(elem->line, ',')))
 			next_comma(record, elem);
 		i++;
-		// ft_putendl("fin de boucle");
 	}
-	// ft_putendl("Sortie elem");
 	if (elem->line || i < g_op_tab[elem->type].arg_authorized)
 		exit(0);//gerer l'erreur
 	if (i == 1)

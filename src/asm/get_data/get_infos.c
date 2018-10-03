@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 17:02:50 by pompedup          #+#    #+#             */
-/*   Updated: 2018/10/02 17:19:06 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/03 18:40:16 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,15 @@ int				skip_spaces(char *str)
 		i++;
 	return (i);
 }
-
-// a verifier
+//gestion de la taille
 static t_bool	get_string(t_record *record, char *str, char *addr_dest, t_file *file)
 {
 	char *quote;
 
-
 	str += skip_spaces(str);
 	if (*str != '"')
 	{
-		ft_putendl("Mauvaise ligne");
+		ft_printf("%s : Mauvaise ligne", record->name_file);
 		return (FALSE);//IL MANQUE LE NOM/COMMENTAIRE
 	}
 	str++;
@@ -69,10 +67,12 @@ static t_bool	get_string(t_record *record, char *str, char *addr_dest, t_file *f
 }
 
 /*
+********************************************************************************
 **	Verify if dest is already alocated and if the line contain in first
 **	position the cmp str
 **	If yes, it complete the dest associated and return TRUE
 **	Else, it return FALSE
+********************************************************************************
 */
 
 static t_bool	check_line(t_record *record, t_file *file, char *cmp,\
@@ -96,8 +96,10 @@ static t_bool	check_line(t_record *record, t_file *file, char *cmp,\
 }
 
 /*
+********************************************************************************
 **	Take the lines while the name and the comment arn't complete or
 **	that check_line return FALSE for both
+********************************************************************************
 */
 
 t_bool			get_infos(t_record *record, t_file *file)
@@ -105,14 +107,9 @@ t_bool			get_infos(t_record *record, t_file *file)
 	while (file->line && !(record->name_complete && record->comment_complete))
 	{
 		if (!check_line(record, file, NAME_CMD_STRING, record->name))
-			if(!check_line(record, file, COMMENT_CMD_STRING, record->comment))
+			if (!check_line(record, file, COMMENT_CMD_STRING, record->comment))
 				return (FALSE);
 		read_t_file(record, file);
 	}
 	return (TRUE);
 }
-
-
-// 4
-//Nom max length 128 + 4 + 4
-//comment max length 2048 + 4

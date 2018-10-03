@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 12:23:45 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/02 17:16:26 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/03 17:07:13 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,17 @@ int			main(int ac, char **av)
 				ft_putendl("Manque le nom ou le comment");
 			else
 			{
-				name_and_comment(record);//affichage
+				// name_and_comment(record);//affichage
+				// ft_putendl("function");
 				if (get_function(&record, &record.file, &(record.functions)))
+				{
+					// ft_putendl("last");
 					if (last_verifications(&record))
+					{
+						// ft_putendl("write");
 						write_file(&record, record.functions);
+					}
+				}
 			}
 		}
 		i++;
