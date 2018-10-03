@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/02 11:46:49 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/03 11:56:53 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 # include "common.h"
 # include <stdio.h>// Asupprimer
 
+# define SHORT	32767
 # define USAGE "Usage: ./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ..."
+# define ERR_MESS_00		"incorrect defines"
 # define ERR_MESS_0			"not enough arguments.\n" USAGE
 # define ERR_MESS_1			"incorrect arguments.\n" USAGE
 # define ERR_MESS_2			"argument for dump is not an unsigned int"

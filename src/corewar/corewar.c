@@ -6,24 +6,48 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 13:17:29 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/26 10:29:43 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/03 13:04:35 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+int	check_include(void)
+{
+	long long	inc;
+	int			nb_one;
+
+	inc = 1;
+	nb_one = 0;
+	if (!MEM_SIZE && MEM_SIZE > SHORT)
+		return (0);
+	while (inc < SHORT && inc <= MEM_SIZE)
+	{
+		if ((MEM_SIZE & inc) != 0)
+			nb_one++;
+		inc = inc * 2;
+	}
+	if (nb_one != 1)
+		return (0);
+	return (1);
+}
 
 int     main(int ac, char **av)
 {
 	t_corevm    vm;
 	// t_player	*tmp;
 
+	(void)av;
 	if (ac < 2)
 		ft_error(&vm, ERR_MESS_0, 0);
-	init_vm(av, &vm);
-	parse_argv(&vm);
-	number_players(&vm);
-	players_charged_in_core(&vm);
-	execute_the_battle(&vm); // !!!!!! :D (ง •̀_•́)ง  ᕙ༼*◕_◕*༽ᕤ
+	if (!check_include())
+		ft_error(&vm, ERR_MESS_00, 0);
+	ft_printf("ok memsize\n");
+	// init_vm(av, &vm);
+	// parse_argv(&vm);
+	// number_players(&vm);
+	// players_charged_in_core(&vm);
+	// execute_the_battle(&vm); // !!!!!! :D (ง •̀_•́)ง  ᕙ༼*◕_◕*༽ᕤ
 
 
 	//dump the core and print the winner ( ˘ ³˘)♥ ♥ ♥ ♥
@@ -40,37 +64,6 @@ int     main(int ac, char **av)
 	//}
 	return (0);
 }
-
-/*
-A faire pour lexecution de la battle :D
-
-• La machine virtuelle va créer un espace mémoire,
-et  exécuter séquentiellement (parrallement) les champions
-
-• Tous les CYCLE_TO_DIE cycles, s’assurer que chaque processus
-a exécuté au moins un live depuis la dernière vérif. Un processus qui ne se
-soumet pas à cette règle sera mis à mort à l’aide d’une batte en mousse virtuelle.
-(Bonus bruitage !)
-
-• Si au cours d’une de ces vérifications on se rend compte qu’il y a eu au moins
-NBR_LIVE exécutions de live depuis la dernière vérification en date, on décrémente
-CYCLE_TO_DIE de CYCLE_DELTA unités.
-
-• Le gagnant est le dernier joueur qui a été rapporté comme étant en vie.
-La machine va ensuite afficher : "le joueur x(nom_champion) a gagne", où x est le numéro
-du joueur et nom_champion le nom de son champion.
-Exemple : "le joueur 2(rainbowdash) a gagne"
-
-• A chaque exécution valide de l’instruction live, la machine doit afficher :
-"un processus dit que le joueur x(nom_champion) est en vie"
-
-• En tout état de cause, la mémoire est circulaire et fait MEM_SIZE octets.
-
-• En cas d’erreur, vous devrez afficher un message pertinent sur la sortie d’erreur.
-
-• Si on n’a pas décrémenté CYCLE_TO_DIE depuis MAX_CHECKS vérifications,
-on le décrémente.
-*/
 
 /*
 ** le parallelisme : A chaque cycle, toutes les opérations vont être executées comme si elles
