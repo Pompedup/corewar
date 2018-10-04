@@ -6,7 +6,7 @@
 #    By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/09/27 15:32:53 by abezanni         ###   ########.fr        #
+#    Updated: 2018/10/04 19:01:56 by abezanni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ ASM_GET_DATA =	get_dir.c\
 				get_infos.c\
 				get_label.c\
 				get_reg.c\
+				get_string.c\
 				last_verifications.c\
 
 ASM_WRITE =		write.c\

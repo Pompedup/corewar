@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:26:00 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/03 18:16:06 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/04 17:08:28 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ t_bool		get_function(t_record *record, t_file *file, t_function **current_functi
 				return (FALSE);
 			current_elem = &((*current_elem)->next);
 		}
-		read_t_file(record, file);
+		read_t_file(record, file, FALSE);
 	}
 	record->tot = addr;
 	return (TRUE);

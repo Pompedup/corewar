@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/03 18:14:34 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/04 19:01:42 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,32 @@
 # define	WRONG_FORMAT 4
 # define	INVALID_FILE 5
 
+# define	RED		"\033[0;34m"
+# define	BLUE	"\033[0;31m"
+# define	END		"\033[0m"
+# define	QUOTE	"\""BLUE"%s"END"\""
+# define	FILE	RED"%s"END" (line %d): "
+# define	LONG	FILE"So many characteres for "QUOTE" (max %d - you %d).\n"
+# define	BEGIN	FILE"Missing beginning quote for "QUOTE".\n"
+# define	ENDING	FILE"Missing ending quote for "QUOTE".\n"
+# define	AFTER	FILE"Excess of characteres after the quote of "QUOTE" ("QUOTE").\n"
+
+
+
 extern t_op	g_op_tab[];
+
+typedef struct		s_string
+{
+	int				max;
+	int				size;
+	char			*addr;
+	char			*type;
+}					t_string;
 
 typedef struct		s_file{
 	int				fd;
 	char			*line;
-	//char			*current;
+	char			*save;
 	size_t			index_line;
 	size_t			index_char;
 }					t_file;
@@ -188,7 +208,7 @@ t_bool				new_t_elem(t_record *record, t_elem **current, int type, int addr);
 ********************************************************************************
 */
 
-void				read_t_file(t_record *record, t_file *file);
+void				read_t_file(t_record *record, t_file *file, t_bool info);
 void				del_t_file(t_file *file);
 void				new_t_file(t_record *record, t_file *file, char *file_name);
 
@@ -231,5 +251,6 @@ t_bool	check_authorized_arg(t_record *record, t_elem
 int		verif_synrax(t_record *record, char *str);
 void	get_label(t_record *record, t_arg *current_arg, char *str, size_t len);
 void	write_file(t_record *record, t_function *functions);
+t_bool	get_string(t_record *record, t_file *file, t_string *data);
 
 #endif

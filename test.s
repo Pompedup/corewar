@@ -1,7 +1,7 @@
 .name "test"
-.comment "cc"
+.comment "ddf fddfd
 
-ld %1, r2
-ld %1, r2
-ld %1, r2
-ld %:coucou, r2
+kjkj
+#"
+
+live %2

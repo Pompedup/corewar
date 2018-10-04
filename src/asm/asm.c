@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 12:23:45 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/03 17:07:13 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/04 15:31:23 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,3 +73,7 @@ int			main(int ac, char **av)
 	//creation du .cor
 	return (0);
 }
+
+//label
+//instruction
+//.comment .name
