@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:40:17 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/04 14:51:45 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/04 17:54:40 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	create_player(t_corevm *vm, int num, int index)
 	(*player)->name_file = vm->argv[index];
 	// a sup quand on a fini, juste pour afficher ! a voir peut etre a garder
 	init_variable(vm, (*player), num, index_color);
-	index_color += 2;
+	index_color++;
 	get_info_player((*player), vm, index);
 	vm->info->nb_players++;
 }

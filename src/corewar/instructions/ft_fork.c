@@ -37,15 +37,14 @@ int		ft_fork(t_corevm *vm, t_process *process)
 	}
 	if (tmp)
 	{
-
 		fork = create_process(vm, (process->pc + (process->args[0] & (IDX_MOD - 1))), tmp);
 	}
 	put_process_front(&vm->info->first_processus, fork);
-	while (fork)
-	{
-		ft_printf("YOU FORK IT!\n, fork->pc int %d \n", fork->pc);
-		fork = fork->next;
-	}
+	// while (fork)
+	// {
+		// ft_printf("YOU FORK IT!\n, fork->pc int %d \n", fork->pc);
+		// fork = fork->next;
+	// }
 	// vm->core[(process->pc + (process->args[0] % IDX_MOD)) % MEM_SIZE] =
 	//un nouveau programme herite des differents etats du pere;
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/19 11:07:13 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/02 16:37:01 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/04 17:59:52 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ valeur de r1 à l’adresse (PC + (42 % IDX_MOD))
 int		ft_st(t_corevm *vm, t_process *process)
 {
 	int	*values;
+	int i;
 
+	i = 0;
 	if (!(test_args(process, g_op_tab[process->type_instruc[0]])))
 		return (0);
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
@@ -42,7 +44,14 @@ int		ft_st(t_corevm *vm, t_process *process)
 		}
 		else
 		{
+			//((unsigned int*)vm->core[(process->pc + (process->args[1] & (IDX_MOD - 1))) & (MEM_SIZE - 1)] = values[0];
 			vm->core[(process->pc + (process->args[1] & (IDX_MOD - 1))) & (MEM_SIZE - 1)] = values[0];
+			while (i < 4)
+			{
+				//revoir pour le CAST vm->color[(process->pc + (process->args[1] & (IDX_MOD - 1))) & (MEM_SIZE - 1)] = process->color;
+				vm->color[(process->pc + i + (process->args[1] & (IDX_MOD - 1))) & (MEM_SIZE - 1)] = process->color + 4;
+				i++;
+			}
 			printf(" STORE IND vm->core[(process->pc + (values[1] & (IDX_MOD - 1))) & (MEM_SIZE - 1)] hexa %x \n", vm->core[(process->pc + (values[1] & (IDX_MOD - 1))) & (MEM_SIZE - 1)]);
 		}
 		free(values);

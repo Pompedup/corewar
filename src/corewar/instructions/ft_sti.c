@@ -15,7 +15,9 @@
 int		ft_sti(t_corevm *vm, t_process *process)
 {
 	int	*values;
+	int i;
 
+	i = 0;
 	if (!(test_args(process, g_op_tab[process->type_instruc[0]])))
 		return (0);
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
@@ -25,6 +27,12 @@ printf(" STORE INDIRECT values[0] hexa '%x' values[1] hexa '%x' values[2] hexa '
 	if (values)
 	{
 		vm->core[(process->pc + values[1] + values[2]) & (MEM_SIZE - 1)] = values[0];
+		while (i < 4)
+		{
+			//revoir pour le CAST vm->color[(process->pc + (process->args[1] & (IDX_MOD - 1))) & (MEM_SIZE - 1)] = process->color;
+			vm->color[(process->pc + i + values[1] + values[2]) & (MEM_SIZE - 1)] = process->color + 4;
+			i++;
+		}
 printf(" STORE INDIRECT vm->core[(process->pc + values[1] + values[2]) & (MEM_SIZE - 1)] hexa '%x'\n", vm->core[(process->pc + values[1] + values[2])
 			& (MEM_SIZE - 1)]);
 		free(values);

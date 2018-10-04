@@ -1,7 +1,8 @@
 .name "TEST"
 .comment "commentaires pour test"
 
-lfork %5
+#lfork %5
+and 1, 2, r3
 zjmp %106
 
 ##TEST POUR XOR AVEC IND

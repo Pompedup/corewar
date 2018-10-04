@@ -24,9 +24,11 @@ int		ft_zjmp(t_corevm *vm, t_process *process)
 		return (0);
 	}
 	get_two_octets(vm, process, 0);
-		printf(" AVANT ZJUMP process->pc int '%d' \n", process->pc);
+	printf(" AVANT ZJUMP process->pc int '%d' \n", process->pc);
 	process->pc += (process->args[0] & (IDX_MOD - 1));
-		printf(" APRES ZJUMP process->pc int '%d' \n", process->pc);
+	printf(" APRES ZJUMP process->pc int '%d' \n", process->pc);
 	process->pc_tmp = 0;
+	if (vm->color[process->pc] < 8)
+		vm->color[process->pc] = vm->color[process->pc] < 4 ? vm->color[process->pc] + 8 : vm->color[process->pc] + 4;//pour les cas de fork
 	return (1);
 }

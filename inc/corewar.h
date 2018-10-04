@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/04 15:23:16 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/04 18:16:48 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,44 @@
 # define FAIL_MEMALLOC_3	"ft_memalloc of vm->info->process failed"
 # define FAIL_MEMALLOC_4	"ft_memalloc of new_color failed"
 
-//	static unsigned int	*tab = TAB_COLOR;
-#define TAB_COLOR	{PINK, PINK_S, GREEN, GREEN_S, BLUE, BLUE_S, ORANGE, ORANGE_S, GREY}
+/*//	static unsigned int	*tab = TAB_COLOR;
+#define TAB_COLOR	{PINK, PINK_PC, PINK_S, GREEN, GREEN_PC, GREEN_S, BLUE, BLUE_PC, BLUE_S, ORANGE, ORANGE_PC, ORANGE_S}
 #define BLUE				0x9fd7fb
+#define BLUE_PC				0x
 #define BLUE_S				0xcfebfd
 #define PINK				0xffb6c1
+#define PINK_PC				0x
 #define PINK_S				0xffdae0
 #define GREEN				0xace580
+#define GREEN_PC			0x
 #define GREEN_S				0xcdefb2
 #define ORANGE				0xfd9735
+#define ORANGE_PC			0x
 #define ORANGE_S			0xfdc085
 #define GREY				0xdfdfdf
+*/
+
+//ORDONNE DANS LE SENS COULEUR CLASSIQUE / SURBRILLANCE (derniere instruction en date) / SURLIGNEMENT PC
+#define TAB_COLOR	{GREEN, PINK, BLUE, ORANGE, GREEN_S, PINK_S, BLUE_S, ORANGE_S, GREEN_PC, PINK_PC, BLUE_PC, ORANGE_PC}
+//////////
+#define GREEN				0xace580
+#define PINK				0xffb6c1
+#define BLUE				0x9fd7fb
+#define ORANGE				0xfd9735
+//////////
+#define GREEN_S				0xcdefb2
+#define PINK_S				0xffdae0
+#define BLUE_S				0xcfebfd
+#define ORANGE_S			0xfdc085
+//////////
+#define GREEN_PC			0x
+#define PINK_PC				0x
+#define BLUE_PC				0x
+#define ORANGE_PC			0x
+//////////
+#define GREY				0xdfdfdf
+#define GREY_PC				0x
+
 
 /*
 ********************************************************************************
@@ -99,19 +126,6 @@ typedef struct			s_process
 
 /*
 ********************************************************************************
-**
-********************************************************************************
-*/
-
-typedef struct			s_color
-{
-	unsigned int		color;
-	unsigned int		start;
-	struct s_color		*next;
-}						t_color;
-
-/*
-********************************************************************************
 ** structure pour gerer la liste chainée des players
 ********************************************************************************
 */
@@ -121,7 +135,6 @@ typedef struct			s_info
 	int					nb_players;
 	t_player			*first_player;
 	t_process			*first_processus;
-	t_color				*first_color;
 }						t_info;
 
 /*
@@ -143,6 +156,7 @@ typedef struct			s_corevm
 
 	//ici plus pour la battle
 	char				core[MEM_SIZE];
+	unsigned int		color[MEM_SIZE];
 	int					dump;//unsigned int
 	int					cycle_to_die;
 	int					nb_cycles_to_die;

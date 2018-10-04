@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/04 11:57:33 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/04 18:17:51 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ ft_printf("	process->nb_cycle_instruc %d\n", process->nb_cycle_instruc);
 			{
 				process->pc += process->pc_tmp;
 				process->pc_tmp = 0;
+				if (vm->color[process->pc] < 8)
+					vm->color[process->pc] = vm->color[process->pc] < 4 ? vm->color[process->pc] + 8 : vm->color[process->pc] + 4;//pour les cas de fork
 			}
 				//move_pc(process, g_op_tab[process->type_instruc[0]]);
 		}
