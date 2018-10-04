@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/02 16:33:52 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/04 11:57:33 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,13 @@ ft_printf(" dans get_instruction vm->core[process->pc] %x\n", vm->core[process->
 	process->type_instruc[0] = i;
 	if (g_op_tab[i].nbr_arg > 1)
 	{
-		process->type_instruc[1] = (unsigned char)(vm->core[(process->pc + process->pc_tmp++) & (MEM_SIZE - 1)]);
+		process->type_instruc[1] = (unsigned char)(vm->core[(process->pc + process->pc_tmp) & (MEM_SIZE - 1)]);
 		ft_printf(" process->type_instruc[1] int %d\n", process->type_instruc[1]);
 		ft_printf(" (vm->core[process->pc & (MEM_SIZE - 1)]) int %d\n", (unsigned char)(vm->core[(process->pc) & (MEM_SIZE - 1)]));
 		// ft_printf("process->type_instruc[1] hexa %hhx\n", process->type_instruc[1]);
 		// ft_printf("vm->core[process->pc] hexa %x\n", vm->core[process->pc]);
 	}
+	process->pc_tmp++;
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 13:36:25 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/28 15:23:20 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/04 15:15:42 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 ** et la on enregistre le 1er pc du joueur -> premiere case de la ou on a placé le programme du joueur
 ********************************************************************************
 */
+
 
 void	players_charged_in_core(t_corevm *vm)
 {
@@ -49,12 +50,10 @@ void	players_charged_in_core(t_corevm *vm)
 			i++;
 			j++;
 		}
+
 		place += 1;
 		player = player->next;
 	}
-
-
-
 
 	//write(1, vm->core, MEM_SIZE);
 	//  ft_print_memory(vm->core, MEM_SIZE);

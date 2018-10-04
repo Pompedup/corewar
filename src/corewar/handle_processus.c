@@ -6,12 +6,32 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 15:13:34 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/02 17:48:16 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/04 15:14:49 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "corewar.h"
+
+/*
+********************************************************************************
+**
+********************************************************************************
+*/
+
+t_color     *create_color(t_corevm *vm, t_player *player, int start)
+{
+    t_color **new_color;
+
+    new_color = &vm->info->first_color;
+    while (*new_color)
+        new_color = &(*new_color)->next;
+    if (!(*new_color = ft_memalloc(sizeof(t_color))))
+        ft_error(vm, FAIL_MEMALLOC_4, 0);
+    (*new_color)->color = player->color;
+    (*new_color)->start = start;
+}
+
 
 /*
 ********************************************************************************
@@ -46,16 +66,13 @@ t_process	*create_process(t_corevm *vm, int pc, t_player *player)
         ft_error(vm, FAIL_MEMALLOC_3, 0);
     process->color = player->color;
     process->pc = pc;
-    // process->carry = 0;
 	process->reg[0] = player->num;
     while (i < 2)
 	{
 		process->type_instruc[i] = -1;
 		i++;
 	}
-    // process->alive = 0;
     ft_strcpy(process->name, player->header->prog_name);
-
     // printf("player->num %d\n", player->num);
     return (process);
 }

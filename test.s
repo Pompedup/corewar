@@ -2,6 +2,7 @@
 .comment "commentaires pour test"
 
 lfork %5
+zjmp %106
 
 ##TEST POUR XOR AVEC IND
 #xor r1, 0, r3

@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:40:17 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/01 11:20:37 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/04 14:51:45 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ void	get_info_player(t_player *player, t_corevm *vm, int i)
 ********************************************************************************
 */
 
-void	init_variable(t_corevm *vm, t_player *player, int num)
+void	init_variable(t_corevm *vm, t_player *player, int num, int index_color)
 {
-	header_t	*header;
+	header_t			*header;
 
 	if (!(header = ft_memalloc(sizeof(header_t))))
 		ft_error(vm, FAIL_MEMALLOC_2, 0);
 	player->header = header;
 	player->num = num;
-	player->color = 0;//?voir comment on met les couleurs (avec des defines?)
+	player->color = index_color;
 }
 
 /*
@@ -63,16 +63,19 @@ void	init_variable(t_corevm *vm, t_player *player, int num)
 
 void	create_player(t_corevm *vm, int num, int index)
 {
-	t_player	**player;
+	t_player			**player;
+	static int			index_color = 0;
 
+	index_color = 0;
 	player = &vm->info->first_player;
 	while (*player)
 		player = &(*player)->next;
 	if (!(*player = ft_memalloc(sizeof(t_player))))
 		ft_error(vm, FAIL_MEMALLOC_1, 0);
 	(*player)->name_file = vm->argv[index];
-// a supprimer quand on a fini le projet cetait juste pour afficher ! a voir peut etre a garder
-	init_variable(vm, (*player), num);
+	// a sup quand on a fini, juste pour afficher ! a voir peut etre a garder
+	init_variable(vm, (*player), num, index_color);
+	index_color += 2;
 	get_info_player((*player), vm, index);
 	vm->info->nb_players++;
 }

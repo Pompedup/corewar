@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/03 15:49:11 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/04 15:23:16 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,19 @@
 # define FAIL_MEMALLOC_1	"ft_memalloc of vm->info->player failed"
 # define FAIL_MEMALLOC_2	"ft_memalloc of vm->info->player->header failed"
 # define FAIL_MEMALLOC_3	"ft_memalloc of vm->info->process failed"
+# define FAIL_MEMALLOC_4	"ft_memalloc of new_color failed"
+
+//	static unsigned int	*tab = TAB_COLOR;
+#define TAB_COLOR	{PINK, PINK_S, GREEN, GREEN_S, BLUE, BLUE_S, ORANGE, ORANGE_S, GREY}
+#define BLUE				0x9fd7fb
+#define BLUE_S				0xcfebfd
+#define PINK				0xffb6c1
+#define PINK_S				0xffdae0
+#define GREEN				0xace580
+#define GREEN_S				0xcdefb2
+#define ORANGE				0xfd9735
+#define ORANGE_S			0xfdc085
+#define GREY				0xdfdfdf
 
 /*
 ********************************************************************************
@@ -86,6 +99,19 @@ typedef struct			s_process
 
 /*
 ********************************************************************************
+**
+********************************************************************************
+*/
+
+typedef struct			s_color
+{
+	unsigned int		color;
+	unsigned int		start;
+	struct s_color		*next;
+}						t_color;
+
+/*
+********************************************************************************
 ** structure pour gerer la liste chainée des players
 ********************************************************************************
 */
@@ -95,6 +121,7 @@ typedef struct			s_info
 	int					nb_players;
 	t_player			*first_player;
 	t_process			*first_processus;
+	t_color				*first_color;
 }						t_info;
 
 /*
