@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/05 15:22:21 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/05 15:26:43 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,25 +67,23 @@
 //ORDONNE DANS LE SENS COULEUR CLASSIQUE / SURBRILLANCE (derniere instruction en date) / SURLIGNEMENT PC
 #define TAB_COLOR	{GREEN, PINK, BLUE, ORANGE, GREEN_S, PINK_S, BLUE_S, ORANGE_S, GREEN_PC, PINK_PC, BLUE_PC, ORANGE_PC, GREY, GREY_PC}
 //////////
-#define ROB					"\033[32m"
-#define ROB_FIN				"\033[0m"
-#define GREEN				"\033[172,229,128m"//0xace580
-#define PINK				"\033[0xff,0xb6,0xc1m"//0xffb6c1
-#define BLUE				"\033[0x9f,0xd7,0xfbm"//0x9fd7fb
-#define ORANGE				"\033[0xfd,0x97,0x35m"//0xfd9735
+#define GREEN				0xace580
+#define PINK				0xffb6c1
+#define BLUE				0x9fd7fb
+#define ORANGE				0xfd9735
 //////////
-#define GREEN_S				"\033[0xcd,0xef,0xb2m"//0xcdefb2
-#define PINK_S				"\033[0xff,0xda,0xe0m"//0xffdae0
-#define BLUE_S				"\033[0xcf,0xeb,0xfdm"//0xcfebfd
-#define ORANGE_S			"\033[0xfd,0xc0,0x85m"//0xfdc085
+#define GREEN_S				0xcdefb2
+#define PINK_S				0xffdae0
+#define BLUE_S				0xcfebfd
+#define ORANGE_S			0xfdc085
 //////////
-#define GREEN_PC			"\033[0x0m"
-#define PINK_PC				"\033[0x0m"
-#define BLUE_PC				"\033[0x0m"
-#define ORANGE_PC			"\033[0x0m"
+#define GREEN_PC			0x0
+#define PINK_PC				0x0
+#define BLUE_PC				0x0
+#define ORANGE_PC			0x0
 //////////
-#define GREY				"\033[0xdf,0xdf,0xdfm"
-#define GREY_PC				"\033[0x0m"
+#define GREY				0xdfdfdf
+#define GREY_PC				0x0
 
 /*
 ********************************************************************************
