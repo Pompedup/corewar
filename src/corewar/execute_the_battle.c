@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/04 11:09:39 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/05 11:58:13 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	execute_the_battle(t_corevm *vm)
 	int			max_check;
 	t_process	*process;
 
+ft_printf("execute\n");
 	cycle = 0;
 	while (two_players_lives(vm) || vm->nb_cycles_to_die == 0) // a revoir
 	{

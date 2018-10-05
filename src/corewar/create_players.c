@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:40:17 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/04 17:54:40 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/05 14:42:35 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	create_player(t_corevm *vm, int num, int index)
 	t_player			**player;
 	static int			index_color = 0;
 
-	index_color = 0;
 	player = &vm->info->first_player;
 	while (*player)
 		player = &(*player)->next;

@@ -30,5 +30,7 @@ int		ft_zjmp(t_corevm *vm, t_process *process)
 	process->pc_tmp = 0;
 	if (vm->color[process->pc] < 8)
 		vm->color[process->pc] = vm->color[process->pc] < 4 ? vm->color[process->pc] + 8 : vm->color[process->pc] + 4;//pour les cas de fork
+	if (vm->color[process->pc] > 11)
+		vm->color[process->pc] = process->color + 8;
 	return (1);
 }
