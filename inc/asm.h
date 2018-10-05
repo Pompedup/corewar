@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/04 19:01:42 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/05 13:35:03 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct		s_string
 {
 	int				max;
 	int				size;
+	int				index_line;
 	char			*addr;
 	char			*type;
 }					t_string;
@@ -48,7 +49,7 @@ typedef struct		s_string
 typedef struct		s_file{
 	int				fd;
 	char			*line;
-	char			*save;
+	char			*current;
 	size_t			index_line;
 	size_t			index_char;
 }					t_file;

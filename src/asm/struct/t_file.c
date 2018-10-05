@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/20 15:46:56 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/04 17:07:51 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/05 17:57:30 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static t_bool	uninteresting_line(t_file *file, t_bool infos)
 		ft_strdel(&(file->line));
 		return (FALSE);
 	}
+	file->current += file->index_char;
 	return (TRUE);
 }
 
@@ -39,7 +40,12 @@ void			read_t_file(t_record *record, t_file *file, t_bool info)
 		if ((ret = get_next_line(file->fd, &(file->line))) == -1)
 			error(record, INVALID_FILE);
 		else if (!ret)
+		{
+			ft_printf("\E[2J");
 			return ;
+		}
+		ft_printf("\E[3H\E[J2%s\n", file->line);
+		file->current = file->line;
 		file->index_line++;
 	}
 }

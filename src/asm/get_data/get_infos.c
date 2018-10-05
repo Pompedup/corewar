@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 17:02:50 by pompedup          #+#    #+#             */
-/*   Updated: 2018/10/04 19:02:40 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/05 12:12:09 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static t_bool	check_line(t_record *record, t_file *file, char *cmp,\
 	data.max = cmp == NAME_CMD_STRING ? PROG_NAME_LENGTH : COMMENT_LENGTH;
 	data.addr = dest;
 	data.size = 0;
+	data.index_line = file->index_line;
 	if (!ft_strncmp(file->line + file->index_char, cmp, len))
 	{
 		if (cmp == NAME_CMD_STRING && !record->name_complete)

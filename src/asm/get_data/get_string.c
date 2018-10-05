@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 18:52:42 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/04 19:04:17 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/05 14:18:54 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,71 +16,68 @@
 **	get the values between 2 quote
 */
 
-int				skip_spaces(char *str)
+char		skip_spaces(char **str, t_file *file)
 {
-	int i;
-
-	i = 0;
-	while (ft_isspace(str[i]))
-		i++;
-	return (i);
+	while (ft_isspace(str ? **str : *file->current))
+		str ? (*str)++ : file->current++;
+	return (str ? **str : *file->current);
 }
 //gestion de la taille
-static t_bool	get_end_string(t_record *record, t_file *file, t_string *data)
+/* ************************************************************************** */
+static int	handle_end_string(t_record *record, t_file *file, t_string *data, char *quote)
 {
-	char *quote;
-	int	index_line;
-
-	index_line = file->index_line;
-	read_t_file(record, file, TRUE);
-	while (file->line)
+	*quote = '\0';
+	if ((data->size += quote - file->current) >  data->max)
 	{
-		if (((quote = ft_strchr(file->line, '"'))))
-		{
-			*quote = '\0';
-			if (*(quote + 1))
-			{
-				ft_printf(AFTER, record->name_file, index_line, data->type, quote + 1);
-				return (FALSE);
-			}
-			ft_strcpy(data->addr, file->line);
-			return (TRUE);
-		}
-		else
-		{
-			data->addr = ft_stpcpy(data->addr, file->line);
-			data->addr = ft_stpcpy(data->addr, "\n");
-		}
-		read_t_file(record, file, TRUE);
+		ft_printf(LONG, record->name_file, file->index_line, data->type, data->max, data->size);
+		return (-1);
 	}
-	ft_printf(ENDING, record->name_file, index_line, data->type);
-	return (FALSE);
+	quote++;
+	skip_spaces(&quote, NULL);
+	if (*quote && *quote != '#')
+	{
+		ft_printf(AFTER, record->name_file, file->index_line, data->type, quote + 1);
+		return (-1);
+	}
+	ft_strcpy(data->addr, file->current);
+	return (1);
 }
 
-t_bool	get_string(t_record *record, t_file *file, t_string *data)
+static int	handle_string(t_record *record, t_file *file, t_string *data)
 {
 	char *quote;
-	char *str;
 
-	str = file->line + file->index_char;
-	str += skip_spaces(str);
-	if (*str != '"')
+	if (((quote = ft_strchr(file->current, '"'))))
+		return (handle_end_string(record, file, data, quote));
+	if (!((data->size += ft_strlen(file->current) + 1) > data->max))
+	{
+		data->addr = ft_stpcpy(data->addr, file->current);
+		data->addr = ft_stpcpy(data->addr, "\n");
+	}
+	read_t_file(record, file, TRUE);
+	return (0);
+}
+
+t_bool		get_string(t_record *record, t_file *file, t_string *data)
+{
+	int		ret;
+
+	file->current = file->line + file->index_char;
+	if (skip_spaces(NULL, file) != '"')
 	{
 		ft_printf(BEGIN, record->name_file, file->index_line, data->type);
-		return (FALSE);//IL MANQUE LE NOM/COMMENTAIRE
+		return (FALSE);
 	}
-	str++;
-	if (((quote = ft_strchr(str, '"'))))
+	file->current++;
+	ft_printf("couco""test");
+	while (file->line)
 	{
-		if ((data.size = quote - str) >  data->max)
-		{
-			ft_printf(LONG, record->name_file, file->index_line, data->type, data->max, data.size);
+		if ((ret = handle_string(record, file, data)) == 1)
+			return (TRUE);
+		else if (ret == -1)
 			return (FALSE);
-		}
-		ft_strncpy(data->addr, str, quote - str);
-		return (TRUE);
 	}
-	data->addr = ft_stpcpy(data->addr, str);
-	data->addr = ft_stpcpy(data->addr, "\n");
-	return (get_end_string(record, file, data));
+	ft_printf("LINE %d\n", file->index_line);
+	ft_printf(ENDING, record->name_file, data->index_line, data->type);
+	return (FALSE);
 }
