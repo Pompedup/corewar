@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 14:29:45 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/05 15:26:47 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/05 16:36:56 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,24 @@ void	put_color(t_corevm *vm, unsigned char *print, int j, int i)
 	// ft_printf("tab[vm->color[i]]] %x\n", tab[vm->color[i]]);
 	// ft_printf("(tab[vm->color[i]] >> 16) & 0xff %x\n", (tab[vm->color[i]] >> 16) & 0xff);
 	// ft_printf("(tab[vm->color[i]] >> 16) & 0xff %x\n", (tab[vm->color[i]] >> 8) & 0xff);
+	//
 	// ft_printf("(tab[vm->color[i]] >> 16) & 0xff %x\n", (tab[vm->color[i]] >> 0) & 0xff);
 //
+	char tmp[40];
 
-//	ft_putstr(ROB);
-	// ft_putstr(tab[vm->color[i]]);
-	// ft_putstr(print);
-	// ft_putendl("fun");
-	// ft_putstr(ROB_FIN);
+	ft_bzero(tmp, 40);
+	ft_strcat(tmp, "\033[38;2;%d;%d;%dm%.");
+	// ft_strcat(tmp, "%.");
+	ft_strcat(tmp, ft_itoa(j));
+	ft_strcat(tmp, "s\033[0m");
+	// ft_strcat(tmp, "s");
+	// ft_putnbrendl(j);
+	// ft_putendl(tmp);
+	// ft_putendl(tmp);
 	// ft_printf("\033[48;2;%d;%d;%dm%s\033[0m", 172,229,128, print);
-	ft_printf("\033[38;2;%d;%d;%dm%s\033[0m", (tab[vm->color[i]] >> 16) & 0xff,(tab[vm->color[i]] >> 8) & 0xff,(tab[vm->color[i]]) & 0xff, print);
+	// ft_printf(tmp, print);
+	ft_printf(tmp, (tab[vm->color[i]] >> 16) & 0xff,(tab[vm->color[i]] >> 8) & 0xff,(tab[vm->color[i]]) & 0xff, print);
+	// ft_printf("%s", print);
 }
 
 /*
@@ -70,28 +78,31 @@ ft_printf("print_core\n");
 	// print[TEST - 1] = '\n';
 	while (i < MEM_SIZE)
 	{
-			put_color(vm, print, j, i);
-		if (i && !(i % racine))
-		{
-			print[j *3] = '\n';
-			put_color(vm, print, j, i);
-			// write(1, print, j * 3);
-			j = 0;
-		}
-		print[(i % racine) * 3] = HEXAMIN[str[i] / 16];
-		print[(i % racine) * 3 + 1] = HEXAMIN[str[i] % 16];
-		print[(i % racine) * 3 + 2] = ' ';
+		// put_color(vm, print, j, i);
+		print[j * 3] = HEXAMIN[str[i] / 16];
+		print[j * 3 + 1] = HEXAMIN[str[i] % 16];
+		print[j * 3 + 2] = ' ';
+		j++;
 		if (vm->color[i] != vm->color[i + 1])
 		{
-			put_color(vm, print, j, i);
-			// write(1, print, j);
+			put_color(vm, print, j * 3, i);
+			 //write(1, print, j);
+			//ft_bzero(print, TEST);
+			j = 0;
+		}
+		if (i && !((i + 1) % (racine)))
+		{
+			print[j  * 3] = '\n';
+			put_color(vm, print, j * 3 + 1, i);
+			// ft_putnbrendl(i);
+			 //write(1, print, j * 3);
+			//ft_bzero(print, TEST);
 			j = 0;
 		}
 			// ft_printf("\x1B[A%s\x1B[K", print);
 			// write(1, "\x1B[A", 1);
 			// write(1, "\x1B[K", 1);
 		i++;
-		j++;
 	}
 	ft_putendl("");
 
