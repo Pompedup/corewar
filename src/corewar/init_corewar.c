@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 15:22:28 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/05 14:12:41 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/05 17:11:29 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		init_vm(char **av, t_corevm *vm)
 	i = 0;
 	ft_bzero(vm, sizeof(t_corevm));
 	while (i < MEM_SIZE)
-		vm->color[i++] = 12;
+		vm->color[i++] = 13;
 	vm->argv = av;
 	vm->cycle_to_die = CYCLE_TO_DIE;
 	vm->nb_max_live = NBR_LIVE;

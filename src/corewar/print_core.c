@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 14:29:45 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/05 16:36:56 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/05 17:49:15 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ void	put_color(t_corevm *vm, unsigned char *print, int j, int i)
 	// ft_printf("\033[48;2;%d;%d;%dm%s\033[0m", 172,229,128, print);
 	// ft_printf(tmp, print);
 	ft_printf(tmp, (tab[vm->color[i]] >> 16) & 0xff,(tab[vm->color[i]] >> 8) & 0xff,(tab[vm->color[i]]) & 0xff, print);
+	if (vm->color[i] > 3 && vm->color[i] < 13)
+		if (vm->color[i] < 8)
+			vm->color[i] -= 4;
 	// ft_printf("%s", print);
 }
 
@@ -76,6 +79,8 @@ ft_printf("print_core\n");
 	str = (unsigned char *)vm->core;
 	racine = 64;//32
 	// print[TEST - 1] = '\n';
+sleep(1);
+	ft_putendl("\E[H\E[2J");
 	while (i < MEM_SIZE)
 	{
 		// put_color(vm, print, j, i);
@@ -105,7 +110,6 @@ ft_printf("print_core\n");
 		i++;
 	}
 	ft_putendl("");
-
 
 
 	//t_process	*process;

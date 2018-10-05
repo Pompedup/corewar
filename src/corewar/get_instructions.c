@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/04 18:17:51 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/05 17:46:43 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,16 +114,27 @@ ft_printf("	process->nb_cycle_instruc %d\n", process->nb_cycle_instruc);
 			// ft_printf("	process->type_instruc[1] %x\n", process->type_instruc[1]);
 			if (execute_instruction(vm, process))
 			{
+				//redevenir normal
+				if (vm->color[process->pc] < 12 && vm->color[process->pc] > 7)
+					vm->color[process->pc] -= 8;
+				else if (vm->color[process->pc] == 12)
+					vm->color[process->pc]++;
+
 				process->pc += process->pc_tmp;
 				process->pc_tmp = 0;
+
+				//devenir un pc
 				if (vm->color[process->pc] < 8)
 					vm->color[process->pc] = vm->color[process->pc] < 4 ? vm->color[process->pc] + 8 : vm->color[process->pc] + 4;//pour les cas de fork
+				else if (vm->color[process->pc] == 13)
+					vm->color[process->pc]--;
+
 			}
-				//move_pc(process, g_op_tab[process->type_instruc[0]]);
 		}
+				// move_pc(process, g_op_tab[process->type_instruc[0]]);
 		// ft_printf("sortie\n");
-	}
 	// execute_instruction(vm, process);
+	}
 }
 
 

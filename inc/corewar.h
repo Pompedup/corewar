@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/05 15:49:23 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/05 17:37:31 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@
 */
 
 //ORDONNE DANS LE SENS COULEUR CLASSIQUE / SURBRILLANCE (derniere instruction en date) / SURLIGNEMENT PC
-#define TAB_COLOR	{GREEN, PINK, BLUE, ORANGE, GREEN_S, PINK_S, BLUE_S, ORANGE_S, GREEN_PC, PINK_PC, BLUE_PC, ORANGE_PC, GREY, GREY_PC}
+#define TAB_COLOR	{GREEN, PINK, BLUE, ORANGE, GREEN_S, PINK_S, BLUE_S, ORANGE_S, GREEN_PC, PINK_PC, BLUE_PC, ORANGE_PC, GREY_PC, GREY}
 #define GREEN				0xace580
 #define PINK				0xffb6c1
 #define BLUE				0x9fd7fb
@@ -82,7 +82,7 @@
 #define ORANGE_PC			0xf0f0f0
 //////////
 #define GREY				0xdfdfdf
-#define GREY_PC				0x0
+#define GREY_PC				0x808080
 
 /*
 ********************************************************************************

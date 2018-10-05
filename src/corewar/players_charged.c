@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 13:36:25 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/05 16:33:16 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/05 17:26:14 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	players_charged_in_core(t_corevm *vm)
 			vm->core[i] = player->process[j];
 			if (i != process->pc)
 				vm->color[i] = process->color;
+			else if (i == process->pc)
+				vm->color[i] = process->color + 8;
 			i++;
 			j++;
 		}
