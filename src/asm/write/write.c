@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 15:10:17 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/03 17:06:42 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/06 18:32:30 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ void	write_file(t_record *record, t_function *functions)
 		}
 		functions = functions->next;
 	}
+	ft_putendl("fichier compile");
 	close(fd);
 }

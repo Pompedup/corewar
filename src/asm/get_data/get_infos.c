@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 17:02:50 by pompedup          #+#    #+#             */
-/*   Updated: 2018/10/05 12:12:09 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/06 18:49:18 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,30 @@ static t_bool	check_line(t_record *record, t_file *file, char *cmp,\
 	data.addr = dest;
 	data.size = 0;
 	data.index_line = file->index_line;
-	if (!ft_strncmp(file->line + file->index_char, cmp, len))
+	if (!ft_strncmp(file->current, cmp, len))
 	{
 		if (cmp == NAME_CMD_STRING && !record->name_complete)
 			record->name_complete = TRUE;
-		else if (!record->comment_complete)
+		else if (cmp == COMMENT_CMD_STRING && !record->comment_complete)
 			record->comment_complete = TRUE;
 		else
 		{
-			ft_printf("%s (line %d): Second %s declared\n", record->name_file, file->index_line);
+			ft_printf(SECOND, record->name_file, file->index_line, data.type);
 			return (FALSE);
 		}
 		file->index_char += len;
 		return (get_string(record, file, &data));//cmp, dest));
 	}
 	return (FALSE);
+}
+
+static char		*check_type(char *str)
+{
+	if (!ft_strncmp(str, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
+		return (NAME_CMD_STRING);
+	if (!ft_strncmp(str, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
+		return (COMMENT_CMD_STRING);
+	return (NULL);
 }
 
 /*
@@ -59,11 +68,12 @@ static t_bool	check_line(t_record *record, t_file *file, char *cmp,\
 
 t_bool			get_infos(t_record *record, t_file *file)
 {
-	while (file->line && !(record->name_complete && record->comment_complete))
+	char *type;
+
+	while (file->line && (type = check_type(file->current)))
 	{
-		if (!check_line(record, file, NAME_CMD_STRING, record->name))
-			if (!check_line(record, file, COMMENT_CMD_STRING, record->comment))
-				return (FALSE);
+		if (!check_line(record, file, type, record->name))
+			return (FALSE);
 		read_t_file(record, file, FALSE);
 	}
 	return (TRUE);

@@ -6,7 +6,7 @@
 #    By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/10/04 19:01:56 by abezanni         ###   ########.fr        #
+#    Updated: 2018/10/06 18:01:36 by abezanni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,8 @@ COREWAR_SRC =	$(addprefix src/corewar/,$(COREWAR_FILES))
 
 ASM_NAME =		asm
 
+NAME = $(ASM_NAME) $(COREWAR_NAME)
+
 COREWAR_NAME =	corewar
 
 LIB_PATH =		libft
@@ -80,7 +82,9 @@ INCLUDE =		-I ./inc
 
 CFLAGS = -Wall -Wextra -Werror $(INCLUDE)
 
-all : libftcomp $(ASM_NAME) $(COREWAR_NAME)
+.PHONY = libftcomp
+
+all : libftcomp $(NAME)
 
 $(ASM_NAME) : $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
 	$(CC) -o $(ASM_NAME) $(CFLAGS) $(LIB) $(ASM_OBJ) $(COMMON_OBJ)

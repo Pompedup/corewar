@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/05 13:35:03 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/06 20:04:58 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,50 @@
 # define	WRONG_FORMAT 4
 # define	INVALID_FILE 5
 
-# define	RED		"\033[0;34m"
-# define	BLUE	"\033[0;31m"
+# define	RED		"\033[1;31m"
+# define	GREEN	"\033[1;32m"
+# define	BLUE	"\033[1;34m"
 # define	END		"\033[0m"
-# define	QUOTE	"\""BLUE"%s"END"\""
-# define	FILE	RED"%s"END" (line %d): "
-# define	LONG	FILE"So many characteres for "QUOTE" (max %d - you %d).\n"
+# define	FILE	BLUE"%s"END" (line %d): "
+# define	QUOTE	"\""RED"%s"END"\""
+
+/*
+********************************************************************************
+**                                                                            **
+**	Error from file                                                           **
+**                                                                            **
+********************************************************************************
+*/
+
+# define	OPEN	BLUE"%s"END": Wrong name.\n"
+# define	EMPTY	BLUE"%s"END": This file is empty.\n"
+# define	READ	BLUE"%s"END": This is not a file.\n"
+
+/*
+********************************************************************************
+**                                                                            **
+**	Error from name or comment                                                **
+**                                                                            **
+********************************************************************************
+*/
+
+# define	SECOND	FILE"A second "QUOTE" is declared in the description part.\n"
+# define	LONG	FILE"So many characteres for "QUOTE" (max "GREEN"%d"END" - you "RED"%d"END").\n"
 # define	BEGIN	FILE"Missing beginning quote for "QUOTE".\n"
 # define	ENDING	FILE"Missing ending quote for "QUOTE".\n"
 # define	AFTER	FILE"Excess of characteres after the quote of "QUOTE" ("QUOTE").\n"
+# define	BOTH	FILE"Missing "QUOTE" and "QUOTE
+# define	ONE		FILE"Missing "QUOTE
+# define	CURRENT " (current : "QUOTE")"
 
+/*
+********************************************************************************
+**                                                                            **
+**	Error from instruction part                                               **
+**                                                                            **
+********************************************************************************
+*/
+# define	WHAT	FILE"Something go wrong ("QUOTE").\n"
 
 
 extern t_op	g_op_tab[];
@@ -186,7 +220,7 @@ t_bool	last_verifications(t_record *record);
 
 void		error(t_record *record, int error);
 void		erase(t_record *record);
-void		init(t_record *record, char *file_name);
+t_bool		init(t_record *record, char *file_name);
 
 /*
 ********************************************************************************

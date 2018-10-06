@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/20 15:46:56 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/05 17:57:30 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/06 19:08:52 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,16 @@ void			read_t_file(t_record *record, t_file *file, t_bool info)
 	while (!uninteresting_line(file, info))
 	{
 		if ((ret = get_next_line(file->fd, &(file->line))) == -1)
-			error(record, INVALID_FILE);
-		else if (!ret)
 		{
-			ft_printf("\E[2J");
+			ft_printf(READ, record->name_file);
 			return ;
 		}
-		ft_printf("\E[3H\E[J2%s\n", file->line);
+		else if (!ret)
+		{
+			//ft_printf("\E[2J");
+			return ;
+		}
+		//ft_printf("\E[3H\E[J2%s\n", file->line);
 		file->current = file->line;
 		file->index_line++;
 	}
@@ -59,8 +62,12 @@ void			del_t_file(t_file *file)
 
 void			new_t_file(t_record *record, t_file *file, char *file_name)
 {
-	//record->name = file_name;
 	if ((file->fd = open(file_name, O_RDONLY)) == -1)
-		error(record, NO_FILE);
+	{
+		ft_printf(OPEN, record->name_file);
+		return ;
+	}
 	read_t_file(record, file, FALSE);
+	if (!file->line)
+		ft_printf(EMPTY, record->name_file);
 }

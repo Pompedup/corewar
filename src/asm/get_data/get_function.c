@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:26:00 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/04 17:08:28 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/06 20:06:09 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char		*is_new_name(t_function *functions, char *str)
 		functions = functions->next;
 	}
 	return (ft_strdup(str));
-}
+}//gerera t on le probleme d'allocation ?
 
 void		get_name(t_function *functions, char *str, char *label, char **name)
 {
@@ -38,14 +38,15 @@ void		get_name(t_function *functions, char *str, char *label, char **name)
 	}
 }
 
-static int	next_data(char *str)
+static void	next_data(t_file *file, char *name)
 {
 	int i;
 
-	i = 0;
-	while (ft_isspace(str[i]))
+	i = file->index_char + ft_strlen(name) + 1;
+	while (ft_isspace(file->line[i]))
 		i++;
-	return (i);
+	file->index_char = i;
+	file->current = file->line + file->index_char;
 }
 
 t_bool		cmp_instruction(char *str, char *shortcut, int len)
@@ -74,13 +75,10 @@ t_bool		check_line(t_function *functions, t_file *file, int *type, char **name)
 	if ((label = ft_strchr(file->line + file->index_char, LABEL_CHAR)))
 		get_name(functions, file->line + file->index_char, label, name);
 	if (*name)
-	{
-		file->index_char += ft_strlen(*name) + 1;
-		next_data(file->line + file->index_char);
-	}
+		next_data(file, *name);
 	while (g_op_tab[*type].shortcut)
 	{
-		if (cmp_instruction(file->line + file->index_char, g_op_tab[*type].shortcut, ft_strlen(g_op_tab[*type].shortcut)))
+		if (cmp_instruction(file->current, g_op_tab[*type].shortcut, ft_strlen(g_op_tab[*type].shortcut)))
 			break ;
 		(*type)++;
 	}
@@ -115,6 +113,11 @@ t_bool		get_function(t_record *record, t_file *file, t_function **current_functi
 			if ((addr += get_elem(record, file, *current_elem)) == -1)
 				return (FALSE);
 			current_elem = &((*current_elem)->next);
+		}
+		else
+		{
+			ft_printf(WHAT, record->name_file, file->index_line, file->current);
+			return (FALSE);
 		}
 		read_t_file(record, file, FALSE);
 	}

@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 18:52:42 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/05 14:18:54 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/06 18:20:34 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	handle_end_string(t_record *record, t_file *file, t_string *data, cha
 	skip_spaces(&quote, NULL);
 	if (*quote && *quote != '#')
 	{
-		ft_printf(AFTER, record->name_file, file->index_line, data->type, quote + 1);
+		ft_printf(AFTER, record->name_file, file->index_line, data->type, quote);
 		return (-1);
 	}
 	ft_strcpy(data->addr, file->current);
@@ -69,7 +69,6 @@ t_bool		get_string(t_record *record, t_file *file, t_string *data)
 		return (FALSE);
 	}
 	file->current++;
-	ft_printf("couco""test");
 	while (file->line)
 	{
 		if ((ret = handle_string(record, file, data)) == 1)
@@ -77,7 +76,6 @@ t_bool		get_string(t_record *record, t_file *file, t_string *data)
 		else if (ret == -1)
 			return (FALSE);
 	}
-	ft_printf("LINE %d\n", file->index_line);
 	ft_printf(ENDING, record->name_file, data->index_line, data->type);
 	return (FALSE);
 }
