@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 15:16:23 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/08 19:04:30 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/08 19:39:42 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	get_one_octet(t_corevm *vm, t_process *process, int i)
 void	get_two_octets(t_corevm *vm, t_process *process, int i)
 {
 	process->args[i] =
-		*((short*)(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))));
+		*((unsigned short*)(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))));
 	ft_memrev((char*)&process->args[i], 2);
 	process->pc_tmp += 2;
 	// ft_printf("vm->core[process->pc] %x\n", vm->core[process->pc]);
