@@ -20,7 +20,7 @@ int		ft_add(t_corevm *vm, t_process *process)
 	if (values)
 	{
 		process->reg[process->args[2]] = values[0] + values[1];
-printf(" ADD values[0] %d  values[1] %d process->reg[process->args[2]] %d\n", values[0], values[1], process->reg[process->args[2]]);
+ft_printf(" ADD values[0] %d  values[1] %d process->reg[process->args[2]] %d\n", values[0], values[1], process->reg[process->args[2]]);
 		process->carry = (process->reg[process->args[2]]) ? 0 : 1;
 		free(values);
 	}

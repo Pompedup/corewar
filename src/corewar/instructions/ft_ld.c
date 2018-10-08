@@ -32,7 +32,7 @@ int		ft_ld(t_corevm *vm, t_process *process)
 {
 	int	*values;
 
-	printf(" DANS LD process->type_instruc[1] hexa  %x\n", process->type_instruc[1]);
+	ft_printf(" _____________________DANS LD process->type_instruc[1] hexa  %x\n", process->type_instruc[1]);
 	if (!(test_args(process, g_op_tab[process->type_instruc[0]])))
 	{
 		return (0);
@@ -41,11 +41,11 @@ int		ft_ld(t_corevm *vm, t_process *process)
 
 	values = get_values(vm, process, 1, 0); //1 on recupere seulement la valeur de larg 1
 
-	printf(" LOAD values[0] hexa %x\n", values[0]);
+	ft_printf(" _________________________LOAD values[0] hexa %x\n", values[0]);
 	if (values)
 	{
 		process->reg[process->args[1]] = values[0];
-		process->carry = values[0] = 0 ? 1 : 0; //MODIFIE LE CARRY ????!!!!!
+		process->carry = values[0] == 0 ? 1 : 0; //MODIFIE LE CARRY ????!!!!!
 		free(values);
 	}
 	return (1);

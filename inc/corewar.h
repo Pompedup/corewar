@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/08 11:30:38 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/08 19:31:06 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define ERR_MESS_8			"cannot read magic number from file "
 # define ERR_MESS_9			"cannot read name of player from file "
 # define ERR_MESS_10		"cannot read the size of the program of file "
-# define ERR_MESS_11		" is larger than"
+# define ERR_MESS_11		" has too large a code"
 # define ERR_MESS_12		"cannot read comment from file "
 # define ERR_MESS_13		"cannot read the program of file "
 # define ERR_MESS_14		"difference between progam size expected and read"
@@ -66,24 +66,25 @@
 
 //ORDONNE DANS LE SENS COULEUR CLASSIQUE / SURBRILLANCE (derniere instruction en date) / SURLIGNEMENT PC
 #define TAB_COLOR	{GREEN, PINK, BLUE, ORANGE, GREEN_S, PINK_S, BLUE_S, ORANGE_S, GREEN_PC, PINK_PC, BLUE_PC, ORANGE_PC, GREY_PC, GREY}
-#define GREEN				0xace580
-#define PINK				0xffb6c1
-#define BLUE				0x9fd7fb
-#define ORANGE				0xfd9735
+#define GREEN				0x00ff00
+#define PINK				0xff0000
+#define BLUE				0x0000ff
+#define ORANGE				0xf0f0f0
 //////////
 #define GREEN_S				0xcdefb2
 #define PINK_S				0xffdae0
 #define BLUE_S				0xcfebfd
 #define ORANGE_S			0xfdc085
 //////////
-#define GREEN_PC			0x00ff00
-#define PINK_PC				0xff0000
-#define BLUE_PC				0x0000ff
-#define ORANGE_PC			0xf0f0f0
+#define GREEN_PC			0xace580
+#define PINK_PC				0xffb6c1
+#define BLUE_PC				0x9fd7fb
+#define ORANGE_PC			0xfd9735
 //////////
 #define GREY_PC				0x808080
 #define GREY				0xdfdfdf
 
+#define CYCLE_DEBUG			2450
 /*
 ********************************************************************************
 **
@@ -156,6 +157,7 @@ typedef struct			s_corevm
 	char				core[MEM_SIZE];
 	unsigned int		color[MEM_SIZE];
 	int					dump;//unsigned int
+	int					nbr_total_cycles;
 	int					cycle_to_die;
 	int					nb_cycles_to_die;
 	int					nb_lives; //associer au define NBR_LIVE. Si au cours d’une de ces vérifications on se rend compte qu’il y a eu au moins NBR_LIVE exécutions de live depuis la dernière vérification en date, on décrémente CYCLE_TO_DIE de CYCLE_DELTA unités

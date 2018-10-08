@@ -23,23 +23,28 @@
 //Usage : fork S(D2)
 int		ft_fork(t_corevm *vm, t_process *process)
 {
-	t_player	*tmp;
+	t_player	*tmp_player;
 	t_process	*fork;
 
-	tmp = vm->info->first_player;
+	tmp_player = vm->info->first_player;
 	fork = NULL;
-		printf("test fork\n");
+	ft_printf("test fork\n");
 	get_two_octets(vm, process, 0);
-	while (ft_strcmp(process->name, tmp->header->prog_name) && tmp)
+	ft_printf(" rocess->args[0]  %x\n", (process->args[0] ));
+	ft_printf(" bhjhjk(process->args[0] & (IDX_MOD - 1) %d\n", (process->args[0] & (IDX_MOD - 1)));
+		ft_printf("test2\n");
+	while (ft_strcmp(process->name, tmp_player->header->prog_name) && tmp_player)
 	{
-		printf("test\n");
-		tmp = tmp->next;
+		ft_printf("test\n");
+		tmp_player = tmp_player->next;
 	}
-	if (tmp)
+		ft_printf("test3\n");
+	if (tmp_player)
 	{
-		fork = create_process(vm, (process->pc + (process->args[0] & (IDX_MOD - 1))), tmp);
+		fork = create_process(vm, (process->pc + (process->args[0] & (IDX_MOD - 1))), tmp_player);
 	}
 	put_process_front(&vm->info->first_processus, fork);
+		ft_printf("test3\n");
 	// while (fork)
 	// {
 		// ft_printf("YOU FORK IT!\n, fork->pc int %d \n", fork->pc);

@@ -20,7 +20,7 @@ int		ft_lfork(t_corevm *vm, t_process *process)
 
 	tmp = vm->info->first_player;
 	fork = NULL;
-		printf("test LONG fork\n");
+		ft_printf("_____________________test LONG fork\n");
 	get_two_octets(vm, process, 0);
 	while (ft_strcmp(process->name, tmp->header->prog_name) && tmp)
 	{

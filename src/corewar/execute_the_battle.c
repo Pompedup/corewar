@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/05 11:58:13 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/08 16:52:37 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,9 @@ ft_printf("execute\n");
 			}
 			process = process->next;
 		}
-
-
+vm->nbr_total_cycles++;
+		if (vm->nbr_total_cycles > CYCLE_DEBUG)
+			ft_printf("	nombre total de cycles vm->nbr_total_cycles %d\n", vm->nbr_total_cycles);
 		if (cycle == vm->cycle_to_die)
 		{
 			cycle = 0;
@@ -87,8 +88,9 @@ ft_printf("execute\n");
 			max_check = 0;
 		}
 		cycle++;
-		if (cycle > 30)
-			return ;
+		//  if (cycle > 2440)
+			//  return ;
+	if (vm->nbr_total_cycles > CYCLE_DEBUG)
 		print_core(vm);
 		//tmp_cycle = check_max_checks(vm, tmp_cycle);
 		//check_cycles(vm);

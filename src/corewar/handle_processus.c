@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 15:13:34 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/05 17:18:09 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/08 17:46:42 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_process	*create_process(t_corevm *vm, int pc, t_player *player)
         ft_error(vm, FAIL_MEMALLOC_3, 0);
     process->color = player->color;
     process->pc = pc;
+    // process->carry = 1;
     if (vm->color[pc] < 8)
         vm->color[pc] = vm->color[pc] < 4 ? vm->color[pc] + 8 : vm->color[pc] + 4;//pour les cas de fork
     if (vm->color[pc] == 13)
@@ -58,6 +59,6 @@ t_process	*create_process(t_corevm *vm, int pc, t_player *player)
 		i++;
 	}
     ft_strcpy(process->name, player->header->prog_name);
-    // printf("player->num %d\n", player->num);
+    // ft_printf("player->num %d\n", player->num);
     return (process);
 }

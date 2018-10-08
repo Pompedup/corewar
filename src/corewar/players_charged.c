@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 13:36:25 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/05 17:26:14 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/08 17:46:12 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	players_charged_in_core(t_corevm *vm)
 	place = 0;
 	while (player)
 	{
-		//printf("player->name_file %s \n", player->name_file);
+		//ft_printf("player->name_file %s \n", player->name_file);
 		i = ((place / (float)vm->info->nb_players) * (float)MEM_SIZE);
-		printf("player->num %d \n",player->num);
+		ft_printf("player->num %d \n",player->num);
 		process = create_process(vm, i, player);//handle_processus
 		put_process_front(&(vm->info->first_processus), process);
 		j = 0;
@@ -63,8 +63,8 @@ void	players_charged_in_core(t_corevm *vm)
 	// process = vm->info->first_processus;
 	// while (process)
 	// {
-		// printf("process->reg[0] %d\n", process->reg[0]);
-		// printf("process->pc %d\n", process->pc);
+		// ft_printf("process->reg[0] %d\n", process->reg[0]);
+		// ft_printf("process->pc %d\n", process->pc);
 		// process = process->next;
 	// }
 }

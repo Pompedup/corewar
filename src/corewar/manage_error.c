@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 18:32:47 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/08 12:05:29 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/08 13:29:41 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void     ft_error(t_corevm *vm, char *mess_error, int to_free)
 {
     (void)vm;
     if (ft_strstr(mess_error, ERR_MESS_11))
-        ft_fprintf(2, "Error: File %s has too large a code (%d bytes > %d bytes).\n", mess_error, vm->info->first_player->header->prog_size, CHAMP_MAX_SIZE);
+        ft_fprintf(2, "Error: File %s (%d bytes > %d bytes).\n", mess_error, vm->info->first_player->header->prog_size, CHAMP_MAX_SIZE);
     else
         ft_fprintf(2, "Error: %s.\n", mess_error);
     if (to_free)

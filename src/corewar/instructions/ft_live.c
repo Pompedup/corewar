@@ -17,14 +17,24 @@ ft_printf("\nLIVE ???\n");
 	//a voir sil y a des mooment ou on renvoie 0
 	//surement quand le joueur est mort
 	get_four_octets(vm, process, 0);
+	process->live++;
 	number_to_be_alive = vm->info->first_processus;
 	while (number_to_be_alive && process->args[0] != number_to_be_alive->reg[0])
 	{
 		number_to_be_alive = number_to_be_alive->next;
 	}
-	if (process->args[0] == number_to_be_alive->reg[0])
-		number_to_be_alive->live++;
+	ft_printf("trouve bon processus process->args[0] %x process->reg[0] %x,\n",
+	process->args[0], process->reg[0]);
+		ft_printf("trouve bon processus number_to_be_alive %s,\n", number_to_be_alive);
+	if (number_to_be_alive)
+	{
+		if (process->args[0] == number_to_be_alive->reg[0] && number_to_be_alive->reg[0] != process->reg[0])
+			number_to_be_alive->live++;
+		ft_printf("un processus dit que le joueur %d(%s) est en vie\n",
+			number_to_be_alive->reg[0], number_to_be_alive->name);
+	}
 	vm->nb_lives++; //est ce quil faut vraiment calculer le nb total de live?
-	printf("un processus dit que le joueur %d(%s) est en vie\n", number_to_be_alive->reg[0], number_to_be_alive->name);
+	ft_printf("test\n");
+
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/05 17:46:43 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/08 16:53:14 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ int		execute_instruction(t_corevm *vm, t_process *process)
 	int	i;
 
 	i = 0;
-	ft_printf(" execute i process->type_instruc[0] hexa %x\n", process->type_instruc[0]);
+	if (vm->nbr_total_cycles > CYCLE_DEBUG)
+		ft_printf(" execute i process->type_instruc[0] hexa %x\n", process->type_instruc[0]);
+	// ft_printf(" g_op_tab[process->type_instruc[0]].shortcut %s\n", g_op_tab[process->type_instruc[0]].shortcut);
 	if (!(g_instruc_func[process->type_instruc[0]].ptrfunc(vm, process)))
 		return (0);
 	i = 0;
@@ -69,7 +71,7 @@ void	get_instruction_type(t_corevm *vm, t_process *process)
 	int i;
 
 	i = 0;
-ft_printf(" dans get_instruction vm->core[process->pc] %x\n", vm->core[process->pc]);
+// ft_printf(" dans get_instruction vm->core[process->pc] %x\n", vm->core[process->pc]);
 	while (g_op_tab[i].id != (vm->core[process->pc & (MEM_SIZE - 1)]) && g_op_tab[i].id)
 		i++;
 	if (g_op_tab[i].id == 0)
@@ -77,15 +79,15 @@ ft_printf(" dans get_instruction vm->core[process->pc] %x\n", vm->core[process->
 	process->pc_tmp++;
 	process->nb_cycle_instruc = g_op_tab[i].nb_cycle_instruction;
 	process->type_instruc[0] = i;
-	if (g_op_tab[i].nbr_arg > 1)
+	if (g_op_tab[i].nbr_arg > 1 || process->type_instruc[0] == 16)
 	{
 		process->type_instruc[1] = (unsigned char)(vm->core[(process->pc + process->pc_tmp) & (MEM_SIZE - 1)]);
-		ft_printf(" process->type_instruc[1] int %d\n", process->type_instruc[1]);
-		ft_printf(" (vm->core[process->pc & (MEM_SIZE - 1)]) int %d\n", (unsigned char)(vm->core[(process->pc) & (MEM_SIZE - 1)]));
+		// ft_printf(" process->type_instruc[1] int %d\n", process->type_instruc[1]);
+		// ft_printf(" (vm->core[process->pc & (MEM_SIZE - 1)]) int %d\n", (unsigned char)(vm->core[(process->pc) & (MEM_SIZE - 1)]));
 		// ft_printf("process->type_instruc[1] hexa %hhx\n", process->type_instruc[1]);
 		// ft_printf("vm->core[process->pc] hexa %x\n", vm->core[process->pc]);
-	}
 	process->pc_tmp++;
+	}
 }
 
 /*
@@ -101,14 +103,20 @@ ft_printf(" dans get_instruction vm->core[process->pc] %x\n", vm->core[process->
 
 void	manage_instruction(t_corevm *vm, t_process *process)
 {
-ft_printf("	process->type_instruc[0] %d\n", process->type_instruc[0]);
+// ft_printf("	process->type_instruc[0] %d\n", process->type_instruc[0]);
 	if (process->type_instruc[0] == -1)
 		get_instruction_type(vm, process);
 	else
 	{
 		process->nb_cycle_instruc--;
+		// vm->nbr_total_cycles++;
 			// ft_putendl("TEST");
-ft_printf("	process->nb_cycle_instruc %d\n", process->nb_cycle_instruc);
+		if (vm->nbr_total_cycles > CYCLE_DEBUG)
+			ft_printf("	process->nb_cycle_instruc %d\n", process->nb_cycle_instruc);
+		if (vm->nbr_total_cycles > CYCLE_DEBUG)
+			if (process->type_instruc[0] != -1)
+				ft_printf("	fonction '%s'\n", g_op_tab[process->type_instruc[0]].shortcut);
+// ft_printf("	nombre total de cycles vm->nbr_total_cycles %d\n", vm->nbr_total_cycles);
 		if (process->nb_cycle_instruc == 1)
 		{
 			// ft_printf("	process->type_instruc[1] %x\n", process->type_instruc[1]);
