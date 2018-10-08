@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 14:29:45 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/05 19:39:47 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/08 11:46:05 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,13 @@ void	put_color(t_corevm *vm, unsigned char *print, int j, int i)
 	// ft_putendl(tmp);
 	// ft_printf("\033[48;2;%d;%d;%dm%s\033[0m", 172,229,128, print);
 	// ft_printf(tmp, print);
-	ft_printf("\033[38;2;%d;%d;%dm%.*s\033[0m", (tab[vm->color[i]] >> 16) & 0xff,(tab[vm->color[i]] >> 8) & 0xff,(tab[vm->color[i]]) & 0xff, j, print);
+	if (vm->color[i] > 7 && vm->color[i] < 13)
+	{
+		ft_printf("\033[48;2;%d;%d;%dm%.*s\033[0m", (tab[vm->color[i]] >> 16) & 0xff,(tab[vm->color[i]] >> 8) & 0xff,(tab[vm->color[i]]) & 0xff, j - 1, print);
+		ft_printf(" ");
+	}
+	else
+		ft_printf("\033[38;2;%d;%d;%dm%.*s\033[0m", (tab[vm->color[i]] >> 16) & 0xff,(tab[vm->color[i]] >> 8) & 0xff,(tab[vm->color[i]]) & 0xff, j, print);
 	// ft_printf(tmp, (tab[vm->color[i]] >> 16) & 0xff,(tab[vm->color[i]] >> 8) & 0xff,(tab[vm->color[i]]) & 0xff, print);
 	if (vm->color[i] > 3 && vm->color[i] < 13)
 		if (vm->color[i] < 8)
