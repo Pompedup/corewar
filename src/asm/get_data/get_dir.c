@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 17:31:48 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/03 18:38:20 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/08 16:49:19 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,6 @@ static size_t	verif_syntax_label(t_record *record, char *str)
 		exit(0);//gerer l'erreur
 	(void)record;
 	return (i);
-}
-
-void	check_authorized_dir(t_record *record, t_elem *elem, int arg_type,\
-			int indice)
-{
-	(void)arg_type;
-	if (!(g_op_tab[elem->type].accept[indice] & T_DIR))
-	{
-		exit(0);//gerer l'erreur
-		(void)record;
-	}
 }
 
 int		get_dir(t_record *record, t_arg *current_arg, t_elem *elem, int i)

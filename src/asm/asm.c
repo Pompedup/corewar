@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 12:23:45 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/06 19:20:54 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/08 13:38:50 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int			main(int ac, char **av)
 			{
 				// name_and_comment(record);//affichage
 				// ft_putendl("function");
-				if (get_function(&record, &record.file, &(record.functions)))
+				if (get_functions(&record, &record.file, &(record.functions)))
 				{
 					// ft_putendl("last");
 					if (last_verifications(&record))

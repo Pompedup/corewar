@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/06 20:04:58 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/08 17:52:31 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@
 # define	GREEN	"\033[1;32m"
 # define	BLUE	"\033[1;34m"
 # define	END		"\033[0m"
-# define	FILE	BLUE"%s"END" (line %d): "
+# define	NAME	BLUE"%s"END
+# define	FILE	NAME" (line %d): "
 # define	QUOTE	"\""RED"%s"END"\""
+# define	QUOTEC	"\""RED"%c"END"\""
 
 /*
 ********************************************************************************
@@ -66,8 +68,18 @@
 **                                                                            **
 ********************************************************************************
 */
-# define	WHAT	FILE"Something go wrong ("QUOTE").\n"
 
+# define	WHAT	FILE"Something go wrong ("QUOTE").\n"
+# define	NOLABEL	FILE"Missing label name before "QUOTEC".\n"
+# define	WRLABEL	FILE"Wrong char "QUOTEC" for label "QUOTE".\n"
+# define	MISSLAB	FILE"Missing LABEL_CHAR "QUOTEC" after label "QUOTE".\n"
+# define	SPACES	FILE"Space(s) between label "QUOTE" and LABEL_CHAR "QUOTEC".\n"
+
+
+# define	MISSARG	FILE"Missing argument before "QUOTEC".\n"
+# define	WRARG	FILE QUOTE" is  invalid to the %s position for instruction "GREEN"%s"END".\n"
+//column
+# define	ALLOC	NAME": Allocation error.\n"
 
 extern t_op	g_op_tab[];
 
@@ -102,6 +114,8 @@ typedef struct		s_elem{
 	int				addr;
 	int				size;
 	int				type;
+	int				index_line;
+	t_op			op_case;
 	int				key;
 	char			*line;
 	t_arg			*args;
@@ -148,7 +162,7 @@ int		get_dir(t_record *record, t_arg *current_arg, t_elem *elem, int i);
 */
 
 int		is_label_char(int c);
-int		get_elem(t_record *record, t_file *file, t_elem *current_elem);
+t_bool		get_elem(t_record *record, t_file *file, t_elem *current_elem);
 
 /*
 ********************************************************************************
@@ -158,7 +172,7 @@ int		get_elem(t_record *record, t_file *file, t_elem *current_elem);
 ********************************************************************************
 */
 
-t_bool	get_function(t_record *record, t_file *file, t_function **current_function);
+t_bool	get_functions(t_record *record, t_file *file, t_function **current_function);
 
 /*
 ********************************************************************************
@@ -233,7 +247,7 @@ t_bool		init(t_record *record, char *file_name);
 void				print_elems(t_elem *current);
 void				del_t_elem(t_elem **current);
 void				del_t_elems(t_elem **current);
-t_bool				new_t_elem(t_record *record, t_elem **current, int type, int addr);
+t_bool				new_t_elem(t_record *record, t_elem **current, int type);
 
 /*
 ********************************************************************************
@@ -258,7 +272,7 @@ void				new_t_file(t_record *record, t_file *file, char *file_name);
 void				print_functions(t_function *current);
 void				del_t_function(t_function **current);
 void				del_t_functions(t_function **current);
-t_bool				new_t_function(t_record *record, t_function **current, char *name, int pos);
+t_bool				new_t_function(t_record *record, t_function **current, char *name);
 
 /*
 ********************************************************************************
@@ -278,8 +292,7 @@ void				new_t_arg(t_arg **current, int addr);
 
 
 
-void	next_comma(t_record *record, t_elem
- *elem);
+t_bool	next_comma(t_record *record, t_elem *elem, t_bool first);
 int	is_label_char(int c);
 t_bool	check_authorized_arg(t_record *record, t_elem
  *elem, int arg_type, int indice);
@@ -287,5 +300,6 @@ int		verif_synrax(t_record *record, char *str);
 void	get_label(t_record *record, t_arg *current_arg, char *str, size_t len);
 void	write_file(t_record *record, t_function *functions);
 t_bool	get_string(t_record *record, t_file *file, t_string *data);
-
+t_bool		get_type(t_record *record, t_file *file, int *type);
+t_bool		check_label(t_record *record, t_file *file, char **name);
 #endif

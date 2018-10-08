@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/20 15:46:56 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/06 19:08:52 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/08 15:21:15 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,22 @@
 
 static t_bool	uninteresting_line(t_file *file, t_bool infos)
 {
+	char *tmp;
+
 	if (!file->line)
 		return (FALSE);
 	if (infos)
 		return (TRUE);
-	while (ft_isspace(file->line[file->index_char]))
-		file->index_char++;
-	if (!file->line[file->index_char] || file->line[file->index_char] == '#')
+	file->current = file->line;
+	while (ft_isspace(*file->current))
+		file->current++;
+	if (!*file->current || *file->current == COMMENT_CHAR)
 	{
 		ft_strdel(&(file->line));
 		return (FALSE);
 	}
-	file->current += file->index_char;
+	if ((tmp = ft_strchr(file->current, COMMENT_CHAR)))
+		*tmp = '\0';
 	return (TRUE);
 }
 

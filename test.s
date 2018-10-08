@@ -1,27 +1,12 @@
 .name "testddf fddfd
 
 kjkj
+#ddf fddfdfddfd
+
 #ddf fddfd
 
-kjkj
-#ddf fddfd
+"
+.comment "ddf fddfd"
 
-kjkj
-#ddf fddfd
-
-kjkj
-#ddf fddfd
-
-kjkj
-#ddf fddfd
-
-kjkj
-#ddf fddfd
-
-kjkj"
-.comment "ddf fddfd
-
-kjkj
-#"
-
-live %2
+cc:
+live r2
