@@ -6,11 +6,11 @@
 #    By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/10/03 14:26:55 by ecesari          ###   ########.fr        #
+#    Updated: 2018/10/09 11:30:47 by ecesari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY : all clean fclean re libftcomp corewar asm
+.PHONY : all clean fclean re libftcomp
 
 CC =			@gcc
 

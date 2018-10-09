@@ -17,14 +17,11 @@ résultat dans le registre qui est le 3ème paramètre. Opcode 0x06. Modifie le 
 */
 
 //Usage : and S(RG/ID/D4), S(RG/ID/D4), D(RG)
-int		ft_and(t_corevm *vm, t_process *process)
+void		ft_and(t_corevm *vm, t_process *process)
 {
 	int	*values;
 
-	if (!(test_args(process, g_op_tab[process->type_instruc[0]])))
-		return (0);
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
-
 	values = get_values(vm, process, 3, 0);
 	ft_printf(" AND values[0] hexa %x  values[1] hexa %x\n", values[0], values[1]);
 	if (values)
@@ -34,5 +31,4 @@ int		ft_and(t_corevm *vm, t_process *process)
 		ft_printf("process->reg[process->args[2]] hexa %x\n", process->reg[process->args[2]]);
 		free(values);
 	}
-	return (1);
 }

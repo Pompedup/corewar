@@ -21,36 +21,30 @@
 */
 
 //Usage : fork S(D2)
-int		ft_fork(t_corevm *vm, t_process *process)
+void	ft_fork(t_corevm *vm, t_process *process)
 {
+	int			i;
 	t_player	*tmp_player;
 	t_process	*fork;
 
 	tmp_player = vm->info->first_player;
 	fork = NULL;
-	ft_printf("test fork\n");
 	get_two_octets(vm, process, 0);
-	ft_printf(" rocess->args[0]  %x\n", (process->args[0] ));
-	ft_printf(" bhjhjk(process->args[0] & (IDX_MOD - 1) %d\n", (process->args[0] & (IDX_MOD - 1)));
-		ft_printf("test2\n");
+	ft_printf(" process->args[0]  %x\n", (process->args[0] ));
+	ft_printf(" (process->args[0] & (IDX_MOD - 1) %d\n", (process->args[0] & (IDX_MOD - 1)));
 	while (ft_strcmp(process->name, tmp_player->header->prog_name) && tmp_player)
 	{
-		ft_printf("test\n");
 		tmp_player = tmp_player->next;
 	}
-		ft_printf("test3\n");
 	if (tmp_player)
 	{
 		fork = create_process(vm, (process->pc + (process->args[0] & (IDX_MOD - 1))), tmp_player);
 	}
+	i = 0;
+	while (i < REG_NUMBER)
+	{
+		fork->reg[i] = process->reg[i];
+		i++;
+	}
 	put_process_front(&vm->info->first_processus, fork);
-		ft_printf("test3\n");
-	// while (fork)
-	// {
-		// ft_printf("YOU FORK IT!\n, fork->pc int %d \n", fork->pc);
-		// fork = fork->next;
-	// }
-	// vm->core[(process->pc + (process->args[0] % IDX_MOD)) % MEM_SIZE] =
-	//un nouveau programme herite des differents etats du pere;
-	return (1);
 }

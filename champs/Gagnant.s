@@ -6,13 +6,37 @@ label:		zjmp %:avantdebut
 
 avantdebut:	sti   r1,%5,%1  # 		#7
 
-		sub  r10,r11,r10		#5
-		live %3
+		sub  r10,r3,r10		#5
+		live %-1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
+		live %1
 level0:		fork %:level10
-level11:	live %4
+level11:	live %-1
 		fork %:level111
 
-level110:	live %42
+level110:	live %-1
 		ld   %-186, r14			#=$A-6-8
 		ld   %0,r2
 		zjmp  %:label

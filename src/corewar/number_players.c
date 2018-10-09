@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:56:15 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/26 11:07:12 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/09 15:15:50 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ void	number_players(t_corevm *vm)
 	{
 		if (tmp->num == 0)
 		{
-			i = 1;
+			i = -1;
 			while (!(unused_num(vm, i)))
-				i++;
+				i--;
 			tmp->num = i;
 		}
 		tmp = tmp->next;

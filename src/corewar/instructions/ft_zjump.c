@@ -16,14 +16,14 @@
 */
 
 //Usage : zjmp S(D2)
-int		ft_zjmp(t_corevm *vm, t_process *process)
+void	ft_zjmp(t_corevm *vm, t_process *process)
 {
 	get_two_octets(vm, process, 0);
 	if (!process->carry)
 	{
 		ft_printf("process->carry %d\n", process->carry);
 		ft_printf("no carry no zjmp\n");
-		return (1);
+		return ;
 	}
 	if (vm->color[process->pc & (MEM_SIZE - 1)] < 12 && vm->color[process->pc & (MEM_SIZE - 1)] > 7)
 		vm->color[process->pc & (MEM_SIZE - 1)] -= 8;
@@ -33,17 +33,12 @@ int		ft_zjmp(t_corevm *vm, t_process *process)
 	ft_printf(" AVANT ZJUMP ((short)(process->args[0])) sort x '%x' \n", ((short)(process->args[0])));
 	ft_printf(" AVANT ZJUMP p((process->args[0])) d '%d' \n", ((process->args[0])));
 
-
 //a re assimiller!!!!!!!!!!!!!!!!!!!!!!!!!
 	process->pc += (((short)process->args[0]) % IDX_MOD);
-	ft_printf(" -- (((short)process->args[0]) & (IDX_MOD - 1) '%d' \n", (((short)process->args[0]) & (IDX_MOD - 1)));
+	ft_printf(" +- (((short)process->args[0]) & (IDX_MOD - 1) '%d' \n", (((short)process->args[0]) & (IDX_MOD - 1)));
 
 	process->pc = process->pc & (MEM_SIZE - 1);
 	ft_printf(" APRES ZJUMP process->pc int '%d' \n", process->pc);
 	process->pc_tmp = 0;
-	// if (vm->color[process->pc] < 8)
-		// vm->color[process->pc] = vm->color[process->pc] < 4 ? vm->color[process->pc] + 8 : vm->color[process->pc] + 4;//pour les cas de fork
-	// if (vm->color[process->pc] == 13)
-		// vm->color[process->pc]--;// = process->color + 8;
-	return (1);
+
 }

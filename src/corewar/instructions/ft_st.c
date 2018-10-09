@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/19 11:07:13 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/08 18:55:26 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/09 17:21:59 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,12 @@ valeur de r1 à l’adresse (PC + (42 % IDX_MOD))
 */
 
 //Usage : st S(RG), D(RG/ID)
-int		ft_st(t_corevm *vm, t_process *process)
+void	ft_st(t_corevm *vm, t_process *process)
 {
 	int	*values;
 	int i;
 
 	i = 0;
-	if (!(test_args(process, g_op_tab[process->type_instruc[0]])))
-		return (0);
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
 	values = get_values(vm, process, 1, 0);
 	ft_printf(" __________________STORE values[0] hexa '%x' values[1] hexa '%x' \n", values[0], values[1]);
@@ -44,11 +42,9 @@ int		ft_st(t_corevm *vm, t_process *process)
 		}
 		else
 		{
-			//((unsigned int*)vm->core[(process->pc + (process->args[1] & (IDX_MOD - 1))) & (MEM_SIZE - 1)] = values[0];
 			*(unsigned int *)(vm->core + ((process->pc + (process->args[1] & (IDX_MOD - 1))) & (MEM_SIZE - 1))) = values[0];
 			while (i < 4)
 			{
-				//revoir pour le CAST vm->color[(process->pc + (process->args[1] & (IDX_MOD - 1))) & (MEM_SIZE - 1)] = process->color;
 				vm->color[(process->pc + i + (process->args[1] & (IDX_MOD - 1))) & (MEM_SIZE - 1)] = process->color + 4;
 				i++;
 			}
@@ -56,5 +52,4 @@ int		ft_st(t_corevm *vm, t_process *process)
 		}
 		free(values);
 	}
-	return (1);
 }

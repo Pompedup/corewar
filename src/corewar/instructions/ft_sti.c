@@ -12,19 +12,14 @@
 */
 
 //Usage : sti S(RG), S(RG/ID/D2), S(RG/D2)
-int		ft_sti(t_corevm *vm, t_process *process)
+void		ft_sti(t_corevm *vm, t_process *process)
 {
 	int	*values;
 	int i;
 
 	i = 0;
-	if (!(test_args(process, g_op_tab[process->type_instruc[0]])))
-	{
-		ft_printf(" ___________________STORE INDIRECT return 0\n");
-		return (0);
-	}
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
-
+ft_printf(" STORE INDIRECT pc d '%d'\n", process->pc);
 	values = get_values(vm, process, 7, 0); //6 car on veux recup la valeur de 2 derniers arg
 	if (values)
 	{
@@ -42,5 +37,4 @@ ft_printf(" STORE INDIRECT vm->core[(process->pc + values[1] + values[2]) & (MEM
 			& (MEM_SIZE - 1)]);
 		free(values);
 	}
-	return (1);
 }

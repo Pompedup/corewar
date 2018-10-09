@@ -9,20 +9,17 @@
 */
 
 //Usage : add S(RG), S(RG), D(RG)
-int		ft_add(t_corevm *vm, t_process *process)
+void		ft_add(t_corevm *vm, t_process *process)
 {
 	int	*values;
 
-	if (process->type_instruc[1] != 0x54)
-		return (0);
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
 	values = get_values(vm, process, 3, 0);
 	if (values)
 	{
 		process->reg[process->args[2]] = values[0] + values[1];
-ft_printf(" ADD values[0] %d  values[1] %d process->reg[process->args[2]] %d\n", values[0], values[1], process->reg[process->args[2]]);
+		ft_printf(" ADD values[0] %d  values[1] %d process->reg[process->args[2]] %d\n", values[0], values[1], process->reg[process->args[2]]);
 		process->carry = (process->reg[process->args[2]]) ? 0 : 1;
 		free(values);
 	}
-	return (1);
 }

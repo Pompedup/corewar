@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/09 14:32:28 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/09 18:15:57 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "common.h"
 # include <stdio.h>// Asupprimer
 
-#define CYCLE_DEBUG			290
+#define CYCLE_DEBUG			2500
 
 # define SHORT	32768
 # define UNSIGNED_CHAR 128
@@ -167,7 +167,7 @@ typedef struct			s_corevm
 
 typedef struct			s_ptr_func
 {
-	int					(*ptrfunc) (t_corevm *core, t_process *actual);
+	void				(*ptrfunc) (t_corevm *core, t_process *actual);
 	int					code_instruction;
 }						t_ptr_func;
 
@@ -283,7 +283,7 @@ int						check_max_checks(t_corevm *vm, int tmp_cycle);
 
 void					manage_instruction(t_corevm *vm, t_process *process);
 void					get_instruction_type(t_corevm *vm, t_process *process);
-int						execute_instruction(t_corevm *vm, t_process *process);
+void					execute_instruction(t_corevm *vm, t_process *process);
 void					move_pc(t_process *process, t_op g_tab);
 
 /*
@@ -306,22 +306,22 @@ void					get_args(t_corevm *vm, t_process *process, t_op g_tab);
 ********************************************************************************
 */
 
-int						ft_live(t_corevm *vm, t_process *process);
-int						ft_ld(t_corevm *vm, t_process *process);
-int	    				ft_st(t_corevm *vm, t_process *process);
-int						ft_add(t_corevm *vm, t_process *process);
-int	    				ft_sub(t_corevm *vm, t_process *process);
-int						ft_and(t_corevm *vm, t_process *process);
-int	    				ft_or(t_corevm *vm, t_process *process);
-int	    				ft_xor(t_corevm *vm, t_process *process);
-int						ft_zjmp(t_corevm *vm, t_process *process);
-int						ft_ldi(t_corevm *vm, t_process *process);
-int	    				ft_sti(t_corevm *vm, t_process *process);
-int						ft_fork(t_corevm *vm, t_process *process);
-int	    				ft_lld(t_corevm *vm, t_process *process);
-int	    				ft_lldi(t_corevm *vm, t_process *process);
-int	    				ft_lfork(t_corevm *vm, t_process *process);
-int						ft_aff(t_corevm *vm, t_process *process);
+void						ft_live(t_corevm *vm, t_process *process);
+void						ft_ld(t_corevm *vm, t_process *process);
+void	    				ft_st(t_corevm *vm, t_process *process);
+void						ft_add(t_corevm *vm, t_process *process);
+void	    				ft_sub(t_corevm *vm, t_process *process);
+void						ft_and(t_corevm *vm, t_process *process);
+void	    				ft_or(t_corevm *vm, t_process *process);
+void	    				ft_xor(t_corevm *vm, t_process *process);
+void						ft_zjmp(t_corevm *vm, t_process *process);
+void						ft_ldi(t_corevm *vm, t_process *process);
+void	    				ft_sti(t_corevm *vm, t_process *process);
+void						ft_fork(t_corevm *vm, t_process *process);
+void	    				ft_lld(t_corevm *vm, t_process *process);
+void	    				ft_lldi(t_corevm *vm, t_process *process);
+void	    				ft_lfork(t_corevm *vm, t_process *process);
+void						ft_aff(t_corevm *vm, t_process *process);
 
 /*
 ********************************************************************************

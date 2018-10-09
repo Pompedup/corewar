@@ -9,13 +9,12 @@ sont instruction c'est :
 */
 
 //Usage : live S(D4)
-int		ft_live(t_corevm *vm, t_process *process)
+void		ft_live(t_corevm *vm, t_process *process)
 {
 	t_process *number_to_be_alive;
 
 ft_printf("\nLIVE ???\n");
-	//a voir sil y a des mooment ou on renvoie 0
-	//surement quand le joueur est mort
+
 	get_four_octets(vm, process, 0);
 	process->live++;
 	number_to_be_alive = vm->info->first_processus;
@@ -34,7 +33,4 @@ ft_printf("\nLIVE ???\n");
 			number_to_be_alive->reg[0], number_to_be_alive->name);
 	}
 	vm->nb_lives++; //est ce quil faut vraiment calculer le nb total de live?
-	ft_printf("test\n");
-
-	return (1);
 }
