@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 17:31:48 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/08 16:49:19 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/09 18:30:37 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		get_dir(t_record *record, t_arg *current_arg, t_elem *elem, int i)
 			str++;
 	}
 	else
-		exit(0); //gerer l'erreur;
+		exit(0); //gerer l'erreur; //erreur syntax
 	if (*str && !ft_isspace(*str) && *str != ',')
 	{
 		exit(0);//gerer l'erreur
@@ -80,5 +80,6 @@ int		get_dir(t_record *record, t_arg *current_arg, t_elem *elem, int i)
 	else
 		current_arg->size = 4;
 	elem->size += current_arg->size;
-	return (2 << (6 - (2 * i)));
+	elem->key +=  2 << (6 - (2 * i));
+	return (TRUE);
 }

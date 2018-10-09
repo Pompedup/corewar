@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/08 17:52:31 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/09 18:03:31 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,16 @@
 # define	GREEN	"\033[1;32m"
 # define	BLUE	"\033[1;34m"
 # define	END		"\033[0m"
-# define	NAME	BLUE"%s"END
-# define	FILE	NAME" (line %d): "
-# define	QUOTE	"\""RED"%s"END"\""
+# define	STRR	RED"%s"END
+# define	STRG	GREEN"%s"END
+# define	STRB	BLUE"%s"END
+# define	INTR	RED"%d"END
+# define	INTG	GREEN"%d"END
+# define	INTB	BLUE"%d"END
+# define	FILE	STRB" (line %d): "
+# define	QUOTER	"\""STRR"\""
+# define	QUOTEG	"\""STRG"\""
+# define	QUOTEB	"\""STRB"\""
 # define	QUOTEC	"\""RED"%c"END"\""
 
 /*
@@ -40,9 +47,9 @@
 ********************************************************************************
 */
 
-# define	OPEN	BLUE"%s"END": Wrong name.\n"
-# define	EMPTY	BLUE"%s"END": This file is empty.\n"
-# define	READ	BLUE"%s"END": This is not a file.\n"
+# define	OPEN	STRB": Wrong name.\n"
+# define	EMPTY	STRB": This file is empty.\n"
+# define	READ	STRB": This is not a file.\n"
 
 /*
 ********************************************************************************
@@ -52,14 +59,14 @@
 ********************************************************************************
 */
 
-# define	SECOND	FILE"A second "QUOTE" is declared in the description part.\n"
-# define	LONG	FILE"So many characteres for "QUOTE" (max "GREEN"%d"END" - you "RED"%d"END").\n"
-# define	BEGIN	FILE"Missing beginning quote for "QUOTE".\n"
-# define	ENDING	FILE"Missing ending quote for "QUOTE".\n"
-# define	AFTER	FILE"Excess of characteres after the quote of "QUOTE" ("QUOTE").\n"
-# define	BOTH	FILE"Missing "QUOTE" and "QUOTE
-# define	ONE		FILE"Missing "QUOTE
-# define	CURRENT " (current : "QUOTE")"
+# define	SECOND	FILE"A second "QUOTER" is declared in the description part.\n"
+# define	LONG	FILE"So many characteres for "QUOTER" (max "INTG" - you "INTR").\n"
+# define	BEGIN	FILE"Missing beginning quote for "QUOTER".\n"
+# define	ENDING	FILE"Missing ending quote for "QUOTER".\n"
+# define	AFTER	FILE"Excess of characteres after the quote of "QUOTER" ("QUOTER").\n"
+# define	BOTH	FILE"Missing "QUOTER" and "QUOTER".\n"
+# define	ONE		FILE"Missing "QUOTER".\n"
+# define	CURRENT " (current : "QUOTER")"
 
 /*
 ********************************************************************************
@@ -69,17 +76,23 @@
 ********************************************************************************
 */
 
-# define	WHAT	FILE"Something go wrong ("QUOTE").\n"
+# define	WHAT	FILE"Something go wrong ("QUOTER").\n"
 # define	NOLABEL	FILE"Missing label name before "QUOTEC".\n"
-# define	WRLABEL	FILE"Wrong char "QUOTEC" for label "QUOTE".\n"
-# define	MISSLAB	FILE"Missing LABEL_CHAR "QUOTEC" after label "QUOTE".\n"
-# define	SPACES	FILE"Space(s) between label "QUOTE" and LABEL_CHAR "QUOTEC".\n"
+# define	WRLABEL	FILE"Wrong char "QUOTEC" for label "QUOTER".\n"
+# define	MISSLAB	FILE"Missing LABEL_CHAR "QUOTEC" after label "QUOTER".\n"
+# define	SPACES	FILE"Space(s) between label "QUOTER" and LABEL_CHAR "QUOTEC".\n"
 
 
-# define	MISSARG	FILE"Missing argument before "QUOTEC".\n"
-# define	WRARG	FILE QUOTE" is  invalid to the %s position for instruction "GREEN"%s"END".\n"
+# define	MISSBEF	FILE"Missing argument before "QUOTEC".\n"
+# define	MISSBET	FILE"Missing argument before "QUOTEC".\n"
+# define	MISSARG	FILE"Missing argument for instruction NAMEG (required "INTG" - you "INTR").\n"
+# define	WRARG	FILE QUOTER" is  invalid to the %s position for instruction "STRG".\n"
+
+
+# define	WRREG	FILE"Registre only accepte positif numbers as argument ("STRR").\n"
+# define	BIGREG	FILE"Registre max is 99 ("STRR").\n"
 //column
-# define	ALLOC	NAME": Allocation error.\n"
+# define	ALLOC	STRB": Allocation error.\n"
 
 extern t_op	g_op_tab[];
 
