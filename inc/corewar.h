@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/08 19:31:06 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/09 14:32:28 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "common.h"
 # include <stdio.h>// Asupprimer
+
+#define CYCLE_DEBUG			290
 
 # define SHORT	32768
 # define UNSIGNED_CHAR 128
@@ -84,7 +86,6 @@
 #define GREY_PC				0x808080
 #define GREY				0xdfdfdf
 
-#define CYCLE_DEBUG			2450
 /*
 ********************************************************************************
 **
@@ -261,6 +262,7 @@ void					put_process_front(t_process **first, \
 */
 
 void					execute_the_battle(t_corevm *vm);
+void					pc_color(t_corevm *vm, t_process *process);
 
 /*
 ********************************************************************************

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_core.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 14:29:45 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/08 16:28:32 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/09 14:01:39 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,18 @@ void	put_color(t_corevm *vm, unsigned char *print, int j, int i)
 	else
 		ft_printf("\033[38;2;%d;%d;%dm%.*s\033[0m", (tab[vm->color[i]] >> 16) & 0xff,(tab[vm->color[i]] >> 8) & 0xff,(tab[vm->color[i]]) & 0xff, j, print);
 	// ft_printf(tmp, (tab[vm->color[i]] >> 16) & 0xff,(tab[vm->color[i]] >> 8) & 0xff,(tab[vm->color[i]]) & 0xff, print);
-	if (vm->color[i] > 3 && vm->color[i] < 13)
-		if (vm->color[i] < 8)
-			vm->color[i] -= 4;
+	int h = 0;
+	while (h < j)
+	{
+		if (vm->color[i - j + h] > 3 && vm->color[i - j + h] < 13)
+		if (vm->color[i - j  + h] < 8)
+			vm->color[i - j+ h] -= 4;
+		h++;
+	}
+	//	if (vm->color[i] > 3 && vm->color[i] < 13)
+	//	if (vm->color[i] < 8)
+	//		vm->color[i] -= 4;
+	//
 	// ft_printf("%s", print);
 }
 

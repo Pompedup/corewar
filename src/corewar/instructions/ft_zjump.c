@@ -25,10 +25,10 @@ int		ft_zjmp(t_corevm *vm, t_process *process)
 		ft_printf("no carry no zjmp\n");
 		return (1);
 	}
-	if (vm->color[process->pc] < 12 && vm->color[process->pc] > 7)
-		vm->color[process->pc] -= 8;
-	else if (vm->color[process->pc] == 12)
-		vm->color[process->pc]++;
+	if (vm->color[process->pc & (MEM_SIZE - 1)] < 12 && vm->color[process->pc & (MEM_SIZE - 1)] > 7)
+		vm->color[process->pc & (MEM_SIZE - 1)] -= 8;
+	else if (vm->color[process->pc & (MEM_SIZE - 1)] == 12)
+		vm->color[process->pc & (MEM_SIZE - 1)]++;
 		ft_printf(" AVANT ZJUMP process->pc int '%d' \n", process->pc);
 	ft_printf(" AVANT ZJUMP ((short)(process->args[0])) sort x '%x' \n", ((short)(process->args[0])));
 	ft_printf(" AVANT ZJUMP p((process->args[0])) d '%d' \n", ((process->args[0])));

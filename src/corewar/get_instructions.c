@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_instructions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/08 16:53:14 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/09 14:23:08 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,11 @@ void	get_instruction_type(t_corevm *vm, t_process *process)
 	while (g_op_tab[i].id != (vm->core[process->pc & (MEM_SIZE - 1)]) && g_op_tab[i].id)
 		i++;
 	if (g_op_tab[i].id == 0)
+	{
+		ft_printf("no instruction!!!!!!!!!!!\n");
+		//process->pc++;
 		return ;
+	}
 	process->pc_tmp++;
 	process->nb_cycle_instruc = g_op_tab[i].nb_cycle_instruction;
 	process->type_instruc[0] = i;
@@ -105,7 +109,10 @@ void	manage_instruction(t_corevm *vm, t_process *process)
 {
 // ft_printf("	process->type_instruc[0] %d\n", process->type_instruc[0]);
 	if (process->type_instruc[0] == -1)
+	{
+		ft_printf("process->type_instruc[0] == -1) -------------!\n");
 		get_instruction_type(vm, process);
+	}
 	else
 	{
 		process->nb_cycle_instruc--;
@@ -122,21 +129,22 @@ void	manage_instruction(t_corevm *vm, t_process *process)
 			// ft_printf("	process->type_instruc[1] %x\n", process->type_instruc[1]);
 			if (execute_instruction(vm, process))
 			{
+				pc_color(vm, process);
 				//redevenir normal
-				if (vm->color[process->pc] < 12 && vm->color[process->pc] > 7)
-					vm->color[process->pc] -= 8;
-				else if (vm->color[process->pc] == 12)
-					vm->color[process->pc]++;
-
-				process->pc += process->pc_tmp;
-				process->pc_tmp = 0;
-
-				//devenir un pc
-				if (vm->color[process->pc] < 8)
-					vm->color[process->pc] = vm->color[process->pc] < 4 ? vm->color[process->pc] + 8 : vm->color[process->pc] + 4;//pour les cas de fork
-				else if (vm->color[process->pc] == 13)
-					vm->color[process->pc]--;
-
+				//if (vm->color[process->pc] < 12 && vm->color[process->pc] > 7)
+				//	vm->color[process->pc] -= 8;
+				//else if (vm->color[process->pc] == 12)
+				//	vm->color[process->pc]++;
+//
+				//process->pc += process->pc_tmp;
+				//process->pc_tmp = 0;
+//
+				////devenir un pc
+				//if (vm->color[process->pc] < 8)
+				//	vm->color[process->pc] = vm->color[process->pc] < 4 ? vm->color[process->pc] + 8 : vm->color[process->pc] + 4;//pour les cas de fork
+				//else if (vm->color[process->pc] == 13)
+				//	vm->color[process->pc]--;
+//
 			}
 		}
 				// move_pc(process, g_op_tab[process->type_instruc[0]]);
