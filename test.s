@@ -9,4 +9,4 @@ kjkj
 .comment "ddf fddfd"
 
 cc:
-live r2
+ %, r100   #tr

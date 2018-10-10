@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/09 18:03:31 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/10 14:35:41 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,42 @@
 # define	MISSLAB	FILE"Missing LABEL_CHAR "QUOTEC" after label "QUOTER".\n"
 # define	SPACES	FILE"Space(s) between label "QUOTER" and LABEL_CHAR "QUOTEC".\n"
 
+/*
+********************************************************************************
+**                                                                            **
+**	Error from argument part                                                  **
+**                                                                            **
+********************************************************************************
+*/
 
 # define	MISSBEF	FILE"Missing argument before "QUOTEC".\n"
 # define	MISSBET	FILE"Missing argument before "QUOTEC".\n"
 # define	MISSARG	FILE"Missing argument for instruction NAMEG (required "INTG" - you "INTR").\n"
 # define	WRARG	FILE QUOTER" is  invalid to the %s position for instruction "STRG".\n"
 
+/*
+********************************************************************************
+**                                                                            **
+**	Error from registre part                                                  **
+**                                                                            **
+********************************************************************************
+*/
 
 # define	WRREG	FILE"Registre only accepte positif numbers as argument ("STRR").\n"
 # define	BIGREG	FILE"Registre max is 99 ("STRR").\n"
+
+/*
+********************************************************************************
+**                                                                            **
+**	Error from direct or indirect part                                        **
+**                                                                            **
+********************************************************************************
+*/
+
+
+
+
+
 //column
 # define	ALLOC	STRB": Allocation error.\n"
 
@@ -215,7 +242,7 @@ t_bool				get_infos(t_record *record, t_file *file);
 ********************************************************************************
 */
 
-void	get_label(t_record *record, t_arg *current_arg, char *str, size_t len);
+t_bool	get_label(t_record *record, t_arg *current_arg, char *str, size_t len);
 
 /*
 ********************************************************************************
@@ -310,7 +337,6 @@ int	is_label_char(int c);
 t_bool	check_authorized_arg(t_record *record, t_elem
  *elem, int arg_type, int indice);
 int		verif_synrax(t_record *record, char *str);
-void	get_label(t_record *record, t_arg *current_arg, char *str, size_t len);
 void	write_file(t_record *record, t_function *functions);
 t_bool	get_string(t_record *record, t_file *file, t_string *data);
 t_bool		get_type(t_record *record, t_file *file, int *type);

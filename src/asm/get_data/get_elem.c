@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 14:27:56 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/09 18:15:22 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/10 14:02:24 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,14 @@ int		is_label_char(int c)
 		|| (96 < c && c < 123));
 }
 
-t_bool	next_comma(t_record *record, t_elem *elem, t_bool first)
+t_bool	next_elem(t_record *record, t_elem *elem)
 {
-	while (ft_isspace(*elem->line) || *elem->line == ',')
-	{
-		if (*elem->line == ',')
-		{
-			if (!first)
-				first = TRUE;
-			else
-			{
-				ft_printf(MISSBEF, record->name_file, elem->index_line,\
-					SEPARATOR_CHAR);
-				return (FALSE);
-			}
-		}
+	while (ft_isspace(*elem->line))
 		elem->line++;
+	if (*elem->line == ',')
+	{
+		ft_printf(MISSBEF, record->name_file, elem->index_line,	SEPARATOR_CHAR);
+		return (FALSE);
 	}
 	return (TRUE);
 }
@@ -113,7 +105,7 @@ t_bool		get_elem(t_record *record, t_file *file, t_elem *elem)
 
 	i = 0;
 	elem->line = file->current + ft_strlen(elem->op_case.shortcut);
-	if (!(next_comma(record, elem, TRUE)))
+	if (!(next_elem(record, elem)))
 		return (FALSE);
 	arg = &(elem->args);
 	while (i < elem->op_case.arg_authorized && *elem->line)
@@ -145,7 +137,7 @@ t_bool		get_elem(t_record *record, t_file *file, t_elem *elem)
 				return (FALSE);
 		}
 		if ((elem->line = ft_strchr(elem->line, ',')))
-			if (!(next_comma(record, elem, FALSE)))
+			if (!(next_elem(record, elem)))
 				return (FALSE);
 		i++;
 	}

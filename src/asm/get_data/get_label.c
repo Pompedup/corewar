@@ -6,13 +6,13 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 12:54:55 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/09 18:49:49 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/10 12:02:04 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	get_label(t_record *record, t_arg *current_arg, char *str, size_t len)
+t_bool	get_label(t_record *record, t_arg *current_arg, char *str, size_t len)
 {
 	t_function *functions;
 
@@ -23,12 +23,13 @@ void	get_label(t_record *record, t_arg *current_arg, char *str, size_t len)
 		{
 			if (!ft_strncmp(functions->name, str, len))
 			{
-			current_arg->value = functions->addr - current_arg->addr;
-			current_arg->handled = TRUE;
-			return ;
+				current_arg->value = functions->addr - current_arg->addr;
+				current_arg->handled = TRUE;
+				return (TRUE);
 			}
 		}
 		functions = functions->next;
 	}
 	current_arg->copy = ft_strndup(str, len);
+	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 16:07:43 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/08 16:36:40 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/10 16:00:33 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,9 @@ static t_bool	is_new_name(t_record *record, char *str, char **name)
 	return (TRUE);
 }
 
-t_bool		verify_label (t_record *record, t_file *file, char *colon, char **name)
+t_bool		verify_label (t_record *record, t_file *file, int end, char **name)
 {
-	int end;
-
-	if ((end = colon - file->current))
+	if (end)
 	{
 		file->current[end] = '\0';
 		if (ft_strisall(file->current, &is_label_char))
@@ -71,7 +69,7 @@ t_bool		check_label(t_record *record, t_file *file, char **name)
 	*name = NULL;
 	if ((colon = ft_strchr(file->current, LABEL_CHAR)))
 	{
-		if (!verify_label (record, file, colon, name))
+		if (!verify_label(record, file, colon - file->current, name))
 			return (FALSE);
 		if (*name)
 			next_data(file, *name);
