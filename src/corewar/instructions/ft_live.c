@@ -29,8 +29,12 @@ ft_printf("\nLIVE ???\n");
 	{
 		if (process->args[0] == number_to_be_alive->reg[0] && number_to_be_alive->reg[0] != process->reg[0])
 			number_to_be_alive->live++;
-		ft_printf("un processus dit que le joueur %d(%s) est en vie\n",
-			number_to_be_alive->reg[0], number_to_be_alive->name);
+		ft_printf("un processus dit que le joueur %d(%s) est en vie\n", number_to_be_alive->reg[0], number_to_be_alive->name);
+		ft_printf("process->pc & (MEM_SIZE - 1) %d\n", process->pc & (MEM_SIZE - 1));
+		ft_printf("core->vm process->pc & (MEM_SIZE - 1) %d\n", vm->core[process->pc & (MEM_SIZE - 1)]);
+
+		number_to_be_alive->color_live = process->pc & (MEM_SIZE - 1);
+		// vm->color[process->pc] = number_to_be_alive->color;
 	}
 	vm->nb_lives++; //est ce quil faut vraiment calculer le nb total de live?
 }

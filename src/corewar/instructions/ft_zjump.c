@@ -35,7 +35,7 @@ void	ft_zjmp(t_corevm *vm, t_process *process)
 
 //a re assimiller!!!!!!!!!!!!!!!!!!!!!!!!!
 	process->pc += (((short)process->args[0]) % IDX_MOD);
-	ft_printf(" +- (((short)process->args[0]) & (IDX_MOD - 1) '%d' \n", (((short)process->args[0]) & (IDX_MOD - 1)));
+	ft_printf(" + (((short)process->args[0]) & (IDX_MOD - 1) '%d' \n", (((short)process->args[0]) & (IDX_MOD - 1)));
 
 	process->pc = process->pc & (MEM_SIZE - 1);
 	ft_printf(" APRES ZJUMP process->pc int '%d' \n", process->pc);

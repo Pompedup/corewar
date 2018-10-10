@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 15:16:23 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/08 19:39:42 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/10 17:06:21 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 	int	i;
 
 	if (!(values = ft_memalloc(sizeof(int) * 3)))
-		return (NULL);
+		return (NULL); //quand on aura mis bien le retour enlever le if (values) dans toutes les intructions
 	dec = 6;
 	i = -1;
 	while (++i < 3)
@@ -39,7 +39,10 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 		if (num_arg & (1 << i))
 		{
 			if (((process->type_instruc[1] >> dec) & 3) == 1)
+			{
 				values[i] = process->reg[process->args[i]];
+				//ft_memrev(&values[i], 4);
+			}
 			else if (((process->type_instruc[1] >> dec) & 3) == 2)
 				values[i] = process->args[i];
 			else if (((process->type_instruc[1] >> dec) & 3) == 3)
@@ -47,6 +50,7 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 				ft_printf("indirrrrrr__________________________________________________________\n");
 				values[i] = *((unsigned int*)(vm->core + ((process->pc + (process->args[i] & (l ? MEM_SIZE - 1 : IDX_MOD - 1)))
 						& (MEM_SIZE - 1))));
+				ft_memrev(&values[i], 4);
 
 			}
 		}
@@ -67,7 +71,7 @@ void	get_one_octet(t_corevm *vm, t_process *process, int i)
 		*(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))) - 1;
 	process->pc_tmp += 1;
 	if (vm->nbr_total_cycles > CYCLE_DEBUG)
-		printf("arg 1 octet %x\n", process->args[i]);
+		ft_printf("arg 1 octet %x\n", process->args[i]);
 	// ft_printf("vm->core[process->pc] %x\n", vm->core[process->pc]);
 }
 
@@ -85,7 +89,7 @@ void	get_two_octets(t_corevm *vm, t_process *process, int i)
 	process->pc_tmp += 2;
 	// ft_printf("vm->core[process->pc] %x\n", vm->core[process->pc]);
 	if (vm->nbr_total_cycles > CYCLE_DEBUG)
-		printf("arg 2 octets %x\n", process->args[i]);
+		ft_printf("arg 2 octets %x\n", process->args[i]);
 }
 
 /*
@@ -102,7 +106,7 @@ void	get_four_octets(t_corevm *vm, t_process *process, int i)
 	process->pc_tmp += 4;
 	// ft_printf("vm->core[process->pc] %x\n", vm->core[process->pc]);
 	if (vm->nbr_total_cycles > CYCLE_DEBUG)
-		printf("arg 4 octets %x\n", process->args[i]);
+		ft_printf("arg 4 octets %x\n", process->args[i]);
 }
 
 /*
@@ -127,7 +131,7 @@ void	get_args(t_corevm *vm, t_process *process, t_op g_tab)
 	while (i < g_tab.nbr_arg)
 	{
 		if (vm->nbr_total_cycles > CYCLE_DEBUG)
-			printf("get arg process->type_instruc[0] hexa %x\n", process->type_instruc[0]);
+			ft_printf("get arg process->type_instruc[0] hexa %x\n", process->type_instruc[0]);
 		key = (process->type_instruc[1] >> dec) & 3;
 		if (key == 1) //un registre
 			get_one_octet(vm, process, i);

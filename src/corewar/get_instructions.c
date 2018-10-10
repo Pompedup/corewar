@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/09 18:24:40 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/10 10:51:14 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void		execute_instruction(t_corevm *vm, t_process *process)
 
 	if (!(test_args(process, g_op_tab[process->type_instruc[0]])) && g_op_tab[process->type_instruc[0]].nbr_arg > 1)
 	{
+		ft_printf(" MAUVAISE KEY---\n");
 		process->pc_tmp = 0;
 		if (g_op_tab[process->type_instruc[0]].nbr_arg == 2)
 		{
@@ -60,16 +61,19 @@ void		execute_instruction(t_corevm *vm, t_process *process)
 			process->pc_tmp += 6;
 		}
 	}
+	else
+	{
+		g_instruc_func[process->type_instruc[0]].ptrfunc(vm, process);
+	}
+	i = 0;
+	while (i < 2)
+		process->type_instruc[i++] = -1;
 	i = 0;
 	while (i < 16)
 	{
 		ft_printf("reg[%d] %d \n", i, process->reg[i]);
 		i++;
 	}
-	g_instruc_func[process->type_instruc[0]].ptrfunc(vm, process);
-	i = 0;
-	while (i < 2)
-		process->type_instruc[i++] = -1;
 }
 
 /*

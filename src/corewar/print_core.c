@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_core.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 14:29:45 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/09 14:01:39 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/10 16:00:02 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,25 @@ void	put_color(t_corevm *vm, unsigned char *print, int j, int i)
 	// ft_printf("%s", print);
 }
 
+int		color_live(t_corevm *vm, int i)
+{
+	int			color_live_on;
+	t_process	*tmp;
+
+	tmp = vm->info->first_processus;
+	while (tmp)
+	{
+		if (tmp->color_live == i)
+		{
+			color_live_on = tmp->color;
+			tmp->color_live = -1;
+			return (color_live_on);
+		}
+		tmp = tmp->next;
+	}
+	return (-1);
+}
+
 /*
 ** La mémoire doit être dumpée au format hexadécimal, avec 32 octets par ligne.
 */
@@ -88,6 +107,8 @@ void	print_core(t_corevm *vm)
 	int				racine;
 	unsigned char	print[TEST];
 	int				j;
+	static int		tab[] = TAB_COLOR;
+	int				color;
 
 ft_printf("print_core\n");
 	i = 0;
@@ -118,6 +139,13 @@ sleep(1/5);
 			// ft_putnbrendl(i);
 			 //write(1, print, j * 3);
 			//ft_bzero(print, TEST);
+			j = 0;
+		}
+		if ((color = color_live(vm, i)) > -1)
+		{
+			put_color(vm, print, (j * 3 - 3), i);
+			ft_printf("\033[48;2;%d;%d;%dm\033[38;1;255;255;255m%.*s\033[0m", (tab[color] >> 16) & 0xff,(tab[color] >> 8) & 0xff,(tab[color]) & 0xff, 2, print + (j * 3 - 3));
+			ft_printf(" ");
 			j = 0;
 		}
 			// ft_printf("\x1B[A%s\x1B[K", print);

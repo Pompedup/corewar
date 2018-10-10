@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/09 18:15:57 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/10 16:45:26 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 # define COREWAR_H
 
 # include "common.h"
-# include <stdio.h>// Asupprimer
 
-#define CYCLE_DEBUG			2500
+#define CYCLE_DEBUG			0
 
 # define SHORT	32768
 # define UNSIGNED_CHAR 128
@@ -49,23 +48,6 @@
 # define FAIL_MEMALLOC_3	"ft_memalloc of vm->info->process failed"
 # define FAIL_MEMALLOC_4	"ft_memalloc of new_color failed"
 
-/*//	static unsigned int	*tab = TAB_COLOR;
-#define TAB_COLOR	{PINK, PINK_PC, PINK_S, GREEN, GREEN_PC, GREEN_S, BLUE, BLUE_PC, BLUE_S, ORANGE, ORANGE_PC, ORANGE_S}
-#define BLUE				0x9fd7fb
-#define BLUE_PC				0x
-#define BLUE_S				0xcfebfd
-#define PINK				0xffb6c1
-#define PINK_PC				0x
-#define PINK_S				0xffdae0
-#define GREEN				0xace580
-#define GREEN_PC			0x
-#define GREEN_S				0xcdefb2
-#define ORANGE				0xfd9735
-#define ORANGE_PC			0x
-#define ORANGE_S			0xfdc085
-#define GREY				0xdfdfdf
-*/
-
 //ORDONNE DANS LE SENS COULEUR CLASSIQUE / SURBRILLANCE (derniere instruction en date) / SURLIGNEMENT PC
 #define TAB_COLOR	{GREEN, PINK, BLUE, ORANGE, GREEN_S, PINK_S, BLUE_S, ORANGE_S, GREEN_PC, PINK_PC, BLUE_PC, ORANGE_PC, GREY_PC, GREY}
 #define GREEN				0x00ff00
@@ -74,7 +56,7 @@
 #define ORANGE				0xf0f0f0
 //////////
 #define GREEN_S				0xcdefb2
-#define PINK_S				0xffdae0
+#define PINK_S				0xff0099
 #define BLUE_S				0xcfebfd
 #define ORANGE_S			0xfdc085
 //////////
@@ -85,6 +67,11 @@
 //////////
 #define GREY_PC				0x808080
 #define GREY				0xdfdfdf
+//////////
+// #define GREEN_LIFE			0x00ff00
+// #define PINK_LIFE			0xff0000
+// #define BLUE_LIFE			0x0000ff
+// #define ORANGE_LIFE			0xf0f0f0
 
 /*
 ********************************************************************************
@@ -120,6 +107,7 @@ typedef struct			s_process
 	int					live;
 	int					type_instruc[2];
 	int					args[3];
+	int					color_live;
 	int					nb_cycle_instruc;
 	struct s_process	*next;
 }						t_process;
