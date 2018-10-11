@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/09 17:34:33 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/11 16:00:39 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,13 @@ void	execute_the_battle(t_corevm *vm)
 			max_check = 0;
 		}
 		cycle++;
-		if (vm->nbr_total_cycles > CYCLE_DEBUG)
+		// if (vm->nbr_total_cycles > CYCLE_DEBUG)
+			// print_core(vm);
+		if (vm->dump && vm->nbr_total_cycles == vm->dump)
+		{
 			print_core(vm);
+			exit (0);//fonction qui free;
+		}
 		//tmp_cycle = check_max_checks(vm, tmp_cycle);
 		//check_cycles(vm);
 	}

@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 12:02:04 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/11 15:28:38 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/11 15:52:16 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,19 @@ void	add_player(t_corevm *vm, int i)
 ********************************************************************************
 */
 
-void	get_dump(t_corevm *vm, int i)
+int	get_dump(t_corevm *vm, int i)
 {
-	if (!ft_strequ(vm->argv[i], "-b"))//option pour affciher 64
+	if (!ft_strequ(vm->argv[i], "-b"))
 		vm->octet_line_viz = 32;
+	else
+		i++;
 	if ((!(ft_strisall(vm->argv[i], &ft_isdigit)))\
-		|| (ft_strlen(vm->argv[i]) > 10 || (ft_strlen(vm->argv[i]) == 10\
-		&& ft_strcmp(vm->argv[i], "2147483647") > 0)))
+	|| (ft_strlen(vm->argv[i]) > 10 || (ft_strlen(vm->argv[i]) == 10\
+	&& ft_strcmp(vm->argv[i], "2147483647") > 0)))
 		ft_error(vm, ERR_MESS_2, 0);
 	if (!(vm->dump = ft_atoi(vm->argv[i])))
 		ft_error(vm, ERR_MESS_3, 0);
-
+	return (i);
 }
 
 /*
@@ -93,7 +95,7 @@ void	parse_argv(t_corevm *vm)
 	while (vm->argv[++i])
 	{
 		if (ft_strequ(vm->argv[i], "-dump") && vm->dump == 0)
-			get_dump(vm, ++i);
+			i = get_dump(vm, ++i);
 		else if (ft_strequ(vm->argv[i], "-viz"))
 			vm->viz = 1;
 		else if (ft_strcmp(ft_strstr(vm->argv[i], ".cor"), ".cor") == 0)
