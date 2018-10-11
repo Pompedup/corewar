@@ -11,8 +11,12 @@
 #{T_REG , T_REG , T_REG} -> 54  size  process->pc += 5;
 	ld %26, r3			#26 = 0001 1010
 	ld %21, r6			#21 = 0001 0101
+	live %5
+	live %5
 	and  r6, r3, r10	#le resultat doit etre 0001 0000 (16)
-	st   r10, 5
+	and  %4, %1, r11	#le resultat doit etre 0000 0000 (0) donc carry == 1
+	zjmp %-40
+#	st   r10, 5
 
 #___________________________________________________________________
 #{T_REG , T_IND, T_REG} -> 74  size  process->pc += 6;

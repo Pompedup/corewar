@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 12:02:04 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/26 16:24:21 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/11 15:28:38 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	add_player_with_num(t_corevm *vm, int i)
 /*
 ********************************************************************************
 **	add_player checks that the file name is not empty
-**	ajoute un joueur (sans numero pour le moment)
+**	then creates the player without a specific number
 ********************************************************************************
 */
 
@@ -53,6 +53,10 @@ void	add_player(t_corevm *vm, int i)
 /*
 ********************************************************************************
 **	get_dump checks that the number of cycles given is a positive int
+**
+** -------------------------- commentaire francais -----------------------------
+** on devrait peut etre ici gerer le define de ROOT et ROOT_SIZE
+**	(qui devrait peut etre s'appeler LINE) plutot que dans le corewar.h ????
 **	recupère	dump :
 ** Au bout de nbr_cycles cycles d’exécution, dump la mémoire sur la sortie
 ** standard,puis quitte la partie. (mémoire dumpée au format hexadécimal)
@@ -62,17 +66,21 @@ void	add_player(t_corevm *vm, int i)
 
 void	get_dump(t_corevm *vm, int i)
 {
+	if (!ft_strequ(vm->argv[i], "-b"))//option pour affciher 64
+		vm->octet_line_viz = 32;
 	if ((!(ft_strisall(vm->argv[i], &ft_isdigit)))\
 		|| (ft_strlen(vm->argv[i]) > 10 || (ft_strlen(vm->argv[i]) == 10\
 		&& ft_strcmp(vm->argv[i], "2147483647") > 0)))
 		ft_error(vm, ERR_MESS_2, 0);
 	if (!(vm->dump = ft_atoi(vm->argv[i])))
 		ft_error(vm, ERR_MESS_3, 0);
+
 }
 
 /*
 ********************************************************************************
-** parse_argv
+** parse_argv manages options (dump, visu, number of player)
+** -------------------------- commentaire francais -----------------------------
 ** parsing des champions (et 2 options : -dump (lié a nbr_cycle) et -visu)
 ********************************************************************************
 */
@@ -86,8 +94,8 @@ void	parse_argv(t_corevm *vm)
 	{
 		if (ft_strequ(vm->argv[i], "-dump") && vm->dump == 0)
 			get_dump(vm, ++i);
-		else if (ft_strequ(vm->argv[i], "-visu"))
-			vm->visu = 1;
+		else if (ft_strequ(vm->argv[i], "-viz"))
+			vm->viz = 1;
 		else if (ft_strcmp(ft_strstr(vm->argv[i], ".cor"), ".cor") == 0)
 			add_player(vm, i);
 		else if (ft_strequ(vm->argv[i], "-n"))
@@ -102,4 +110,6 @@ void	parse_argv(t_corevm *vm)
 	}
 	if (vm->info->nb_players < 1)
 		ft_error(vm, ERR_MESS_16, 0);
+	if (vm->viz)
+		vm->dump = 0;
 }

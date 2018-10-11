@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 15:16:23 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/10 17:06:21 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/11 15:15:53 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 /*
 ********************************************************************************
+**	get_values
+** -------------------------- commentaire francais -----------------------------
 ** avec get_args on a parse la core et recupéré les arguments de la fonction
 ** ensuite ici on recupère la valeur de ces arguments
 ** cette fonction est génériale à les toutes les fonctions
@@ -32,6 +34,7 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 
 	if (!(values = ft_memalloc(sizeof(int) * 3)))
 		return (NULL); //quand on aura mis bien le retour enlever le if (values) dans toutes les intructions
+		// ft_error(vm, FAIL_MEMALLOC_5, 0);
 	dec = 6;
 	i = -1;
 	while (++i < 3)
@@ -61,6 +64,8 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 
 /*
 ********************************************************************************
+**
+** -------------------------- commentaire francais -----------------------------
 ** recupère seulement les registres codés sur 1 octet
 ********************************************************************************
 */
@@ -77,6 +82,7 @@ void	get_one_octet(t_corevm *vm, t_process *process, int i)
 
 /*
 ********************************************************************************
+** -------------------------- commentaire francais -----------------------------
 ** recupère les indirects et une partie des directs codés sur 2 octets
 ********************************************************************************
 */
@@ -94,6 +100,7 @@ void	get_two_octets(t_corevm *vm, t_process *process, int i)
 
 /*
 ********************************************************************************
+** -------------------------- commentaire francais -----------------------------
 ** recupère une partie des directs codés sur 4 octets)
 ********************************************************************************
 */
@@ -111,6 +118,8 @@ void	get_four_octets(t_corevm *vm, t_process *process, int i)
 
 /*
 ********************************************************************************
+**
+** -------------------------- commentaire francais -----------------------------
 ** je parse mes argment sur le bon nombre doctet quils sont codé
 ** registre -> 01 - codé sur 1 octet
 ** direct -> 10 - codé sur 2 ou 4 octets (indiqué dans la global)
@@ -157,6 +166,7 @@ void	get_args(t_corevm *vm, t_process *process, t_op g_tab)
 **		autre exemple {T_DIR, T_IND , T_REG} -> B4 ->
 **		dans le tableau de global.c T_IND -> 4 (0100) dans la process->type_instruc[1] c'est 3
 **
+** -------------------------- commentaire francais -----------------------------
 ** on va checker la key de nos arg pour voir
 ** si elle est toujours ok
 ** on fait une boucle avec le nb dagr de linstruction
@@ -178,7 +188,6 @@ t_bool	test_args(t_process *process, t_op g_op_tab)
 
 	while (i < 4)
 	{
-
 	//ft_printf("dans test_args process->type_instruc[1]> hexa %x\n", process->type_instruc[1]>> dec);
 		key = (process->type_instruc[1] >> dec) & 3;
 		if (i < g_op_tab.nbr_arg && key)

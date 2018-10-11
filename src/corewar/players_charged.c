@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 13:36:25 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/08 17:46:12 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/11 13:46:42 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@
 **	i will be the index in core (relative position of every player in core)
 **	(that will be the very first value of pc, the address of the first instruction)
 **	place takes on values from 0 to nb->players
+**
+** -------------------------- commentaire francais -----------------------------
 ** place les joueurs dans la memoire (l'arenne corewar)
 ** les champions sont chargés en mémoire de façon à espacer équitablement leurs points d’entrée.
 ** on a ca grace au calcul i = .. voir ci dessous
 ** et la on enregistre le 1er pc du joueur -> premiere case de la ou on a placé le programme du joueur
 ********************************************************************************
 */
-
 
 void	players_charged_in_core(t_corevm *vm)
 {
@@ -57,14 +58,4 @@ void	players_charged_in_core(t_corevm *vm)
 		place += 1;
 		player = player->next;
 	}
-
-	//write(1, vm->core, MEM_SIZE);
-	//  ft_print_memory(vm->core, MEM_SIZE);
-	// process = vm->info->first_processus;
-	// while (process)
-	// {
-		// ft_printf("process->reg[0] %d\n", process->reg[0]);
-		// ft_printf("process->pc %d\n", process->pc);
-		// process = process->next;
-	// }
 }

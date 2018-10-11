@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/10 16:45:26 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/11 15:24:12 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 #define CYCLE_DEBUG			0
 
-# define SHORT	32768
-# define UNSIGNED_CHAR 128
+# define SHORT				32768
+# define UNSIGNED_CHAR		128
 # define USAGE 				USAGE1 USAGE2
 # define USAGE1				"Usage: ./corewar [-dump nbr_cycles]"
 # define USAGE2				"[[-n number] champion1.cor] ..."
@@ -47,6 +47,7 @@
 # define FAIL_MEMALLOC_2	"ft_memalloc of vm->info->player->header failed"
 # define FAIL_MEMALLOC_3	"ft_memalloc of vm->info->process failed"
 # define FAIL_MEMALLOC_4	"ft_memalloc of new_color failed"
+# define FAIL_MEMALLOC_5	"ft_memalloc of values failed"
 
 //ORDONNE DANS LE SENS COULEUR CLASSIQUE / SURBRILLANCE (derniere instruction en date) / SURLIGNEMENT PC
 #define TAB_COLOR	{GREEN, PINK, BLUE, ORANGE, GREEN_S, PINK_S, BLUE_S, ORANGE_S, GREEN_PC, PINK_PC, BLUE_PC, ORANGE_PC, GREY_PC, GREY}
@@ -75,7 +76,14 @@
 
 /*
 ********************************************************************************
-**
+**	s_player contains
+**	- number of player (either from 1 to MAX_PLAYER or set through option -n)
+**	- name_file from the file that detailed the champion
+**	- color (as defined by the order set in TAB_COLOR with number of player)
+**	- header refers to the structure defined in common.h
+**	- process (the array of char with the entire champion used to fill vm->core)
+**	- len_process (the lenght of the player process)
+**	- next that points to the next player
 ********************************************************************************
 */
 
@@ -92,7 +100,14 @@ typedef struct			s_player
 
 /*
 ********************************************************************************
-**
+**	s_process contains
+**	- name of program
+**	- color
+**	-
+**	-
+**	-
+**	-
+**	-
 ********************************************************************************
 */
 
@@ -139,7 +154,7 @@ typedef struct			s_info
 typedef struct			s_corevm
 {
 	char				**argv; //pour le parsing
-	int					visu; //option visu librairie possible : OpenGL, SDL, nCurses, ... (bonus)
+	int					viz; //option visu librairie possible : OpenGL, SDL, nCurses, ... (bonus)
 	t_info				*info; // pointeur vers la structure qui gere la liste des players
 
 	//ici plus pour la battle
@@ -149,6 +164,7 @@ typedef struct			s_corevm
 	int					nbr_total_cycles;
 	int					cycle_to_die;
 	int					nb_cycles_to_die;
+	int					octet_line_viz;
 	int					nb_lives; //associer au define NBR_LIVE. Si au cours d’une de ces vérifications on se rend compte qu’il y a eu au moins NBR_LIVE exécutions de live depuis la dernière vérification en date, on décrémente CYCLE_TO_DIE de CYCLE_DELTA unités
 	int					nb_max_live; //define NBR_LIVE
 }						t_corevm;

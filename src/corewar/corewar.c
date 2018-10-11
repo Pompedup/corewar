@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 13:17:29 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/08 17:46:33 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/11 13:49:24 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int     main(int ac, char **av)
 	number_players(&vm);
 	players_charged_in_core(&vm);
 	execute_the_battle(&vm); // !!!!!! :D (ง •̀_•́)ง  ᕙ༼*◕_◕*༽ᕤ
-
 
 	//dump the core and print the winner ( ˘ ³˘)♥ ♥ ♥ ♥
 	// tmp = vm.info->first_player;
