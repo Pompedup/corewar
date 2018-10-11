@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 13:17:29 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/11 13:49:24 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/11 17:11:54 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,7 @@ int     main(int ac, char **av)
 	players_charged_in_core(&vm);
 	execute_the_battle(&vm); // !!!!!! :D (ง •̀_•́)ง  ᕙ༼*◕_◕*༽ᕤ
 
-	//dump the core and print the winner ( ˘ ³˘)♥ ♥ ♥ ♥
-	// tmp = vm.info->first_player;
-	//ft_printf("main vm.dummp %d\n", vm.dump);
-	//int i = 0;
-	//while (tmp)
-	//{
-	//	ft_printf("%d : main tmp->name_file %s\n", i, tmp->name_file);
-	//	ft_printf("%d : main tmp->num %d\n", i, tmp->num);
-	//   	// printf("     main tmp->len_file %d\n", tmp->len_file);
-	//	tmp = tmp->next;
-	//	i++;
-	//}
+	//print the winner ( ˘ ³˘)♥ ♥ ♥ ♥
 	return (0);
 }
 

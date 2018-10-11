@@ -20,7 +20,7 @@ void		ft_lfork(t_corevm *vm, t_process *process)
 
 	tmp = vm->info->first_player;
 	fork = NULL;
-		ft_printf("_____________________test LONG fork\n");
+	//	ft_printf("_____________________test LONG fork\n");
 	get_two_octets(vm, process, 0);
 	while (ft_strcmp(process->name, tmp->header->prog_name) && tmp)
 	{
@@ -37,9 +37,9 @@ void		ft_lfork(t_corevm *vm, t_process *process)
 		i++;
 	}
 	put_process_front(&vm->info->first_processus, fork);
-	while (fork)
-	{
-		ft_printf("YOU LFORK IT!\n, fork->pc %d \n", fork->pc);
-		fork = fork->next;
-	}
+	//while (fork)
+	//{
+	//	ft_printf("YOU LFORK IT!\n, fork->pc %d \n", fork->pc);
+	//	fork = fork->next;
+	//}
 }

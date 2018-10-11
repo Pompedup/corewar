@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_corewar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 15:22:28 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/11 15:30:34 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/11 16:43:07 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void		init_vm(char **av, t_corevm *vm)
 	while (i < MEM_SIZE)
 		vm->color[i++] = 13;
 	vm->argv = av;
+	vm->dump = -1;
 	vm->octet_line_viz = ft_sqrt(MEM_SIZE);
 	vm->cycle_to_die = CYCLE_TO_DIE;
-	vm->nb_max_live = NBR_LIVE;
 	if (!(vm->info = ft_memalloc(sizeof(t_info))))
 		ft_error(vm, FAIL_MEMALLOC_0, 0);
 }

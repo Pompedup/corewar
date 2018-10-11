@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/11 15:24:12 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/11 18:41:41 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,12 +161,13 @@ typedef struct			s_corevm
 	char				core[MEM_SIZE];
 	unsigned int		color[MEM_SIZE];
 	int					dump;//unsigned int
+
 	int					nbr_total_cycles;
+
 	int					cycle_to_die;
-	int					nb_cycles_to_die;
+	
 	int					octet_line_viz;
-	int					nb_lives; //associer au define NBR_LIVE. Si au cours d’une de ces vérifications on se rend compte qu’il y a eu au moins NBR_LIVE exécutions de live depuis la dernière vérification en date, on décrémente CYCLE_TO_DIE de CYCLE_DELTA unités
-	int					nb_max_live; //define NBR_LIVE
+	int					nb_lives;
 }						t_corevm;
 
 typedef struct			s_ptr_func
@@ -267,17 +268,6 @@ void					put_process_front(t_process **first, \
 
 void					execute_the_battle(t_corevm *vm);
 void					pc_color(t_corevm *vm, t_process *process);
-
-/*
-********************************************************************************
-**						CHECKING_BATTLE_C							     	  **
-********************************************************************************
-*/
-
-int						check_live(t_corevm *vm);
-void					check_nb_lives(t_corevm *vm);
-void					check_dump(t_corevm *vm);
-int						check_max_checks(t_corevm *vm, int tmp_cycle);
 
 /*
 ********************************************************************************

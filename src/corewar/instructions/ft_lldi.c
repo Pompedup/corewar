@@ -23,19 +23,19 @@ void	ft_lldi(t_corevm *vm, t_process *process)
 	int	*values;
 	int	s;
 
-	ft_printf(" ---------LONG LOAD INDICE  \n");
+	//ft_printf(" ---------LONG LOAD INDICE  \n");
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
 	values = get_values(vm, process, 3, 1);
-	ft_printf(" ---------LONG LOAD INDICE values[0] hexa %x -- hexa %x \n", values[0], values[1]);
-	ft_printf(" ---------LONG LOAD INDICE values[0] d %d -- d %d \n", values[0], values[1]);
+	//ft_printf(" ---------LONG LOAD INDICE values[0] hexa %x -- hexa %x \n", values[0], values[1]);
+	//ft_printf(" ---------LONG LOAD INDICE values[0] d %d -- d %d \n", values[0], values[1]);
 	if (values)
 	{
 		s = values[0] + values[1];
 		process->reg[process->args[2]] = (unsigned char)(vm->core[((process->pc)
 			+ s) & (MEM_SIZE - 1)]);
 		process->carry = (process->reg[process->args[2]]) ? 0 : 1;
-			ft_printf(" ---------LONG LOAD INDICE values[0] hexa %x\n", process->reg[process->args[2]]);
-			ft_printf(" ---------LONG LOAD INDICE reg final d %d\n", process->reg[process->args[2]]);
+			//ft_printf(" ---------LONG LOAD INDICE values[0] hexa %x\n", process->reg[process->args[2]]);
+			//ft_printf(" ---------LONG LOAD INDICE reg final d %d\n", process->reg[process->args[2]]);
 		free (values);
 	}
 }

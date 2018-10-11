@@ -30,8 +30,8 @@ void	ft_fork(t_corevm *vm, t_process *process)
 	tmp_player = vm->info->first_player;
 	fork = NULL;
 	get_two_octets(vm, process, 0);
-	ft_printf(" process->args[0]  %x\n", (process->args[0] ));
-	ft_printf(" (process->args[0] & (IDX_MOD - 1) %d\n", (process->args[0] & (IDX_MOD - 1)));
+	//ft_printf(" process->args[0]  %x\n", (process->args[0] ));
+	//ft_printf(" (process->args[0] & (IDX_MOD - 1) %d\n", (process->args[0] & (IDX_MOD - 1)));
 	while (ft_strcmp(process->name, tmp_player->header->prog_name) && tmp_player)
 	{
 		tmp_player = tmp_player->next;

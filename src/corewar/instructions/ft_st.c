@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_st.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/19 11:07:13 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/10 16:50:33 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/11 17:52:52 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	ft_st(t_corevm *vm, t_process *process)
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
 	values = get_values(vm, process, 1, 0);
 	ft_memrev(&values[0], 4);
-	ft_printf(" __________________STORE values[0] hexa '%x' values[1] hexa '%x' \n", values[0], values[1]);
+	//ft_printf(" __________________STORE values[0] hexa '%x' values[1] hexa '%x' \n", values[0], values[1]);
 	if (values)
 	{
 		if (process->type_instruc[1] == 0x50)
 		{
 			process->reg[process->args[1]] = values[0];
-			ft_printf(" _____________________STORE RG process->reg[process->args[1]] hexa %x \n", process->reg[process->args[1]]);
+		//	ft_printf(" _____________________STORE RG process->reg[process->args[1]] hexa %x \n", process->reg[process->args[1]]);
 		}
 		else
 		{
@@ -49,7 +49,7 @@ void	ft_st(t_corevm *vm, t_process *process)
 				vm->color[(process->pc + i + (process->args[1] & (IDX_MOD - 1))) & (MEM_SIZE - 1)] = process->color + 4;
 				i++;
 			}
-			ft_printf(" STORE INDIRECT vm->core[(process->pc + (values[1] & (IDX_MOD - 1))) & (MEM_SIZE - 1)] hexa %x \n", vm->core[(process->pc + (values[1] & (IDX_MOD - 1))) & (MEM_SIZE - 1)]);
+		//	ft_printf(" STORE INDIRECT vm->core[(process->pc + (values[1] & (IDX_MOD - 1))) & (MEM_SIZE - 1)] hexa %x \n", vm->core[(process->pc + (values[1] & (IDX_MOD - 1))) & (MEM_SIZE - 1)]);
 		}
 		free(values);
 	}

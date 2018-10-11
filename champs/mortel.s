@@ -8,9 +8,7 @@ boost:	ld %12,r2
 
 	sti r1,%:live1,%1
 live1:	live %66
-	sti r1,%:fork0,%1
-	sti r1,%:fork1,%1
-	sti r1,%:fork2,%1
+
 	sti r1,%:wait,%1
 	sti r1,%:master,%1
 	sti r1,%:numero1,%1
@@ -18,12 +16,6 @@ live1:	live %66
 
 	sti r1,%:live,%-4
 	ldi %:live,%-2,r6
-fork0:	live %66
-	fork %:numero1
-fork1:	live %66
-	fork %:numero2
-fork2:	live %66
-#	fork %:fork0
 
 master:	live %66
 	ld %0,r3
