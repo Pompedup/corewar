@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 17:02:50 by pompedup          #+#    #+#             */
-/*   Updated: 2018/10/13 16:52:27 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/13 17:41:24 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
 ********************************************************************************
 */
 
-static t_bool	check_line(t_record *record, t_file *file, char *cmp,\
-					char *dest)
+static t_bool	check_line(t_record *record, t_file *file, char *cmp)
 {
 	size_t		len;
 	t_string	data;
@@ -30,7 +29,7 @@ static t_bool	check_line(t_record *record, t_file *file, char *cmp,\
 	len = ft_strlen(cmp);
 	data.type = cmp;
 	data.max = cmp == NAME_CMD_STRING ? PROG_NAME_LENGTH : COMMENT_LENGTH;
-	data.addr = dest;
+	data.addr = cmp == NAME_CMD_STRING ? record->name : record->comment;
 	data.size = 0;
 	data.index_line = file->index_line;
 	if (!ft_strncmp(file->current, cmp, len))
@@ -72,7 +71,7 @@ t_bool			get_infos(t_record *record, t_file *file)
 
 	while (file->line && (type = check_type(file->current)))
 	{
-		if (!check_line(record, file, type, record->name))
+		if (!check_line(record, file, type))
 			return (FALSE);
 		read_t_file(record, file, FALSE);
 	}

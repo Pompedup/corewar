@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 14:27:56 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/13 16:56:43 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/13 17:12:38 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_bool	check_authorized_arg(t_record *record,
 
 static t_bool	verify_exit_elem(t_record *record, t_file *file, t_elem *elem, int i)
 {
-	if (elem->line && *elem->line || i < elem->op_case.arg_authorized)
+	if ((elem->line && *elem->line) || i < elem->op_case.arg_authorized)
 	{
 		ft_printf(MISSARG, record->file_name, file->index_line, elem->op_case.arg_authorized, i);
 		return (FALSE);

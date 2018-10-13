@@ -6,12 +6,12 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 12:54:55 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/10 12:02:04 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/13 17:16:29 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
+//retour non necessaire peut [etre]
 t_bool	get_label(t_record *record, t_arg *current_arg, char *str, size_t len)
 {
 	t_function *functions;

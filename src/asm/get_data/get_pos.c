@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/11 16:29:18 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/13 15:49:45 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/13 17:28:34 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static t_bool	verif_syntax_label(t_record *record, char *str, size_t *len)
 {
 	*len = 0;
-	ft_putendl("vrai?");
 	while (str[*len] && str[*len] != SEPARATOR_CHAR && !ft_isspace(str[*len]))
 	{
 		if (!(is_label_char(str[*len])))
@@ -43,11 +42,10 @@ t_bool			get_label_pos(t_record *record, t_elem *elem, t_arg *current_arg)
 	str++;
 	if (!(verif_syntax_label(record, elem->line + 1, &len)))
 		return (FALSE);
-	if (!(get_label(record, current_arg, elem->line + 1, len)))
-		return (FALSE);
+	get_label(record, current_arg, elem->line + 1, len);
 	if (!current_arg->handled)
 		elem->complete = FALSE;
-	while (*elem->line && *elem->line != SEPARATOR_CHAR)
+	while (*elem->line && !ft_isspace(*elem->line) && *elem->line != SEPARATOR_CHAR)
 		elem->line++;
 	return (TRUE);
 }
@@ -70,7 +68,7 @@ t_bool			get_pos(t_record *record, t_elem *elem, t_arg *current_arg)
 		ft_putendl("TU SAIS PAS CE QUE C'EST UN CHIFFRE !?");
 		return (FALSE);
 	}
-	if (!ft_isint(elem->line, len))
+	if (!ft_strisint(elem->line, len) && !ft_strisuint(elem->line, len))
 	{
 		ft_putendl("trop gros !!");
 		return (FALSE);
