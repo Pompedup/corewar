@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 17:56:26 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/08 17:49:09 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/13 16:52:43 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_bool	get_addr(t_record *record, t_function *functions, t_arg *arg)
 		functions = functions->next;
 	}
 	ft_printf("\033[0;34m%s\033[0m : Unknow label [\033[0;31m%s\033[0m]\n",
-		record->name_file, arg->copy);
+		record->file_name, arg->copy);
 	return (FALSE);
 }
 

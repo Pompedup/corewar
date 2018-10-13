@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:34:54 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/08 17:18:08 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/13 16:53:09 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_bool	new_t_elem(t_record *record, t_elem **current, int type)
 	if (!(*current = ft_memalloc(sizeof(t_elem))))
 	{
 		ft_printf(ALLOC,
-			record->name_file);
+			record->file_name);
 		return (FALSE);
 	}
 	(*current)->op_case = g_op_tab[type];

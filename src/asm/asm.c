@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 12:23:45 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/08 13:38:50 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/13 16:51:42 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void		name_and_comment(t_record record)
 void		missing_name_or_comment(t_record *record, t_file *file)
 {
 if (!record->name_complete && !record->comment_complete)
-	ft_printf(BOTH, record->name_file, record->file.index_line,
+	ft_printf(BOTH, record->file_name, record->file.index_line,
 		NAME_CMD_STRING, COMMENT_CMD_STRING);
 else
-	ft_printf(ONE, record->name_file, record->file.index_line,\
+	ft_printf(ONE, record->file_name, record->file.index_line,\
 		!record->name_complete ? NAME_CMD_STRING : COMMENT_CMD_STRING);
 if (file->current)
 	ft_printf(CURRENT, file->current);

@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/10 14:35:41 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/13 16:51:19 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 # define	WRONG_FORMAT 4
 # define	INVALID_FILE 5
 
-# define	RED		"\033[1;31m"
-# define	GREEN	"\033[1;32m"
-# define	BLUE	"\033[1;34m"
+# define	RED		"\033[0;31m"
+# define	GREEN	"\033[0;32m"
+# define	BLUE	"\033[0;34m"
 # define	END		"\033[0m"
 # define	STRR	RED"%s"END
 # define	STRG	GREEN"%s"END
@@ -37,7 +37,12 @@
 # define	QUOTER	"\""STRR"\""
 # define	QUOTEG	"\""STRG"\""
 # define	QUOTEB	"\""STRB"\""
-# define	QUOTEC	"\""RED"%c"END"\""
+# define	QUOTERC	"\""RED"%c"END"\""
+# define	QUOTEGC	"\""GREEN"%c"END"\""
+# define	QUOTEBC	"\""BLUE"%c"END"\""
+# define	S_DIR	"DIR"
+# define	S_IND	"IND"
+# define	S_REG	"REGISTRE"
 
 /*
 ********************************************************************************
@@ -47,7 +52,7 @@
 ********************************************************************************
 */
 
-# define	OPEN	STRB": Wrong name.\n"
+# define	OPEN	STRB": Wrong file name.\n"
 # define	EMPTY	STRB": This file is empty.\n"
 # define	READ	STRB": This is not a file.\n"
 
@@ -77,10 +82,10 @@
 */
 
 # define	WHAT	FILE"Something go wrong ("QUOTER").\n"
-# define	NOLABEL	FILE"Missing label name before "QUOTEC".\n"
-# define	WRLABEL	FILE"Wrong char "QUOTEC" for label "QUOTER".\n"
-# define	MISSLAB	FILE"Missing LABEL_CHAR "QUOTEC" after label "QUOTER".\n"
-# define	SPACES	FILE"Space(s) between label "QUOTER" and LABEL_CHAR "QUOTEC".\n"
+# define	NOLABEL	FILE"Missing label name before "QUOTERC".\n"
+# define	WRLABEL	FILE"Wrong char "QUOTERC" for label "QUOTER".\n"
+# define	MISSLAB	FILE"Missing LABEL_CHAR "QUOTERC" after label "QUOTER".\n"
+# define	SPACES	FILE"Space(s) between label "QUOTER" and LABEL_CHAR "QUOTERC".\n"
 
 /*
 ********************************************************************************
@@ -90,9 +95,11 @@
 ********************************************************************************
 */
 
-# define	MISSBEF	FILE"Missing argument before "QUOTEC".\n"
-# define	MISSBET	FILE"Missing argument before "QUOTEC".\n"
+# define	MISSBEF	FILE"Missing argument before "QUOTERC".\n"
+//# define	MISSBET	FILE"Missing argument between "QUOTERC".\n"
+# define	MISSSEP	FILE"Missing separator before \"%s\".\n"
 # define	MISSARG	FILE"Missing argument for instruction NAMEG (required "INTG" - you "INTR").\n"
+# define	TOOMUCH	FILE"Did you forget a "QUOTEGC" before "QUOTER" ?\n"
 # define	WRARG	FILE QUOTER" is  invalid to the %s position for instruction "STRG".\n"
 
 /*
@@ -105,6 +112,7 @@
 
 # define	WRREG	FILE"Registre only accepte positif numbers as argument ("STRR").\n"
 # define	BIGREG	FILE"Registre max is 99 ("STRR").\n"
+# define	REGNEED	FILE"Registre need a positif numbers as argument ("GREEN"0 <= x <= 99"END").\n"
 
 /*
 ********************************************************************************
@@ -114,12 +122,16 @@
 ********************************************************************************
 */
 
-
+# define	MISSDIR	FILE"Missing int or label after "QUOTEGC".\n"
+# define	MISSIND	FILE"Missing int or label after "QUOTEGC".\n"
+# define	BADDATA FILE"Wrong string after "QUOTEGC" ("QUOTER").\n"
 
 
 
 //column
 # define	ALLOC	STRB": Allocation error.\n"
+
+# define	WREXT	STRR": File name didn't end by "QUOTEG".\n"
 
 extern t_op	g_op_tab[];
 
@@ -173,7 +185,8 @@ struct				s_function{
 };
 
 typedef struct		s_record{
-	char			*name_file;
+	char			*file_name;
+	char			*final_name;
 	char			name[128];
 	t_bool			name_complete;
 	char			comment[2052];
@@ -243,6 +256,17 @@ t_bool				get_infos(t_record *record, t_file *file);
 */
 
 t_bool	get_label(t_record *record, t_arg *current_arg, char *str, size_t len);
+
+/*
+********************************************************************************
+**                                                                            **
+**   get_pos.c                                                                **
+**                                                                            **
+********************************************************************************
+*/
+
+t_bool			get_label_pos(t_record *record, t_elem *elem, t_arg *current_arg);
+t_bool	get_pos(t_record *record, t_elem *elem, t_arg *current_arg);
 
 /*
 ********************************************************************************
@@ -341,4 +365,6 @@ void	write_file(t_record *record, t_function *functions);
 t_bool	get_string(t_record *record, t_file *file, t_string *data);
 t_bool		get_type(t_record *record, t_file *file, int *type);
 t_bool		check_label(t_record *record, t_file *file, char **name);
+void	ending_str(char *str);
+t_bool	verif_file_name(t_record *record, char *str);
 #endif

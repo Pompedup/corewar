@@ -6,11 +6,21 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/25 17:32:06 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/10 14:02:52 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/13 16:52:36 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+static t_bool	is_present(t_record *record, t_elem *elem)
+{
+	if (ft_isspace(*(elem->line + 1)) || *(elem->line + 1) == SEPARATOR_CHAR)
+	{
+		ft_printf(REGNEED, record->file_name, record->file.index_line);
+		return (FALSE);
+	}
+	return (TRUE);
+}
 
 t_bool	word_is_only_digit(t_record *record, t_elem *elem, t_arg *current_arg)
 {
@@ -30,7 +40,7 @@ t_bool	word_is_only_digit(t_record *record, t_elem *elem, t_arg *current_arg)
 	{
 		elem->line[i] = '\0';
 		ft_printf(!ft_isdigit(elem->line[i - 1]) ? WRREG : BIGREG,\
-			record->name_file, record->file.index_line, elem->line);
+			record->file_name, record->file.index_line, elem->line);
 		return (FALSE);
 	}
 	elem->line += i;
@@ -39,17 +49,10 @@ t_bool	word_is_only_digit(t_record *record, t_elem *elem, t_arg *current_arg)
 
 int		get_reg(t_record *record, t_arg *current_arg, t_elem *elem, int i)
 {
+	if (!is_present(record, elem))
+		return (FALSE);
 	if (!word_is_only_digit(record, elem, current_arg))
 		return (FALSE);
-	while (ft_isspace(*elem->line))
-		elem->line++;
-	if (*elem->line && *elem->line != ',')
-	{
-		//second argument
-		return (FALSE);
-	}
-	else if (*elem->line)
-		elem->line++;
 	current_arg->type = 1;
 	current_arg->handled = TRUE;
 	current_arg->size = 1;

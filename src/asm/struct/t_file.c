@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/20 15:46:56 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/08 15:21:15 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/13 16:53:15 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void			read_t_file(t_record *record, t_file *file, t_bool info)
 	{
 		if ((ret = get_next_line(file->fd, &(file->line))) == -1)
 		{
-			ft_printf(READ, record->name_file);
+			ft_printf(READ, record->file_name);
 			return ;
 		}
 		else if (!ret)
@@ -68,10 +68,10 @@ void			new_t_file(t_record *record, t_file *file, char *file_name)
 {
 	if ((file->fd = open(file_name, O_RDONLY)) == -1)
 	{
-		ft_printf(OPEN, record->name_file);
+		ft_printf(OPEN, record->file_name);
 		return ;
 	}
 	read_t_file(record, file, FALSE);
 	if (!file->line)
-		ft_printf(EMPTY, record->name_file);
+		ft_printf(EMPTY, record->file_name);
 }

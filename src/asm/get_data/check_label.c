@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 16:07:43 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/10 16:00:33 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/13 16:52:13 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_bool		verify_label (t_record *record, t_file *file, int end, char **name)
 	}
 	else
 	{
-		ft_printf(NOLABEL, record->name_file, file->index_line, LABEL_CHAR);
+		ft_printf(NOLABEL, record->file_name, file->index_line, LABEL_CHAR);
 		return (FALSE);
 	}
 	return (TRUE);

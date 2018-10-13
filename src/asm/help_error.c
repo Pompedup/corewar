@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   modulo.c                                           :+:      :+:    :+:   */
+/*   help_error.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/28 15:43:17 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/28 16:26:09 by abezanni         ###   ########.fr       */
+/*   Created: 2018/10/13 15:33:52 by abezanni          #+#    #+#             */
+/*   Updated: 2018/10/13 15:35:48 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/asm.h"
+#include "asm.h"
 
-int main()
+void	ending_str(char *str)
 {
-	char *buf;
-	int fd = open("test.cor", O_RDONLY);
-	buf = malloc(200);
-	read(fd, buf, 200);
-	buf += 136;
-	write(1, buf, 4);
-	free(buf - 136);
-	return (0);
+	while (*str && !ft_isspace(*str) && *str != SEPARATOR_CHAR)
+		str++;
+	*str = '\0';
 }
-/*
-4 magic
-128 + 4
-4 reg prog size
-2048 + 4*/

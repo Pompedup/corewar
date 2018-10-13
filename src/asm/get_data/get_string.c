@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 18:52:42 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/06 18:20:34 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/13 16:52:40 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ static int	handle_end_string(t_record *record, t_file *file, t_string *data, cha
 	*quote = '\0';
 	if ((data->size += quote - file->current) >  data->max)
 	{
-		ft_printf(LONG, record->name_file, file->index_line, data->type, data->max, data->size);
+		ft_printf(LONG, record->file_name, file->index_line, data->type, data->max, data->size);
 		return (-1);
 	}
 	quote++;
 	skip_spaces(&quote, NULL);
 	if (*quote && *quote != '#')
 	{
-		ft_printf(AFTER, record->name_file, file->index_line, data->type, quote);
+		ft_printf(AFTER, record->file_name, file->index_line, data->type, quote);
 		return (-1);
 	}
 	ft_strcpy(data->addr, file->current);
@@ -65,7 +65,7 @@ t_bool		get_string(t_record *record, t_file *file, t_string *data)
 	file->current = file->line + file->index_char;
 	if (skip_spaces(NULL, file) != '"')
 	{
-		ft_printf(BEGIN, record->name_file, file->index_line, data->type);
+		ft_printf(BEGIN, record->file_name, file->index_line, data->type);
 		return (FALSE);
 	}
 	file->current++;
@@ -76,6 +76,6 @@ t_bool		get_string(t_record *record, t_file *file, t_string *data)
 		else if (ret == -1)
 			return (FALSE);
 	}
-	ft_printf(ENDING, record->name_file, data->index_line, data->type);
+	ft_printf(ENDING, record->file_name, data->index_line, data->type);
 	return (FALSE);
 }

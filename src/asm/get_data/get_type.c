@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 16:01:44 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/08 17:14:59 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/13 16:52:55 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void		handle_bad_end(t_record *record, t_file *file, int i)
 	while (ft_isspace(file->current[i]))
 		i++;
 	if (file->current[i] == LABEL_CHAR)
-		ft_printf(SPACES, record->name_file, file->index_line, file->current,\
+		ft_printf(SPACES, record->file_name, file->index_line, file->current,\
 			LABEL_CHAR);
 	else
-		ft_printf(MISSLAB, record->name_file, file->index_line, LABEL_CHAR,\
+		ft_printf(MISSLAB, record->file_name, file->index_line, LABEL_CHAR,\
 			file->current);
 }
 
@@ -50,7 +50,7 @@ void		handle_bad_char(t_record *record, t_file *file, int i)
 		&& file->current[i] != LABEL_CHAR)
 		i++;
 	file->current[i] = '\0';
-	ft_printf(WRLABEL, record->name_file, file->index_line, c, file->current);
+	ft_printf(WRLABEL, record->file_name, file->index_line, c, file->current);
 }
 
 void		handle_error(t_record *record, t_file *file)
@@ -72,7 +72,7 @@ void		handle_error(t_record *record, t_file *file)
 		}
 		i++;
 	}
-	ft_printf(MISSLAB, record->name_file, file->index_line, LABEL_CHAR,\
+	ft_printf(MISSLAB, record->file_name, file->index_line, LABEL_CHAR,\
 		file->current);
 }
 

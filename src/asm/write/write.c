@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 15:10:17 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/06 18:32:30 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/13 16:53:38 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	write_file(t_record *record, t_function *functions)
 	t_elem	*elems;
 	int		fd;
 
-	record->name_file = "asm_de_moi";
-	if ((fd = open(record->name_file, O_TRUNC|O_WRONLY|O_CREAT, 0666)) == -1)
+	//record->name_file = "asm_de_moi";
+	if ((fd = open(record->final_name, O_TRUNC|O_WRONLY|O_CREAT, 0666)) == -1)
 	{
 		ft_putendl("naaaan");
 		exit(0); //gerer l'erreur

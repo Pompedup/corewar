@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 17:02:50 by pompedup          #+#    #+#             */
-/*   Updated: 2018/10/06 18:49:18 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/13 16:52:27 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static t_bool	check_line(t_record *record, t_file *file, char *cmp,\
 			record->comment_complete = TRUE;
 		else
 		{
-			ft_printf(SECOND, record->name_file, file->index_line, data.type);
+			ft_printf(SECOND, record->file_name, file->index_line, data.type);
 			return (FALSE);
 		}
 		file->index_char += len;
