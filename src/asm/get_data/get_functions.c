@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:26:00 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/15 15:23:47 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/15 18:01:03 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ static t_bool	handle_elem(t_record *record, t_file *file, t_elem **elem)
 			if (!(new_t_elem(record, elem, type)))
 				return (FALSE);
 			(*elem)->index_line = file->index_line;
-			elem->line = file->current + ft_strlen(elem->op_case.shortcut);
-			if (!get_elem(record, file, *elem))
+			(*elem)->line = file->current + ft_strlen((*elem)->op_case.shortcut);
+			if (!get_elem(record, *elem))
 				return (FALSE);
+			record->tot += (*elem)->size;
 		}
 		return (TRUE);
 	}
@@ -38,7 +39,6 @@ t_bool			get_functions(t_record *record, t_file *file,\
 	t_elem		**current_elem;
 	char		*name;
 
-	record->tot = 0;
 	while (file->line)
 	{
 		if (!check_label(record, file, &name))

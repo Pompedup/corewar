@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 18:52:42 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/15 15:17:32 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/15 17:21:33 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 **	spaces
 */
 
-char		skip_spaces(char **str, t_file *file)
+char		skip_spaces(char **str)
 {
-	while (ft_isspace(str ? **str : *file->current))
-		str ? (*str)++ : file->current++;
-	return (str ? **str : *file->current);
+	while (ft_isspace(**str))
+		(*str)++;
+	return (**str);
 }
 
 /*
@@ -40,7 +40,7 @@ static int	handle_end_string(t_record *record, t_file *file, t_string *data,\
 		return (-1);
 	}
 	quote++;
-	skip_spaces(&quote, NULL);
+	skip_spaces(&quote);
 	if (*quote && *quote != '#')
 	{
 		ft_printf(AFTER, record->file_name, file->index_line, data->type,\
@@ -89,7 +89,7 @@ t_bool		get_string(t_record *record, t_file *file, t_string *data)
 	int		ret;
 
 	file->current = file->line + file->index_char;
-	if (skip_spaces(NULL, file) != '"')
+	if (skip_spaces(&file->current) != '"')
 	{
 		ft_printf(BEGIN, record->file_name, file->index_line, data->type);
 		return (FALSE);

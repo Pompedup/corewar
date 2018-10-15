@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 17:37:50 by pompedup          #+#    #+#             */
-/*   Updated: 2018/09/26 17:33:51 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/15 17:30:14 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@ void	del_t_args(t_arg **current)
 		del_t_arg(current);
 }
 
-void	new_t_arg(t_arg **current, int addr)
+void	new_t_arg(t_arg **current, int addr, char *copy)
 {
 	if (!(*current = ft_memalloc(sizeof(t_arg))))
 		return ;
 	(*current)->addr = addr;
+	(*current)->copy = copy;
 }

@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:34:54 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/13 16:53:09 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/15 17:32:46 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,14 @@ void	print_elems(t_elem *current)
 
 void	del_t_elem(t_elem **current)
 {
-	t_elem *to_free;
+	char	**split;
+	t_elem	*to_free;
 
 	to_free = *current;
+	split = (*current)->split;
+	while (*split)
+		free(*(split++));
+	free((*current)->split);
 	del_t_args(&to_free->args);
 	*current = (*current)->next;
 	free(to_free);

@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:43:02 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/13 16:53:18 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/15 18:23:32 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	del_t_function(t_function **current)
 	t_function *to_free;
 
 	to_free = *current;
+	free((*current)->name);
 	del_t_elems(&(to_free->elems));
 	*current = (*current)->next;
 	free(to_free);

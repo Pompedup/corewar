@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/15 15:38:32 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/15 17:33:59 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 
 #include "common.h"
 
-# define	YET			-1
-# define	OK			0
-# define	ALLOC_ERROR	1
-# define	NO_FILE		2
-# define	CANT_READ	3
-# define	WRONG_FORMAT 4
-# define	INVALID_FILE 5
+# define	ELEM_CHARSET " \t\v\n\r\f,"
+
+// # define	YET			-1
+// # define	OK			0
+// # define	ALLOC_ERROR	1
+// # define	NO_FILE		2
+// # define	CANT_READ	3
+// # define	WRONG_FORMAT 4
+// # define	INVALID_FILE 5
 
 # define	RED		"\033[0;31m"
 # define	GREEN	"\033[0;32m"
@@ -218,7 +220,7 @@ int		get_ind(t_record *record, t_elem *elem, t_arg *arg, int i);
 */
 
 int		is_label_char(int c);
-t_bool		get_elem(t_record *record, t_file *file, t_elem *current_elem);
+t_bool		get_elem(t_record *record, t_elem *current_elem);
 
 /*
 ********************************************************************************
@@ -332,7 +334,7 @@ t_bool				new_t_function(t_record *record, t_function **current, char *name);
 void				print_args(t_arg *current);
 void				del_t_arg(t_arg **current);
 void				del_t_args(t_arg **current);
-void				new_t_arg(t_arg **current, int addr);
+void				new_t_arg(t_arg **current, int addr, char *copy);
 
 
 
@@ -351,4 +353,5 @@ t_bool		check_label(t_record *record, t_file *file, char **name);
 void	ending_str(char *str);
 t_bool	verif_file_name(t_record *record, char *str);
 t_bool			get_answer(t_record *record, t_elem *elem, t_arg *arg);
+char		skip_spaces(char **str);
 #endif

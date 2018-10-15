@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 15:10:17 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/13 17:44:11 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/15 18:16:44 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	write_key(t_elem *elem, int fd)
 
 
 	write(fd, &g_op_tab[elem->type].id, 1);
-	if (elem->key)
+	if (elem->op_case.arg_authorized > 1 || elem->op_case.id == 16)
 		write(fd, &elem->key, 1);
 	args = elem->args;
 	while (args)

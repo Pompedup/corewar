@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 12:54:55 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/15 15:00:34 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/15 17:46:23 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,4 @@ void	get_label(t_record *record, t_arg *current_arg, char *str, size_t len)
 		}
 		functions = functions->next;
 	}
-	current_arg->copy = ft_strndup(str, len);
 }
