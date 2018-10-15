@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/11 18:41:41 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/15 10:29:28 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 #define CYCLE_DEBUG			0
 
 # define SHORT				32768
-# define UNSIGNED_CHAR		128
 # define USAGE 				USAGE1 USAGE2
+# define UNSIGNED_CHAR		128
 # define USAGE1				"Usage: ./corewar [-dump nbr_cycles]"
 # define USAGE2				"[[-n number] champion1.cor] ..."
 # define ERR_MESS_00		"incorrect defines"
@@ -49,7 +49,13 @@
 # define FAIL_MEMALLOC_4	"ft_memalloc of new_color failed"
 # define FAIL_MEMALLOC_5	"ft_memalloc of values failed"
 
-//ORDONNE DANS LE SENS COULEUR CLASSIQUE / SURBRILLANCE (derniere instruction en date) / SURLIGNEMENT PC
+
+/*
+********************************************************************************
+**	ORDONNE DANS LE SENS COULEUR CLASSIQUE / SURBRILLANCE (derniere instruction en date) / SURLIGNEMENT PC
+********************************************************************************
+*/
+
 #define TAB_COLOR	{GREEN, PINK, BLUE, ORANGE, GREEN_S, PINK_S, BLUE_S, ORANGE_S, GREEN_PC, PINK_PC, BLUE_PC, ORANGE_PC, GREY_PC, GREY}
 #define GREEN				0x00ff00
 #define PINK				0xff0000
@@ -89,7 +95,7 @@
 
 typedef struct			s_player
 {
-	int					num;//num joueur faut peut etre le mettre dans le r1
+	int					num;
 	char				*name_file;
 	int					color;
 	header_t			*header;
@@ -100,9 +106,14 @@ typedef struct			s_player
 
 /*
 ********************************************************************************
-**	s_process contains
-**	- name of program
-**	- color
+**	s_process is initialised in create_process and contains
+**	- name of program copied from player->header->prog_name
+**	- color same as player->color
+**	- reg[REG_NUMBER]
+**	- pc
+**	-
+**	-
+**	-
 **	-
 **	-
 **	-
@@ -165,7 +176,7 @@ typedef struct			s_corevm
 	int					nbr_total_cycles;
 
 	int					cycle_to_die;
-	
+
 	int					octet_line_viz;
 	int					nb_lives;
 }						t_corevm;
