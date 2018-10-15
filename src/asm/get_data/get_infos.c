@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 17:02:50 by pompedup          #+#    #+#             */
-/*   Updated: 2018/10/13 17:41:24 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/15 14:56:47 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static t_bool	check_line(t_record *record, t_file *file, char *cmp)
 			return (FALSE);
 		}
 		file->index_char += len;
-		return (get_string(record, file, &data));//cmp, dest));
+		return (get_string(record, file, &data));
 	}
 	return (FALSE);
 }
@@ -77,6 +77,3 @@ t_bool			get_infos(t_record *record, t_file *file)
 	}
 	return (TRUE);
 }
-
-//	\033[48;2;%d;%d;%dm
-//	\033[38;2;%d;%d;%dm

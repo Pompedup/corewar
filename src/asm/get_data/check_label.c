@@ -6,13 +6,13 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 16:07:43 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/13 16:52:13 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/15 14:21:44 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static void	next_data(t_file *file, char *name)
+static void		next_data(t_file *file, char *name)
 {
 	int i;
 
@@ -42,7 +42,8 @@ static t_bool	is_new_name(t_record *record, char *str, char **name)
 	return (TRUE);
 }
 
-t_bool		verify_label (t_record *record, t_file *file, int end, char **name)
+t_bool			verify_label(t_record *record, t_file *file, int end,\
+																char **name)
 {
 	if (end)
 	{
@@ -62,7 +63,7 @@ t_bool		verify_label (t_record *record, t_file *file, int end, char **name)
 	return (TRUE);
 }
 
-t_bool		check_label(t_record *record, t_file *file, char **name)
+t_bool			check_label(t_record *record, t_file *file, char **name)
 {
 	char	*colon;
 

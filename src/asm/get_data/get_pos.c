@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/11 16:29:18 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/13 17:28:34 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/15 15:39:56 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_bool	verif_syntax_label(t_record *record, char *str, size_t *len)
 	return (TRUE);
 }
 
-t_bool			get_label_pos(t_record *record, t_elem *elem, t_arg *current_arg)
+t_bool			get_label_pos(t_record *record, t_elem *elem, t_arg *arg)
 {
 	char	*str;
 	size_t	len;
@@ -42,17 +42,17 @@ t_bool			get_label_pos(t_record *record, t_elem *elem, t_arg *current_arg)
 	str++;
 	if (!(verif_syntax_label(record, elem->line + 1, &len)))
 		return (FALSE);
-	get_label(record, current_arg, elem->line + 1, len);
-	if (!current_arg->handled)
+	get_label(record, arg, elem->line + 1, len);
+	if (!arg->handled)
 		elem->complete = FALSE;
-	while (*elem->line && !ft_isspace(*elem->line) && *elem->line != SEPARATOR_CHAR)
+	while (*elem->line && !ft_isspace(*elem->line)
+		&& *elem->line != SEPARATOR_CHAR)
 		elem->line++;
 	return (TRUE);
 }
 
-t_bool			get_pos(t_record *record, t_elem *elem, t_arg *current_arg)
+t_bool			get_pos(t_record *record, t_elem *elem, t_arg *arg)
 {
-	//char	*str;
 	size_t	len;
 
 	ft_strnbrlen(elem->line, &len);
@@ -62,7 +62,8 @@ t_bool			get_pos(t_record *record, t_elem *elem, t_arg *current_arg)
 		(void)record;
 		return (FALSE);
 	}
-	if (elem->line[len] && !ft_isspace(elem->line[len]) && elem->line[len] != SEPARATOR_CHAR)
+	if (elem->line[len] && !ft_isspace(elem->line[len])
+		&& elem->line[len] != SEPARATOR_CHAR)
 	{
 		ft_printf("[%c]", elem->line[len]);
 		ft_putendl("TU SAIS PAS CE QUE C'EST UN CHIFFRE !?");
@@ -73,8 +74,50 @@ t_bool			get_pos(t_record *record, t_elem *elem, t_arg *current_arg)
 		ft_putendl("trop gros !!");
 		return (FALSE);
 	}
-	current_arg->value = ft_atoi(elem->line);
+	arg->value = ft_atoi(elem->line);
 	elem->line += len;
-	current_arg->handled = TRUE;
+	arg->handled = TRUE;
+	return (TRUE);
+}
+
+static void		error_dir_ind()
+{
+	if (arg->type == 2)
+	{
+		if (!ft_isspace(*elem->line) && *elem->line != SEPARATOR_CHAR)
+		{
+			ending_str(elem->line);
+			ft_printf(BADDATA, record->file_name, record->file.index_line, DIRECT_CHAR, elem->line - (arg->type == 2));
+		}
+		else
+		{
+			ending_str(elem->line);
+			ft_printf(MISSDIR, record->file_name, record->file.index_line, DIRECT_CHAR);
+		}
+		return ;
+	}
+	if (!ft_isspace(*elem->line) && *elem->line != SEPARATOR_CHAR)
+	{
+		ending_str(elem->line);
+		ft_printf(BADDATA, record->file_name, record->file.index_line, DIRECT_CHAR, elem->line - 1);
+	}
+	else
+	{
+		ending_str(elem->line);
+		ft_printf(MISSIND, record->file_name, record->file.index_line, 'g');
+	}
+}
+
+t_bool			get_answer(t_record *record, t_elem *elem, t_arg *arg)
+{
+	if (*elem->line == ':')
+		get_label_pos(record, elem, arg);
+	else if (ft_isdigit(*elem->line) || *elem->line == '-')
+		get_pos(record, elem, arg);
+	else
+	{
+		error_dir_ind(t_record *record, t_elem *elem);
+		return (FALSE);
+	}
 	return (TRUE);
 }

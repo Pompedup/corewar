@@ -6,13 +6,13 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 17:56:26 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/13 16:52:43 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/15 15:18:05 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_bool	get_addr(t_record *record, t_function *functions, t_arg *arg)
+static t_bool	get_addr(t_record *record, t_function *functions, t_arg *arg)
 {
 	while (functions)
 	{
@@ -45,7 +45,7 @@ static t_bool	handle_elem(t_record *record, t_elem *elem)
 	return (TRUE);
 }
 
-t_bool	last_verifications(t_record *record)
+t_bool			last_verifications(t_record *record)
 {
 	t_function	*functions;
 	t_elem		*elems;

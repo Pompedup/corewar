@@ -6,7 +6,7 @@
 #    By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/10/13 16:57:34 by abezanni         ###   ########.fr        #
+#    Updated: 2018/10/15 14:32:14 by abezanni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,14 +34,12 @@ ASM_STRUCT =	t_arg.c\
 				t_function.c\
 
 ASM_GET_DATA =	check_label.c\
-				get_dir.c\
+				get_arg.c\
 				get_elem.c\
 				get_functions.c\
-				get_ind.c\
 				get_infos.c\
 				get_label.c\
 				get_pos.c\
-				get_reg.c\
 				get_string.c\
 				get_type.c\
 				last_verifications.c\

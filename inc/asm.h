@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/13 16:51:19 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/15 15:38:32 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ typedef struct		s_elem{
 	t_op			op_case;
 	int				key;
 	char			*line;
+	char			**split;
 	t_arg			*args;
 	t_bool			complete;
 	struct s_elem	*next;
@@ -199,12 +200,14 @@ typedef struct		s_record{
 /*
 ********************************************************************************
 **                                                                            **
-**   get_dir.c                                                                **
+**   get_arg.c                                                                **
 **                                                                            **
 ********************************************************************************
 */
 
-int		get_dir(t_record *record, t_arg *current_arg, t_elem *elem, int i);
+int		get_reg(t_record *record, t_elem *elem, t_arg *arg, int i);
+int		get_dir(t_record *record, t_elem *elem, t_arg *arg, int i);
+int		get_ind(t_record *record, t_elem *elem, t_arg *arg, int i);
 
 /*
 ********************************************************************************
@@ -230,16 +233,6 @@ t_bool	get_functions(t_record *record, t_file *file, t_function **current_functi
 /*
 ********************************************************************************
 **                                                                            **
-**   get_ind.c                                                                **
-**                                                                            **
-********************************************************************************
-*/
-
-int		get_ind(t_record *record, t_arg *current_arg, t_elem *elem, int i);
-
-/*
-********************************************************************************
-**                                                                            **
 **   get_infos.c                                                              **
 **                                                                            **
 ********************************************************************************
@@ -255,7 +248,7 @@ t_bool				get_infos(t_record *record, t_file *file);
 ********************************************************************************
 */
 
-t_bool	get_label(t_record *record, t_arg *current_arg, char *str, size_t len);
+void	get_label(t_record *record, t_arg *current_arg, char *str, size_t len);
 
 /*
 ********************************************************************************
@@ -266,17 +259,7 @@ t_bool	get_label(t_record *record, t_arg *current_arg, char *str, size_t len);
 */
 
 t_bool			get_label_pos(t_record *record, t_elem *elem, t_arg *current_arg);
-t_bool	get_pos(t_record *record, t_elem *elem, t_arg *current_arg);
-
-/*
-********************************************************************************
-**                                                                            **
-**   get_reg.c                                                                **
-**                                                                            **
-********************************************************************************
-*/
-
-int		get_reg(t_record *record, t_arg *current_arg, t_elem *elem, int i);
+t_bool			get_answer(t_record *record, t_elem *elem, t_arg *arg);
 
 /*
 ********************************************************************************
@@ -367,4 +350,5 @@ t_bool		get_type(t_record *record, t_file *file, int *type);
 t_bool		check_label(t_record *record, t_file *file, char **name);
 void	ending_str(char *str);
 t_bool	verif_file_name(t_record *record, char *str);
+t_bool			get_answer(t_record *record, t_elem *elem, t_arg *arg);
 #endif

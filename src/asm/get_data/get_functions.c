@@ -6,13 +6,13 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:26:00 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/08 17:51:31 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/15 15:23:47 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static t_bool		handle_elem(t_record *record, t_file *file, t_elem **current)
+static t_bool	handle_elem(t_record *record, t_file *file, t_elem **elem)
 {
 	int			type;
 
@@ -20,10 +20,11 @@ static t_bool		handle_elem(t_record *record, t_file *file, t_elem **current)
 	{
 		if (g_op_tab[type].shortcut)
 		{
-			if (!(new_t_elem(record, current, type)))
+			if (!(new_t_elem(record, elem, type)))
 				return (FALSE);
-			(*current)->index_line = file->index_line;
-			if (!get_elem(record, file, *current))
+			(*elem)->index_line = file->index_line;
+			elem->line = file->current + ft_strlen(elem->op_case.shortcut);
+			if (!get_elem(record, file, *elem))
 				return (FALSE);
 		}
 		return (TRUE);
@@ -31,7 +32,7 @@ static t_bool		handle_elem(t_record *record, t_file *file, t_elem **current)
 	return (FALSE);
 }
 
-t_bool		get_functions(t_record *record, t_file *file,\
+t_bool			get_functions(t_record *record, t_file *file,\
 				t_function **current_function)
 {
 	t_elem		**current_elem;

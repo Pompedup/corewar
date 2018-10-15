@@ -109,7 +109,7 @@ cc4ld:
 	ld		%251883523, r3
 	ld		%0, r16
 cc4l:
-	live	%4930423	
+	live	%4930423
 	ld		%0, r16
 	zjmp	%:choochoo
 
