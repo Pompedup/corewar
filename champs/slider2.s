@@ -2,13 +2,9 @@
 .comment	"And the winner is ..."
 
 		sti     r1,%:leon_live,%1
-		sti	r1,%:fork1,%1
-		sti	r1,%:fork2,%1
 		sti	r1,%:roger_live,%1
 		sti	r1,%:torp,%1
 		sti	r1,%:torp_,%1
-		sti	r1,%:fork3,%1
-		sti	r1,%:fork_live,%1
 		sti	r1,%:live,%1
 		sti	r1,%:live,%6
 		sti	r1,%:live,%11
@@ -42,13 +38,6 @@
 		add	r8,r9,r8
 		ld	%:roger,r12
 		sub	r12,r8,r12
-fork1:		live	%42
-		fork	%:fork_live
-fork2:		live	%42
-		fork	%:leon
-fork3:		live	%42
-		fork	%:roger
-		ld	%0,r15	
 		zjmp	%:torp
 leon:		ld      %0,r2
 leon_live:	live    %42
@@ -99,11 +88,8 @@ live:		live	%42
 		live	%42
 		live	%42	
 		zjmp	%:live
-fork_live:	live	%42
-		fork	%:live
+
 		ld	%0,r15
-		zjmp	%:fork_live
-	
 
 
 

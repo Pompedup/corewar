@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/11 18:49:26 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/12 17:43:40 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,34 @@ t_ptr_func g_instruc_func[] =
 };
 
 /*
+**	si on a une mauvaise key avancer le pc quand meme en fonction de la key
+*/
+
+void	get_pc_tmp(t_process *process, t_op g_tab)
+{
+	int		i;
+	char	key;
+	int		dec;
+
+	i = 0;
+	dec = 6;
+	while (i < g_tab.nbr_arg)
+	{
+		//if (vm->nbr_total_cycles > CYCLE_DEBUG)
+		//	ft_printf("get arg process->type_instruc[0] hexa %x\n", process->type_instruc[0]);
+		key = (process->type_instruc[1] >> dec) & 3;
+		if (key == 1) //un registre
+			process->pc_tmp++;
+		else if (key == 2 && !g_tab.dir) //un direct sur 4
+			process->pc_tmp += 4;
+		else if (key == 3 || (key == 2 && g_tab.dir)) //un indirect ou un direct sur 2
+			process->pc_tmp += 2;;
+		dec -= 2;
+		i++;
+	}
+}
+
+/*
 ********************************************************************************
 ** add - sub - live - zjmp - fork - lfork - aff (les simples 0 option pour les arg)
 ** combinaison ok : ld - st - ldi - sti - lld - lldi
@@ -41,25 +69,15 @@ void		execute_instruction(t_corevm *vm, t_process *process)
 		ft_printf(" execute i process->type_instruc[0] hexa %x\n", process->type_instruc[0]);
 	 ft_printf(" g_op_tab[process->type_instruc[0]].shortcut %s\n", g_op_tab[process->type_instruc[0]].shortcut);
 
+	if (g_op_tab[process->type_instruc[0]].nbr_arg > 1 || g_op_tab[process->type_instruc[0]].id == 16)
+	{
+		process->type_instruc[1] = (unsigned char)(vm->core[(process->pc + process->pc_tmp) & (MEM_SIZE - 1)]);
+		process->pc_tmp++;
+	}
 	if (!(test_args(process, g_op_tab[process->type_instruc[0]])) && g_op_tab[process->type_instruc[0]].nbr_arg > 1)
 	{
 		ft_printf(" MAUVAISE KEY---\n");
-		process->pc_tmp = 0;
-		if (g_op_tab[process->type_instruc[0]].nbr_arg == 2)
-		{
-			ft_printf(" process->pc_tmp += 2;\n");
-			process->pc_tmp += 2;
-		}
-		else if (g_op_tab[process->type_instruc[0]].nbr_arg == 3 && g_op_tab[process->type_instruc[0]].dir)
-		{
-			ft_printf(" process->pc_tmp += 4;\n");
-			process->pc_tmp += 4;
-		}
-		else
-		{
-			ft_printf(" process->pc_tmp += 6\n");
-			process->pc_tmp += 6;
-		}
+		get_pc_tmp(process, g_op_tab[process->type_instruc[0]]);
 	}
 	else
 	{
@@ -69,12 +87,12 @@ void		execute_instruction(t_corevm *vm, t_process *process)
 	i = 0;
 	while (i < 2)
 		process->type_instruc[i++] = -1;
-	i = 0;
-	while (i < 16)
-	{
-		ft_printf("reg[%d] %d \n", i, process->reg[i]);
-		i++;
-	}
+	//i = 0;
+	//while (i < 16)
+	//{
+	//	ft_printf("reg[%d] %d \n", i, process->reg[i]);
+	//	i++;
+	//}
 }
 
 /*
@@ -111,15 +129,6 @@ void	get_instruction_type(t_corevm *vm, t_process *process)
 	process->pc_tmp++;
 	process->nb_cycle_instruc = g_op_tab[i].nb_cycle_instruction;
 	process->type_instruc[0] = i;
-	if (g_op_tab[i].nbr_arg > 1 || process->type_instruc[0] == 16)
-	{
-		process->type_instruc[1] = (unsigned char)(vm->core[(process->pc + process->pc_tmp) & (MEM_SIZE - 1)]);
-		 ft_printf(" process->type_instruc[1] int %d\n", process->type_instruc[1]);
-		 ft_printf(" (vm->core[process->pc & (MEM_SIZE - 1)]) int %d\n", (unsigned char)(vm->core[(process->pc) & (MEM_SIZE - 1)]));
-		 ft_printf("process->type_instruc[1] hexa %hhx\n", process->type_instruc[1]);
-		 ft_printf("vm->core[process->pc] hexa %x\n", vm->core[process->pc]);
-	process->pc_tmp++;
-	}
 }
 
 /*

@@ -22,20 +22,20 @@
 
 #___________________________________________________________________
 #{T_REG, T_DIR, T_REG} -> 64 size  process->pc += 8;
-	ld %21, r6			#21 = 0001 0101 compare a 4 0000 0100
-	and  r6, %4, r10	#le resultat doit etre 0000 0100 (4))
-	st   r10, 5
+	ld %4, r1			#21 = 0001 0101 compare a 4 0000 0100
+	#and  r6, %4, r10	#le resultat doit etre 0000 0100 (4))
+	st   r1, 6
 
 #___________________________________________________________________
 #{T_DIR , T_REG, T_REG} -> 94  size  process->pc += 8;
-	ld %21, r6			#21 = 0001 0101 compare a 4 0000 0100
+	ld %240, r1			#21 = 0001 0101 compare a 4 0000 0100
 	and  %4, r6, r10	#le resultat doit etre 0000 0100 (4))
-	st   r10, 5
+	st   r1, 6
 
 #___________________________________________________________________
 #{T_DIR, T_IND , T_REG} -> B4  size  process->pc += 9;
 						# 4 = 0000 0100 compare a 5 0000 0101
-	and  %4, 5, r10		#le resultat doit etre 0000 0100 (4))
+	and  %11, 5, r10		#le resultat doit etre 0000 0100 (4))
 	st   r10, 5
 
 

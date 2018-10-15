@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/15 10:29:28 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/15 11:08:39 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "common.h"
 
-#define CYCLE_DEBUG			0
+#define CYCLE_DEBUG			800
 
 # define SHORT				32768
 # define USAGE 				USAGE1 USAGE2
@@ -108,13 +108,17 @@ typedef struct			s_player
 ********************************************************************************
 **	s_process is initialised in create_process and contains
 **	- name of program copied from player->header->prog_name
-**	- color same as player->color
-**	- reg[REG_NUMBER]
-**	- pc
-**	-
-**	-
-**	-
-**	-
+**	- color same as player->color which is set from index_color in create_player
+**	- reg[REG_NUMBER], reg[0] = player->num and from 1 to REG_NUMBER bzero
+** 	- pc, initially the position in vm->core, that will be
+**		continually moved along MEM_SIZE
+**	- pc_tmp, initially set at 0 that helps move the pc during instructions
+**	- carry, initially set at 0, that can be set at 1 if the result of
+**		ld, ldi, lld, lldi, or, xor, and, sub, add has succeded
+//		revoir definition de has succeded
+**	- live, initially set at 0, that will calculate the number of times
+**		the process has implemented instruction live in favor of its num (reg[0])
+**	- type_instruc[2], initially set at -1 and then type_instruc[0]
 **	-
 **	-
 **	-
@@ -290,6 +294,7 @@ void					manage_instruction(t_corevm *vm, t_process *process);
 void					get_instruction_type(t_corevm *vm, t_process *process);
 void					execute_instruction(t_corevm *vm, t_process *process);
 void					move_pc(t_process *process, t_op g_tab);
+void					get_pc_tmp(t_process *process, t_op g_tab);
 
 /*
 ********************************************************************************

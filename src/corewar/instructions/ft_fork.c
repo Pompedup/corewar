@@ -38,7 +38,8 @@ void	ft_fork(t_corevm *vm, t_process *process)
 	}
 	if (tmp_player)
 	{
-		fork = create_process(vm, (process->pc + (process->args[0] & (IDX_MOD - 1))), tmp_player);
+		fork = create_process(vm, ((process->pc + ((short)process->args[0] % IDX_MOD)) & (MEM_SIZE - 1)), tmp_player);
+		//ft_printf("FORKKKKKKKKK fork->pc %d\n)",  fork->pc);
 	}
 	i = 0;
 	while (i < REG_NUMBER)

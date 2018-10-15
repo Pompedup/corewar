@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+         #
+#    By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/10/09 11:30:47 by ecesari          ###   ########.fr        #
+#    Updated: 2018/10/12 14:20:44 by ccoupez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,7 @@ ASM_FILES =		asm.c\
 				get_lines.c\
 				lines.c\
 
-COREWAR_FILES =	checking_battle.c\
-				corewar.c\
+COREWAR_FILES =	corewar.c\
 				execute_the_battle.c\
 				get_arguments.c\
 				get_instructions.c\

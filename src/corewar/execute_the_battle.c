@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/11 18:49:46 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/12 17:39:28 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ void	execute_the_battle(t_corevm *vm)
 
 		vm->nbr_total_cycles++;
 		cycle++;
-		ft_printf("---------------------vm->nbr_total_cycles %d\n", vm->nbr_total_cycles);
-		if (vm->nbr_total_cycles > CYCLE_DEBUG)
-			print_core(vm);
+		ft_printf("---------------------------------------------------------------------vm->nbr_total_cycles %d\n", vm->nbr_total_cycles);
+		//if (vm->nbr_total_cycles > CYCLE_DEBUG)
+		//	print_core(vm);
 		//	ft_printf("	nombre total de cycles vm->nbr_total_cycles %d\n", vm->nbr_total_cycles);
 	}
 	ft_printf("total cycle %d", vm->nbr_total_cycles);
