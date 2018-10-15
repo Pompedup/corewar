@@ -26,20 +26,29 @@ void		ft_ldi(t_corevm *vm, t_process *process)
 
 	//ft_printf(" ---------LOAD INDICE  \n");
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
-	//ft_printf(" ---------LOAD INDICE  process->args[0] %d \n", process->args[0]);
-	//ft_printf(" ---------LOAD INDICE  process->args[1] hexa %x \n", process->args[1]);
-	//ft_printf(" ---------LOAD INDICE  process->args[2] hexa %x \n", process->args[2]);
-	values = get_values(vm, process, 3, 0);
-	//ft_printf(" ---------LOAD INDICE values[0] hexa %x --values[1] hexa %x \n", values[0], values[1]);
-	//ft_printf(" ---------LOAD INDICE values[0] d %d -values[1]- d %d \n", values[0], values[1]);
-	if (values)
+	ft_printf(" ---------LOAD INDICE  process->args[0]d %d \n", process->args[0]);
+	ft_printf(" ---------LOAD INDICE  process->args[1] d %d \n", process->args[1]);
+	ft_printf(" ---------LOAD INDICE  reg de stock final  %d \n", process->args[2]);
+	if (process->good_reg)
 	{
-		s = values[0] + values[1];
-		process->reg[process->args[2]] = *((unsigned int *)(vm->core + ((process->pc
-			+ (s % IDX_MOD )) & (MEM_SIZE - 1))));
-		process->carry = (process->reg[process->args[2]]) ? 0 : 1;
-			//ft_printf(" ---------LOAD INDICE process->reg[process->args[2]] hexa %x\n", process->reg[process->args[2]]);
-			//ft_printf(" ---------LOAD INDICE reg final x %x\n", process->reg[process->args[2]]);
-		free (values);
+		values = get_values(vm, process, 3, 0);
+		ft_printf(" ---------LOAD INDICE values[0] d %d --values[1] d %d \n", values[0], values[1]);
+		ft_printf(" ---------LOAD INDICE values[0] + values[1] - d %d \n", values[0] + values[1]);
+		if (values)
+		{
+			s = values[0] + values[1];
+			process->reg[process->args[2]] = *((int *)(vm->core + ((process->pc
+				+ (s % IDX_MOD )) & (MEM_SIZE - 1))));
+		//	ft_memrev(&process->reg[process->args[2]], 4);
+			process->carry = (process->reg[process->args[2]]) ? 0 : 1;
+				//ft_printf(" ---------LOAD INDICE process->reg[process->args[2]] hexa %x\n", process->reg[process->args[2]]);
+				ft_printf(" ---------LOAD INDICE reg final x %x\n", process->reg[process->args[2]]);
+				ft_printf(" ---------LOAD INDICE reg final d %d\n", process->reg[process->args[2]]);
+				ft_memrev(&process->reg[process->args[2]], 4);
+				ft_printf(" ---------LOAD INDICE reg final revvv x %x\n", process->reg[process->args[2]]);
+				ft_printf(" ---------LOAD INDICE reg final revvv d %d\n", process->reg[process->args[2]]);
+				ft_memrev(&process->reg[process->args[2]], 4);
+			free (values);
+		}
 	}
 }

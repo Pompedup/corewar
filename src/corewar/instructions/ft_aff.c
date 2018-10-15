@@ -23,8 +23,11 @@ void		ft_aff(t_corevm *vm, t_process *process)
 	get_one_octet(vm, process, 0);
 	//ft_printf("\tprocess->args[0] hexa '%x'\n", process->args[0]);
 	//ft_printf("\tAFFFFFprocess->reg[process->args[0]] hexa '%x'\n", process->reg[process->args[0]]);
-	c = (unsigned char)(process->reg[process->args[0]] % 256);
+	if (process->good_reg)
+	{
+		c = (char)(process->reg[process->args[0]] % 256);
+		write(1, &c, 1);
+	}
 	//ft_printf("AFF c '%c'\t", c);
-	write(1, &c, 1);
 //	ft_printf("\n");
 }

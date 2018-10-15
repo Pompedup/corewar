@@ -1,7 +1,7 @@
 .name		"Sliders"
 .comment	"And the winner is ..."
 
-		sti     r1,%:leon_live,%1
+		sti r1,%:leon_live,%1
 		sti	r1,%:roger_live,%1
 		sti	r1,%:torp,%1
 		sti	r1,%:torp_,%1
@@ -41,9 +41,9 @@
 		zjmp	%:torp
 leon:		ld      %0,r2
 leon_live:	live    %42
-		ldi     %:leon,r2,r3
-		sti     r3,r8,r2
+		ldi     %:roger,r2,r3
 		add     r2,r4,r2
+		sti     r3,r8,r2
 		xor     r13,r2,r7
 		zjmp    %415
 		ld      %0,r15
