@@ -32,7 +32,7 @@ void	ft_ld(t_corevm *vm, t_process *process)
 {
 	int	*values;
 
-	//ft_printf(" _____________________DANS LD process->type_instruc[1] hexa  %x\n", process->type_instruc[1]);
+	ft_printf(" _____________________DANS LD process->type_instruc[1] hexa  %x\n", process->type_instruc[1]);
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
 	values = get_values(vm, process, 1, 0); //1 on recupere seulement la valeur de larg 1
 	//ft_printf(" _________________________LOAD values[0] hexa %x\n", values[0]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 21:06:11 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/09 17:04:26 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/12 13:52:11 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,6 @@ T_REG}
 	{"sub",   3, {T_REG, T_REG, T_REG}, 5, 10, 	"soustraction", 						1, 0},	--> +6
 	{"or",    3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 7, 6, 	"ou", 	1, 0},	--> +6
 	{"xor",   3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 8, 6, 	"xou",	1, 0},	--> +6
-
-
-
-
-
 
 	{"ldi",   3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 10, 25,			"load index",	1, 1},		--> +4
 	{"sti",   3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25,			"store index", 	0, 1},		--> +4

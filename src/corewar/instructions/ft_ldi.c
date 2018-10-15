@@ -35,8 +35,8 @@ void		ft_ldi(t_corevm *vm, t_process *process)
 	if (values)
 	{
 		s = values[0] + values[1];
-		process->reg[process->args[2]] = *((unsigned int *)(vm->core + (((process->pc)
-			+ (s & (IDX_MOD - 1))) & (MEM_SIZE - 1))));
+		process->reg[process->args[2]] = *((unsigned int *)(vm->core + ((process->pc
+			+ (s % IDX_MOD )) & (MEM_SIZE - 1))));
 		process->carry = (process->reg[process->args[2]]) ? 0 : 1;
 			//ft_printf(" ---------LOAD INDICE process->reg[process->args[2]] hexa %x\n", process->reg[process->args[2]]);
 			//ft_printf(" ---------LOAD INDICE reg final x %x\n", process->reg[process->args[2]]);

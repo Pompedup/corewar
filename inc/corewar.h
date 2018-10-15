@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/11 18:41:41 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/12 16:59:35 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "common.h"
 
-#define CYCLE_DEBUG			0
+#define CYCLE_DEBUG			800
 
 # define SHORT				32768
 # define UNSIGNED_CHAR		128
@@ -279,6 +279,7 @@ void					manage_instruction(t_corevm *vm, t_process *process);
 void					get_instruction_type(t_corevm *vm, t_process *process);
 void					execute_instruction(t_corevm *vm, t_process *process);
 void					move_pc(t_process *process, t_op g_tab);
+void					get_pc_tmp(t_process *process, t_op g_tab);
 
 /*
 ********************************************************************************
