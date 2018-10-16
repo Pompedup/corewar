@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/16 13:45:20 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/16 20:29:56 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "common.h"
 
-#define CYCLE_DEBUG			100000
+#define CYCLE_DEBUG			0000
 
 # define SHORT				32768
 # define UNSIGNED_CHAR		128
@@ -171,7 +171,7 @@ typedef struct			s_corevm
 	int					nbr_total_cycles;
 
 	int					cycle_to_die;
-	
+
 	int					octet_line_viz;
 	int					nb_lives;
 	int					lives_player[MAX_PLAYERS][2];

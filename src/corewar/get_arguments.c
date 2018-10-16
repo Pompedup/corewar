@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_arguments.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 15:16:23 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/16 13:49:19 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/16 20:40:09 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,24 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 			}
 			else if (((process->type_instruc[1] >> dec) & 3) == 2)
 			{
-					values[i] = process->args[i];
-
+					// values[i] = process->args[i];
+				if (g_op_tab[process->type_instruc[0]].dir)
+ 					values[i] = (short)process->args[i];
+ 				else
+ 					values[i] = process->args[i];
 			}
 			else if (((process->type_instruc[1] >> dec) & 3) == 3)
 			{
 				//ft_printf("indirrrrrr__________________________________________________________\n");
-				values[i] = *((int*)(vm->core + ((process->pc + ((short)process->args[i] % (l ? MEM_SIZE : IDX_MOD)))
-						& (MEM_SIZE - 1))));
-
+				// values[i] = *((int*)(vm->core + ((process->pc + ((short)process->args[i] % (l ? MEM_SIZE : IDX_MOD)))
+				// 		& (MEM_SIZE - 1))));
+				if (l)
+ 					values[i] = *((int*)(vm->core + ((process->pc + (process->args[i] & (MEM_SIZE - 1))) & (MEM_SIZE - 1))));
+ 				else
+ 				{
+ 					int add = (process->args[i] % IDX_MOD) - IDX_MOD * (((process->args[i] - 1) / IDX_MOD) & 1);
+ 					values[i] = *((int*)(vm->core + ((process->pc + add) & (MEM_SIZE - 1))));
+ 				}
 				ft_memrev(&values[i], 4);
 
 			}
@@ -219,4 +228,3 @@ t_bool	test_args(t_process *process, t_op g_op_tab)
 	//printf("TRUE test args\n");
 	return (TRUE);
 }
-

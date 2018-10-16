@@ -22,7 +22,6 @@
 void		ft_ldi(t_corevm *vm, t_process *process)
 {
 	int	*values;
-	int	s;
 
 	//ft_printf(" ---------LOAD INDICE  \n");
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
@@ -36,9 +35,16 @@ void		ft_ldi(t_corevm *vm, t_process *process)
 		ft_printf(" ---------LOAD INDICE values[0] + values[1] - d %d \n", values[0] + values[1]);
 		if (values)
 		{
-			s = values[0] + values[1];
-			process->reg[process->args[2]] = *((int *)(vm->core + ((process->pc
-				+ (s % IDX_MOD )) & (MEM_SIZE - 1))));
+			// int	s;
+
+			// s = values[0] + values[1];
+			// process->reg[process->args[2]] = *((int *)(vm->core + ((process->pc
+				// + (s % IDX_MOD )) & (MEM_SIZE - 1))));
+ 			//ft_printf("result %d\n", (process->pc + add) & (MEM_SIZE - 1));
+ 			//ft_printf("result (values[0] + values[1]) %d\n", (values[0] + values[1]));
+ 			//ft_printf("result add %d\n", add);
+			int add = ((values[0] + values[1]) % IDX_MOD) - IDX_MOD * ((((values[0] + values[1]) / IDX_MOD) & 1));// == (values[0] + values[1]) >= 0 ? 1 : 0 );
+ 			process->reg[process->args[2]] = *((int *)(vm->core + ((process->pc + add) & (MEM_SIZE - 1))));
 		//	ft_memrev(&process->reg[process->args[2]], 4);
 			process->carry = (process->reg[process->args[2]]) ? 0 : 1;
 				//ft_printf(" ---------LOAD INDICE process->reg[process->args[2]] hexa %x\n", process->reg[process->args[2]]);

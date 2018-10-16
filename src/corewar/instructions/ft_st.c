@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_st.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/19 11:07:13 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/15 14:09:40 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/16 20:26:12 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ void	ft_st(t_corevm *vm, t_process *process)
 			}
 			else
 			{
-				*(int *)(vm->core + ((process->pc + ((short)process->args[1] % IDX_MOD)) & (MEM_SIZE - 1))) = values[0];
+				int add = ((short)process->args[1] % IDX_MOD) - IDX_MOD * (((((short)process->args[1]) / IDX_MOD) & 1));// == (short)process->args[1] >= 0 ? 1 : 0);
+ 				*(int *)(vm->core + ((process->pc + add) & (MEM_SIZE - 1))) = values[0];
+				// *(int *)(vm->core + ((process->pc + ((short)process->args[1] % IDX_MOD)) & (MEM_SIZE - 1))) = values[0];
 
 				while (i < 4)
 				{
-					vm->color[(process->pc + i + ((short)process->args[1] % IDX_MOD)) & (MEM_SIZE - 1)] = process->color + 4;
+					vm->color[(process->pc + i + add) & (MEM_SIZE - 1)] = process->color + 4;
 					i++;
 				}
 				//ft_printf(" STORE INDIRECT vm->core[(process->pc + (values[1] & (IDX_MOD - 1))) & (MEM_SIZE - 1)] hexa %x \n", vm->core[(process->pc + (values[1] & (IDX_MOD - 1))) & (MEM_SIZE - 1)]);
