@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 14:27:56 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/15 18:21:05 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/16 14:36:32 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,14 +129,17 @@ t_bool			verify_elem_str(t_record *record, t_elem *elem)
 	if (nb < elem->op_case.arg_authorized)
 	{
 		//pas assez d'arg
+		return (FALSE);
 	}
 	else if (nb > elem->op_case.arg_authorized)
 	{
 		//trop d'arg
+		return (FALSE);
 	}
 	if (!(elem->split = ft_split_charset(elem->line, ELEM_CHARSET)))
 	{
-		//alloc_prob
+		ft_printf(ALLOC, record->file_name);
+		exit(0);
 	}
 	return (verify_args_type(record, elem));
 }
