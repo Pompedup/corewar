@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/12 17:43:40 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/15 16:33:47 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void		execute_instruction(t_corevm *vm, t_process *process)
 
 	if (g_op_tab[process->type_instruc[0]].nbr_arg > 1 || g_op_tab[process->type_instruc[0]].id == 16)
 	{
-		process->type_instruc[1] = (unsigned char)(vm->core[(process->pc + process->pc_tmp) & (MEM_SIZE - 1)]);
+		process->type_instruc[1] = (char)(vm->core[(process->pc + process->pc_tmp) & (MEM_SIZE - 1)]);
 		process->pc_tmp++;
 	}
 	if (!(test_args(process, g_op_tab[process->type_instruc[0]])) && g_op_tab[process->type_instruc[0]].nbr_arg > 1)
@@ -87,12 +87,12 @@ void		execute_instruction(t_corevm *vm, t_process *process)
 	i = 0;
 	while (i < 2)
 		process->type_instruc[i++] = -1;
-	//i = 0;
-	//while (i < 16)
-	//{
-	//	ft_printf("reg[%d] %d \n", i, process->reg[i]);
-	//	i++;
-	//}
+	i = 0;
+	while (i < 16)
+	{
+		ft_printf("reg[%d] %d \n", i + 1, process->reg[i]);
+		i++;
+	}
 }
 
 /*
@@ -163,6 +163,7 @@ void	manage_instruction(t_corevm *vm, t_process *process)
 		{
 			 ft_printf("	process->type_instruc[1] %x\n", process->type_instruc[1]);
 			execute_instruction(vm, process);
+			process->good_reg = 1;
 			pc_color(vm, process);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 15:16:23 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/12 17:42:13 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/15 17:24:47 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,18 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 				//ft_memrev(&values[i], 4);
 			}
 			else if (((process->type_instruc[1] >> dec) & 3) == 2)
-				values[i] = process->args[i];
+			{
+					values[i] = process->args[i];
+
+			}
 			else if (((process->type_instruc[1] >> dec) & 3) == 3)
 			{
 				//ft_printf("indirrrrrr__________________________________________________________\n");
-				values[i] = *((unsigned int*)(vm->core + ((process->pc + ((short)process->args[i] % (l ? MEM_SIZE : IDX_MOD)))
+				values[i] = *((int*)(vm->core + ((process->pc + ((short)process->args[i] % (l ? MEM_SIZE : IDX_MOD)))
 						& (MEM_SIZE - 1))));
+				ft_printf(" ---------get values x %x \n", values[i]);	
 				ft_memrev(&values[i], 4);
+				ft_printf(" --------get values x %x \n", values[i]);
 
 			}
 		}
@@ -74,10 +79,12 @@ void	get_one_octet(t_corevm *vm, t_process *process, int i)
 {
 	process->args[i] =
 		*(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))) - 1;
-	process->pc_tmp += 1;
 	//if (vm->nbr_total_cycles > CYCLE_DEBUG)
-	//	ft_printf("arg 1 octet %x\n", process->args[i]);
-	// ft_printf("vm->core[process->pc] %x\n", vm->core[process->pc]);
+		ft_printf("arg 1 octet x %x d %d\n", process->args[i], process->args[i]);
+	 ft_printf("vm->core[process->pc] %x\n", *(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))) - 1);
+	process->pc_tmp += 1;
+	if (process->args[i] < 0 || process->args[i] > REG_NUMBER - 1)
+		process->good_reg = 0;
 }
 
 /*
@@ -90,7 +97,7 @@ void	get_one_octet(t_corevm *vm, t_process *process, int i)
 void	get_two_octets(t_corevm *vm, t_process *process, int i)
 {
 	process->args[i] =
-		*((unsigned short*)(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))));
+		*((short*)(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))));
 	ft_memrev((char*)&process->args[i], 2);
 	//ft_printf("--------2 octets------------process->args[i] %d\n", (int)process->args[i]);
 	process->pc_tmp += 2;
@@ -109,7 +116,7 @@ void	get_two_octets(t_corevm *vm, t_process *process, int i)
 void	get_four_octets(t_corevm *vm, t_process *process, int i)
 {
 	process->args[i] =
-		*((unsigned int*)(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))));
+		*((int*)(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))));
 	//ft_printf("-------4 octets------------process->args[i] %d\n", (int)process->args[i]);
 	ft_memrev((char*)&process->args[i], 4);
 	process->pc_tmp += 4;
@@ -154,6 +161,7 @@ void	get_args(t_corevm *vm, t_process *process, t_op g_tab)
 		dec -= 2;
 		i++;
 	}
+
 }
 
 /*

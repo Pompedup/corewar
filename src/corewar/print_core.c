@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_core.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 14:29:45 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/11 15:39:20 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/15 15:40:13 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,25 @@
 void	put_color(t_corevm *vm, unsigned char *print, int j, int i)
 {
 	static int	tab[] = TAB_COLOR;
+	
+
+	//ft_printf("BUSSS ERROR\n");
+	//ft_printf("vm->color[i] %d i %d\n", vm->color[i], i);
 
 	if (vm->color[i] > 7 && vm->color[i] < 13)
 	{
 		ft_printf("\033[48;2;%d;%d;%dm\033[38;2;0;0;0m%.*s\033[0m", (tab[vm->color[i]] >> 16) & 0xff,(tab[vm->color[i]] >> 8) & 0xff,(tab[vm->color[i]]) & 0xff, j - 1, print);
-		ft_printf(" ");
+		if (i && !((i + 1) % (vm->octet_line_viz)))
+			ft_printf("\n");
+		else
+			ft_printf(" ");
 	}
 	else
+	{
 		ft_printf("\033[38;2;%d;%d;%dm%.*s\033[0m", (tab[vm->color[i]] >> 16) & 0xff,(tab[vm->color[i]] >> 8) & 0xff,(tab[vm->color[i]]) & 0xff, j, print);
+		if (i && !((i + 1) % (vm->octet_line_viz)))
+			ft_printf("\n");
+	}
 	// ft_printf(tmp, (tab[vm->color[i]] >> 16) & 0xff,(tab[vm->color[i]] >> 8) & 0xff,(tab[vm->color[i]]) & 0xff, print);
 	int h = 0;
 	while (h < j)
@@ -106,27 +117,40 @@ void	print_core(t_corevm *vm)
 		print[j * 3 + 1] = HEXAMIN[str[i] % 16];
 		print[j * 3 + 2] = ' ';
 		j++;
-		if (vm->color[i] != vm->color[i + 1])
+		if (vm->color[i] != vm->color[i + 1] || (i && !((i + 1) % (vm->octet_line_viz))))
 		{
+			// if (i && !((i + 1) % (vm->octet_line_viz)))
+			// {
+			// 	print[j  * 3] = '\n';
+			// 	put_color(vm, print, j * 3 + 1, i);
+			// }
+			// else
 			put_color(vm, print, j * 3, i);
+			//if (i && !((i + 1) % (vm->octet_line_viz)))
+			//	ft_printf("\n");
+				// put_color(vm, print, j * 3 - 1, i);
 			 //write(1, print, j);
 			//ft_bzero(print, TEST);
 			j = 0;
 		}
-		if (i && !((i + 1) % (vm->octet_line_viz)))
-		{
-			print[j  * 3] = '\n';
-			put_color(vm, print, j * 3 + 1, i);
-			// ft_putnbrendl(i);
-			 //write(1, print, j * 3);
-			//ft_bzero(print, TEST);
-			j = 0;
-		}
+		//else if (i && !((i + 1) % (vm->octet_line_viz)))
+		//{
+		//	//print[j  * 3] = '\n';
+		//	put_color(vm, print, j * 3, i);
+		//	// ft_putnbrendl(i);
+		//	 //write(1, print, j * 3);
+		//	//ft_bzero(print, TEST);
+		//	j = 0;
+		//}
 		if ((color = color_live(vm, i)) > -1)
 		{
-			put_color(vm, print, (j * 3 - 3), i);
+			if (j > 1)
+				put_color(vm, print, (j * 3 - 3), i);
 			ft_printf("\033[48;2;%d;%d;%dm\033[38;1;255;255;255m%.*s\033[0m", (tab[color] >> 16) & 0xff,(tab[color] >> 8) & 0xff,(tab[color]) & 0xff, 2, print + (j * 3 - 3));
-			ft_printf(" ");
+			if (i && !((i + 1) % (vm->octet_line_viz)))
+				ft_printf("\n");
+			else
+				ft_printf(" ");
 			j = 0;
 		}
 		i++;

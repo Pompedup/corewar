@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/15 11:08:39 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/16 14:36:54 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "common.h"
 
-#define CYCLE_DEBUG			800
+#define CYCLE_DEBUG			3100
 
 # define SHORT				32768
 # define USAGE 				USAGE1 USAGE2
@@ -57,6 +57,7 @@
 */
 
 #define TAB_COLOR	{GREEN, PINK, BLUE, ORANGE, GREEN_S, PINK_S, BLUE_S, ORANGE_S, GREEN_PC, PINK_PC, BLUE_PC, ORANGE_PC, GREY_PC, GREY}
+//  					0	 1 		2		3		4		5		6		7		8			9		10		11			12		13
 #define GREEN				0x00ff00
 #define PINK				0xff0000
 #define BLUE				0x0000ff
@@ -130,6 +131,7 @@ typedef struct			s_process
 {
 	char				name[PROG_NAME_LENGTH + 1];
 	int					color;
+	int					num_player;
 	int					reg[REG_NUMBER];//de REG_SIZE un int 4 octets
 	int					pc;
 	int					pc_tmp;
@@ -139,6 +141,7 @@ typedef struct			s_process
 	int					args[3];
 	int					color_live;
 	int					nb_cycle_instruc;
+	int					good_reg;
 	struct s_process	*next;
 }						t_process;
 
@@ -166,6 +169,8 @@ typedef struct			s_info
 ********************************************************************************
 */
 
+extern t_op	g_op_tab[];
+
 typedef struct			s_corevm
 {
 	char				**argv; //pour le parsing
@@ -175,6 +180,7 @@ typedef struct			s_corevm
 	//ici plus pour la battle
 	char				core[MEM_SIZE];
 	unsigned int		color[MEM_SIZE];
+	//t_op				*g_op_tab;
 	int					dump;//unsigned int
 
 	int					nbr_total_cycles;

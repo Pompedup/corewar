@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_processus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 15:13:34 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/11 13:50:04 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/15 13:58:02 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ t_process	*create_process(t_corevm *vm, int pc, t_player *player)
     if (vm->color[pc] == 13)
         vm->color[pc]--;// = process->color + 8;
     process->reg[0] = player->num;
+    process->num_player = player->num;
+    process->good_reg = 1;
     while (i < 2)
 	{
 		process->type_instruc[i] = -1;

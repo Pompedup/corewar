@@ -34,12 +34,15 @@ void	ft_ld(t_corevm *vm, t_process *process)
 
 	ft_printf(" _____________________DANS LD process->type_instruc[1] hexa  %x\n", process->type_instruc[1]);
 	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
-	values = get_values(vm, process, 1, 0); //1 on recupere seulement la valeur de larg 1
-	//ft_printf(" _________________________LOAD values[0] hexa %x\n", values[0]);
-	if (values)
+	if (process->good_reg)
 	{
-		process->reg[process->args[1]] = values[0];
-		process->carry = values[0] == 0 ? 1 : 0; //MODIFIE LE CARRY ????!!!!!
-		free(values);
+		values = get_values(vm, process, 1, 0); //1 on recupere seulement la valeur de larg 1
+		//ft_printf(" _________________________LOAD values[0] hexa %x\n", values[0]);
+		if (values)
+		{
+			process->reg[process->args[1]] = values[0];
+			process->carry = values[0] == 0 ? 1 : 0; //MODIFIE LE CARRY ????!!!!!
+			free(values);
+		}
 	}
 }
