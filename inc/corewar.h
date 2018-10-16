@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/16 13:45:20 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/16 19:17:16 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,25 +333,5 @@ void						ft_aff(t_corevm *vm, t_process *process);
 */
 
 void					print_core(t_corevm *vm);
-
-
-//Trois méthodes d’adressage de la mémoire sont possibles
-//dans une instruction :
-//Relatif : C’est le mode par défaut. Il est relatif à la
-//case de l’instruction en cours d’exécution. Par exemple,
-//3 pointe vers la troisième case après la case de
-//l’instruction en cours d’exécution.
-
-//Indirect : Est indiqué par un signe @.
-//L’adresse après le signe @ n’est pas l’adresse pointée
-//mais l’adresse de l’adresse pointée.
-//Par exemple @3 pointe vers la case dont l’adresse est 3 cases
-//après celle de l’instruction en cours. Attention, la case
-//contenant l’adresse doit être du type DAT (cf plus loin)
-//sans quoi, le programme s’arrête sur une erreur d’indirection.
-
-//Immédiat : Est indiqué par un signe # avant
-//l’argument. Indique une valeur numérique, sans référence
-//d’adresse. Donc #3 est la valeur numérique 3.
 
 #endif

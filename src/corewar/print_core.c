@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 14:29:45 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/15 15:40:13 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/16 17:07:21 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,4 +162,27 @@ void	print_core(t_corevm *vm)
 	//comment en imprimant la core differencier les joueurs un peu partout
 	// system("clear"); // pour pouvoir reecrire par dessus ᕙ༼*◕_◕*༽⊃━☆ﾟ.*･｡
 	// ft_print_memory(vm->core, MEM_SIZE);
+
+
+	// 	i = 0;
+	// j = 0;
+	// str = (unsigned char *)vm->core;
+	//  print[vm->octet_line_viz * 3] = '\0';
+	// ft_putendl("\E[H\E[2J");
+	// while (i < MEM_SIZE)
+	// {
+	// 	// put_color(vm, print, j, i);
+	// 	print[j * 3] = HEXAMIN[str[i] / 16];
+	// 	print[j * 3 + 1] = HEXAMIN[str[i] % 16];
+	// 	print[j * 3 + 2] = ' ';
+	// 	j++;
+	// 	if ((i && !((i + 1) % (vm->octet_line_viz))))
+	// 	{
+			
+	// 		ft_printf("%s\n", print );
+	// 		j = 0;
+	// 	}
+	// 	i++;
+	// }
+	// ft_putendl("");
 }

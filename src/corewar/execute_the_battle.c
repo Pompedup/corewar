@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/16 14:04:51 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/16 19:16:41 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ int		live_executed_in_one_cycle(t_corevm *vm, int cycle)
 ** recupere les instructions de chaque process
 ********************************************************************************
 */
-
 void	execute_the_battle(t_corevm *vm)
 {
 	int			cycle;
@@ -120,7 +119,7 @@ void	execute_the_battle(t_corevm *vm)
 	cycle = 0;
 
 
-	int test = 0;
+	//int test = 0;
 
 	while ((cycle  = live_executed_in_one_cycle(vm, cycle)) > -1)
 	{
@@ -144,21 +143,32 @@ void	execute_the_battle(t_corevm *vm)
 
 		vm->nbr_total_cycles++;
 		cycle++;
-		if (vm->nbr_total_cycles > CYCLE_DEBUG + test)
-		{
-
-			print_core(vm);
-		ft_printf("-----------------------------------------------vm->nbr_total_cycles %d\n", vm->nbr_total_cycles);
-		ft_printf("+++++++++++++++++++++++++++++++++++++++vm->cycle to die %d\n", vm->cycle_to_die);
-		ft_printf("+++++++++++++++++++++++++++++++++++++++vm->nb_lives %d\n", vm->nb_lives);
-		ft_printf("+++++++++++++++++++++++++++++++++++++++cycle %d\n", cycle);
-			char *line;
-			while (get_next_line(0, &line) == 0);
-			if (*line == 'q')
-				exit(0);
-			test += ft_atoi(line);
-			free(line);
-		}
+	//	if (vm->nbr_total_cycles > CYCLE_DEBUG + test)
+	//	{
+//
+	//		print_core(vm);
+	//	ft_printf("-----------------------------------------------vm->nbr_total_cycles %d\n", vm->nbr_total_cycles);
+	//	ft_printf("+++++++++++++++++++++++++++++++++++++++vm->cycle to die %d\n", vm->cycle_to_die);
+	//	ft_printf("+++++++++++++++++++++++++++++++++++++++vm->nb_lives %d\n", vm->nb_lives);
+	//	ft_printf("+++++++++++++++++++++++++++++++++++++++cycle %d\n", cycle);
+	//		char *line;
+	//		// int i = 0;
+	//		// while (i < 4096)
+	//		// {
+	//			// ft_printf("%c%c ", HEXAMIN[vm->core[i] / 16], HEXAMIN[vm->core[i] % 16]);
+	//			// i++;
+	//			// if (i % 64 == 0)
+	//				// ft_printf("\n");
+	//		// }
+	//		while (get_next_line(0, &line) == 0);
+	//		if (*line == 'q')
+	//			exit(0);
+	//		if (*line == 0)
+	//			test++;
+	//		else
+	//			test += ft_atoi(line);
+	//		free(line);
+	//	}
 	}
 	ft_printf("total cycle %d", vm->nbr_total_cycles);
 }

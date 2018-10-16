@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/15 16:33:47 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/16 19:16:08 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ void		execute_instruction(t_corevm *vm, t_process *process)
 {
 	int	i;
 
-	if (vm->nbr_total_cycles > CYCLE_DEBUG)
-		ft_printf(" execute i process->type_instruc[0] hexa %x\n", process->type_instruc[0]);
-	 ft_printf(" g_op_tab[process->type_instruc[0]].shortcut %s\n", g_op_tab[process->type_instruc[0]].shortcut);
+	//if (vm->nbr_total_cycles > CYCLE_DEBUG)
+	//	ft_printf(" execute i process->type_instruc[0] hexa %x\n", process->type_instruc[0]);
+	 //ft_printf(" g_op_tab[process->type_instruc[0]].shortcut %s\n", g_op_tab[process->type_instruc[0]].shortcut);
 
 	if (g_op_tab[process->type_instruc[0]].nbr_arg > 1 || g_op_tab[process->type_instruc[0]].id == 16)
 	{
@@ -147,21 +147,20 @@ void	manage_instruction(t_corevm *vm, t_process *process)
 // ft_printf("	process->type_instruc[0] %d\n", process->type_instruc[0]);
 	if (process->type_instruc[0] == -1)
 	{
-		ft_printf("process->type_instruc[0] == -1) -------------!\n");
 		get_instruction_type(vm, process);
 	}
 	else
 	{
 		process->nb_cycle_instruc--;
-		if (vm->nbr_total_cycles > CYCLE_DEBUG)
-			ft_printf("	process->nb_cycle_instruc %d\n", process->nb_cycle_instruc);
-		if (vm->nbr_total_cycles > CYCLE_DEBUG)
-			if (process->type_instruc[0] != -1)
-				ft_printf("	fonction '%s'\n", g_op_tab[process->type_instruc[0]].shortcut);
+	//	if (vm->nbr_total_cycles > CYCLE_DEBUG)
+			//ft_printf("	process->nb_cycle_instruc %d\n", process->nb_cycle_instruc);
+		//if (vm->nbr_total_cycles > CYCLE_DEBUG)
+		//	if (process->type_instruc[0] != -1)
+			//	ft_printf("	fonction '%s'\n", g_op_tab[process->type_instruc[0]].shortcut);
  		
 		if (process->nb_cycle_instruc == 1)
 		{
-			 ft_printf("	process->type_instruc[1] %x\n", process->type_instruc[1]);
+			// ft_printf("	process->type_instruc[1] %x\n", process->type_instruc[1]);
 			execute_instruction(vm, process);
 			process->good_reg = 1;
 			pc_color(vm, process);

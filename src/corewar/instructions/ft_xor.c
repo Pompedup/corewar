@@ -26,6 +26,9 @@ void		ft_xor(t_corevm *vm, t_process *process)
 		{
 			process->reg[process->args[2]] = values[0] ^ values[1];
 			process->carry = (process->reg[process->args[2]]) ? 0 : 1;//comme ca pour modifier le carry?
+
+			ft_printf("process->reg[process->args[2]]%d\n", process->reg[process->args[2]]);
+			ft_printf("process->carry %d\n", process->carry);
 			//ft_printf("\tXOORRR   process->args[2] hexa '%x'\n", process->args[2]);
 			//ft_printf("process->reg[process->args[2]] hexa %x\n", process->reg[process->args[2]]);
 			free(values);
