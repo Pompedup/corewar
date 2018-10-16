@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 15:16:23 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/15 17:24:47 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/16 13:49:19 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,8 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 				//ft_printf("indirrrrrr__________________________________________________________\n");
 				values[i] = *((int*)(vm->core + ((process->pc + ((short)process->args[i] % (l ? MEM_SIZE : IDX_MOD)))
 						& (MEM_SIZE - 1))));
-				ft_printf(" ---------get values x %x \n", values[i]);	
+
 				ft_memrev(&values[i], 4);
-				ft_printf(" --------get values x %x \n", values[i]);
 
 			}
 		}
@@ -80,8 +79,8 @@ void	get_one_octet(t_corevm *vm, t_process *process, int i)
 	process->args[i] =
 		*(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))) - 1;
 	//if (vm->nbr_total_cycles > CYCLE_DEBUG)
-		ft_printf("arg 1 octet x %x d %d\n", process->args[i], process->args[i]);
-	 ft_printf("vm->core[process->pc] %x\n", *(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))) - 1);
+		//ft_printf("arg 1 octet x %x d %d\n", process->args[i], process->args[i]);
+	// ft_printf("vm->core[process->pc] %x\n", *(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))) - 1);
 	process->pc_tmp += 1;
 	if (process->args[i] < 0 || process->args[i] > REG_NUMBER - 1)
 		process->good_reg = 0;

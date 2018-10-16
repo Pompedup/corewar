@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/15 18:27:03 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/16 13:45:20 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "common.h"
 
-#define CYCLE_DEBUG			3100
+#define CYCLE_DEBUG			100000
 
 # define SHORT				32768
 # define UNSIGNED_CHAR		128
@@ -174,6 +174,7 @@ typedef struct			s_corevm
 	
 	int					octet_line_viz;
 	int					nb_lives;
+	int					lives_player[MAX_PLAYERS][2];
 }						t_corevm;
 
 typedef struct			s_ptr_func
@@ -191,6 +192,7 @@ extern t_ptr_func	g_instruc_func[];
 */
 
 void					init_vm(char **av, t_corevm *vm);
+void					init_lives_player(t_corevm *vm);
 
 /*
 ********************************************************************************
