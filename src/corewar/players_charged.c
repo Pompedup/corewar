@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   players_charged.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 13:36:25 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/11 13:46:42 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/16 10:30:25 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,5 @@ void	players_charged_in_core(t_corevm *vm)
 		place += 1;
 		player = player->next;
 	}
+	init_lives_player(vm);
 }

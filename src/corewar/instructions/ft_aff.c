@@ -27,6 +27,7 @@ void		ft_aff(t_corevm *vm, t_process *process)
 	{
 		c = (char)(process->reg[process->args[0]] % 256);
 		write(1, &c, 1);
+		// write(1, "pourri\n", 7);
 	}
 	//ft_printf("AFF c '%c'\t", c);
 //	ft_printf("\n");

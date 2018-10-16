@@ -6,11 +6,33 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 15:22:28 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/11 16:43:07 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/16 11:01:18 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+********************************************************************************
+** init tab qui compte les lives par joueurs
+********************************************************************************
+*/
+
+void	init_lives_player(t_corevm *vm)
+{
+	int		i;
+	t_process	*process;
+
+	i = 0;
+	process = vm->info->first_processus;
+	while (i < vm->info->nb_players && process)
+	{
+		vm->lives_player[i][0] = process->num_player;
+		vm->lives_player[i][1] = 0;
+		i++;
+		process = process->next;
+	}
+}
 
 /*
 ********************************************************************************
@@ -37,4 +59,6 @@ void		init_vm(char **av, t_corevm *vm)
 	vm->cycle_to_die = CYCLE_TO_DIE;
 	if (!(vm->info = ft_memalloc(sizeof(t_info))))
 		ft_error(vm, FAIL_MEMALLOC_0, 0);
+
+
 }
