@@ -28,11 +28,11 @@ void		ft_lfork(t_corevm *vm, t_process *process)
 	}
 	if (tmp)
 	{
-		ft_printf("_____________________1create_process\n");
-		ft_printf("_____________________(process->pc + (process->args[0])) %d \n", (process->pc + (process->args[0])));
+		// ft_printf("_____________________1create_process\n");
+		// ft_printf("_____________________(process->pc + (process->args[0])) %d \n", (process->pc + (process->args[0])));
 		fork = create_process(vm, ((process->pc + process->args[0]) & (MEM_SIZE - 1)), tmp);
-		ft_printf("_____________________fork->pc %d \n", fork->pc);
-		ft_printf("_____________________2create_process\n");
+		// ft_printf("_____________________fork->pc %d \n", fork->pc);
+		// ft_printf("_____________________2create_process\n");
 	}
 	i = 0;
 	while (i < REG_NUMBER)
@@ -41,7 +41,7 @@ void		ft_lfork(t_corevm *vm, t_process *process)
 		i++;
 	}
 	put_process_front(&vm->info->first_processus, fork);
-	ft_printf("_______________sortie de lfork\n");
+	// ft_printf("_______________sortie de lfork\n");
 	//while (fork)
 	//{
 	//	ft_printf("YOU LFORK IT!\n, fork->pc %d \n", fork->pc);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_arguments.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 15:16:23 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/17 14:46:44 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/17 16:57:01 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 	int	*values;
 	int	dec;
 	int	i;
+	int add;
 
 	if (!(values = ft_memalloc(sizeof(int) * 3)))
 		return (NULL); //quand on aura mis bien le retour enlever le if (values) dans toutes les intructions
@@ -59,14 +60,17 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 				//ft_printf("indirrrrrr__________________________________________________________\n");
 				// values[i] = *((int*)(vm->core + ((process->pc + ((short)process->args[i] % (l ? MEM_SIZE : IDX_MOD)))
 				// 		& (MEM_SIZE - 1))));
- 				int add = (process->args[i] % IDX_MOD) - IDX_MOD * (((process->args[i] - 1) / IDX_MOD) & 1);
+				if (l)
+					add = process->args[i];
+				else
+					add = (process->args[i] % IDX_MOD) - IDX_MOD * (((process->args[i] - 1) / IDX_MOD) & 1);
 				if (((add + process->pc) & (MEM_SIZE - 1)) >= MEM_SIZE - 4)
 				{
 					int j = 0;
 					while (j < 4)
 					{
-						ft_printf("get value %d\n", (process->pc + add + j) & (MEM_SIZE - 1));
-						ft_printf("get char %d\n", *(vm->core + ((process->pc + add + j) & (MEM_SIZE - 1))));
+						// ft_printf("get value %d\n", (process->pc + add + j) & (MEM_SIZE - 1));
+						// ft_printf("get char %d\n", *(vm->core + ((process->pc + add + j) & (MEM_SIZE - 1))));
 						((char *)(&values[i]))[j] = *(vm->core + ((process->pc + add + j) & (MEM_SIZE - 1)));
 						j++;
 					}
@@ -76,9 +80,7 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 					if (l)
  						values[i] = *((int*)(vm->core + ((process->pc + (process->args[i] & (MEM_SIZE - 1))) & (MEM_SIZE - 1))));
  					else
- 					{
  						values[i] = *((int*)(vm->core + ((process->pc + add) & (MEM_SIZE - 1))));
- 					}
 				}
 				ft_memrev(&values[i], 4);
 
@@ -99,15 +101,15 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 
 void	get_one_octet(t_corevm *vm, t_process *process, int i)
 {
-	ft_printf("((process->pc + process->pc_tmp) & (MEM_SIZE - 1) %d\n", ((process->pc + process->pc_tmp) & (MEM_SIZE - 1)));
-	ft_printf("*(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))) %d\n", *(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))) );
+	// ft_printf("((process->pc + process->pc_tmp) & (MEM_SIZE - 1) %d\n", ((process->pc + process->pc_tmp) & (MEM_SIZE - 1)));
+	// ft_printf("*(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))) %d\n", *(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))) );
 	process->args[i] =
 		*(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))) - 1;
 	//if (vm->nbr_total_cycles > CYCLE_DEBUG)
 		//ft_printf("arg 1 octet x %x d %d\n", process->args[i], process->args[i]);
 	// ft_printf("vm->core[process->pc] %x\n", *(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))) - 1);
 	process->pc_tmp += 1;
-	ft_printf("process->args[i] %d\n", process->args[i]);
+	// ft_printf("process->args[i] %d\n", process->args[i]);
 	if (process->args[i] < 0 || process->args[i] > REG_NUMBER - 1)
 		process->good_reg = 0;
 }
@@ -127,7 +129,7 @@ void	get_two_octets(t_corevm *vm, t_process *process, int i)
 	ft_memrev((char*)&tmp, 2);
 	process->args[i] = tmp;
 
-	ft_printf("%arg int %d\n", process->args[i]);
+	// ft_printf("%arg int %d\n", process->args[i]);
 	//ft_printf("--------2 octets------------process->args[i] %d\n", (int)process->args[i]);
 	process->pc_tmp += 2;
 	// ft_printf("vm->core[process->pc] %x\n", vm->core[process->pc]);
@@ -151,8 +153,8 @@ void	get_four_octets(t_corevm *vm, t_process *process, int i)
 		int j = 0;
 		while (j < 4)
 		{
-			ft_printf("get indice %d\n", ((add + j) & (MEM_SIZE - 1)));
-			ft_printf("get char %d\n", *(vm->core + ((add + j) & (MEM_SIZE - 1))));
+			// ft_printf("get indice %d\n", ((add + j) & (MEM_SIZE - 1)));
+			// ft_printf("get char %d\n", *(vm->core + ((add + j) & (MEM_SIZE - 1))));
 			((char *)(&process->args[i]))[j] = *(vm->core + ((add + j) & (MEM_SIZE - 1)));
 			j++;
 		}

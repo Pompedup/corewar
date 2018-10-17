@@ -19,9 +19,9 @@ void		ft_xor(t_corevm *vm, t_process *process)
 	if (process->good_reg)
 	{
 
-		ft_printf(" XOR process->args[0] d %d  process->args[1] d %d process->args[2] d %d\n", process->args[0], process->args[1], process->args[2]);
+		// ft_printf(" XOR process->args[0] d %d  process->args[1] d %d process->args[2] d %d\n", process->args[0], process->args[1], process->args[2]);
 		values = get_values(vm, process, 3, 0);
-		ft_printf(" XOR values[0] hexa %x  values[1] hexa %x\n", values[0], values[1]);
+		// ft_printf(" XOR values[0] hexa %x  values[1] hexa %x\n", values[0], values[1]);
 		if (values)
 		{
 			process->reg[process->args[2]] = values[0] ^ values[1];

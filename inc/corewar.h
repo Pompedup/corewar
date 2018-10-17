@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/17 14:47:46 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/17 17:38:00 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "common.h"
 
 #define CYCLE_DEBUG			0000
+#define PRINTF				0
 
 # define SHORT				32768
 # define UNSIGNED_CHAR		128
@@ -174,7 +175,7 @@ typedef struct			s_corevm
 
 	int					octet_line_viz;
 	int					nb_lives;
-	int					lives_player[MAX_PLAYERS][2];
+	int					lives_player[MAX_PLAYERS][4];
 }						t_corevm;
 
 typedef struct			s_ptr_func

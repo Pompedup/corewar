@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_instructions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/15 16:33:47 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/17 15:20:23 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void		execute_instruction(t_corevm *vm, t_process *process)
 	int	i;
 
 	if (vm->nbr_total_cycles > CYCLE_DEBUG)
-		ft_printf(" execute i process->type_instruc[0] hexa %x\n", process->type_instruc[0]);
-	 ft_printf(" g_op_tab[process->type_instruc[0]].shortcut %s\n", g_op_tab[process->type_instruc[0]].shortcut);
+		// ft_printf(" execute i process->type_instruc[0] hexa %x\n", process->type_instruc[0]);
+	//  ft_printf(" g_op_tab[process->type_instruc[0]].shortcut %s\n", g_op_tab[process->type_instruc[0]].shortcut);
 
 	if (g_op_tab[process->type_instruc[0]].nbr_arg > 1 || g_op_tab[process->type_instruc[0]].id == 16)
 	{
@@ -76,12 +76,12 @@ void		execute_instruction(t_corevm *vm, t_process *process)
 	}
 	if (!(test_args(process, g_op_tab[process->type_instruc[0]])) && g_op_tab[process->type_instruc[0]].nbr_arg > 1)
 	{
-		ft_printf(" MAUVAISE KEY---\n");
+		// ft_printf(" MAUVAISE KEY---\n");
 		get_pc_tmp(process, g_op_tab[process->type_instruc[0]]);
 	}
 	else
 	{
-		ft_printf("g_op_tab[process->type_instruc[0]].shortcut %s\n", g_op_tab[process->type_instruc[0]].shortcut);
+		// ft_printf("g_op_tab[process->type_instruc[0]].shortcut %s\n", g_op_tab[process->type_instruc[0]].shortcut);
 		g_instruc_func[process->type_instruc[0]].ptrfunc(vm, process);
 	}
 	i = 0;
@@ -90,7 +90,7 @@ void		execute_instruction(t_corevm *vm, t_process *process)
 	i = 0;
 	while (i < 16)
 	{
-		ft_printf("reg[%d] %d \n", i + 1, process->reg[i]);
+		// ft_printf("reg[%d] %d \n", i + 1, process->reg[i]);
 		i++;
 	}
 }
@@ -147,21 +147,21 @@ void	manage_instruction(t_corevm *vm, t_process *process)
 // ft_printf("	process->type_instruc[0] %d\n", process->type_instruc[0]);
 	if (process->type_instruc[0] == -1)
 	{
-		ft_printf("process->type_instruc[0] == -1) -------------!\n");
+		// ft_printf("process->type_instruc[0] == -1) -------------!\n");
 		get_instruction_type(vm, process);
 	}
 	else
 	{
 		process->nb_cycle_instruc--;
 		if (vm->nbr_total_cycles > CYCLE_DEBUG)
-			ft_printf("	process->nb_cycle_instruc %d\n", process->nb_cycle_instruc);
+			// ft_printf("	process->nb_cycle_instruc %d\n", process->nb_cycle_instruc);
 		if (vm->nbr_total_cycles > CYCLE_DEBUG)
 			if (process->type_instruc[0] != -1)
-				ft_printf("	fonction '%s'\n", g_op_tab[process->type_instruc[0]].shortcut);
- 		
+				// ft_printf("	fonction '%s'\n", g_op_tab[process->type_instruc[0]].shortcut);
+
 		if (process->nb_cycle_instruc == 1)
 		{
-			 ft_printf("	process->type_instruc[1] %x\n", process->type_instruc[1]);
+			//  ft_printf("	process->type_instruc[1] %x\n", process->type_instruc[1]);
 			execute_instruction(vm, process);
 			process->good_reg = 1;
 			pc_color(vm, process);

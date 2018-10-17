@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_the_battle.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/17 14:18:48 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/17 17:39:59 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,17 @@ void	who_still_lives(t_corevm *vm)
 		i = 0;
 		while (tmp->num_player != vm->lives_player[i][0] && i < vm->info->nb_players)
 			i++;
-		if (tmp->num_player == vm->lives_player[i][0] && !vm->lives_player[i][1])
+		if (tmp->num_player == vm->lives_player[i][0] && !vm->lives_player[i][1] && !vm->lives_player[i][3])
 		{
-			ft_printf("-------------------num %d is dead \n",vm->lives_player[i][0]);
+			 ft_printf("-------------------num %d is dead \n",vm->lives_player[i][0]);
 			tmp->live = -1;
 			if (vm->color[tmp->pc & (MEM_SIZE - 1)] < 12 && vm->color[tmp->pc & (MEM_SIZE - 1)] > 7)
 				vm->color[tmp->pc & (MEM_SIZE - 1)] -= 8;
 			else if (vm->color[tmp->pc & (MEM_SIZE - 1)] == 12)
 				vm->color[tmp->pc & (MEM_SIZE - 1)]++;
 		}
+		else
+			vm->lives_player[i][3] = 0;
 		tmp = tmp->next;
 	}
 		i = 0;
@@ -83,8 +85,8 @@ int		live_executed_in_one_cycle(t_corevm *vm, int cycle)
 	max_check++;
 	if (vm->nb_lives == 0)
 		return (-1);
-	ft_printf("-------------------fin dun cycle vm->nb_lives %d\n", vm->nb_lives);
-	ft_printf("-------------------avant fin dun cycle vm->cycle_to_die %d\n", vm->cycle_to_die);
+	// ft_printf("-------------------fin dun cycle vm->nb_lives %d\n", vm->nb_lives);
+	// ft_printf("-------------------avant fin dun cycle vm->cycle_to_die %d\n", vm->cycle_to_die);
 
 	who_still_lives(vm);
 
@@ -99,7 +101,7 @@ int		live_executed_in_one_cycle(t_corevm *vm, int cycle)
 		max_check = 0;
 	}
 	vm->nb_lives = 0;
-	ft_printf("-------------------apres fin dun cycle vm->cycle_to_die %d\n", vm->cycle_to_die);
+	// ft_printf("-------------------apres fin dun cycle vm->cycle_to_die %d\n", vm->cycle_to_die);
 	return (0);
 }
 
@@ -144,21 +146,26 @@ void	execute_the_battle(t_corevm *vm)
 
 		vm->nbr_total_cycles++;
 		cycle++;
-		if (vm->nbr_total_cycles > CYCLE_DEBUG + test)
-		{
-
+		// if (vm->viz)
 			// print_core(vm);
-		ft_printf("-----------------------------------------------vm->nbr_total_cycles %d\n", vm->nbr_total_cycles);
-		ft_printf("+++++++++++++++++++++++++++++++++++++++vm->cycle to die %d\n", vm->cycle_to_die);
-		ft_printf("+++++++++++++++++++++++++++++++++++++++vm->nb_lives %d\n", vm->nb_lives);
-		ft_printf("+++++++++++++++++++++++++++++++++++++++cycle %d\n", cycle);
-			char *line;
-			while (get_next_line(0, &line) == 0);
-			if (*line == 'q')
-				exit(0);
-			test += ft_atoi(line);
-			free(line);
+		if (PRINTF)
+		{
+			if (vm->nbr_total_cycles > CYCLE_DEBUG + test)
+			{
+				print_core(vm);
+				ft_printf("-----------------------------------------------vm->nbr_total_cycles %d\n", vm->nbr_total_cycles);
+				ft_printf("+++++++++++++++++++++++++++++++++++++++vm->cycle to die %d\n", vm->cycle_to_die);
+				ft_printf("+++++++++++++++++++++++++++++++++++++++vm->nb_lives %d\n", vm->nb_lives);
+				ft_printf("+++++++++++++++++++++++++++++++++++++++cycle %d\n", cycle);
+				char *line;
+				while (get_next_line(0, &line) == 0);
+				if (*line == 'q')
+					exit(0);
+				test += ft_atoi(line);
+				free(line);
+			}
 		}
 	}
-	ft_printf("total cycle %d", vm->nbr_total_cycles);
+	//if (PRINTF)
+		ft_printf("total cycle %d\n", vm->nbr_total_cycles);
 }

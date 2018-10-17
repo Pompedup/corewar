@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_corewar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 15:22:28 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/16 11:01:18 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/17 17:38:15 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	init_lives_player(t_corevm *vm)
 	{
 		vm->lives_player[i][0] = process->num_player;
 		vm->lives_player[i][1] = 0;
+		vm->lives_player[i][2] = 0;
+		vm->lives_player[i][3] = 0;
 		i++;
 		process = process->next;
 	}

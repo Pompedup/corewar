@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 13:17:29 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/11 17:11:54 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/17 16:59:29 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,36 @@ int	check_include(void)
 	return (1);
 }
 
+void	declare_winner(t_corevm *vm)
+{
+	int i;
+	int last_live;
+	t_player *winner;
+
+	last_live = 0;
+	i = 0;
+	while (i < vm->info->nb_players - 1)
+	{
+		if (vm->lives_player[i][2] < vm->lives_player[i + 1][2])
+			last_live = i + 1;
+		i++;
+	}
+		// if (PRINTF)
+		// ft_printf("last_live %d\n", last_live);
+	winner = vm->info->first_player;
+	while (winner)
+	{
+		// if (PRINTF)
+			// ft_printf("winner->num %d  vm->lives_player[last_live][0] %d\n",winner->num, vm->lives_player[last_live][0]);
+		if (winner->num == vm->lives_player[last_live][0])
+		{
+			ft_printf("le joueur %d(%s) a gagne\n", vm->lives_player[last_live][0], winner->header->prog_name);
+			return ;
+		}
+		winner = winner->next;
+	}
+}
+
 /*
 ********************************************************************************
 **
@@ -59,8 +89,7 @@ int     main(int ac, char **av)
 	number_players(&vm);
 	players_charged_in_core(&vm);
 	execute_the_battle(&vm); // !!!!!! :D (ง •̀_•́)ง  ᕙ༼*◕_◕*༽ᕤ
-
-	//print the winner ( ˘ ³˘)♥ ♥ ♥ ♥
+	declare_winner(&vm);
 	return (0);
 }
 

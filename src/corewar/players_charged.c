@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   players_charged.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 13:36:25 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/16 10:30:25 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/17 15:20:43 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	players_charged_in_core(t_corevm *vm)
 	{
 		//ft_printf("player->name_file %s \n", player->name_file);
 		i = ((place / (float)vm->info->nb_players) * (float)MEM_SIZE);
-		ft_printf("player->num %d \n",player->num);
+		// ft_printf("player->num %d \n",player->num);
 		process = create_process(vm, i, player);//handle_processus
 		put_process_front(&(vm->info->first_processus), process);
 		j = 0;
