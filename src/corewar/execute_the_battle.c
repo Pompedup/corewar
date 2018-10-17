@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_the_battle.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/16 14:04:51 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/17 14:18:48 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int		live_executed_in_one_cycle(t_corevm *vm, int cycle)
 	ft_printf("-------------------avant fin dun cycle vm->cycle_to_die %d\n", vm->cycle_to_die);
 
 	who_still_lives(vm);
-	
+
 	if (vm->nb_lives >= NBR_LIVE)
 	{
 		vm->cycle_to_die -= CYCLE_DELTA;
@@ -129,7 +129,7 @@ void	execute_the_battle(t_corevm *vm)
 			print_core(vm);
 			exit (0);//fonction qui free;
 		}
-			
+
 			process = vm->info->first_processus;
 			while (process)
 			{
@@ -147,7 +147,7 @@ void	execute_the_battle(t_corevm *vm)
 		if (vm->nbr_total_cycles > CYCLE_DEBUG + test)
 		{
 
-			print_core(vm);
+			// print_core(vm);
 		ft_printf("-----------------------------------------------vm->nbr_total_cycles %d\n", vm->nbr_total_cycles);
 		ft_printf("+++++++++++++++++++++++++++++++++++++++vm->cycle to die %d\n", vm->cycle_to_die);
 		ft_printf("+++++++++++++++++++++++++++++++++++++++vm->nb_lives %d\n", vm->nb_lives);

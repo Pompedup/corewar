@@ -30,11 +30,11 @@ void		ft_sti(t_corevm *vm, t_process *process)
 		{
 			// ft_memrev(&values[0], 4);
 			ft_printf(" STORE INDIRECT on copie ce param values[0] d '%d' '\n", values[0]);
-			ft_printf(" ---STORE INDIRECT a ladresse de pc + values[1] %d values[2] int '%d'\n", (short)values[1],  (short)values[2]);
-			ft_printf(" ---STORE INDIRECT a ladresse de pc + values[1] + values[2] int '%x'\n", (short)values[1] + (short)values[2]);
+			ft_printf(" ---STORE INDIRECT a ladresse de pc + values[1] %d values[2] int '%d'\n", values[1],  values[2]);
+			ft_printf(" ---STORE INDIRECT a ladresse de pc + values[1] + values[2] int '%x'\n", values[1] + values[2]);
 
 			// *(int *)(vm->core + ((process->pc + ((short)values[1] + (short)values[2]) % IDX_MOD) & (MEM_SIZE - 1))) = values[0];
-			int add = (((short)values[1] + (short)values[2]) % IDX_MOD) - IDX_MOD * (((((short)values[1] + (short)values[2]) / IDX_MOD) & 1));// == (values[1] + values[2]) >= 0 ? 1 : 0);
+			int add = ((values[1] + values[2]) % IDX_MOD) - IDX_MOD * ((((values[1] + values[2]) / IDX_MOD) & 1));// == (values[1] + values[2]) >= 0 ? 1 : 0);
  			*(int *)(vm->core + ((process->pc + add) & (MEM_SIZE - 1))) = values[0];
  			ft_printf("add %d\n", add);
 			 ft_printf("((values[1] + values[2]) %% IDX_MOD) %d\n", ((values[1] + values[2])));

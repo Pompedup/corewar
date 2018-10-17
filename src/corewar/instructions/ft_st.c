@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/19 11:07:13 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/16 20:26:12 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/17 12:12:11 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_st(t_corevm *vm, t_process *process)
 			}
 			else
 			{
-				int add = ((short)process->args[1] % IDX_MOD) - IDX_MOD * (((((short)process->args[1]) / IDX_MOD) & 1));// == (short)process->args[1] >= 0 ? 1 : 0);
+				int add = (process->args[1] % IDX_MOD) - IDX_MOD * ((((process->args[1]) / IDX_MOD) & 1));// == (short)process->args[1] >= 0 ? 1 : 0);
  				*(int *)(vm->core + ((process->pc + add) & (MEM_SIZE - 1))) = values[0];
 				// *(int *)(vm->core + ((process->pc + ((short)process->args[1] % IDX_MOD)) & (MEM_SIZE - 1))) = values[0];
 

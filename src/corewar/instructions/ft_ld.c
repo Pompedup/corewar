@@ -37,12 +37,13 @@ void	ft_ld(t_corevm *vm, t_process *process)
 	if (process->good_reg)
 	{
 		values = get_values(vm, process, 1, 0); //1 on recupere seulement la valeur de larg 1
-		//ft_printf(" _________________________LOAD values[0] hexa %x\n", values[0]);
+		ft_printf(" _________________________LOAD registre process->args[1] %d values[0] int %d\n", process->args[1], values[0]);
 		if (values)
 		{
-			process->reg[process->args[1]] = values[0];
+			process->reg[process->args[1]] = (int)values[0];
 			process->carry = values[0] == 0 ? 1 : 0; //MODIFIE LE CARRY ????!!!!!
 			free(values);
 		}
 	}
+	ft_printf("exit\n");
 }

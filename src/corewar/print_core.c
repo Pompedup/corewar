@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_core.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 14:29:45 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/15 15:40:13 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/17 13:11:26 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 void	put_color(t_corevm *vm, unsigned char *print, int j, int i)
 {
 	static int	tab[] = TAB_COLOR;
-	
+
 
 	//ft_printf("BUSSS ERROR\n");
 	//ft_printf("vm->color[i] %d i %d\n", vm->color[i], i);
@@ -30,7 +30,7 @@ void	put_color(t_corevm *vm, unsigned char *print, int j, int i)
 	{
 		ft_printf("\033[48;2;%d;%d;%dm\033[38;2;0;0;0m%.*s\033[0m", (tab[vm->color[i]] >> 16) & 0xff,(tab[vm->color[i]] >> 8) & 0xff,(tab[vm->color[i]]) & 0xff, j - 1, print);
 		if (i && !((i + 1) % (vm->octet_line_viz)))
-			ft_printf("\n");
+			ft_printf("\n%#.4x : ", i + 1);
 		else
 			ft_printf(" ");
 	}
@@ -38,7 +38,7 @@ void	put_color(t_corevm *vm, unsigned char *print, int j, int i)
 	{
 		ft_printf("\033[38;2;%d;%d;%dm%.*s\033[0m", (tab[vm->color[i]] >> 16) & 0xff,(tab[vm->color[i]] >> 8) & 0xff,(tab[vm->color[i]]) & 0xff, j, print);
 		if (i && !((i + 1) % (vm->octet_line_viz)))
-			ft_printf("\n");
+			ft_printf("\n%#.4x : ", i + 1);
 	}
 	// ft_printf(tmp, (tab[vm->color[i]] >> 16) & 0xff,(tab[vm->color[i]] >> 8) & 0xff,(tab[vm->color[i]]) & 0xff, print);
 	int h = 0;
@@ -109,7 +109,8 @@ void	print_core(t_corevm *vm)
 	j = 0;
 	str = (unsigned char *)vm->core;
 	// print[TEST - 1] = '\n';
-	ft_putendl("\E[H\E[2J");
+	ft_printf("\E[H\E[2J");
+	ft_printf("0x0000 : ");
 	while (i < MEM_SIZE)
 	{
 		// put_color(vm, print, j, i);
