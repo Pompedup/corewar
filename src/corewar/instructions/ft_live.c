@@ -13,8 +13,8 @@ void		ft_live(t_corevm *vm, t_process *process)
 {
 	int			i;
 	
-	if (vm->nbr_total_cycles > CYCLE_DEBUG)
-	ft_printf("\n LLLLLLLLLLLLLLLLLLLLLLIVE --%d--\n", process->num_player);
+	//if (vm->nbr_total_cycles > CYCLE_DEBUG)
+	//ft_printf("\n LLLLLLLLLLLLLLLLLLLLLLIVE --%d--\n", process->num_player);
 
 	get_four_octets(vm, process, 0);
 	i = 0;
@@ -22,13 +22,13 @@ void		ft_live(t_corevm *vm, t_process *process)
 		i++;
 	if (process->args[0] == vm->lives_player[i][0])
 	{
-			if (vm->nbr_total_cycles > CYCLE_DEBUG)
-				ft_printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!liveee a allumer!!!!\n");
+			//if (vm->nbr_total_cycles > CYCLE_DEBUG)
+			//	ft_printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!liveee a allumer!!!!\n");
 		vm->lives_player[i][1]++;
 		//vm->lives_player[i][1] = process->pc & (MEM_SIZE - 1);
 		process->color_live = process->pc & (MEM_SIZE - 1);
-			if (vm->nbr_total_cycles > CYCLE_DEBUG)
-				ft_printf("vm->lives_player[i][1] color_live %d\n", vm->lives_player[i][1]);
+		//	if (vm->nbr_total_cycles > CYCLE_DEBUG)
+			//	ft_printf("vm->lives_player[i][1] color_live %d\n", vm->lives_player[i][1]);
 	}
 	vm->nb_lives++; //est ce quil faut vraiment calculer le nb total de live?
 

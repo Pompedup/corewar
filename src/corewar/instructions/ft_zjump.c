@@ -19,6 +19,8 @@
 void	ft_zjmp(t_corevm *vm, t_process *process)
 {
 	get_two_octets(vm, process, 0);
+//	ft_printf("ZZZZZZJJJUUUMMMPPPP\n");
+//	ft_printf("process->carry %d\n", process->carry);
 	if (!process->carry)
 	{
 	//	ft_printf("process->carry %d\n", process->carry);
@@ -34,7 +36,12 @@ void	ft_zjmp(t_corevm *vm, t_process *process)
 	//ft_printf(" AVANT ZJUMP p((process->args[0])) d '%d' \n", ((process->args[0])));
 
 //a re assimiller!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+	// int add = ((short)process->args[0] % IDX_MOD) - IDX_MOD * (((process->args[0]) / IDX_MOD) & 1);
+	// process->pc += add;
 	process->pc += (((short)process->args[0]) % IDX_MOD);
+
 //	ft_printf(" + (((short)process->args[0]) & (IDX_MOD - 1) '%d' \n", (((short)process->args[0]) & (IDX_MOD - 1)));
 
 	process->pc = process->pc & (MEM_SIZE - 1);
