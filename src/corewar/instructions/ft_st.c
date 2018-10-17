@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_st.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/19 11:07:13 by ccoupez           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2018/10/16 19:06:46 by ccoupez          ###   ########.fr       */
+=======
+/*   Updated: 2018/10/16 20:26:12 by abezanni         ###   ########.fr       */
+>>>>>>> repush_with_elsa
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +52,14 @@ void	ft_st(t_corevm *vm, t_process *process)
 			}
 			else
 			{
+<<<<<<< HEAD
 				int add = ((short)process->args[1] % IDX_MOD) - IDX_MOD * (((((short)process->args[1]) / IDX_MOD) & 1) == (short)process->args[1] >= 0 ? 1 : 0);
 				*(int *)(vm->core + ((process->pc + add) & (MEM_SIZE - 1))) = values[0];
 
+=======
+				int add = ((short)process->args[1] % IDX_MOD) - IDX_MOD * (((((short)process->args[1]) / IDX_MOD) & 1));// == (short)process->args[1] >= 0 ? 1 : 0);
+ 				*(int *)(vm->core + ((process->pc + add) & (MEM_SIZE - 1))) = values[0];
+>>>>>>> repush_with_elsa
 				// *(int *)(vm->core + ((process->pc + ((short)process->args[1] % IDX_MOD)) & (MEM_SIZE - 1))) = values[0];
 
 				while (i < 4)

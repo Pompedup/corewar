@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/16 19:28:44 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/17 11:49:06 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "common.h"
 
-#define CYCLE_DEBUG			100000
+#define CYCLE_DEBUG			0000
 
 # define SHORT				32768
 # define USAGE 				USAGE1 USAGE2
