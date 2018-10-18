@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 15:39:41 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/18 19:17:05 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	who_still_lives(t_corevm *vm)
 		&& i < vm->info->nb_players)
 			i++;
 		if (tmp->num_player == vm->lives_player[i][0]
-		&& !vm->lives_player[i][1] && !vm->lives_player[i][3])
+		&& !vm->lives_player[i][1] && !tmp->live) //!vm->lives_player[i][3])
 		{
 			tmp->live = -1;
 			if (vm->color[tmp->pc & (MEM_SIZE - 1)] == 12)
@@ -59,7 +59,9 @@ void	who_still_lives(t_corevm *vm)
 				&& vm->color[tmp->pc & (MEM_SIZE - 1)] != 13)
 				vm->color[tmp->pc & (MEM_SIZE - 1)] -= 8;
 		}
-		vm->lives_player[i][3] = 0;
+		else
+			tmp->live = 0;
+		//vm->lives_player[i][3] = 0;
 		tmp = tmp->next;
 	}
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:40:58 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 16:41:06 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/18 19:08:19 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,5 @@ void		ft_lfork(t_corevm *vm, t_process *process)
 		fork->reg[i] = process->reg[i];
 		i++;
 	}
+	fork->carry = process->carry;
 }

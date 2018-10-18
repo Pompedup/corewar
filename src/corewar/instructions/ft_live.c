@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:44:17 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 16:45:09 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/18 19:09:05 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_live(t_corevm *vm, t_process *process)
 {
 	int			i;
 
+	process->live++;
 	get_four_octets(vm, process, 0);
 	i = 0;
 	while (process->num_player != vm->lives_player[i][0])

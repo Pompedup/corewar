@@ -6,7 +6,7 @@
 #    By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/10/18 16:53:10 by ccoupez          ###   ########.fr        #
+#    Updated: 2018/10/18 19:03:34 by ccoupez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ COREWAR_FILES =	corewar.c\
 				read_file_players.c\
 				create_players.c\
 				print_core.c\
-				free_corewar.c\
+				#free_corewar.c\
 
 COMMON_SRC =	$(addprefix src/common/,$(COMMON_FILES))
 

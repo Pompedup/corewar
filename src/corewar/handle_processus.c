@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 15:13:34 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 12:29:15 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/18 19:18:42 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ t_process	*create_process(t_corevm *vm, int pc, t_player *player)
 			vm->color[pc] < 4 ? vm->color[pc] + 8 : vm->color[pc] + 4;
 	if (vm->color[pc] == 13)
 		vm->color[pc]--;
-	process->reg[0] = player->num;
 	process->num_player = player->num;
+	process->reg[0] = player->num;
+	ft_memrev(&process->reg[0], 4);
 	process->good_reg = 1;
 	while (i < 2)
 	{
