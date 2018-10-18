@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 12:02:04 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/11 16:12:11 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/18 12:21:33 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	add_player(t_corevm *vm, int i)
 ********************************************************************************
 */
 
-int	get_dump(t_corevm *vm, int i)
+int		get_dump(t_corevm *vm, int i)
 {
 	if (!ft_strequ(vm->argv[i], "-b"))
 		vm->octet_line_viz = 32;

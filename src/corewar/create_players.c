@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_players.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:40:17 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/05 14:42:35 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/18 16:46:46 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	get_info_player(t_player *player, t_corevm *vm, int i)
 {
 	int	fd;
 
-//printf(" get file vm->argv[i] -%s-\n", vm->argv[i]);
 	if ((fd = open(vm->argv[i], O_RDONLY)) == -1)
 		ft_error(vm, ft_strjoin(ERR_MESS_5, vm->argv[i]), 1);
 	read_magic(player, vm, fd);
@@ -72,7 +71,6 @@ void	create_player(t_corevm *vm, int num, int index)
 	if (!(*player = ft_memalloc(sizeof(t_player))))
 		ft_error(vm, FAIL_MEMALLOC_1, 0);
 	(*player)->name_file = vm->argv[index];
-	// a sup quand on a fini, juste pour afficher ! a voir peut etre a garder
 	init_variable(vm, (*player), num, index_color);
 	index_color++;
 	get_info_player((*player), vm, index);

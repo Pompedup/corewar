@@ -3,93 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_arguments.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/18 15:16:23 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/17 16:57:01 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/18 12:05:13 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-/*
-********************************************************************************
-**	get_values
-** -------------------------- commentaire francais -----------------------------
-** avec get_args on a parse la core et recupéré les arguments de la fonction
-** ensuite ici on recupère la valeur de ces arguments
-** cette fonction est génériale à les toutes les fonctions
-** on boucle 3 fois car il y a 3 arguments max
-** le num_arg quon envoie nous permet de connaitre les args quon veut recuperer
-** 001 on recup que le 1er arg 011 les 2 premier 101 le permier et le 3eme...
-** en fonction de la key de l'instruction on recup larg selon son type
-********************************************************************************
-*/
-
-int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
-{
-	int	*values;
-	int	dec;
-	int	i;
-	int add;
-
-	if (!(values = ft_memalloc(sizeof(int) * 3)))
-		return (NULL); //quand on aura mis bien le retour enlever le if (values) dans toutes les intructions
-		// ft_error(vm, FAIL_MEMALLOC_5, 0);
-	dec = 6;
-	i = -1;
-	while (++i < 3)
-	{
-		if (num_arg & (1 << i))
-		{
-			if (((process->type_instruc[1] >> dec) & 3) == 1)
-			{
-				values[i] = process->reg[process->args[i]];
-				//ft_memrev(&values[i], 4);
-			}
-			else if (((process->type_instruc[1] >> dec) & 3) == 2)
-			{
-					// values[i] = process->args[i];
-				if (g_op_tab[process->type_instruc[0]].dir)
- 					values[i] = (short)process->args[i];
- 				else
- 					values[i] = process->args[i];
-			}
-			else if (((process->type_instruc[1] >> dec) & 3) == 3)
-			{
-				//ft_printf("indirrrrrr__________________________________________________________\n");
-				// values[i] = *((int*)(vm->core + ((process->pc + ((short)process->args[i] % (l ? MEM_SIZE : IDX_MOD)))
-				// 		& (MEM_SIZE - 1))));
-				if (l)
-					add = process->args[i];
-				else
-					add = (process->args[i] % IDX_MOD) - IDX_MOD * (((process->args[i] - 1) / IDX_MOD) & 1);
-				if (((add + process->pc) & (MEM_SIZE - 1)) >= MEM_SIZE - 4)
-				{
-					int j = 0;
-					while (j < 4)
-					{
-						// ft_printf("get value %d\n", (process->pc + add + j) & (MEM_SIZE - 1));
-						// ft_printf("get char %d\n", *(vm->core + ((process->pc + add + j) & (MEM_SIZE - 1))));
-						((char *)(&values[i]))[j] = *(vm->core + ((process->pc + add + j) & (MEM_SIZE - 1)));
-						j++;
-					}
-				}
-				else
-				{
-					if (l)
- 						values[i] = *((int*)(vm->core + ((process->pc + (process->args[i] & (MEM_SIZE - 1))) & (MEM_SIZE - 1))));
- 					else
- 						values[i] = *((int*)(vm->core + ((process->pc + add) & (MEM_SIZE - 1))));
-				}
-				ft_memrev(&values[i], 4);
-
-			}
-		}
-		dec -= 2;
-	}
-	return (values);
-}
 
 /*
 ********************************************************************************
@@ -101,15 +22,9 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 
 void	get_one_octet(t_corevm *vm, t_process *process, int i)
 {
-	// ft_printf("((process->pc + process->pc_tmp) & (MEM_SIZE - 1) %d\n", ((process->pc + process->pc_tmp) & (MEM_SIZE - 1)));
-	// ft_printf("*(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))) %d\n", *(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))) );
 	process->args[i] =
 		*(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))) - 1;
-	//if (vm->nbr_total_cycles > CYCLE_DEBUG)
-		//ft_printf("arg 1 octet x %x d %d\n", process->args[i], process->args[i]);
-	// ft_printf("vm->core[process->pc] %x\n", *(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))) - 1);
 	process->pc_tmp += 1;
-	// ft_printf("process->args[i] %d\n", process->args[i]);
 	if (process->args[i] < 0 || process->args[i] > REG_NUMBER - 1)
 		process->good_reg = 0;
 }
@@ -125,52 +40,50 @@ void	get_two_octets(t_corevm *vm, t_process *process, int i)
 {
 	short tmp;
 
-	tmp = *((short*)(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))));
+	tmp = *((short*)(vm->core + ((process->pc + process->pc_tmp)
+		& (MEM_SIZE - 1))));
 	ft_memrev((char*)&tmp, 2);
 	process->args[i] = tmp;
-
-	// ft_printf("%arg int %d\n", process->args[i]);
-	//ft_printf("--------2 octets------------process->args[i] %d\n", (int)process->args[i]);
 	process->pc_tmp += 2;
-	// ft_printf("vm->core[process->pc] %x\n", vm->core[process->pc]);
-	//if (vm->nbr_total_cycles > CYCLE_DEBUG)
-	//	ft_printf("arg 2 octets %x\n", process->args[i]);
 }
 
 /*
 ********************************************************************************
 ** -------------------------- commentaire francais -----------------------------
 ** recupère une partie des directs codés sur 4 octets)
+**	 ft_printf("vm->core[process->pc] %x\n", vm->core[process->pc]);
+**	ft_printf("-------22-------------process->args[i] %d\n", process->args[i]);
+**	if (vm->nbr_total_cycles > CYCLE_DEBUG)
+**		ft_printf("arg 4 octets %x\n", process->args[i]);
+**  ft_printf("get indice %d\n", ((add + j) & (MEM_SIZE - 1)));
+**	 ft_printf("get char %d\n", *(vm->core + ((add + j) & (MEM_SIZE - 1))));
 ********************************************************************************
 */
 
 void	get_four_octets(t_corevm *vm, t_process *process, int i)
 {
- 	int add = (process->pc + process->pc_tmp) & (MEM_SIZE - 1);
+	int add;
+	int	j;
 
+	add = (process->pc + process->pc_tmp) & (MEM_SIZE - 1);
 	if (add >= MEM_SIZE - 4)
 	{
-		int j = 0;
+		j = 0;
 		while (j < 4)
 		{
-			// ft_printf("get indice %d\n", ((add + j) & (MEM_SIZE - 1)));
-			// ft_printf("get char %d\n", *(vm->core + ((add + j) & (MEM_SIZE - 1))));
-			((char *)(&process->args[i]))[j] = *(vm->core + ((add + j) & (MEM_SIZE - 1)));
+			((char *)(&process->args[i]))[j] = *(vm->core + ((add + j)
+				& (MEM_SIZE - 1)));
 			j++;
 		}
 	}
 	else
 	{
-	process->args[i] =
-		*((int*)(vm->core + ((process->pc + process->pc_tmp) & (MEM_SIZE - 1))));
-	//ft_printf("-------4 octets------------process->args[i] %d\n", (int)process->args[i]);
-	ft_memrev((char*)&process->args[i], 4);
+		process->args[i] =
+			*((int*)(vm->core + ((process->pc + process->pc_tmp)
+				& (MEM_SIZE - 1))));
+		ft_memrev((char*)&process->args[i], 4);
 	}
 	process->pc_tmp += 4;
-	// ft_printf("vm->core[process->pc] %x\n", vm->core[process->pc]);
-	//ft_printf("-------22-------------process->args[i] %d\n", process->args[i]);
-	//if (vm->nbr_total_cycles > CYCLE_DEBUG)
-	//	ft_printf("arg 4 octets %x\n", process->args[i]);
 }
 
 /*
@@ -196,33 +109,33 @@ void	get_args(t_corevm *vm, t_process *process, t_op g_tab)
 	dec = 6;
 	while (i < g_tab.nbr_arg)
 	{
-		//if (vm->nbr_total_cycles > CYCLE_DEBUG)
-		//ft_printf("get arg process->type_instruc[0] hexa %x\n", process->type_instruc[0]);
 		key = (process->type_instruc[1] >> dec) & 3;
-		if (key == 1) //un registre
+		if (key == 1)
 			get_one_octet(vm, process, i);
-		else if (key == 2 && !g_tab.dir) //un direct sur 4
+		else if (key == 2 && !g_tab.dir)
 			get_four_octets(vm, process, i);
-		else if (key == 3 || (key == 2 && g_tab.dir)) //un indirect ou un direct sur 2
+		else if (key == 3 || (key == 2 && g_tab.dir))
 			get_two_octets(vm, process, i);
 		dec -= 2;
 		i++;
 	}
-
 }
 
 /*
 ********************************************************************************
-**	test_args checks if process->type_instruc[1] is the instruction accepted by g_op_tab[process->type_instruc[0]]
+**	test_args checks if process->type_instruc[1] is the instruction accepted
+**	by g_op_tab[process->type_instruc[0]]
 **	process->type_instruc[0] = g_op_tab[i].id => opcode
 **		0x10 pour aff
 **	process->type_instruc[1] = key unique representant la nature des arguments
 **		T_REG -> 1 -> 01 - codé sur 1 octet
 **	 	T_DIR -> 2 -> 10 - codé sur 2 ou 10 4 octets
-**	 	T_IND -> 4 -> 11 - codé 2 octets (11 = 3 alors que 4 0100 ce qui revient 1 << (3-1))
+**	 	T_IND -> 4 -> 11 - codé 2 octets
+**			(11 = 3 alors que 4 0100 ce qui revient 1 << (3-1))
 **		exemple {T_REG , T_REG , T_REG} -> 54 -> 0101 0100
 **		autre exemple {T_DIR, T_IND , T_REG} -> B4 ->
-**		dans le tableau de global.c T_IND -> 4 (0100) dans la process->type_instruc[1] c'est 3
+**		dans le tableau de global.c T_IND -> 4 (0100)
+**		dans la process->type_instruc[1] c'est 3
 **
 ** -------------------------- commentaire francais -----------------------------
 ** on va checker la key de nos arg pour voir
@@ -243,27 +156,18 @@ t_bool	test_args(t_process *process, t_op g_op_tab)
 
 	i = 0;
 	dec = 6;
-
 	while (i < 4)
 	{
-	//ft_printf("dans test_args process->type_instruc[1]> hexa %x\n", process->type_instruc[1]>> dec);
 		key = (process->type_instruc[1] >> dec) & 3;
 		if (i < g_op_tab.nbr_arg && key)
 		{
 			if (!(g_op_tab.accept[i] & (1 << (key - 1))))
-			{
-				//ft_printf("sortie 1 g_op_tab.accept[%d] %d g_op_tab.shortcut %s\n\n", i, g_op_tab.accept[i], g_op_tab.shortcut);
 				return (FALSE);
-			}
 		}
 		else if (key || i < g_op_tab.nbr_arg)
-		{
-			//ft_printf("sortie 2\n\n");
 			return (FALSE);
-		}
 		dec -= 2;
 		i++;
 	}
-	//printf("TRUE test args\n");
 	return (TRUE);
 }

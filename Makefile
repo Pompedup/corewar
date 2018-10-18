@@ -6,7 +6,7 @@
 #    By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/10/12 14:20:44 by ccoupez          ###   ########.fr        #
+#    Updated: 2018/10/18 11:43:11 by ccoupez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ COREWAR_FILES =	corewar.c\
 				execute_the_battle.c\
 				get_arguments.c\
 				get_instructions.c\
+				get_values.c\
 				handle_processus.c\
 				init_corewar.c\
 				instructions/ft_add.c\

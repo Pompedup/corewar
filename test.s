@@ -2,8 +2,10 @@
 .comment "commentaires pour test"
 
 #lfork %5
+sti r1, %5, %7
 and 1, 2, r3
 zjmp %106
+
 
 ##TEST POUR XOR AVEC IND
 #xor r1, 0, r3
