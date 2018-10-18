@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute_the_battle.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2018/10/18 15:14:37 by ecesari          ###   ########.fr       */
+=======
+/*   Updated: 2018/10/18 15:39:41 by ccoupez          ###   ########.fr       */
+>>>>>>> 5d161b71d5d50f525ffdcef81598fc676f841930
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +18,25 @@
 
 /*
 ********************************************************************************
-**
+** first if -> take off the old color of the pc
+** second if -> put the new color for the pc
 ********************************************************************************
 */
 
 void	pc_color(t_corevm *vm, t_process *process)
 {
-	//redevenir normal
-	if (vm->color[process->pc & (MEM_SIZE - 1)] < 12 && vm->color[process->pc & (MEM_SIZE - 1)] > 7)
+	if (vm->color[process->pc & (MEM_SIZE - 1)] < 12
+		&& vm->color[process->pc & (MEM_SIZE - 1)] > 7)
 		vm->color[process->pc & (MEM_SIZE - 1)] -= 8;
 	else if (vm->color[process->pc & (MEM_SIZE - 1)] == 12)
 		vm->color[process->pc & (MEM_SIZE - 1)]++;
-
 	process->pc += process->pc_tmp;
 	process->pc_tmp = 0;
-
-	//devenir un pc
 	if (vm->color[process->pc & (MEM_SIZE - 1)] < 8)
-		vm->color[process->pc & (MEM_SIZE - 1)] = vm->color[process->pc & (MEM_SIZE - 1)] < 4 ? vm->color[process->pc & (MEM_SIZE - 1)] + 8 : vm->color[process->pc & (MEM_SIZE - 1)] + 4;//pour les cas de fork
+		vm->color[process->pc & (MEM_SIZE - 1)] =\
+			vm->color[process->pc & (MEM_SIZE - 1)] < 4 ?\
+				vm->color[process->pc & (MEM_SIZE - 1)] + 8 :\
+					vm->color[process->pc & (MEM_SIZE - 1)] + 4;
 	else if (vm->color[process->pc & (MEM_SIZE - 1)] == 13)
 		vm->color[process->pc & (MEM_SIZE - 1)]--;
 }
@@ -45,28 +50,25 @@ void	who_still_lives(t_corevm *vm)
 	while (tmp)
 	{
 		i = 0;
-		while (tmp->num_player != vm->lives_player[i][0] && i < vm->info->nb_players)
+		while (tmp->num_player != vm->lives_player[i][0]
+		&& i < vm->info->nb_players)
 			i++;
-		if (tmp->num_player == vm->lives_player[i][0] && !vm->lives_player[i][1] && !vm->lives_player[i][3])
+		if (tmp->num_player == vm->lives_player[i][0]
+		&& !vm->lives_player[i][1] && !vm->lives_player[i][3])
 		{
-			 ft_printf("-------------------num %d is dead \n",vm->lives_player[i][0]);
 			tmp->live = -1;
-			if (vm->color[tmp->pc & (MEM_SIZE - 1)] < 12 && vm->color[tmp->pc & (MEM_SIZE - 1)] > 7)
-				vm->color[tmp->pc & (MEM_SIZE - 1)] -= 8;
-			else if (vm->color[tmp->pc & (MEM_SIZE - 1)] == 12)
+			if (vm->color[tmp->pc & (MEM_SIZE - 1)] == 12)
 				vm->color[tmp->pc & (MEM_SIZE - 1)]++;
+			else if (vm->color[tmp->pc & (MEM_SIZE - 1)] > 7
+				&& vm->color[tmp->pc & (MEM_SIZE - 1)] != 13)
+				vm->color[tmp->pc & (MEM_SIZE - 1)] -= 8;
 		}
-		else
-			vm->lives_player[i][3] = 0;
+		vm->lives_player[i][3] = 0;
 		tmp = tmp->next;
 	}
-		i = 0;
-		while (i < vm->info->nb_players)
-		{
-			ft_printf(" num %d has done %d live\n",vm->lives_player[i][0],  vm->lives_player[i][1]);
-			vm->lives_player[i][1] = 0;
-			i++;
-		}
+	i = 0;
+	while (i < vm->info->nb_players)
+		vm->lives_player[i++][1] = 0;
 }
 
 /*
@@ -81,15 +83,10 @@ int		live_executed_in_one_cycle(t_corevm *vm, int cycle)
 
 	if (cycle < vm->cycle_to_die)
 		return (cycle);
-
 	max_check++;
 	if (vm->nb_lives == 0)
 		return (-1);
-	// ft_printf("-------------------fin dun cycle vm->nb_lives %d\n", vm->nb_lives);
-	// ft_printf("-------------------avant fin dun cycle vm->cycle_to_die %d\n", vm->cycle_to_die);
-
 	who_still_lives(vm);
-
 	if (vm->nb_lives >= NBR_LIVE)
 	{
 		vm->cycle_to_die -= CYCLE_DELTA;
@@ -101,11 +98,8 @@ int		live_executed_in_one_cycle(t_corevm *vm, int cycle)
 		max_check = 0;
 	}
 	vm->nb_lives = 0;
-	// ft_printf("-------------------apres fin dun cycle vm->cycle_to_die %d\n", vm->cycle_to_die);
 	return (0);
 }
-
-
 
 /*
 ********************************************************************************
@@ -118,12 +112,10 @@ void	execute_the_battle(t_corevm *vm)
 {
 	int			cycle;
 	t_process	*process;
+	int			debug;
 
+	debug = 0;
 	cycle = 0;
-
-
-	int test = 0;
-
 	while ((cycle  = live_executed_in_one_cycle(vm, cycle)) > -1)
 	{
 		if (vm->dump != -1 && vm->nbr_total_cycles == vm->dump)
@@ -132,25 +124,24 @@ void	execute_the_battle(t_corevm *vm)
 			exit (0);//fonction qui free;
 		}
 
-			process = vm->info->first_processus;
-			while (process)
-			{
-				// ft_printf(" dans execute process->pc %x\n", vm->core[process->pc & (MEM_SIZE -1)]);
-				if (process->live > -1)
-				{
-					manage_instruction(vm, process);
-
-				}
-				process = process->next;
-			}
-
+		process = vm->info->first_processus;
+		// ft_printf("in %d\n", cycle);
+		while (process)
+		{
+			if (process->live > -1)
+				manage_instruction(vm, process);
+			//ft_printf("%p - %p\n", process, process->next);
+			//while (process == process->next);
+			process = process->next;
+		}
+		// ft_printf("out %d\n", cycle);
 		vm->nbr_total_cycles++;
 		cycle++;
 		if (vm->viz)
 			print_core(vm);
 		if (PRINTF)
 		{
-			if (vm->nbr_total_cycles > CYCLE_DEBUG + test)
+			if (vm->nbr_total_cycles > CYCLE_DEBUG + debug)
 			{
 				print_core(vm);
 				ft_printf("-----------------------------------------------vm->nbr_total_cycles %d\n", vm->nbr_total_cycles);
@@ -161,7 +152,7 @@ void	execute_the_battle(t_corevm *vm)
 				while (get_next_line(0, &line) == 0);
 				if (*line == 'q')
 					exit(0);
-				test += ft_atoi(line);
+				debug += ft_atoi(line);
 				free(line);
 			}
 		}

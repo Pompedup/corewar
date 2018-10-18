@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 16:21:23 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/18 16:53:11 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,15 +252,6 @@ void					ft_dump_exit(t_corevm *vm);
 
 /*
 ********************************************************************************
-**						PRINT_MEMORY_C									 	  **
-********************************************************************************
-*/
-
-int						print_player(char *av, int i);
-void					print_memory(const void *addr, size_t size);
-
-/*
-********************************************************************************
 **						HANDLE_PROCESSUS_C						     		  **
 ********************************************************************************
 */
@@ -298,12 +289,19 @@ void					get_pc_tmp(t_process *process, t_op g_tab);
 
 void					get_one_octet(t_corevm *vm, t_process *process, int i);
 void					get_two_octets(t_corevm *vm, t_process *process, int i);
-void					get_four_octets(t_corevm *vm, t_process *process,\
-						int i);
+void					get_four_octets(t_corevm *vm, t_process *process, int i);
+void					get_args(t_corevm *vm, t_process *process, t_op g_tab);
+t_bool					test_args(t_process *process, t_op g_tab);
+
+/*
+********************************************************************************
+**						GET_VALUES_C			     						  **
+********************************************************************************
+*/
+
 int						*get_values(t_corevm *vm, t_process *process,\
 						char num_arg, int l);
-t_bool					test_args(t_process *process, t_op g_tab);
-void					get_args(t_corevm *vm, t_process *process, t_op g_tab);
+
 /*
 ********************************************************************************
 **						INSTRUCTIONS/				     				 	  **

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_corewar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 15:22:28 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/17 17:38:15 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/18 12:16:54 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 void	init_lives_player(t_corevm *vm)
 {
-	int		i;
+	int			i;
 	t_process	*process;
 
 	i = 0;
@@ -47,7 +47,7 @@ void	init_lives_player(t_corevm *vm)
 ********************************************************************************
 */
 
-void		init_vm(char **av, t_corevm *vm)
+void	init_vm(char **av, t_corevm *vm)
 {
 	int	i;
 
@@ -61,6 +61,4 @@ void		init_vm(char **av, t_corevm *vm)
 	vm->cycle_to_die = CYCLE_TO_DIE;
 	if (!(vm->info = ft_memalloc(sizeof(t_info))))
 		ft_error(vm, FAIL_MEMALLOC_0, 0);
-
-
 }
