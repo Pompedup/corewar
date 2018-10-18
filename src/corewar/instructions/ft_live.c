@@ -16,6 +16,7 @@ void		ft_live(t_corevm *vm, t_process *process)
 	// if (vm->nbr_total_cycles > CYCLE_DEBUG)
 	// ft_printf("\n LLLLLLLLLLLLLLLLLLLLLLIVE --%d--\n", process->num_player);
 	get_four_octets(vm, process, 0);
+	ft_printf("live process->args[0] %d\n", (short)process->args[0]);
 	i = 0;
 	while (process->num_player != vm->lives_player[i][0])
 		i++;

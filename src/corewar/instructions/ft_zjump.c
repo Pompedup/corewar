@@ -25,6 +25,7 @@ void	ft_zjmp(t_corevm *vm, t_process *process)
 	//	ft_printf("no carry no zjmp\n");
 		return ;
 	}
+	ft_printf("process->args[0] %d\n", (short)process->args[0]);
 	if (vm->color[process->pc & (MEM_SIZE - 1)] < 12 && vm->color[process->pc & (MEM_SIZE - 1)] > 7)
 		vm->color[process->pc & (MEM_SIZE - 1)] -= 8;
 	else if (vm->color[process->pc & (MEM_SIZE - 1)] == 12)

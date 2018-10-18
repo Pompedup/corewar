@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/17 17:39:59 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/18 15:14:37 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,8 +146,8 @@ void	execute_the_battle(t_corevm *vm)
 
 		vm->nbr_total_cycles++;
 		cycle++;
-		// if (vm->viz)
-			// print_core(vm);
+		if (vm->viz)
+			print_core(vm);
 		if (PRINTF)
 		{
 			if (vm->nbr_total_cycles > CYCLE_DEBUG + test)
