@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/17 17:38:00 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/18 16:21:23 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include "common.h"
 
-#define CYCLE_DEBUG			0000
-#define PRINTF				0
+#define CYCLE_DEBUG			0
+#define PRINTF				1
 
 # define SHORT				32768
 # define UNSIGNED_CHAR		128
@@ -47,7 +47,7 @@
 # define FAIL_MEMALLOC_1	"ft_memalloc of vm->info->player failed"
 # define FAIL_MEMALLOC_2	"ft_memalloc of vm->info->player->header failed"
 # define FAIL_MEMALLOC_3	"ft_memalloc of vm->info->process failed"
-# define FAIL_MEMALLOC_4	"ft_memalloc of new_color failed"
+// # define FAIL_MEMALLOC_4	"ft_memalloc of new_color failed"
 # define FAIL_MEMALLOC_5	"ft_memalloc of values failed"
 
 //ORDONNE DANS LE SENS COULEUR CLASSIQUE / SURBRILLANCE (derniere instruction en date) / SURLIGNEMENT PC
@@ -335,6 +335,8 @@ void						ft_aff(t_corevm *vm, t_process *process);
 
 void					print_core(t_corevm *vm);
 
+
+void					free_vm(t_corevm *vm);
 
 //Trois méthodes d’adressage de la mémoire sont possibles
 //dans une instruction :
