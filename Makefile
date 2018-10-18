@@ -6,9 +6,10 @@
 #    By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/10/18 11:43:11 by ccoupez          ###   ########.fr        #
+#    Updated: 2018/10/18 16:53:10 by ccoupez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 .PHONY : all clean fclean re libftcomp
 
@@ -67,6 +68,7 @@ COREWAR_FILES =	corewar.c\
 				read_file_players.c\
 				create_players.c\
 				print_core.c\
+				free_corewar.c\
 
 COMMON_SRC =	$(addprefix src/common/,$(COMMON_FILES))
 
