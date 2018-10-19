@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_corewar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 15:22:28 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/19 13:28:55 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/19 19:03:05 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,14 @@ void	init_lives_player(t_corevm *vm)
 /*
 ********************************************************************************
 **	init_vm initializes every attributes of t_corevm *vm
-**	and mallocs vm->info
-**
-** la seule chose qui est malloc pour le moment
-** cest les mailons de la liste chainee des joueurs
-** et la structure info_player (1 int et lie a la liste chaine des joueurs)
+**	- vm->color that will be used if vm->viz is activated,
+**	set by default on GREY
+**	- vm->argv
+**	- vm->dump that is set at -1 to differientate it from 0
+**	- vm->octet_line_viz that is the square of MEM_SIZE (if 4096 then 64)
+**	this ensure vm->viz to be a square (unless if dump is activated)
+**	- vm->cycle_to_die
+**	- and mallocs vm->info
 ********************************************************************************
 */
 
