@@ -6,11 +6,42 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 14:29:45 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 15:55:35 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/19 13:46:32 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+********************************************************************************
+** dump_core
+********************************************************************************
+*/
+
+void	dump_core(t_corevm *vm)
+{
+	unsigned char	print[vm->octet_line_viz * 3 + 1];
+	int				i;
+	int				j;
+
+	i = 0;
+	j = 0;
+	while (i < MEM_SIZE)
+	{
+
+		print[j * 3] = HEXAMIN[((unsigned char *)vm->core)[i] / 16];
+		print[j * 3 + 1] = HEXAMIN[((unsigned char *)vm->core)[i] % 16];
+		print[j * 3 + 2] = ' ';
+		j++;
+		if (i && !((i + 1) % (vm->octet_line_viz)))
+		{
+			ft_printf("%s\n", print);
+			j = 0;
+		}
+		i++;
+	}
+
+}
 
 /*
 ********************************************************************************

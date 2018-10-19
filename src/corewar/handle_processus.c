@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 15:13:34 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 19:18:42 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/19 13:08:49 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_process	*create_process(t_corevm *vm, int pc, t_player *player)
 	t_process	*process;
 	int			i;
 
-	i = 0;
 	if (!(process = ft_memalloc(sizeof(t_process))))
 		ft_error(vm, FAIL_MEMALLOC_3, 0);
 	process->pc = pc;
@@ -51,11 +50,9 @@ t_process	*create_process(t_corevm *vm, int pc, t_player *player)
 	process->reg[0] = player->num;
 	ft_memrev(&process->reg[0], 4);
 	process->good_reg = 1;
-	while (i < 2)
-	{
+	i = -1;
+	while (++i < 2)
 		process->type_instruc[i] = -1;
-		i++;
-	}
 	ft_strcpy(process->name, player->header->prog_name);
 	put_process_front(&(vm->info->first_processus), process);
 	return (process);
