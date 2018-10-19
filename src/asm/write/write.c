@@ -6,40 +6,54 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 15:10:17 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/15 18:16:44 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/18 18:38:19 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-extern t_op	g_op_tab[];
-
-void	write_arg(t_arg *arg, int fd)
+t_bool	write_arg(t_record *record, t_arg *arg, int fd)
 {
 	ft_memrev(&arg->value, arg->size);
-	write(fd, &arg->value, arg->size);
+	if (write(fd, &arg->value, arg->size) == -1)
+	{
+		ft_printf(WRITEER, record->final_name);
+		return (FALSE);
+	}
+	return (TRUE);
 }
 
-void	write_key(t_elem *elem, int fd)
+t_bool	write_key(t_record *record, t_elem *elem, int fd)
 {
 	t_arg *args;
 
-
-	write(fd, &g_op_tab[elem->type].id, 1);
+	if (write(fd, &g_op_tab[elem->type].id, 1) == -1)
+	{
+		ft_printf(WRITEER, record->final_name);
+		return (FALSE);
+	}
 	if (elem->op_case.arg_authorized > 1 || elem->op_case.id == 16)
-		write(fd, &elem->key, 1);
+	{
+		if (write(fd, &elem->key, 1) == -1)
+		{
+			ft_printf(WRITEER, record->final_name);
+			return (FALSE);
+		}
+	}
 	args = elem->args;
 	while (args)
 	{
-		write_arg(args, fd);
+		if (!(write_arg(record, args, fd)))
+			return (FALSE);
 		args = args->next;
 	}
+	return (TRUE);
 }
 
-void	print_four(int fd, int nb)
+t_bool	print_four(t_record *record, int fd, int nb)
 {
 	unsigned char	magic[4];
-	int		i;
+	int				i;
 
 	i = 0;
 	while (i < 4)
@@ -47,36 +61,61 @@ void	print_four(int fd, int nb)
 		magic[i] = (nb >> (24 - (8 * i))) & 255;
 		i++;
 	}
-	write(fd, magic, 4);
+	if (write(fd, magic, 4) == -1)
+	{
+		ft_printf(WRITEER, record->final_name);
+		return (FALSE);
+	}
+	return (TRUE);
 }
-//00ea 83f3
+
+t_bool	print_description(t_record *record, int fd)
+{
+	if (!print_four(record, fd, COREWAR_EXEC_MAGIC))
+		return (FALSE);
+	if (write(fd, record->name, PROG_NAME_LENGTH) == -1)
+	{
+		ft_printf(WRITEER, record->final_name);
+		return (FALSE);
+	}
+	if (!print_four(record, fd, 0))
+		return (FALSE);
+	if (!print_four(record, fd, record->tot))
+		return (FALSE);
+	if (write(fd, record->comment, COMMENT_LENGTH) == -1)
+	{
+		ft_printf(WRITEER, record->final_name);
+		return (FALSE);
+	}
+	if (!print_four(record, fd, 0))
+		return (FALSE);
+	return (TRUE);
+}
+
 void	write_file(t_record *record, t_function *functions)
 {
 	t_elem	*elems;
 	int		fd;
 
-	//record->name_file = "asm_de_moi";
-	if ((fd = open(record->final_name, O_TRUNC|O_WRONLY|O_CREAT, 0666)) == -1)
+	if ((fd = open(record->final_name, O_TRUNC | O_WRONLY | O_CREAT, 0666))\
+		== -1)
 	{
-		ft_putendl("naaaan");
-		exit(0); //gerer l'erreur
+		ft_printf(OPENNEW, record->file_name, record->final_name);
+		return ;
 	}
-	print_four(fd, COREWAR_EXEC_MAGIC);
-	write(fd, record->name, PROG_NAME_LENGTH);
-	print_four(fd, 0);
-	print_four(fd, record->tot);
-	write(fd, record->comment, COMMENT_LENGTH);
-	print_four(fd, 0);
+	if (!print_description(record, fd))
+		return ;
 	while (functions)
 	{
 		elems = functions->elems;
 		while (elems)
 		{
-			write_key(elems, fd);
+			if (!write_key(record, elems, fd))
+				return ;
 			elems = elems->next;
 		}
 		functions = functions->next;
 	}
-	ft_putendl("fichier compile");
 	close(fd);
+	ft_printf(GWR, record->file_name, record->final_name);
 }

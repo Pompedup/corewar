@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:34:54 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/15 17:32:46 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/18 17:51:55 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 void	print_elems(t_elem *current)
 {
+	if (current)
+		ft_printf("Address\t\tSize\t\tType\t\tArg1\t\tArg2\t\tArg3\n");
 	while (current)
 	{
-		ft_printf("\033[0;32mElems\033[0;0m\nAddr : %x\nType %d\nKey : %x\nHandled %s\n",\
-			current->addr, current->type, current->key, current->complete ? "True" : "False");
+		ft_printf("%8d\t%8d\t%8s",\
+			current->addr, current->size, g_op_tab[current->type].shortcut);
 		print_args(current->args);
+		ft_printf("\n\n");
 		current = current->next;
 	}
 }
@@ -30,7 +33,7 @@ void	del_t_elem(t_elem **current)
 
 	to_free = *current;
 	split = (*current)->split;
-	while (*split)
+	while (split && *split)
 		free(*(split++));
 	free((*current)->split);
 	del_t_args(&to_free->args);

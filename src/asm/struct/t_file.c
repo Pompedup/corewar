@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/20 15:46:56 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/13 16:53:15 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/18 18:00:09 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,7 @@ void			read_t_file(t_record *record, t_file *file, t_bool info)
 			return ;
 		}
 		else if (!ret)
-		{
-			//ft_printf("\E[2J");
 			return ;
-		}
-		//ft_printf("\E[3H\E[J2%s\n", file->line);
 		file->current = file->line;
 		file->index_line++;
 	}

@@ -6,14 +6,16 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/11 16:29:18 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/15 18:39:32 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/19 20:56:43 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static t_bool	verif_syntax_label(t_record *record, char *str, size_t *len)
+static t_bool	verif_syntax_label(t_record *record, char *str, size_t *len, int erreur)
 {
+	(void)erreur;
+
 	*len = 0;
 	while (str[*len])
 	{
@@ -33,11 +35,11 @@ static t_bool	verif_syntax_label(t_record *record, char *str, size_t *len)
 	return (TRUE);
 }
 
-t_bool			get_label_pos(t_record *record, t_elem *elem, t_arg *arg)
+static t_bool	get_label_pos(t_record *record, t_elem *elem, t_arg *arg, int erreur)
 {
 	size_t	len;
 
-	if (!(verif_syntax_label(record, arg->copy + 1, &len)))
+	if (!(verif_syntax_label(record, arg->copy + 1, &len, erreur)))
 		return (FALSE);
 	get_label(record, arg, arg->copy + 1, len);
 	if (!arg->handled)
@@ -45,10 +47,11 @@ t_bool			get_label_pos(t_record *record, t_elem *elem, t_arg *arg)
 	return (TRUE);
 }
 
-t_bool			get_pos(t_record *record, t_arg *arg)
+static t_bool	get_pos(t_record *record, t_arg *arg, int erreur)
 {
 	size_t	len;
 
+	(void)erreur;
 	len = *arg->copy == '-' ? 1 : 0;
 	while (arg->copy[len])
 	{
@@ -76,41 +79,45 @@ t_bool			get_pos(t_record *record, t_arg *arg)
 	return (TRUE);
 }
 
-static void		error_dir_ind(t_record *record, t_elem *elem, t_arg *arg)
+/*
+**	Explain the error found from a dir or a ind
+*/
+
+static void		error_dir_ind(t_record *record, t_elem *elem, t_arg *arg, int error)
 {
 	if (arg->type == 2)
 	{
 		if (!ft_isspace(*elem->line) && *elem->line != SEPARATOR_CHAR)
-		{
-			ending_str(elem->line);
-			ft_printf(BADDATA, record->file_name, record->file.index_line, DIRECT_CHAR, elem->line - (arg->type == 2));
-		}
+			ft_printf(BADDATA, record->file_name, record->file.index_line, DIRECT_CHAR, arg->copy - (arg->type == 2));
 		else
-		{
-			ending_str(elem->line);
 			ft_printf(MISSDIR, record->file_name, record->file.index_line, DIRECT_CHAR);
-		}
 		return ;
 	}
 	ending_str(elem->line);
-	ft_printf(BADDATA, record->file_name, record->file.index_line, DIRECT_CHAR, elem->line - 1);
+	ft_printf(BADDATA, record->file_name, record->file.index_line, DIRECT_CHAR, arg->copy - error);
 }
 
-t_bool			get_answer(t_record *record, t_elem *elem, t_arg *arg)
+/*
+**	Test if the arg contain a label or a int and call the function correspondent
+**	else
+**		error
+*/
+
+t_bool			get_answer(t_record *record, t_elem *elem, t_arg *arg, int erreur)
 {
 	if (*arg->copy == ':')
 	{
-		if (!get_label_pos(record, elem, arg))
+		if (!get_label_pos(record, elem, arg, erreur))
 			return (FALSE);
 	}
 	else if (ft_isdigit(*arg->copy) || *arg->copy == '-')
 	{
-		if (!get_pos(record, arg))
+		if (!get_pos(record, arg, erreur))
 			return (FALSE);
 	}
 	else
 	{
-		error_dir_ind(record, elem, arg);
+		error_dir_ind(record, elem, arg, erreur);
 		return (FALSE);
 	}
 	return (TRUE);

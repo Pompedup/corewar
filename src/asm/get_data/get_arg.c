@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/15 14:29:29 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/17 18:07:53 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/19 19:15:02 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int				get_reg(t_record *record, t_elem *elem, t_arg *arg, int i)
 
 int				get_ind(t_record *record, t_elem *elem, t_arg *arg, int i)
 {
-	if (!get_answer(record, elem, arg))
+	if (!get_answer(record, elem, arg, 0))
 		return (FALSE);
 	arg->type = 4;
 	arg->size = 2;
@@ -71,7 +71,7 @@ int				get_ind(t_record *record, t_elem *elem, t_arg *arg, int i)
 int				get_dir(t_record *record, t_elem *elem, t_arg *arg, int i)
 {
 	arg->copy++;
-	if (!get_answer(record, elem, arg))
+	if (!get_answer(record, elem, arg, 1))
 		return (FALSE);
 	arg->type = 2;
 	if (g_op_tab[elem->type].dir)

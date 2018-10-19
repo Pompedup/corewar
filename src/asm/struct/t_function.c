@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:43:02 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/15 18:23:32 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/18 17:50:14 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	print_functions(t_function *current)
 {
 	while (current)
 	{
-		ft_printf("\033[0;31mFunctions\033[0;0m\nName : %s\nAddr %x\n",\
-			current->name, current->addr);
+		if (current->name)
+			ft_printf(FUNC, current->name, current->addr);
 		print_elems(current->elems);
 		current = current->next;
 	}
@@ -45,9 +45,8 @@ t_bool	new_t_function(t_record *record, t_function **current,\
 {
 	if (!(*current = ft_memalloc(sizeof(t_function))))
 	{
-		ft_printf("Allocation in new_t_function didn't work for : %s\n",
-			record->file_name);
-		return (FALSE);//cas derreur a gerer
+		ft_printf(ALLOC, record->file_name);
+		return (FALSE);
 	}
 	(*current)->name = name;
 	(*current)->addr = record->tot;

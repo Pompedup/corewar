@@ -6,7 +6,7 @@
 #    By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/10/15 14:32:14 by abezanni         ###   ########.fr        #
+#    Updated: 2018/10/18 19:01:49 by abezanni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,11 +46,13 @@ ASM_GET_DATA =	check_label.c\
 
 ASM_WRITE =		write.c\
 
-ASM_VERIF =		verif_file_name.c\
+ASM_VERIF =		verif_elem_str.c\
+				verif_file_name.c\
 
 ASM_FILES =		asm.c\
 				step.c\
 				help_error.c\
+				options.c\
 				$(addprefix get_data/,$(ASM_GET_DATA))\
 				$(addprefix struct/,$(ASM_STRUCT))\
 				$(addprefix write/,$(ASM_WRITE))\
@@ -123,7 +125,7 @@ $(COREWAR_NAME) : $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
 	@echo "\033[1;32mSucced corewar\033[0m"
 
 $(COMMON_OBJ) : inc/common.h
-$(ASM_OBJ) : inc/asm.h inc/common.h
+$(ASM_OBJ) : inc/asm.h inc/common.h inc/asm_struct_define.h
 $(COREWAR_OBJ) : inc/corewar.h inc/common.h
 
 test : print_memory.c
