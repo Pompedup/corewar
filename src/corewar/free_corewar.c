@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 14:29:06 by ecesari           #+#    #+#             */
-/*   Updated: 2018/10/19 19:34:28 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/19 21:05:00 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,14 @@ void	free_vm_info_player(t_corevm *vm, t_player *player_to_delete)
 
 void	free_vm(t_corevm *vm)
 {
-	if (vm->info)
+	if (vm)
 	{
-		free_vm_info_player(vm, vm->info->first_player);
-		free_vm_info_process(vm, vm->info->first_processus);
-		free(vm->info);
+		if (vm->info)
+		{
+			free_vm_info_player(vm, vm->info->first_player);
+			free_vm_info_process(vm, vm->info->first_processus);
+			free(vm->info);
+		}
+		free(vm);
 	}
 }

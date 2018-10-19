@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/19 20:37:55 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/19 21:02:11 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define ERR_MESS_16		"at least one player is needed"
 # define ERR_MESS_17		"argument for number of player is not an int"
 # define ERR_MESS_18		"a player cannot have a number already given or 0"
+# define FAIL_MEMALLOC_00	"ft_memalloc of vm failed"
 # define FAIL_MEMALLOC_0	"ft_memalloc of vm->info failed"
 # define FAIL_MEMALLOC_1	"ft_memalloc of vm->info->player failed"
 # define FAIL_MEMALLOC_2	"ft_memalloc of vm->info->player->header failed"
@@ -100,14 +101,21 @@ typedef struct			s_player
 
 /*
 ********************************************************************************
-**	s_process contains
+**	s_process defined either by the player or the parent proccess for (l)fork
 **	- name of program
 **	- color
-**	-
-**	-
-**	-
-**	-
-**	-
+**	- num_player
+**	- reg[REG_NUMBER]
+**	- pc
+**	- pc_tmp
+**	- carry,
+**	- live
+**	- type_instruc[2]
+**	- args[3]
+**	- color_live
+**	- nb_cycle_instruc
+**	- good_reg
+**	- *next
 ********************************************************************************
 */
 
@@ -192,7 +200,7 @@ extern t_ptr_func		g_instruc_func[];
 ********************************************************************************
 */
 
-void					init_vm(char **av, t_corevm *vm);
+void					init_vm(char **av, t_corevm **vm);
 void					init_lives_player(t_corevm *vm);
 
 /*

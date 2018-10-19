@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 15:22:28 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/19 20:02:29 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/19 21:01:55 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,19 @@ void	init_lives_player(t_corevm *vm)
 ********************************************************************************
 */
 
-void	init_vm(char **av, t_corevm *vm)
+void	init_vm(char **av, t_corevm **vm)
 {
 	int	i;
 
 	i = 0;
-	ft_bzero(vm, sizeof(t_corevm));
+	if (!(*vm = ft_memalloc(sizeof(t_corevm))))
+		ft_error(*vm, FAIL_MEMALLOC_00, 0);
 	while (i < MEM_SIZE)
-		vm->color[i++] = 13;
-	vm->argv = av;
-	vm->dump = -1;
-	vm->octet_line_viz = ft_sqrt(MEM_SIZE);
-	vm->cycle_to_die = CYCLE_TO_DIE;
-	if (!(vm->info = ft_memalloc(sizeof(t_info))))
-		ft_error(vm, FAIL_MEMALLOC_0, 0);
+		(*vm)->color[i++] = 13;
+	(*vm)->argv = av;
+	(*vm)->dump = -1;
+	(*vm)->octet_line_viz = ft_sqrt(MEM_SIZE);
+	(*vm)->cycle_to_die = CYCLE_TO_DIE;
+	if (!((*vm)->info = ft_memalloc(sizeof(t_info))))
+		ft_error(*vm, FAIL_MEMALLOC_0, 0);
 }

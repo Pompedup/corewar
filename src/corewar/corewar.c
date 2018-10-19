@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 13:17:29 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/19 19:55:34 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/19 21:00:04 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,8 @@ int		main(int ac, char **av)
 		return (0);
 	}
 	check_include();
-	init_vm(av, vm);
+	ft_printf("SGV\n");
+	init_vm(av, &vm);
 	parse_argv(vm);
 	number_players(vm);
 	players_charged_in_core(vm);
