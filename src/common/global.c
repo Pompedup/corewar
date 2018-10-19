@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 21:06:11 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/19 20:55:11 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/19 21:13:24 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,15 @@
 
 /*
 ********************************************************************************
-** {shortcut, nbr_arg, accept[], id (=opcode), nb_cycle_instruction,
-** descirption, ind(qui modifie carry), dir(4 ou 2)}
-** typedef struct		s_op
-** {
-** 	char			*shortcut
-** 	int				nbr_arg, either 1, 2 or 3
-** 	char			accept[3]
-** 	int				id, opcode
-** 	int				nb_cycle_instruction, either 5, 6, 10, 20, 25, 800 or 1000
-** 	char			*description;
-** 	int				ind;//a renommer en flag_carry
-** (si l'instruction modifie le carry flag actif)
-** verifier aue pour ld le carry passe a 0 si la valeur ld est != 0
-** et a 1 si la valeur de ld est == 0
-** verifier pour le st et le sti
-** 	int				dir;
-** 	}					t_op;
+** typedef struct s_op contains
+**	- char 	*shortcut
+**	- int 	nbr_arg, either 1, 2 or 3
+**	- char 	accept[3], array of acceptable types of arguments
+**	- int 	id, opcode
+**	- int 	nb_cycle_instruction, either 5, 6, 10, 20, 25, 800 or 1000
+**	- char 	*description,
+**	- int 	ind, that is the flag for carry
+**	- int	dir;
 ** {T_REG | T_DIR | T_IND,  1 | 2 | 4 -> 00 00 01 11
 ********************************************************************************
 */
