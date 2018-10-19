@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 12:02:04 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 12:21:33 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/19 16:04:30 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	parse_argv(t_corevm *vm)
 			i += 2;
 		}
 		else
-			ft_error(vm, ERR_MESS_1, 0);
+			ft_error(vm, ERR_MESS_1, 0); //check bonus
 		if (vm->info->nb_players > MAX_PLAYERS)
 			ft_error(vm, ERR_MESS_15, 0);
 	}

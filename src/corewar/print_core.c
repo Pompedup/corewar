@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 14:29:45 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/19 13:46:32 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/19 16:19:52 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,14 @@
 
 void	dump_core(t_corevm *vm)
 {
-	unsigned char	print[vm->octet_line_viz * 3 + 1];
+	unsigned char	print[vm->octet_line_viz * 3];
 	int				i;
 	int				j;
-
-	i = 0;
+ 	i = 0;
 	j = 0;
 	while (i < MEM_SIZE)
 	{
-
-		print[j * 3] = HEXAMIN[((unsigned char *)vm->core)[i] / 16];
+ 		print[j * 3] = HEXAMIN[((unsigned char *)vm->core)[i] / 16];
 		print[j * 3 + 1] = HEXAMIN[((unsigned char *)vm->core)[i] % 16];
 		print[j * 3 + 2] = ' ';
 		j++;
@@ -40,9 +38,7 @@ void	dump_core(t_corevm *vm)
 		}
 		i++;
 	}
-
 }
-
 /*
 ********************************************************************************
 **

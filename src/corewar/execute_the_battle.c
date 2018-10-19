@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/19 13:47:48 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/19 16:02:55 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ void	execute_the_battle(t_corevm *vm)
 		if (vm->dump != -1 && vm->nbr_total_cycles == vm->dump)
 		{
 			dump_core(vm);
-			exit(0);
 		}
 
 		process = vm->info->first_processus;
