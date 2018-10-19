@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/11 11:36:01 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/19 19:53:01 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 # define MAX_ARGS_NUMBER		4
 # define MAX_PLAYERS			4
-# define MEM_SIZE				(4 * 1024)
+# define MEM_SIZE				(4 * 9879794)
 # define IDX_MOD				(MEM_SIZE / 8)
 # define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 

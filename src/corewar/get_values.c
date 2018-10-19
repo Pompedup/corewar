@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_values.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 11:42:33 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 12:00:22 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/19 20:25:33 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		*get_values(t_corevm *vm, t_process *process, char num_arg, int l)
 	int	i;
 
 	if (!(values = ft_memalloc(sizeof(int) * 3)))
-		ft_error(vm, FAIL_MEMALLOC_5, 0);
+		ft_error(vm, FAIL_MEMALLOC_4, 0);
 	dec = 6;
 	i = -1;
 	while (++i < 3)

@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 15:22:28 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/19 19:03:05 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/19 20:02:29 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 ********************************************************************************
-** init tab qui compte les lives par joueurs
+** init_lives_player
 ********************************************************************************
 */
 
@@ -43,8 +43,8 @@ void	init_lives_player(t_corevm *vm)
 **	set by default on GREY
 **	- vm->argv
 **	- vm->dump that is set at -1 to differientate it from 0
-**	- vm->octet_line_viz that is the square of MEM_SIZE (if 4096 then 64)
-**	this ensure vm->viz to be a square (unless if dump is activated)
+**	- vm->octet_line_viz that is the square of MEM_SIZE (i.e. 4096 then 64)
+**	this ensure vm->viz to be a square (unless if dump is activated then 32)
 **	- vm->cycle_to_die
 **	- and mallocs vm->info
 ********************************************************************************
