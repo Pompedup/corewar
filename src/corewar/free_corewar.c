@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 14:29:06 by ecesari           #+#    #+#             */
-/*   Updated: 2018/10/18 16:20:38 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/19 18:40:35 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	free_vm_info_process(t_corevm *vm, t_process* process_to_delete)
 	{
 		tmp = process_to_delete->next;
 		free(process_to_delete);
-		free_vm_info_process(vm, process_to_delete);
+		free_vm_info_process(vm, tmp);
 	}
 }
 
@@ -34,7 +34,6 @@ void	free_vm_info_process(t_corevm *vm, t_process* process_to_delete)
 ********************************************************************************
 **	free_vm_info_player aims at freeing each vm->info->player created
 **	it also frees the header of each player
-**	and calls free_vm_info_process
 ********************************************************************************
 */
 
@@ -45,8 +44,7 @@ void	free_vm_info_player(t_corevm *vm, t_player* player_to_delete)
 	if (player_to_delete)
 	{
 		tmp = player_to_delete->next;
-		free(player_to_delete->header);// free_vm_info_player_header(vm, player_to_delete->header);
-		free_vm_info_process(vm, player_to_delete->process);
+		free(player_to_delete->header);
 		free(player_to_delete);
 		free_vm_info_player(vm, tmp);
 	}
@@ -60,7 +58,6 @@ void	free_vm_info_player(t_corevm *vm, t_player* player_to_delete)
 **	- vm->info->player->header
 **	- vm->info->process
 **	- (values used in instruction are freed at the end of the instruction)
-**
 ********************************************************************************
 */
 
@@ -69,6 +66,7 @@ void	free_vm(t_corevm *vm)
 	if (vm->info)
 	{
 		free_vm_info_player(vm, vm->info->first_player);
+		free_vm_info_process(vm, vm->info->first_processus);
 		free(vm->info);
 	}
 }
