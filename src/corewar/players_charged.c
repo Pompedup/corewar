@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 13:36:25 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 16:55:01 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/19 13:14:28 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	players_charged_in_core(t_corevm *vm)
 	while (player)
 	{
 		i = ((place / (float)vm->info->nb_players) * (float)MEM_SIZE);
-		create_process(vm, i, player);	
+		create_process(vm, i, player);
 		j = -1;
 		while (++j < player->len_process)
 		{

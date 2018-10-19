@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 16:53:11 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/19 13:38:52 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,7 +332,7 @@ void						ft_aff(t_corevm *vm, t_process *process);
 */
 
 void					print_core(t_corevm *vm);
-
+void					dump_core(t_corevm *vm);
 
 void					free_vm(t_corevm *vm);
 
