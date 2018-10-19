@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 13:17:29 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/19 13:15:58 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/19 19:09:26 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ********************************************************************************
 **	check_include aims at protecting corewar against inccorrect defines in
 **	common.h (for MEM_SIZE that must be a multiple of 1024,
-**	REG_NUMBER must be in a single)
+**	REG_NUMBER must be in a single char)
 ********************************************************************************
 */
 
@@ -27,7 +27,8 @@ int		check_include(void)
 
 	inc = 1;
 	nb_one = 0;
-	if (!MEM_SIZE && MEM_SIZE > SHORT && REG_NUMBER > UNSIGNED_CHAR)
+	if (!MEM_SIZE || MEM_SIZE > SHORT || !REG_NUMBER
+	|| REG_NUMBER > UNSIGNED_CHAR)
 		return (0);
 	while (inc < SHORT && inc <= MEM_SIZE)
 	{
@@ -42,7 +43,8 @@ int		check_include(void)
 
 /*
 ********************************************************************************
-**
+**	declare_winner concludes corewar and declare the winner
+**	the winner is the player that made the last live
 ********************************************************************************
 */
 
@@ -65,7 +67,7 @@ void	declare_winner(t_corevm *vm)
 	{
 		if (winner->num == vm->lives_player[last_live][0])
 		{
-			ft_printf("le joueur %d(%s) a gagne\n",
+			ft_printf("Le joueur %d(%s) a gagné\n",
 				vm->lives_player[last_live][0], winner->header->prog_name);
 			return ;
 		}
@@ -75,7 +77,12 @@ void	declare_winner(t_corevm *vm)
 
 /*
 ********************************************************************************
-** 						(ง •̀_•́)ง  ᕙ༼*◕_◕*༽ᕤ
+**	These are the rules of corewar:
+**
+**
+**
+**
+** 				let's	(ง •̀_•́)ง  ᕙ༼*◕_◕*༽ᕤ
 ********************************************************************************
 */
 
@@ -93,5 +100,6 @@ int		main(int ac, char **av)
 	players_charged_in_core(&vm);
 	execute_the_battle(&vm);
 	declare_winner(&vm);
+	free_vm(&vm);
 	return (0);
 }
