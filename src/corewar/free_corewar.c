@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 14:29:06 by ecesari           #+#    #+#             */
-/*   Updated: 2018/10/19 18:40:35 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/19 18:41:41 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ********************************************************************************
 */
 
-void	free_vm_info_process(t_corevm *vm, t_process* process_to_delete)
+void	free_vm_info_process(t_corevm *vm, t_process *process_to_delete)
 {
 	t_process	*tmp;
 
@@ -37,7 +37,7 @@ void	free_vm_info_process(t_corevm *vm, t_process* process_to_delete)
 ********************************************************************************
 */
 
-void	free_vm_info_player(t_corevm *vm, t_player* player_to_delete)
+void	free_vm_info_player(t_corevm *vm, t_player *player_to_delete)
 {
 	t_player	*tmp;
 
