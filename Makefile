@@ -6,7 +6,7 @@
 #    By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/10/18 19:01:49 by abezanni         ###   ########.fr        #
+#    Updated: 2018/10/20 21:45:49 by abezanni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,8 @@ ASM_GET_DATA =	check_label.c\
 
 ASM_WRITE =		write.c\
 
-ASM_VERIF =		verif_elem_str.c\
+ASM_VERIF =		error_type.c\
+				verif_elem_str.c\
 				verif_file_name.c\
 
 ASM_FILES =		asm.c\

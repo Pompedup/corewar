@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/20 21:12:45 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/20 21:46:09 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ void	new_t_arg(t_arg **current, int addr, char *copy);
 ********************************************************************************
 */
 
+t_bool	error_type(t_record *record, t_elem *elem, t_arg *arg, int i);
 t_bool	verify_elem_str(t_record *record, t_elem *elem);
 t_bool	verif_file_name(t_record *record, char *str);
 
@@ -150,9 +151,7 @@ void	write_file(t_record *record, t_function *functions);
 void	handle_options(t_record *record, int options);
 t_bool	handle_args(int ac, char **av, int *options);
 
-
-
-
 void	ending_str(char *str);
 char	skip_spaces(char **str);
+
 #endif
