@@ -6,7 +6,7 @@
 #    By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/09/03 21:07:01 by abezanni         ###   ########.fr        #
+#    Updated: 2018/10/20 21:45:49 by abezanni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,36 @@ SRC =			$(COMMON_SRC)\
 
 COMMON_FILES =	global.c\
 
-ASM_FILES =		asm.c\
+ASM_STRUCT =	t_arg.c\
+				t_elem.c\
+				t_file.c\
+				t_function.c\
+
+ASM_GET_DATA =	check_label.c\
+				get_arg.c\
+				get_elem.c\
+				get_functions.c\
 				get_infos.c\
-				get_lines.c\
-				lines.c\
+				get_label.c\
+				get_pos.c\
+				get_string.c\
+				get_type.c\
+				last_verifications.c\
+
+ASM_WRITE =		write.c\
+
+ASM_VERIF =		error_type.c\
+				verif_elem_str.c\
+				verif_file_name.c\
+
+ASM_FILES =		asm.c\
+				step.c\
+				help_error.c\
+				options.c\
+				$(addprefix get_data/,$(ASM_GET_DATA))\
+				$(addprefix struct/,$(ASM_STRUCT))\
+				$(addprefix write/,$(ASM_WRITE))\
+				$(addprefix verif/,$(ASM_VERIF))\
 
 COREWAR_FILES =	charge_players_in_core.c\
 				execute_the_battle.c\
@@ -52,6 +78,8 @@ COREWAR_SRC =	$(addprefix src/corewar/,$(COREWAR_FILES))
 
 ASM_NAME =		asm
 
+NAME = $(ASM_NAME) $(COREWAR_NAME)
+
 COREWAR_NAME =	corewar
 
 LIB_PATH =		libft
@@ -62,7 +90,32 @@ INCLUDE =		-I ./inc
 
 CFLAGS = -Wall -Wextra -Werror $(INCLUDE)
 
-all : libftcomp $(ASM_NAME) $(COREWAR_NAME)
+.PHONY = libftcomp
+
+ERROR_FILE =	$(addprefix error_champ/arg/, $(ERROR_ARG))\
+				$(addprefix error_champ/comment/, $(ERROR_COMMENT))\
+				$(addprefix error_champ/dir/, $(ERROR_DIR))\
+				$(addprefix error_champ/name/, $(ERROR_NAME))\
+				$(addprefix error_champ/reg/, $(ERROR_REG))\
+
+ERROR_ARG =		miss_sep.s\
+				too_much.s\
+				miss_arg_between.s\
+
+ERROR_COMMENT =	char_after_comment.s\
+				comment_too_long.s\
+				second_comment.s\
+
+ERROR_DIR =		dir_without_value.s\
+				dir_wrong_value.s\
+
+ERROR_NAME =	char_after_name.s\
+				name_too_long.s\
+				second_name.s\
+
+ERROR_REG =		reg_without_int.s\
+
+all : libftcomp $(NAME)
 
 $(ASM_NAME) : $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
 	$(CC) -o $(ASM_NAME) $(CFLAGS) $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
@@ -73,7 +126,7 @@ $(COREWAR_NAME) : $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
 	@echo "\033[1;32mSucced corewar\033[0m"
 
 $(COMMON_OBJ) : inc/common.h
-$(ASM_OBJ) : inc/asm.h inc/common.h
+$(ASM_OBJ) : inc/asm.h inc/common.h inc/asm_struct_define.h
 $(COREWAR_OBJ) : inc/corewar.h inc/common.h
 
 test : print_memory.c
@@ -95,3 +148,11 @@ fclean : clean
 
 re : fclean	all
 	@echo "\033[1;32mSucced recompilation asm and corewar\033[0m"
+
+
+
+del_cor:
+	@/bin/rm -f ****.cor
+
+errors: $(ERROR_FILE)
+	./$(ASM_NAME) $^
