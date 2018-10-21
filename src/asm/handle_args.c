@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   options.c                                          :+:      :+:    :+:   */
+/*   handle_args.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:24:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/18 17:24:06 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/21 12:02:09 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void		print_option(t_record *record)
 
 void			handle_options(t_record *record, int options)
 {
-	if (options)
+	if (options & 1)
 		print_option(record);
 	else
 		write_file(record, record->functions);

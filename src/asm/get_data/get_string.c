@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 18:52:42 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/15 17:21:33 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/21 15:26:21 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	handle_end_string(t_record *record, t_file *file, t_string *data,\
 	*quote = '\0';
 	if ((data->size += quote - file->current) > data->max)
 	{
-		ft_printf(LONG, record->file_name, file->index_line, data->type,\
+		ft_printf(LONG, record->file_name, data->index_line, data->type,\
 			data->max, data->size);
 		return (-1);
 	}

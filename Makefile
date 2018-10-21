@@ -6,7 +6,7 @@
 #    By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/10/20 21:45:49 by abezanni         ###   ########.fr        #
+#    Updated: 2018/10/21 11:49:01 by abezanni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ ASM_VERIF =		error_type.c\
 ASM_FILES =		asm.c\
 				step.c\
 				help_error.c\
-				options.c\
+				handle_args.c\
 				$(addprefix get_data/,$(ASM_GET_DATA))\
 				$(addprefix struct/,$(ASM_STRUCT))\
 				$(addprefix write/,$(ASM_WRITE))\

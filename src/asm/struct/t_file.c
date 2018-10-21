@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/20 15:46:56 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/18 18:00:09 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/21 14:46:43 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static t_bool	uninteresting_line(t_file *file, t_bool infos)
 		return (FALSE);
 	if (infos)
 		return (TRUE);
-	file->current = file->line;
 	while (ft_isspace(*file->current))
 		file->current++;
 	if (!*file->current || *file->current == COMMENT_CHAR)
@@ -67,7 +66,7 @@ void			new_t_file(t_record *record, t_file *file, char *file_name)
 		ft_printf(OPEN, record->file_name);
 		return ;
 	}
-	read_t_file(record, file, FALSE);
+	read_t_file(record, file, TRUE);
 	if (!file->line)
 		ft_printf(EMPTY, record->file_name);
 }

@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 12:23:45 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/18 17:44:11 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/21 16:33:03 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	missing_name_or_comment(t_record *record, t_file *file)
 	else
 		ft_printf(ONE, record->file_name, record->file.index_line,\
 			!record->name_complete ? NAME_CMD_STRING : COMMENT_CMD_STRING);
-	if (file->current)
+	if (file->current && *file->current)
 		ft_printf(CURRENT, file->current);
 	ft_printf(".\n");
 }
@@ -31,11 +31,16 @@ static void	handle_file(t_record *record, int options)
 	{
 		if (!record->name_complete || !record->comment_complete)
 			missing_name_or_comment(record, &record->file);
-		else if (get_functions(record, &record->file, &record->functions))
+		else if (record->file.line)
 		{
-			if (last_verifications(record))
-				handle_options(record, options);
+			if (get_functions(record, &record->file, &record->functions))
+			{
+				if (last_verifications(record))
+					handle_options(record, options);
+			}
 		}
+		else
+			ft_printf(NOINSTRUC, record->file_name);
 	}
 }
 

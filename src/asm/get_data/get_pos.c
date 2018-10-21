@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/11 16:29:18 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/20 19:24:51 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/21 14:10:10 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static t_bool	get_nbr_pos(t_record *record, t_arg *arg)
 		ft_printf(MISSNBR, record->file_name, record->file.index_line);
 		return (FALSE);
 	}
-	if (!ft_strisint(arg->str, len))
+	if (!ft_strisint(arg->str, len) && !ft_strisuint(arg->str, len))
 	{
 		ft_printf(INTTOOBIG, record->file_name, record->file.index_line,\
 					*arg->str == '-' ? "little" : "big", arg->copy);

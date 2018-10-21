@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 17:02:50 by pompedup          #+#    #+#             */
-/*   Updated: 2018/10/15 14:56:47 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/21 16:37:56 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,40 @@ static t_bool	check_line(t_record *record, t_file *file, char *cmp)
 	return (FALSE);
 }
 
-static char		*check_type(char *str)
+static t_bool	check_type(t_file *file, char **type)
 {
-	if (!ft_strncmp(str, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
-		return (NAME_CMD_STRING);
-	if (!ft_strncmp(str, COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
-		return (COMMENT_CMD_STRING);
-	return (NULL);
+	*type = NULL;
+	while (ft_isspace(*file->current))
+	{
+		file->current++;
+		file->index_char++;
+	}
+	if (!ft_strncmp(file->current, NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
+	{
+		*type = NAME_CMD_STRING;
+		return (TRUE);
+	}
+	if (!ft_strncmp(file->current, COMMENT_CMD_STRING,
+												ft_strlen(COMMENT_CMD_STRING)))
+	{
+		*type = COMMENT_CMD_STRING;
+		return (TRUE);
+	}
+	if (*file->current == '#' || *file->current == '\0')
+		return (TRUE);
+	return (FALSE);
+}
+
+static void		remove_hash(t_record *record, t_file *file)
+{
+	char *tmp;
+
+	while (ft_isspace(*file->current))
+		file->current++;
+	if (!*file->current || *file->current == COMMENT_CHAR)
+		read_t_file(record, file, FALSE);
+	else if ((tmp = ft_strchr(file->current, COMMENT_CHAR)))
+		*tmp = '\0';
 }
 
 /*
@@ -69,11 +96,13 @@ t_bool			get_infos(t_record *record, t_file *file)
 {
 	char *type;
 
-	while (file->line && (type = check_type(file->current)))
+	while (file->line && check_type(file, &type))
 	{
-		if (!check_line(record, file, type))
-			return (FALSE);
-		read_t_file(record, file, FALSE);
+		if (type)
+			if (!check_line(record, file, type))
+				return (FALSE);
+		read_t_file(record, file, TRUE);
 	}
+	remove_hash(record, file);
 	return (TRUE);
 }

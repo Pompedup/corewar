@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 18:58:57 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/20 21:14:48 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/21 16:38:24 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@
 # define ENDING		FILE"Missing ending quote for "QUOTER".\n"
 # define ENDAFTER	QUOTER" ("QUOTER").\n"
 # define AFTER		FILE"Excess of characteres after the quote of "ENDAFTER
-# define BOTH		FILE"Missing "QUOTER" and "QUOTER".\n"
-# define ONE		FILE"Missing "QUOTER".\n"
+# define BOTH		FILE"Missing "QUOTER" and "QUOTER
+# define ONE		FILE"Missing "QUOTER
 # define CURRENT	" (current : "QUOTER")"
 
 /*
@@ -82,6 +82,7 @@
 ********************************************************************************
 */
 
+# define NOINSTRUC	STRB": Instructions not found.\n"
 # define WHAT		FILE"Something go wrong ("QUOTER").\n"
 # define NOLABEL	FILE"Missing label name before "QUOTERC".\n"
 # define WRLABEL	FILE"Wrong char "QUOTERC" for label "QUOTER".\n"
@@ -141,25 +142,15 @@
 */
 
 # define GWR		STRB": Creation of "STRG".\n"
-
 # define FUNC		BLUE"\n\nNew Label"END" : ["STRG"]\tAddress : %10d\n"
-
 # define ALLOC		STRB": Allocation error.\n"
-
-# define WREXT		STRR": File name didn't end by "QUOTEG".\n"
-
+# define WREXT		STRR": This file name didn't end by "QUOTEG".\n"
 # define MISSBGNLAB	FILE"Missing label after \"%c\".\n"
-
 # define NOTNBR		FILE"Wrong char, "QUOTERC" isn't a number ("QUOTER").\n"
-
 # define MISSNBR	FILE"Miss number after \"-\".\n"
-
 # define INTTOOBIG	FILE"Too %s int ("QUOTER").\n"
-
 # define UKLAB		FILE"Unknow label "QUOTER" ("QUOTER").\n"
-
 # define UKARG		FILE"Unknow type of argment "QUOTER".\n"
-
 # define ARGBEFSEP	FILE"Missing arg before separator char.\n"
 # define WRTYPE		FILE STRR" is not handle in %s at %s position.\nYou can use"
 
@@ -219,9 +210,9 @@ struct				s_function{
 typedef struct		s_record{
 	char			*file_name;
 	char			*final_name;
-	char			name[128];
+	char			name[PROG_NAME_LENGTH + 1];
 	t_bool			name_complete;
-	char			comment[2052];
+	char			comment[COMMENT_LENGTH + 1];
 	t_bool			comment_complete;
 	int				tot;
 	t_file			file;

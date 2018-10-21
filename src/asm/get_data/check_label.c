@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 16:07:43 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/15 14:21:44 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/21 16:23:53 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ t_bool			check_label(t_record *record, t_file *file, char **name)
 	*name = NULL;
 	if ((colon = ft_strchr(file->current, LABEL_CHAR)))
 	{
+		if (!ft_isspace(*(colon + 1)) && *(colon + 1))
+			return (TRUE);
 		if (!verify_label(record, file, colon - file->current, name))
 			return (FALSE);
 		if (*name)
