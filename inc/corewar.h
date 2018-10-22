@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/19 21:02:11 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/22 18:53:29 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@
 # define SHORT				32768
 # define UNSIGNED_CHAR		128
 # define USAGE 				USAGE1 USAGE2
-# define USAGE1				"Usage: ./corewar [-dump nbr_cycles]"
+# define USAGE1				"Usage: ./corewar [-dump [-b] nbr_cycles]"
 # define USAGE2				"[[-n number] champion1.cor] ..."
 # define ERR_MESS_00		"incorrect defines"
 # define ERR_MESS_01 		"(MEM_SIZE or REG_NUMBER are null or too big)"
 # define ERR_MESS_0			"not enough arguments.\n" USAGE
 # define ERR_MESS_1			"incorrect arguments.\n" USAGE
 # define ERR_MESS_2			"argument for dump is not an unsigned int"
-# define ERR_MESS_3			"argument for dump must be superior to 0"
+# define ERR_MESS_3			"invalid argument for dump"
 # define ERR_MESS_4			"incorrect name of the champion file"
 # define ERR_MESS_5			"cannot open file "
 # define ERR_MESS_6			"cannot close file "
@@ -53,13 +53,20 @@
 /*
 ********************************************************************************
 **	ORDONNE DANS LE SENS
-**	COULEUR CLASSIQUE / SURBRILLANCE (derniere instruction en date) /
-**	SURLIGNEMENT PC
-**  					0	 1 		2		3		4		5		6		7		8			9		10		11			12		13
+**	COULEUR CLASSIQUE 	0 	1 	2 	3
+**	SURBRILLANCE 		4 	5 	6 	7		(derniere instruction en date)
+**	SURLIGNEMENT PC		8 	9 	10	11 12
+**	GRIS				13
 ********************************************************************************
 */
 
-# define TAB_COLOR	{GREEN, PINK, BLUE, ORANGE, GREEN_S, PINK_S, BLUE_S, ORANGE_S, GREEN_PC, PINK_PC, BLUE_PC, ORANGE_PC, GREY_PC, GREY}
+# define COLOR_LET_ON		"\033[38;2;"
+# define COLOR_LET_WHITE	"\033[38;1;255;255;255m"
+# define COLOR_LET_BLACK	"\033[38;2;0;0;0m"
+# define COLOR_BG_ON		"\033[48;2;"
+# define COLOR_OFF			"\033[0m"
+# define CLEAR				"\e[J\x1b[H"
+
 # define GREEN				0x00ff00
 # define PINK				0xff0000
 # define BLUE				0x0000ff
@@ -171,7 +178,9 @@ typedef struct			s_corevm
 	t_info				*info;
 	char				core[MEM_SIZE];
 	unsigned int		color[MEM_SIZE];
+	int					*tab_color;
 	int					dump;
+	int					dump_color;
 	int					nbr_total_cycles;
 	int					cycle_to_die;
 	int					octet_line_viz;
@@ -246,6 +255,7 @@ int						unused_num(t_corevm *vm, int num);
 ********************************************************************************
 */
 
+void					introducing_contestants(t_corevm *vm);
 void					players_charged_in_core(t_corevm *vm);
 
 /*
@@ -273,6 +283,7 @@ void					put_process_front(t_process **first, \
 ********************************************************************************
 */
 
+void					declare_winner(t_corevm *vm);
 void					execute_the_battle(t_corevm *vm);
 void					pc_color(t_corevm *vm, t_process *process);
 
@@ -340,7 +351,7 @@ void					ft_aff(t_corevm *vm, t_process *process);
 */
 
 void					print_core(t_corevm *vm);
-void					dump_core(t_corevm *vm);
+void					dump_core(t_corevm *vm, int color);
 
 /*
 ********************************************************************************

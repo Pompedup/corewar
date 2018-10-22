@@ -3,14 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   players_charged.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 13:36:25 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/19 13:14:28 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/22 19:12:53 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+
+/*
+********************************************************************************
+**
+			// ft_printf("* le champion n°%d, nommé \033[38;2;%d;%d;%dm%s et pesant %d bytes (%s)\n",\
+			ft_printf("* le champion n°%d, nommé \033[38;2;%d;%d;%dm%s%s et pesant %d bytes (%s)\n",
+********************************************************************************
+*/
+
+void	introducing_contestants(t_corevm *vm)
+{
+	t_player		*player_to_introduce;
+
+	player_to_introduce = vm->info->first_player;
+	ft_printf("Nous avons le plaisir de vous presenter le combat entre ...\n");
+	while (player_to_introduce)
+	{
+		if (player_to_introduce)
+		{
+		// ft_printf("vm->tab_color[player_to_introduce->color] hexa %x int %d \n", vm->tab_color[player_to_introduce->color], vm->tab_color[player_to_introduce->color]);
+		// ft_printf("vm->tab_color[player_to_introduce->color] hexa %x int %d >> 16) & 0xff\n", (vm->tab_color[player_to_introduce->color] >> 16) & 0xff, (vm->tab_color[player_to_introduce->color] >> 16) & 0xff);
+		// ft_printf("vm->tab_color[player_to_introduce->color] hexa %x int %d >> 8) & 0xff\n", (vm->tab_color[player_to_introduce->color] >> 8) & 0xff, (vm->tab_color[player_to_introduce->color] >> 8) & 0xff);
+		// ft_printf("vm->tab_color[player_to_introduce->color] hexa %x int %d) & 0xff\n", (vm->tab_color[player_to_introduce->color]) & 0xff, (vm->tab_color[player_to_introduce->color]) & 0xff);
+			ft_printf("* le champion n°%d, nommé %s%d;%d;%dm%s%s et pesant %d bytes (%s)\n",
+			player_to_introduce->num, COLOR_LET_ON,
+			(vm->tab_color[player_to_introduce->color] >> 16) & 0xff,
+			(vm->tab_color[player_to_introduce->color] >> 8) & 0xff,
+			(vm->tab_color[player_to_introduce->color]) & 0xff,
+			player_to_introduce->header->prog_name, COLOR_OFF,
+			player_to_introduce->header->prog_size,
+			player_to_introduce->header->comment);
+/*ft_printf("* le champion n°%d, nommé %s et pesant %d bytes (%s)\n",\
+player_to_introduce->num, player_to_introduce->header->prog_name,\
+player_to_introduce->header->prog_size,\
+player_to_introduce->header->comment);*/
+		}
+		player_to_introduce = player_to_introduce->next;
+	}
+}
 
 /*
 ********************************************************************************

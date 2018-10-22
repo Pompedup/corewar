@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_live.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:44:17 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 19:09:05 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/22 11:46:02 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	ft_live(t_corevm *vm, t_process *process)
 
 	process->live++;
 	get_four_octets(vm, process, 0);
-	ft_printf("live process->args[0] %d\n", (short)process->args[0]);
 	i = 0;
 	while (process->num_player != vm->lives_player[i][0])
 		i++;

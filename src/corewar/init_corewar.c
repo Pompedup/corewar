@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 15:22:28 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/19 21:01:55 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/22 18:53:27 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	init_lives_player(t_corevm *vm)
 void	init_vm(char **av, t_corevm **vm)
 {
 	int	i;
+	static int	tab[] = {GREEN, PINK, BLUE, ORANGE, GREEN_S, PINK_S, BLUE_S,\
+	ORANGE_S, GREEN_PC, PINK_PC, BLUE_PC, ORANGE_PC, GREY_PC, GREY};
 
 	i = 0;
 	if (!(*vm = ft_memalloc(sizeof(t_corevm))))
@@ -61,7 +63,22 @@ void	init_vm(char **av, t_corevm **vm)
 		(*vm)->color[i++] = 13;
 	(*vm)->argv = av;
 	(*vm)->dump = -1;
-	(*vm)->octet_line_viz = ft_sqrt(MEM_SIZE);
+	(*vm)->octet_line_viz = 32;
+	(*vm)->tab_color = tab;
+	ft_printf("(*vm)->tab_color[0] hexa %x\n", (*vm)->tab_color[0]);
+	ft_printf("(*vm)->tab_color[1] hexa %x\n", (*vm)->tab_color[1]);
+	ft_printf("(*vm)->tab_color[2] hexa %x\n", (*vm)->tab_color[2]);
+	ft_printf("(*vm)->tab_color[3] hexa %x\n", (*vm)->tab_color[3]);
+	ft_printf("(*vm)->tab_color[4] hexa %x\n", (*vm)->tab_color[4]);
+	ft_printf("(*vm)->tab_color[5] hexa %x\n", (*vm)->tab_color[5]);
+	ft_printf("(*vm)->tab_color[6] hexa %x\n", (*vm)->tab_color[6]);
+	ft_printf("(*vm)->tab_color[7] hexa %x\n", (*vm)->tab_color[7]);
+	ft_printf("(*vm)->tab_color[8] hexa %x\n", (*vm)->tab_color[8]);
+	ft_printf("(*vm)->tab_color[9] hexa %x\n", (*vm)->tab_color[9]);
+	ft_printf("(*vm)->tab_color[10] hexa %x\n", (*vm)->tab_color[10]);
+	ft_printf("(*vm)->tab_color116] hexa %x\n", (*vm)->tab_color[11]);
+	ft_printf("(*vm)->tab_colo12[6] hexa %x\n", (*vm)->tab_color[12]);
+	ft_printf("(*vm)->tab_col13r[6] hexa %x\n", (*vm)->tab_color[13]);
 	(*vm)->cycle_to_die = CYCLE_TO_DIE;
 	if (!((*vm)->info = ft_memalloc(sizeof(t_info))))
 		ft_error(*vm, FAIL_MEMALLOC_0, 0);
