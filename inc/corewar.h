@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/22 19:25:13 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/22 19:30:15 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,14 @@
 # define COLOR_OFF			"\033[0m"
 # define CLEAR				"\e[J\x1b[H"
 
-# define GREEN				0x008200
+# define GREEN				0x00ff00
 # define PINK				0xff0000
-# define BLUE				0x0C8FE1
+# define BLUE				0x0000ff
 # define ORANGE				0xff8c00
 # define GREEN_S			0xcdefb2
-# define PINK_S				0xFF5C5C
-# define BLUE_S				0x64B7EC
-# define ORANGE_S			0xFFD097
+# define PINK_S				0xff0099
+# define BLUE_S				0xcfebfd
+# define ORANGE_S			0xfdc085
 # define GREEN_PC			0xace580
 # define PINK_PC			0xffb6c1
 # define BLUE_PC			0x9fd7fb
