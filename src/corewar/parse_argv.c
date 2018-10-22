@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 12:02:04 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/22 13:23:20 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/22 13:33:44 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,20 @@ void	add_player(t_corevm *vm, int i)
 
 int		get_dump(t_corevm *vm, int i)
 {
-	if (vm->argv[i])
+	if (!vm->argv[i])
+		ft_error(vm, ERR_MESS_3, 0);
+	else
 	{
 		if (!ft_strequ(vm->argv[i], "-b"))
-			vm->octet_line_viz = 32;
+			vm->octet_line_viz = ft_sqrt(MEM_SIZE);
+		else
+			i++;
 		if ((!(ft_strisall(vm->argv[i], &ft_isdigit)))\
 			|| (ft_strlen(vm->argv[i]) > 10 || (ft_strlen(vm->argv[i]) == 10\
-				&& ft_strcmp(vm->argv[i], "2147483647") > 0)))
-				ft_error(vm, ERR_MESS_2, 0);
+			&& ft_strcmp(vm->argv[i], "2147483647") > 0)))
+			ft_error(vm, ERR_MESS_2, 0);
 		vm->dump = ft_atoi(vm->argv[i]);
 	}
-			ft_error(vm, ERR_MESS_3, 0);
 	return (i);
 }
 
