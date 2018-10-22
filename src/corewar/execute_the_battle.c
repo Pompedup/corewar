@@ -6,11 +6,45 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/19 16:22:15 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/22 11:26:11 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+********************************************************************************
+**	declare_winner concludes corewar and declare the winner
+**	the winner is the player that made the last live
+********************************************************************************
+*/
+
+void	declare_winner(t_corevm *vm)
+{
+	int			i;
+	int			last_live;
+	t_player	*winner;
+
+	last_live = 0;
+	i = 0;
+	while (i < vm->info->nb_players - 1)
+	{
+		if (vm->lives_player[i][2] < vm->lives_player[i + 1][2])
+			last_live = i + 1;
+		i++;
+	}
+	winner = vm->info->first_player;
+	while (winner)
+	{
+		if (winner->num == vm->lives_player[last_live][0])
+		{
+			ft_printf("Le joueur %d(%s) a gagné\n",
+				vm->lives_player[last_live][0], winner->header->prog_name);
+			return ;
+		}
+		winner = winner->next;
+	}
+}
 
 /*
 ********************************************************************************
