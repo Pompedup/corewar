@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/22 19:30:15 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/24 13:54:24 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define ERR_MESS_14		"difference between progam size expected and read"
 # define ERR_MESS_15		"too many players"
 # define ERR_MESS_16		"at least one player is needed"
-# define ERR_MESS_17		"argument for number of player is not an int"
+# define ERR_MESS_17		"argument for number of player is not a positive int"
 # define ERR_MESS_18		"a player cannot have a number already given or 0"
 # define FAIL_MEMALLOC_00	"ft_memalloc of vm failed"
 # define FAIL_MEMALLOC_0	"ft_memalloc of vm->info failed"

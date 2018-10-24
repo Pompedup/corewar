@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 14:29:45 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/22 18:35:03 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/24 14:14:42 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,8 @@ void	print_core(t_corevm *vm)
 	j = 0;
 	// ft_printf("\E[H\E[2J");
 	// ft_printf("\e[H\e[2J");
-	ft_printf("\e[J\x1b[H");
+	ft_bzero(print, vm->octet_line_viz * 3 + 1);
+	ft_printf(CLEAR);
 	ft_printf("0x0000 : ");
 	while (i < MEM_SIZE)
 	{
@@ -148,6 +149,7 @@ void	dump_core(t_corevm *vm, int color)
 
 	i = 0;
 	j = 0;
+	ft_bzero(print, vm->octet_line_viz * 3 + 1);
 	ft_printf("0x0000 : ");
 	while (i < MEM_SIZE)
 	{
