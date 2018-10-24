@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_players.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:40:17 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 16:46:46 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/24 16:31:59 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 /*
 ********************************************************************************
-**	get_info_player fills in player->header
-** je remplie la structure header(ds op.h avec magic, name, p_s et comment)
-** et je recupere le programme du champion
+**	get_info_player fills in player->header with
+**	- the magic number
+**	- the name of the program
+**	- the size of the program
+**	- the comment
+**	- the actual program
 ********************************************************************************
 */
 
@@ -56,7 +59,7 @@ void	init_variable(t_corevm *vm, t_player *player, int num, int index_color)
 ********************************************************************************
 **	create_player uses double pointer to add at the end of the list
 **	vm->info->first_player the latest link containing the player info
-** je cree un maillon t_player que je lie a la structure t_info_players
+**	and then it initializes the variable and gets all the relevant info
 ********************************************************************************
 */
 

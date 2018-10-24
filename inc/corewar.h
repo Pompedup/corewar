@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/24 15:31:25 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/24 17:02:42 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,6 +246,7 @@ void					read_programme(t_player *player, t_corevm *vm, int fd);
 ********************************************************************************
 */
 
+int						def_col(t_corevm *vm, int index, int rgb);
 void					number_players(t_corevm *vm);
 int						unused_num(t_corevm *vm, int num);
 

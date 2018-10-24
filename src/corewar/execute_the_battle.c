@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/24 16:19:21 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/24 17:03:59 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,21 @@
 ********************************************************************************
 **	declare_winner concludes corewar and declare the winner
 **	the winner is the player that made the last live
+**
+**			ft_printf("Le joueur %d (%s%d;%d;%dm%s%s) a gagné au tour n°%d\n",
+**(ft_abs(vm->lives_player[last_live][0])), COLOR_LET_ON,\
+**(vm->tab_color[winner->color] >> 16) & 0xff, (vm->tab_color[winner->color]\
+** >> 8) & 0xff,\
+**(vm->tab_color[winner->color]) & 0xff, winner->header->prog_name, COLOR_OFF,\
+**vm->nbr_total_cycles);
 ********************************************************************************
 */
 
-void declare_winner(t_corevm *vm)
+void	declare_winner(t_corevm *vm)
 {
-	int i;
-	int last_live;
-	t_player *winner;
+	int			i;
+	int			last_live;
+	t_player	*winner;
 
 	last_live = 0;
 	i = 0;
@@ -39,13 +46,10 @@ void declare_winner(t_corevm *vm)
 		if (winner->num == vm->lives_player[last_live][0])
 		{
 			ft_printf("Le joueur %d (%s%d;%d;%dm%s%s) a gagné au tour n°%d\n",
-(vm->lives_player[last_live][0] > 0 ?\
-vm->lives_player[last_live][0] : -vm->lives_player[last_live][0]),\
-COLOR_LET_ON, (vm->tab_color[winner->color] >> 16) & 0xff,
-			(vm->tab_color[winner->color] >> 8) & 0xff,
-			(vm->tab_color[winner->color]) & 0xff,
-			winner->header->prog_name, COLOR_OFF, vm->nbr_total_cycles);
-			return;
+(ft_abs(vm->lives_player[last_live][0])), COLOR_LET_ON, def_col(vm,\
+winner->color, 1), def_col(vm, winner->color, 2), def_col(vm, winner->color,\
+3), winner->header->prog_name, COLOR_OFF, vm->nbr_total_cycles);
+			return ;
 		}
 		winner = winner->next;
 	}
