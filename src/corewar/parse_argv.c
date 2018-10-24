@@ -6,12 +6,20 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 12:02:04 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/22 17:07:15 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/24 16:10:34 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
+void	init_octet_line_viz(t_corevm *vm)
+{
+	if (vm->viz)
+	{
+		vm->dump = -1;
+		vm->octet_line_viz = ft_sqrt(MEM_SIZE);
+	}
+}
 /*
 ********************************************************************************
 **	add_player_with_num checks that the argv following -n is a positive int
@@ -126,6 +134,5 @@ void	parse_argv(t_corevm *vm)
 	}
 	if (vm->info->nb_players < 1)
 		ft_error(vm, ERR_MESS_16, 0);
-	if (vm->viz)
-		vm->dump = -1;
+	init_octet_line_viz(vm);
 }

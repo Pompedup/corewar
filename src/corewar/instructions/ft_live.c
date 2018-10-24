@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:44:17 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/22 11:46:02 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/24 16:20:37 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@ void	ft_live(t_corevm *vm, t_process *process)
 	while (process->num_player != vm->lives_player[i][0])
 		i++;
 	vm->lives_player[i][3] = 1;
-	while (process->args[0] != vm->lives_player[i][0]
-		&& i < vm->info->nb_players)
+	i = 0;
+	while (i < vm->info->nb_players
+		&& process->args[0] != vm->lives_player[i][0])
 		i++;
-	if (process->args[0] == vm->lives_player[i][0])
+	if (i < vm->info->nb_players)
 	{
 		vm->lives_player[i][1]++;
 		vm->lives_player[i][2] = vm->nbr_total_cycles;

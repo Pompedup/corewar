@@ -6,7 +6,7 @@
 #    By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/10/19 16:53:47 by ecesari          ###   ########.fr        #
+#    Updated: 2018/10/24 14:58:43 by ecesari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 
 CC =			@gcc
 
-FSANITIZE_FLAG = -fsanitize=address
+FSANITIZE_FLAG = -g# -fsanitize=address
 
 OBJ =			$(COMMON_OBJ)\
 				$(ASM_OBJ)\

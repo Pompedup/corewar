@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 13:36:25 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/24 14:06:57 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/24 15:56:15 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 			ft_printf("* le champion n°%d, nommé \033[38;2;%d;%d;%dm%s%s et pesant %d bytes (%s)\n",
 	ft_printf("\t  numéro\tnom du champion\t\tpoids du champion\tcommentaires\n");
 			ft_printf("\t* %d,\t\t%s%d;%d;%dm%s%s\t\t\t%d bytes\t\t\"%s\"\n",
+	ft_printf("\t  numéro\tnom du champion\t\tpoids du champion\tcommentaires\n");
 ********************************************************************************
 */
 
@@ -74,6 +75,7 @@ void	players_charged_in_core(t_corevm *vm)
 	while (player)
 	{
 		i = ((place / (float)vm->info->nb_players) * (float)MEM_SIZE);
+		ft_printf("i %d\n", i);
 		create_process(vm, i, player);
 		j = -1;
 		while (++j < player->len_process)

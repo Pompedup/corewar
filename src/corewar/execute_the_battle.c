@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/22 17:56:34 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/24 16:19:21 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,13 @@ void declare_winner(t_corevm *vm)
 	{
 		if (winner->num == vm->lives_player[last_live][0])
 		{
-			ft_printf("Le joueur %d(%s) a gagné au tour n°%d\n",
-vm->lives_player[last_live][0], winner->header->prog_name, vm->nbr_total_cycles);
+			ft_printf("Le joueur %d (%s%d;%d;%dm%s%s) a gagné au tour n°%d\n",
+(vm->lives_player[last_live][0] > 0 ?\
+vm->lives_player[last_live][0] : -vm->lives_player[last_live][0]),\
+COLOR_LET_ON, (vm->tab_color[winner->color] >> 16) & 0xff,
+			(vm->tab_color[winner->color] >> 8) & 0xff,
+			(vm->tab_color[winner->color]) & 0xff,
+			winner->header->prog_name, COLOR_OFF, vm->nbr_total_cycles);
 			return;
 		}
 		winner = winner->next;
@@ -167,7 +172,7 @@ void execute_the_battle(t_corevm *vm)
 		{
 			// if (vm->nbr_total_cycles > CYCLE_DEBUG + debug)
 			// {
-				print_core(vm);
+				// print_core(vm);
 				// char *line;
 				// while (get_next_line(0, &line) == 0);
 				// if (*line == 'q')
@@ -185,23 +190,23 @@ void execute_the_battle(t_corevm *vm)
 			// sleep(1);
 			// print_core(vm);
 		// }
-		//	if (PRINTF)
-		//	{
-		//		if (vm->nbr_total_cycles > CYCLE_DEBUG + debug)
-		//		{
-		//			print_core(vm);
-		//			ft_printf("-----------------------------------------------vm->nbr_total_cycles %d\n", vm->nbr_total_cycles);
-		//			ft_printf("+++++++++++++++++++++++++++++++++++++++vm->cycle to die %d\n", vm->cycle_to_die);
-		//			ft_printf("+++++++++++++++++++++++++++++++++++++++vm->nb_lives %d\n", vm->nb_lives);
-		//			ft_printf("+++++++++++++++++++++++++++++++++++++++cycle %d\n", cycle);
-		//			char *line;
-		//			while (get_next_line(0, &line) == 0);
-		//			if (*line == 'q')
-		//				exit(0);
-		//			debug += ft_atoi(line);
-		//			free(line);
-		//		}
-		//	}
+			if (PRINTF)
+			{
+				if (vm->nbr_total_cycles > CYCLE_DEBUG + debug)
+				{
+					print_core(vm);
+					ft_printf("-----------------------------------------------vm->nbr_total_cycles %d\n", vm->nbr_total_cycles);
+					ft_printf("+++++++++++++++++++++++++++++++++++++++vm->cycle to die %d\n", vm->cycle_to_die);
+					ft_printf("+++++++++++++++++++++++++++++++++++++++vm->nb_lives %d\n", vm->nb_lives);
+					ft_printf("+++++++++++++++++++++++++++++++++++++++cycle %d\n", cycle);
+					char *line;
+					while (get_next_line(0, &line) == 0);
+					if (*line == 'q')
+						exit(0);
+					debug += ft_atoi(line);
+					free(line);
+				}
+			}
 	}
 	if (PRINTF)
 		ft_printf("total cycle %d\n", vm->nbr_total_cycles);
