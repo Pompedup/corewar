@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/24 20:24:21 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/24 20:31:34 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,13 +191,16 @@ void	viz_debug(t_corevm *vm, int cycle, int *debug)
 	// {
 		// if (PRINTF)
 		// {
+			(void) cycle;
 			if (vm->nbr_total_cycles > CYCLE_DEBUG + *debug)
 			{
 				print_core(vm);
-				ft_printf("vm->nbr_total_cycles %d\n", vm->nbr_total_cycles);
-				ft_printf("vm->cycle to die %d\n", vm->cycle_to_die);
-				ft_printf("vm->nb_lives %d\n", vm->nb_lives);
-				ft_printf("cycle %d\n", cycle);
+				ft_printf("CYCLE\tvm->nbr_total_cycles %d\n", vm->nbr_total_cycles);
+				ft_printf("CYCLE TO DIE\tvm->cycle to die %d\n", vm->cycle_to_die);
+				ft_printf("LIVES TOTAL\tvm->nb_lives %d\n", vm->nb_lives);
+				ft_printf("LIVES IN CURRENT PERDIOD\n");
+				ft_printf("Nombre de process en cours \n");
+				ft_printf("CYCLE DELTA\n");
 				while (get_next_line(0, &line) == 0);
 				if (*line == 'q')
 				{
