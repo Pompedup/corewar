@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/24 17:02:42 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/24 20:13:23 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,6 +287,7 @@ void					put_process_front(t_process **first, \
 void					declare_winner(t_corevm *vm);
 void					execute_the_battle(t_corevm *vm);
 void					pc_color(t_corevm *vm, t_process *process);
+void					viz_debug(t_corevm *vm, int cycle, int debug);
 
 /*
 ********************************************************************************
