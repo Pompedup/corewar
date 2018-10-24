@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/24 20:14:24 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/24 20:24:21 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,9 +170,10 @@ void	execute_the_battle(t_corevm *vm)
 			process = process->next;
 		}
 		vm->nbr_total_cycles++;
+		// vm->nbr_total_cycles += debug;
 		cycle++;
-		// if (vm->viz)
-			viz_debug(vm, cycle, debug);
+		if (vm->viz)
+			viz_debug(vm, cycle, &debug);
 	}
 }
 
@@ -182,15 +183,15 @@ void	execute_the_battle(t_corevm *vm)
 ********************************************************************************
 */
 
-void	viz_debug(t_corevm *vm, int cycle, int debug)
+void	viz_debug(t_corevm *vm, int cycle, int *debug)
 {
 	char	*line;
 
-	if (vm->viz)
-	{
+	// if (vm->viz)
+	// {
 		// if (PRINTF)
 		// {
-			if (vm->nbr_total_cycles > CYCLE_DEBUG + debug)
+			if (vm->nbr_total_cycles > CYCLE_DEBUG + *debug)
 			{
 				print_core(vm);
 				ft_printf("vm->nbr_total_cycles %d\n", vm->nbr_total_cycles);
@@ -203,9 +204,9 @@ void	viz_debug(t_corevm *vm, int cycle, int debug)
 					free_vm(vm);
 					exit(0);
 				}
-				debug += ft_atoi(line);
+				*debug += ft_atoi(line);
 				free(line);
 			}
 		// }
-	}
+	// }
 }
