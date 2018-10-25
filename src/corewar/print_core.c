@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 14:29:45 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/25 13:39:49 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/25 15:22:55 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,11 @@ void	dump_core(t_corevm *vm, int color)
 	i = 0;
 	j = 0;
 	ft_bzero(print, vm->octet_line_viz * 3 + 1);
+	ft_printf("Voici l'arène au tour n°%d", vm->dump);
+	if (vm->dump_color)
+		ft_printf(", \e[4men couleur%s", COLOR_OFF);
+	ft_printf(" et au format \e[4m%d%s octets par ligne.\n", vm->octet_line_viz, COLOR_OFF);
+	ft_printf("%s%s%s%s%s%s%s\n", LN_FL_64);
 	ft_printf("0x0000 : ");
 	while (i < MEM_SIZE)
 	{

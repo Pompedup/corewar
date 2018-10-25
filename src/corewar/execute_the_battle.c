@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/25 13:37:05 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/25 16:07:33 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	declare_winner(t_corevm *vm)
 (ft_abs(vm->lives_player[last_live][0])), COLOR_LET_ON, def_col(vm,\
 winner->color, 1), def_col(vm, winner->color, 2), def_col(vm, winner->color,\
 3), winner->header->prog_name, COLOR_OFF, vm->nbr_total_cycles);
+			ft_printf("%s%s%s%s%s%s%s\n", LN_FL_64);
 			return ;
 		}
 		winner = winner->next;
@@ -88,8 +89,8 @@ void	who_still_lives(t_corevm *vm)
 	while (tmp)
 	{
 		i = 0;
-		while (tmp->num_player != vm->lives_player[i][0]\
-		&& i < vm->info->nb_players)
+		while (i < vm->info->nb_players\
+		&& tmp->num_player != vm->lives_player[i][0])
 			i++;
 		if (tmp->num_player == vm->lives_player[i][0]\
 		&& !vm->lives_player[i][1] && tmp->live < 1)

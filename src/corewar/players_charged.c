@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 13:36:25 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/25 11:46:19 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/25 15:55:05 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,16 @@ void	players_charged_in_core(t_corevm *vm)
 		player = player->next;
 	}
 	init_lives_player(vm);
+	i = 0;
+	player = vm->info->first_player;
+		ft_printf("dans Players_charged_in_core\n");
+	while (i < vm->info->nb_players && player)
+	{
+		ft_printf("vm->lives_player[%d][0] %d\n", i, vm->lives_player[i][0]);
+		ft_printf("vm->lives_player[%d][1] %d\n", i, vm->lives_player[i][1]);
+		ft_printf("vm->lives_player[%d][2] %d\n", i, vm->lives_player[i][2]);
+		ft_printf("vm->lives_player[%d][3] %d\n", i, vm->lives_player[i][3]);
+		i++;
+		player = player->next;
+	}
 }

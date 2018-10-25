@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 15:22:28 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/24 16:16:29 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/25 16:05:25 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 /*
 ********************************************************************************
-** init_lives_player
+**	init_lives_player
+**	-	vm->lives_player[i][0] = process->num_player;
+**	-	vm->lives_player[i][1] = number of lives made in one period
+**	(since last decrease of CYCLE_TO_DIE);
+**	-	vm->lives_player[i][2] = cycle of last live;
+**	-	vm->lives_player[i][3] = linked to the processes;
 ********************************************************************************
 */
 
