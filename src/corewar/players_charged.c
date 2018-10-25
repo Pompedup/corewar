@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 13:36:25 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/24 15:56:15 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/25 11:46:19 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	introducing_contestants(t_corevm *vm)
 	t_player		*player_to_introduce;
 
 	player_to_introduce = vm->info->first_player;
+	ft_printf("%s%s%s%s%s%s%s\n", LN_32, LN_32, LN_32, LN_32, LN_32, LN_32, LN_15);
 	ft_printf("Nous avons le plaisir de vous présenter le combat entre ...\n");
 	while (player_to_introduce)
 	{
@@ -53,6 +54,7 @@ player_to_introduce->header->comment);*/
 		}
 		player_to_introduce = player_to_introduce->next;
 	}
+	ft_printf("%s%s%s%s%s%s%s\n", LN_32, LN_32, LN_32, LN_32, LN_32, LN_32, LN_15);
 }
 
 /*
@@ -75,7 +77,6 @@ void	players_charged_in_core(t_corevm *vm)
 	while (player)
 	{
 		i = ((place / (float)vm->info->nb_players) * (float)MEM_SIZE);
-		ft_printf("i %d\n", i);
 		create_process(vm, i, player);
 		j = -1;
 		while (++j < player->len_process)

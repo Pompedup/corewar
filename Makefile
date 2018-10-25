@@ -6,7 +6,7 @@
 #    By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/10/24 14:58:43 by ecesari          ###   ########.fr        #
+#    Updated: 2018/10/25 13:38:57 by ecesari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ COREWAR_FILES =	corewar.c\
 				create_players.c\
 				print_core.c\
 				free_corewar.c\
+				viz.c\
 
 COMMON_SRC =	$(addprefix src/common/,$(COMMON_FILES))
 

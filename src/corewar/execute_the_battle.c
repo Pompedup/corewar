@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/24 20:31:34 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/25 13:37:05 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,10 +170,16 @@ void	execute_the_battle(t_corevm *vm)
 			process = process->next;
 		}
 		vm->nbr_total_cycles++;
-		// vm->nbr_total_cycles += debug;
 		cycle++;
 		if (vm->viz)
-			viz_debug(vm, cycle, &debug);
+		{
+			print_it_all(vm);
+			// ft_printf(CLEAR);
+			// print_core(vm);
+			// sleep(1);
+			// ft_printf("%s%s%s%s%s%s%s\n", LN_32, LN_32, LN_32, LN_32, LN_32, LN_32, LN_15);
+		}
+			// viz_debug(vm, cycle, &debug);
 	}
 }
 
@@ -186,7 +192,9 @@ void	execute_the_battle(t_corevm *vm)
 void	viz_debug(t_corevm *vm, int cycle, int *debug)
 {
 	char	*line;
+	int		turn;
 
+	turn = 0;
 	// if (vm->viz)
 	// {
 		// if (PRINTF)
@@ -195,19 +203,40 @@ void	viz_debug(t_corevm *vm, int cycle, int *debug)
 			if (vm->nbr_total_cycles > CYCLE_DEBUG + *debug)
 			{
 				print_core(vm);
-				ft_printf("CYCLE\tvm->nbr_total_cycles %d\n", vm->nbr_total_cycles);
-				ft_printf("CYCLE TO DIE\tvm->cycle to die %d\n", vm->cycle_to_die);
-				ft_printf("LIVES TOTAL\tvm->nb_lives %d\n", vm->nb_lives);
-				ft_printf("LIVES IN CURRENT PERDIOD\n");
-				ft_printf("Nombre de process en cours \n");
-				ft_printf("CYCLE DELTA\n");
+				ft_printf("%s%s%s%s%s%s%s\n", LN_32, LN_32, LN_32, LN_32, LN_32, LN_32, LN_15);
+				ft_printf("\n\tCYCLE\tvm->nbr_total_cycles %d\n", vm->nbr_total_cycles);
+				ft_printf("\tCYCLE TO DIE\tvm->cycle to die %d\n", vm->cycle_to_die);
+				ft_printf("\tLIVES TOTAL\tvm->nb_lives %d\n", vm->nb_lives);
+				ft_printf("\tLIVES IN CURRENT PERIOD\n");
+				ft_printf("\tNombre de process en cours \n");
+				ft_printf("\tCYCLE DELTA\n");
+				ft_printf("%s%s%s%s%s%s%s\n", LN_32, LN_32, LN_32, LN_32, LN_32, LN_32, LN_15);
 				while (get_next_line(0, &line) == 0);
+				// {
+					// turn++;
+					// ft_printf("-> turn '%d'\n", turn);
+				// }
 				if (*line == 'q')
 				{
 					free_vm(vm);
 					exit(0);
 				}
-				*debug += ft_atoi(line);
+				if (*line == 'c')
+				{
+					// while (*line != 'c')
+					{
+						turn++;
+						ft_printf("-> turn '%d'\n", turn);
+					}
+					// while (get_next_line(0, &line) == 0);
+					*debug += turn;// += ft_atoi(line);
+						// while (get_next_line(0, &line) == 0)
+					// while (!(*line) || (*line != 'c' && *line != 'q'))
+					ft_printf("*debug '%d'\n", *debug);
+					ft_printf("line '%s'\n", line);
+				}
+				else
+					*debug += ft_atoi(line);
 				free(line);
 			}
 		// }

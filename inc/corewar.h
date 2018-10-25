@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/24 20:23:58 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/25 13:37:42 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,15 @@
 
 /*
 ********************************************************************************
+**	FORMATTING OUTPUT
+********************************************************************************
+*/
+
+# define LN_32	"_______________________________"
+# define LN_15	"______________"
+
+/*
+********************************************************************************
 **	ORDONNE DANS LE SENS
 **	COULEUR CLASSIQUE 	0 	1 	2 	3
 **	SURBRILLANCE 		4 	5 	6 	7		(derniere instruction en date)
@@ -65,7 +74,8 @@
 # define COLOR_LET_BLACK	"\033[38;2;0;0;0m"
 # define COLOR_BG_ON		"\033[48;2;"
 # define COLOR_OFF			"\033[0m"
-# define CLEAR				"\e[J\x1b[H"
+# define CLEAR				"\e[H\e[2J"
+//# define CLEAR				"\e[J\x1b[H" //ne fonctionne pas
 
 # define GREEN				0x00ff00
 # define PINK				0xff0000
@@ -354,6 +364,14 @@ void					ft_aff(t_corevm *vm, t_process *process);
 
 void					print_core(t_corevm *vm);
 void					dump_core(t_corevm *vm, int color);
+
+/*
+********************************************************************************
+**						VIZ_C					     			 	  **
+********************************************************************************
+*/
+
+void					print_it_all(t_corevm *vm);
 
 /*
 ********************************************************************************
