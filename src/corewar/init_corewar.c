@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 15:22:28 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/25 16:05:25 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/25 19:21:19 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	init_lives_player(t_corevm *vm)
 
 void	init_vm(char **av, t_corevm **vm)
 {
-	int	i;
+	int			i;
 	static int	tab[] = {GREEN, PINK, BLUE, ORANGE, GREEN_S, PINK_S, BLUE_S,\
 	ORANGE_S, GREEN_PC, PINK_PC, BLUE_PC, ORANGE_PC, GREY_PC, GREY};
 

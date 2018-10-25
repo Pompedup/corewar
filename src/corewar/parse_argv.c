@@ -6,11 +6,17 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 12:02:04 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/24 16:10:34 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/25 19:26:15 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+********************************************************************************
+**	init_octet_line_viz helps define the width of viz on the standard output
+********************************************************************************
+*/
 
 void	init_octet_line_viz(t_corevm *vm)
 {
@@ -20,6 +26,7 @@ void	init_octet_line_viz(t_corevm *vm)
 		vm->octet_line_viz = ft_sqrt(MEM_SIZE);
 	}
 }
+
 /*
 ********************************************************************************
 **	add_player_with_num checks that the argv following -n is a positive int
@@ -61,14 +68,9 @@ void	add_player(t_corevm *vm, int i)
 /*
 ********************************************************************************
 **	get_dump checks that the number of cycles given is a positive int
-**
-** -------------------------- commentaire francais -----------------------------
-** on devrait peut etre ici gerer le define de ROOT et ROOT_SIZE
-**	(qui devrait peut etre s'appeler LINE) plutot que dans le corewar.h ????
-**	recupère	dump :
-** Au bout de nbr_cycles cycles d’exécution, dump la mémoire sur la sortie
-** standard,puis quitte la partie. (mémoire dumpée au format hexadécimal)
-** avec 32 octets par ligne.
+**	two options are possible
+**	-b to have a larger width displayed (64 bytes instead of 32)
+**	-c to display colors
 ********************************************************************************
 */
 
@@ -78,7 +80,7 @@ int		get_dump(t_corevm *vm, int i)
 		ft_error(vm, ERR_MESS_3, 0);
 	while (((!(ft_strisall(vm->argv[i], &ft_isdigit)))\
 		|| (ft_strlen(vm->argv[i]) > 10 || (ft_strlen(vm->argv[i]) == 10\
-			&& ft_strcmp(vm->argv[i], "2147483647") > 0))) && vm->argv[i + 1])
+		&& ft_strcmp(vm->argv[i], "2147483647") > 0))) && vm->argv[i + 1])
 	{
 		if (ft_strequ(vm->argv[i], "-b"))
 		{
@@ -103,9 +105,7 @@ int		get_dump(t_corevm *vm, int i)
 
 /*
 ********************************************************************************
-** parse_argv manages options (dump, visu, number of player)
-** -------------------------- commentaire francais -----------------------------
-** parsing des champions (et 2 options : -dump (lié a nbr_cycle) et -visu)
+** parse_argv manages options (dump, viz, number of player)
 ********************************************************************************
 */
 

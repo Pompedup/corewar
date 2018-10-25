@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/25 19:01:21 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/25 19:29:11 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define SHORT				32768
 # define UNSIGNED_CHAR		128
 # define USAGE 				USAGE1 USAGE2
-# define USAGE1				"Usage: ./corewar [-dump [-b] nbr_cycles]"
+# define USAGE1				"Usage: ./corewar [-dump [-b] [-c] nbr_cycles]"
 # define USAGE2				"[[-n number] champion1.cor] ..."
 # define ERR_MESS_00		"incorrect defines"
 # define ERR_MESS_01 		"(MEM_SIZE or REG_NUMBER are null or too big)"
@@ -41,7 +41,7 @@
 # define ERR_MESS_14		"difference between progam size expected and read"
 # define ERR_MESS_15		"too many players"
 # define ERR_MESS_16		"at least one player is needed"
-# define ERR_MESS_17		"argument for number of player is not a positive int"
+# define ERR_MESS_17		"argument for number of player not a positive int"
 # define ERR_MESS_18		"a player cannot have a number already given or 0"
 # define FAIL_MEMALLOC_00	"ft_memalloc of vm failed"
 # define FAIL_MEMALLOC_0	"ft_memalloc of vm->info failed"
@@ -141,9 +141,10 @@ typedef struct			s_player
 **		of arguments : - REG 01 (on 1 byte) | - DIR 10 (either on 2/4 bytes)
 ** 		- IND 11 (on 2 bytes) (i.e.	{T_REG , T_REG , T_REG} -> 0101 0100 54)
 **	- args[3] represents the array of the 3 possible arguments
-**	- color_live
+**	- color_live to enable the correct background color
 **	- nb_cycle_instruc
-**	- good_reg
+**	- good_reg to enable to check that reg[0] that keeps num_player
+**	has not been corrupted
 **	- *next
 ********************************************************************************
 */
@@ -168,7 +169,10 @@ typedef struct			s_process
 
 /*
 ********************************************************************************
-** structure pour gerer la liste chainée des players
+**	s_info contains
+**	- number of players
+**	- pointer to the first_player
+**	- pointer to the first_processus
 ********************************************************************************
 */
 
@@ -181,15 +185,26 @@ typedef struct			s_info
 
 /*
 ********************************************************************************
-**	t_corevm
-**	- core[MEM_SIZE] represents the actual vm (an array of char)
-**	- dump will be the nbr of cycles after which core will be printed on the
-**		standard output
-**	- nb_cycle
-**	-
-**argv pour le parsing
-** int	viz; option visu librairie possible : OpenGL, SDL, nCurses, ... (bonus)
-** t_info	*info; pointeur vers la structure qui gere la liste des players
+**	t_corevm contains
+**	- **argv, to access from anywhere the arguments of the program
+**	- viz, to set the option, overrides the option dump
+**	- info, pointer to struct s_info
+**	- core[MEM_SIZE], represents the actual vm (an array of char)
+**	- color[MEM_SIZE], represents colors for each cell of core[MEM_SIZE]
+**	- *tab_color, to rank the color defined above;
+**	- dump, to set the option of the nbr of cycles after which core will be
+**		printed on the standard output
+**	- dump_color, to set the option
+**	- nbr_total_cycles, is increased during the battle;
+**	- cycle_to_die, to be able to decrease with CYCLE_DELTA the define;
+**	- octet_line_viz, to set the width of either the viz or the dump;
+**	- nb_lives, to manage if there have been live calls since the last check;
+**	- lives_player[MAX_PLAYERS][4], an array to manage all info on processes,
+**			lives_player[i][0] = process->num_player;
+**			lives_player[i][1] = number of lives made in one period
+**				(since last decrease of CYCLE_TO_DIE);
+**			lives_player[i][2] = cycle of last live;
+**			lives_player[i][3] = linked to the processes;
 ********************************************************************************
 */
 
@@ -212,7 +227,7 @@ typedef struct			s_corevm
 
 /*
 ********************************************************************************
-**	-
+**	s_ptr_func manages the pointer on function
 ********************************************************************************
 */
 
@@ -231,12 +246,16 @@ extern t_ptr_func		g_instruc_func[];
 ********************************************************************************
 */
 
-void					init_vm(char **av, t_corevm **vm);
 void					init_lives_player(t_corevm *vm);
+void					init_vm(char **av, t_corevm **vm);
 
 /*
 ********************************************************************************
 **						PARSE_ARGV_C								 		  **
+**	int		get_dump(t_corevm *vm, int i)									  **
+**	void	add_player(t_corevm *vm, int i)									  **
+**	void	add_player_with_num(t_corevm *vm, int i)						  **
+**	void	init_octet_line_viz(t_corevm *vm)								  **
 ********************************************************************************
 */
 
@@ -244,7 +263,9 @@ void					parse_argv(t_corevm *vm);
 
 /*
 ********************************************************************************
-**						REGISTER_PLAYERS_C							 		  **
+**						CREATE_PLAYERS_C							 		  **
+**	void	get_info_player(t_player *player, t_corevm *vm, int i)			  **
+** void	init_variable(t_corevm *vm, t_player *player, int num, int index_color)*
 ********************************************************************************
 */
 

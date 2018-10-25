@@ -6,21 +6,15 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 13:36:25 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/25 15:55:05 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/25 19:51:31 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-
 /*
 ********************************************************************************
-**
-			// ft_printf("* le champion n°%d, nommé \033[38;2;%d;%d;%dm%s et pesant %d bytes (%s)\n",\
-			ft_printf("* le champion n°%d, nommé \033[38;2;%d;%d;%dm%s%s et pesant %d bytes (%s)\n",
-	ft_printf("\t  numéro\tnom du champion\t\tpoids du champion\tcommentaires\n");
-			ft_printf("\t* %d,\t\t%s%d;%d;%dm%s%s\t\t\t%d bytes\t\t\"%s\"\n",
-	ft_printf("\t  numéro\tnom du champion\t\tpoids du champion\tcommentaires\n");
+** introducing_contestants displays basic information about the champions
 ********************************************************************************
 */
 
@@ -29,32 +23,21 @@ void	introducing_contestants(t_corevm *vm)
 	t_player		*player_to_introduce;
 
 	player_to_introduce = vm->info->first_player;
-	ft_printf("%s%s%s%s%s%s%s\n", LN_32, LN_32, LN_32, LN_32, LN_32, LN_32, LN_15);
+	ft_printf("%s%s%s%s%s%s%s\n", LN_FL_64);
 	ft_printf("Nous avons le plaisir de vous présenter le combat entre ...\n");
 	while (player_to_introduce)
 	{
-		if (player_to_introduce)
-		{
-		// ft_printf("vm->tab_color[player_to_introduce->color] hexa %x int %d \n", vm->tab_color[player_to_introduce->color], vm->tab_color[player_to_introduce->color]);
-		// ft_printf("vm->tab_color[player_to_introduce->color] hexa %x int %d >> 16) & 0xff\n", (vm->tab_color[player_to_introduce->color] >> 16) & 0xff, (vm->tab_color[player_to_introduce->color] >> 16) & 0xff);
-		// ft_printf("vm->tab_color[player_to_introduce->color] hexa %x int %d >> 8) & 0xff\n", (vm->tab_color[player_to_introduce->color] >> 8) & 0xff, (vm->tab_color[player_to_introduce->color] >> 8) & 0xff);
-		// ft_printf("vm->tab_color[player_to_introduce->color] hexa %x int %d) & 0xff\n", (vm->tab_color[player_to_introduce->color]) & 0xff, (vm->tab_color[player_to_introduce->color]) & 0xff);
-			ft_printf("	* le champion n°%d, nommé %s%d;%d;%dm%s%s et pesant %d bytes (%s)\n",
-			(player_to_introduce->num > 0 ? player_to_introduce->num : -player_to_introduce->num), COLOR_LET_ON,
-			(vm->tab_color[player_to_introduce->color] >> 16) & 0xff,
-			(vm->tab_color[player_to_introduce->color] >> 8) & 0xff,
-			(vm->tab_color[player_to_introduce->color]) & 0xff,
-			player_to_introduce->header->prog_name, COLOR_OFF,
-			player_to_introduce->header->prog_size,
-			player_to_introduce->header->comment);
-/*ft_printf("* le champion n°%d, nommé %s et pesant %d bytes (%s)\n",\
-player_to_introduce->num, player_to_introduce->header->prog_name,\
-player_to_introduce->header->prog_size,\
-player_to_introduce->header->comment);*/
-		}
+		ft_printf("\t* le champion n°%d, nommé %s%d;%d;%dm%s%s\
+		et pesant %d bytes (%s)\n", ft_abs(player_to_introduce->num),
+		COLOR_LET_ON, def_col(vm, player_to_introduce->color, 1),
+		def_col(vm, player_to_introduce->color, 2),
+		def_col(vm, player_to_introduce->color, 3),
+		player_to_introduce->header->prog_name, COLOR_OFF,
+		player_to_introduce->header->prog_size,
+		player_to_introduce->header->comment);
 		player_to_introduce = player_to_introduce->next;
 	}
-	ft_printf("%s%s%s%s%s%s%s\n", LN_32, LN_32, LN_32, LN_32, LN_32, LN_32, LN_15);
+	ft_printf("%s%s%s%s%s%s%s\n", LN_FL_64);
 }
 
 /*
@@ -62,6 +45,18 @@ player_to_introduce->header->comment);*/
 **	players_charged_in_core transfers players into processes
 **	i will be the index in core (relative position of every player in core)
 **	place takes on values from 0 to nb->players
+	// i = 0;
+	// player = vm->info->first_player;
+	// 	ft_printf("dans Players_charged_in_core\n");
+	// while (i < vm->info->nb_players && player)
+	// {
+	// 	ft_printf("vm->lives_player[%d][0] %d\n", i, vm->lives_player[i][0]);
+	// 	ft_printf("vm->lives_player[%d][1] %d\n", i, vm->lives_player[i][1]);
+	// 	ft_printf("vm->lives_player[%d][2] %d\n", i, vm->lives_player[i][2]);
+	// 	ft_printf("vm->lives_player[%d][3] %d\n", i, vm->lives_player[i][3]);
+	// 	i++;
+	// 	player = player->next;
+	// }
 ********************************************************************************
 */
 
@@ -92,16 +87,4 @@ void	players_charged_in_core(t_corevm *vm)
 		player = player->next;
 	}
 	init_lives_player(vm);
-	i = 0;
-	player = vm->info->first_player;
-		ft_printf("dans Players_charged_in_core\n");
-	while (i < vm->info->nb_players && player)
-	{
-		ft_printf("vm->lives_player[%d][0] %d\n", i, vm->lives_player[i][0]);
-		ft_printf("vm->lives_player[%d][1] %d\n", i, vm->lives_player[i][1]);
-		ft_printf("vm->lives_player[%d][2] %d\n", i, vm->lives_player[i][2]);
-		ft_printf("vm->lives_player[%d][3] %d\n", i, vm->lives_player[i][3]);
-		i++;
-		player = player->next;
-	}
 }
