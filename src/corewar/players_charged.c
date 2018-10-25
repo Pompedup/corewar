@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 13:36:25 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/25 19:51:31 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/25 19:54:50 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	introducing_contestants(t_corevm *vm)
 **	players_charged_in_core transfers players into processes
 **	i will be the index in core (relative position of every player in core)
 **	place takes on values from 0 to nb->players
+**	init_lives_player defines the value for each line of the array
 	// i = 0;
 	// player = vm->info->first_player;
 	// 	ft_printf("dans Players_charged_in_core\n");

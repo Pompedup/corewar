@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/25 19:29:11 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/25 20:46:19 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,12 +324,14 @@ void					put_process_front(t_process **first, \
 /*
 ********************************************************************************
 **						EXECUTE_THE_BATTLE_C						     	  **
+**	void	who_still_lives(t_corevm *vm)
+**	int		live_executed_in_one_cycle(t_corevm *vm, int cycle)
 ********************************************************************************
 */
 
 void					declare_winner(t_corevm *vm);
-void					execute_the_battle(t_corevm *vm);
 void					pc_color(t_corevm *vm, t_process *process);
+void					execute_the_battle(t_corevm *vm);
 void					viz_debug(t_corevm *vm, int cycle, int *debug);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 15:13:34 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/25 19:01:08 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/25 20:00:37 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ********************************************************************************
 **  put_process_front enables the latest player to play first
-** le dernier joueur né joue en premier.
 ********************************************************************************
 */
 
@@ -28,6 +27,7 @@ void		put_process_front(t_process **first, t_process *process)
 /*
 ********************************************************************************
 **  create_process translates the player information into a process
+**	vm->color are changed for the fork
 ********************************************************************************
 */
 

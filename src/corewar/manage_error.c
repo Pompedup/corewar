@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 18:32:47 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/19 19:53:14 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/25 19:58:26 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ********************************************************************************
 **	ft_error prints on stder the error message and calls free_vm
-**	can't perform open - read - close
+**	in case we cannot perform open - read - close of the files
 ********************************************************************************
 */
 
@@ -35,7 +35,8 @@ void	ft_error(t_corevm *vm, char *mess_error, int to_free)
 
 /*
 ********************************************************************************
-** ft_read_error
+**	ft_read_error calls ft_error in case we cannot close the file
+**	and frees the mess_error
 ********************************************************************************
 */
 
