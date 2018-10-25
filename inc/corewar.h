@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/25 18:57:47 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/25 19:01:21 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ typedef struct			s_player
 **		of arguments : - REG 01 (on 1 byte) | - DIR 10 (either on 2/4 bytes)
 ** 		- IND 11 (on 2 bytes) (i.e.	{T_REG , T_REG , T_REG} -> 0101 0100 54)
 **	- args[3] represents the array of the 3 possible arguments
+**	- color_live
 **	- nb_cycle_instruc
 **	- good_reg
 **	- *next
@@ -159,6 +160,7 @@ typedef struct			s_process
 	int					live;
 	int					type_instruc[2];
 	int					args[3];
+	int					color_live;
 	int					nb_cycle_instruc;
 	int					good_reg;
 	struct s_process	*next;

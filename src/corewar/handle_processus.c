@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 15:13:34 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/25 18:57:37 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/25 19:01:08 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_process	*create_process(t_corevm *vm, int pc, t_player *player)
 		ft_error(vm, FAIL_MEMALLOC_3, 0);
 	process->pc = pc;
 	process->color = player->color;
+	process->color_live = -1;
 	if (vm->color[pc] < 8)
 		vm->color[pc] =
 			vm->color[pc] < 4 ? vm->color[pc] + 8 : vm->color[pc] + 4;
