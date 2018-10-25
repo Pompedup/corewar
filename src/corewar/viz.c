@@ -6,11 +6,17 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 12:24:37 by ecesari           #+#    #+#             */
-/*   Updated: 2018/10/25 16:15:20 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/25 17:38:58 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+********************************************************************************
+** count_processes returns the total number of processes
+********************************************************************************
+*/
 
 int	count_processes(t_corevm *vm)
 {
@@ -29,7 +35,7 @@ int	count_processes(t_corevm *vm)
 
 /*
 ********************************************************************************
-** print_header_viz
+** print_header_viz displays the header of Corewar
 ********************************************************************************
 */
 
@@ -38,12 +44,13 @@ void	print_header_viz(t_corevm *vm)
 	// if (vm->octet_line_viz == ft)
 	// ft_printf("%*s%s\n", ft_sqrt(LN_FL_64_MEMSIZE), "_");
 	ft_printf("%s%s%s%s%s%s%s\n", LN_FL_64);
-	ft_printf("\n%*s%s\n", (vm->octet_line_viz * 3 + 1)/2, "", "COREWAR");
+	ft_printf("\n%*s%s\n", (vm->octet_line_viz * 3 + 1)/2, "",\
+	"COREWAR POUR LES DALTONIENS");
 }
 
 /*
 ********************************************************************************
-** print_introduction
+** print_introduction displays basic informations about the battle to occur
 ********************************************************************************
 */
 
@@ -75,7 +82,14 @@ void	print_introduction(t_corevm *vm)
 
 /*
 ********************************************************************************
-** print_summary
+** print_summary displays the basic informations on the battle happening
+** - current cycle
+** - ongoing processes
+** - champions (numbers and name)
+** - cycle of last live OR cycle of death
+** - number of lives for the current period (and percentages)
+** - () period (number and beginning cycle)
+** - constants (cycles_to_die, cycle_delta, nbr_live, max_checks)
 ********************************************************************************
 */
 
@@ -111,7 +125,7 @@ void	print_summary(t_corevm *vm)
 		}
 			ft_printf("\t\t\t");
 		player = player->next;
-		}
+	}
 	ft_putendl("");
 	player = vm->info->first_player;
 	while (player)
@@ -134,7 +148,7 @@ void	print_summary(t_corevm *vm)
 
 /*
 ********************************************************************************
-** print_it_all
+** print_it_all call every function to correctly display our viz
 ********************************************************************************
 */
 
@@ -146,5 +160,4 @@ void	print_it_all(t_corevm *vm)
 	print_core(vm);
 	print_summary(vm);
 	usleep(100000);
-
 }

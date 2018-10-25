@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_processus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 15:13:34 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/19 13:08:49 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/25 18:57:37 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ t_process	*create_process(t_corevm *vm, int pc, t_player *player)
 	if (!(process = ft_memalloc(sizeof(t_process))))
 		ft_error(vm, FAIL_MEMALLOC_3, 0);
 	process->pc = pc;
-	process->color_live = -1;
 	process->color = player->color;
 	if (vm->color[pc] < 8)
 		vm->color[pc] =

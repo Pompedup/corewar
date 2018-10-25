@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/25 14:44:40 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/25 18:57:47 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,28 @@
 
 /*
 ********************************************************************************
-**	FORMATTING OUTPUT
+**	To help format our viz
 ********************************************************************************
 */
 
-# define LN_FL_64_MEMSIZE	MEM_SIZE
-# define LN_FL_64	LN_32, LN_32, LN_32, LN_32, LN_32, LN_32, LN_15
-# define LN_32	"_______________________________"
-# define LN_15	"______________"
+//# define LN_FL_64_MEMSIZE	MEM_SIZE //to see if there is a better way to do depending
+# define LN_FL_64			LN_32, LN_32, LN_32, LN_32, LN_32, LN_32, LN_15
+# define LN_32				"_______________________________"
+# define LN_15				"______________"
 
 /*
 ********************************************************************************
-**	ORDONNE DANS LE SENS
-**	COULEUR CLASSIQUE 	0 	1 	2 	3
-**	SURBRILLANCE 		4 	5 	6 	7		(derniere instruction en date)
-**	SURLIGNEMENT PC		8 	9 	10	11 12
-**	GRIS				13
+**	To help put color in our vm->core
+**	Ansi characters to display letters in color
+**	Ansi characters to display letters in white
+**	Ansi characters to display letters in black
+**	Ansi characters to display the background in color
+**	Ansi characters to reset
+**	Ansi characters to clear the screen (2J) and move the cursor on top left (H)
+**	First, simple color			0 	1 	2 	3
+**	then highlight 				4 	5 	6 	7		(latest instruction)
+**	finally background			8 	9 	10	11 	12	(for the program counter)
+**	grey for everything else	13
 ********************************************************************************
 */
 
@@ -77,8 +83,6 @@
 # define COLOR_BG_ON		"\033[48;2;"
 # define COLOR_OFF			"\033[0m"
 # define CLEAR				"\e[H\e[2J"
-//# define CLEAR				"\e[J\x1b[H" //ne fonctionne pas
-
 # define GREEN				0x00ff00
 # define PINK				0xff0000
 # define BLUE				0x0000ff
@@ -99,7 +103,7 @@
 **	s_player contains
 **	- number of player (either from 1 to MAX_PLAYER or set through option -n)
 **	- name_file from the file that detailed the champion
-**	- color (as defined by the order set in TAB_COLOR with number of player)
+**	- color (as defined by the order set in vm->tab_color with number of player)
 **	- header refers to the structure defined in common.h
 **	- process (the array of char with the entire champion used to fill vm->core)
 **	- len_process (the lenght of the player process)
@@ -122,16 +126,21 @@ typedef struct			s_player
 ********************************************************************************
 **	s_process defined either by the player or the parent proccess for (l)fork
 **	- name of program
-**	- color
 **	- num_player
+**	- color, as defined thanks to the num player
 **	- reg[REG_NUMBER]
 **	- pc
-**	- pc_tmp
-**	- carry,
-**	- live
-**	- type_instruc[2]
-**	- args[3]
-**	- color_live
+**	- pc_tmp, to advance during the instructions
+**	- carry, affected only by ld, add, sub, and, or, xor, ldi, sti, lld, lldi
+**	and aff. Initially at 0, it can be set at 1 if the instruction is successful
+**	that is if the result is 0
+**	- live, counts the amount of live and is set at -1 if the process is dead
+**	- type_instruc[2],
+**		type_instruc[0] represents the id in g_op_tab,
+**		type_instruc[1] represents the unique key resulting from the combination
+**		of arguments : - REG 01 (on 1 byte) | - DIR 10 (either on 2/4 bytes)
+** 		- IND 11 (on 2 bytes) (i.e.	{T_REG , T_REG , T_REG} -> 0101 0100 54)
+**	- args[3] represents the array of the 3 possible arguments
 **	- nb_cycle_instruc
 **	- good_reg
 **	- *next
@@ -141,8 +150,8 @@ typedef struct			s_player
 typedef struct			s_process
 {
 	char				name[PROG_NAME_LENGTH + 1];
-	int					color;
 	int					num_player;
+	int					color;
 	int					reg[REG_NUMBER];
 	int					pc;
 	int					pc_tmp;
@@ -150,7 +159,6 @@ typedef struct			s_process
 	int					live;
 	int					type_instruc[2];
 	int					args[3];
-	int					color_live;
 	int					nb_cycle_instruc;
 	int					good_reg;
 	struct s_process	*next;

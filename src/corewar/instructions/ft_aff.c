@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_aff.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:36:44 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 16:36:51 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/25 18:13:32 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,5 @@ void		ft_aff(t_corevm *vm, t_process *process)
 		c = (char)(process->reg[process->args[0]] % 256);
 		write(1, &c, 1);
 	}
+	//process->carry = (process->reg[process->args[0]]) ? 1 : 0;//a voir car dans global.c aff affecte bien carry
 }

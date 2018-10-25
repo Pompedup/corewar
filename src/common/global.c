@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 21:06:11 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/19 21:13:24 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/25 18:36:32 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@
 **	- int 	nb_cycle_instruction, either 5, 6, 10, 20, 25, 800 or 1000
 **	- char 	*description,
 **	- int 	ind, that is the flag for carry
-**	- int	dir;
+**	- int	dir,
+**			that is 1 if it is the direct is encoded on 2 bytes,
+**			else it's 0 if there is no direct or if it is encoded on 4 bytes;
 ** {T_REG | T_DIR | T_IND,  1 | 2 | 4 -> 00 00 01 11
+** {shortcut, nbr_arg, accept[3], id, nb_cycle_instruction, descript, ind, dir}
 ********************************************************************************
 */
 
