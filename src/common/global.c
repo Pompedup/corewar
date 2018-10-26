@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 21:06:11 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/25 18:36:32 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/26 12:57:49 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 **	- int 	nbr_arg, either 1, 2 or 3
 **	- char 	accept[3], array of acceptable types of arguments
 **	- int 	id, opcode
-**	- int 	nb_cycle_instruction, either 5, 6, 10, 20, 25, 800 or 1000
+**	- int 	nb_cycle_instruction, either 2, 5, 6, 10, 20, 25, 800 or 1000
 **	- char 	*description,
 **	- int 	ind, that is the flag for carry
 **	- int	dir,

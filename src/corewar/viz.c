@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 12:24:37 by ecesari           #+#    #+#             */
-/*   Updated: 2018/10/25 20:50:39 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/26 12:54:02 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,14 +127,16 @@ void	print_summary(t_corevm *vm)
 		player = player->next;
 	}
 	ft_putendl("");
+	int i = 0;
 	player = vm->info->first_player;
 	while (player)
 	{
 		// if (player)
 		// {
-			ft_printf("\t\ttour de la derniere vie %d-\t", vm->lives_player[player->num][2]);
+			ft_printf("\t\tderniere vie executee au tour %d-\t", vm->lives_player[i][2]);
 			// ft_printf("\t\tnombre de vie -\t\t\t");
 		// }
+		i++;
 		player = player->next;
 	}
 

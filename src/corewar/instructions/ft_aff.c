@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:36:44 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/25 18:13:32 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/26 13:14:02 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,11 @@ void		ft_aff(t_corevm *vm, t_process *process)
 {
 	unsigned char	c;
 
-	process->pc_tmp++;
 	get_one_octet(vm, process, 0);
 	if (process->good_reg)
 	{
 		c = (char)(process->reg[process->args[0]] % 256);
 		write(1, &c, 1);
 	}
-	//process->carry = (process->reg[process->args[0]]) ? 1 : 0;//a voir car dans global.c aff affecte bien carry
+	process->carry = (process->reg[process->args[0]]) ? 0 : 1;
 }

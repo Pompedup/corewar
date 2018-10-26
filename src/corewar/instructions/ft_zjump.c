@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:33:22 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 17:07:41 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/26 13:03:17 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 void	ft_zjmp(t_corevm *vm, t_process *process)
 {
+	ft_printf("dans zjmp process->carry %d \n", process->carry);
 	get_two_octets(vm, process, 0);
 	if (!process->carry)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/25 20:47:54 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/26 13:13:50 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,13 +174,13 @@ void	execute_the_battle(t_corevm *vm)
 		cycle++;
 		if (vm->viz)
 		{
-			print_it_all(vm);
+			// print_it_all(vm);
 			// ft_printf(CLEAR);
 			// print_core(vm);
 			// sleep(1);
 			// ft_printf("%s%s%s%s%s%s%s\n", LN_32, LN_32, LN_32, LN_32, LN_32, LN_32, LN_15);
+			viz_debug(vm, cycle, &debug);
 		}
-			// viz_debug(vm, cycle, &debug);
 	}
 }
 
@@ -222,21 +222,21 @@ void	viz_debug(t_corevm *vm, int cycle, int *debug)
 					free_vm(vm);
 					exit(0);
 				}
-				if (*line == 'c')
-				{
+				// if (*line == 'c')
+				// {
 					// while (*line != 'c')
-					{
-						turn++;
-						ft_printf("-> turn '%d'\n", turn);
-					}
+					// {
+						// turn++;
+						// ft_printf("-> turn '%d'\n", turn);
+					// }
 					// while (get_next_line(0, &line) == 0);
-					*debug += turn;// += ft_atoi(line);
+					// *debug += turn;// += ft_atoi(line);
 						// while (get_next_line(0, &line) == 0)
 					// while (!(*line) || (*line != 'c' && *line != 'q'))
-					ft_printf("*debug '%d'\n", *debug);
-					ft_printf("line '%s'\n", line);
-				}
-				else
+					// ft_printf("*debug '%d'\n", *debug);
+					// ft_printf("line '%s'\n", line);
+				// }
+				// else
 					*debug += ft_atoi(line);
 				free(line);
 			}
