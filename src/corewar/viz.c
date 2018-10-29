@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 12:24:37 by ecesari           #+#    #+#             */
-/*   Updated: 2018/10/26 13:30:00 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/29 14:19:27 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	print_introduction(t_corevm *vm)
 void	print_summary(t_corevm *vm)
 {
 	t_player		*player;
-	t_process		*process;
+	// t_process		*process;
 
 	ft_printf("%s%s%s%s%s%s%s\n", LN_FL_64);
 	ft_printf("\t\tCycle en cours\t:\t%d\t\t", vm->nbr_total_cycles);
@@ -111,29 +111,46 @@ void	print_summary(t_corevm *vm)
 	ft_abs(player->num), COLOR_LET_ON,
 	def_col(vm, player->color, 1), def_col(vm, player->color, 2),
 	def_col(vm, player->color, 3), player->header->prog_name, COLOR_OFF);
-	process = vm->info->first_processus;
-		while (process)
-		{
-			if (process->num_player == player->num)
-			{
-				if (process->live == -1)
-					ft_printf("☠️");
-				else
-					ft_printf("🤗");
-			}
-			process = process->next;
-		}
+
+	// process = vm->info->first_processus;
+	// 	while (process)
+	// 	{
+	// 		if (process->num_player == player->num)
+	// 		{
+	// 			if (process->live == -1)
+	// 				ft_printf("☠️");
+	// 			else
+	// 				ft_printf("🤗");
+	// 		}
+	// 		process = process->next;
+	// 	}
 			ft_printf("\t\t\t");
 		player = player->next;
 	}
 	ft_putendl("");
+
 	int i = 0;
+	player = vm->info->first_player;
+	while (player)
+	{
+			ft_printf("\t");
+		if (vm->lives_player[i][3] == 0)
+			ft_printf("\t☠️");
+		else
+			ft_printf("\t🤗");
+		i++;
+			ft_printf("\t\t\t\t");
+		player = player->next;
+	}
+	ft_putendl("");
+
+	i = 0;
 	player = vm->info->first_player;
 	while (player)
 	{
 		// if (player)
 		// {
-			ft_printf("\t\tderniere vie executee au tour %d-\t", vm->lives_player[i][2]);
+			ft_printf("\t\tderniere vie executee au tour - %d -", vm->lives_player[i][2]);
 			// ft_printf("\t\tnombre de vie -\t\t\t");
 		// }
 		i++;

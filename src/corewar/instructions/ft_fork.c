@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:40:03 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 19:08:34 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/29 16:58:57 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,11 @@
 
 /*
 ********************************************************************************
-** 0x0c
-** fork -> cree un nouveau programme qui est execute a ladresse :
-** (PC + (first parameter % IDX_MOD)
-** Fork %34 crée un nouveau programme a (PC + (34 % IDX_MOD)
-** Le nouveau programme herite des differents etats du pere
-** Usage : fork S(D2)
-** ft_printf(" process->args[0]  %x\n", (process->args[0] ));
-** ft_printf(" (process->args[0] & (IDX_MOD - 1) %d\n", (process->args[0]
-** & (IDX_MOD - 1)));
-** ft_printf("FORKKKKKKKKK fork->pc %d\n)",  fork->pc);
-**
-**
+**	ft_fork
+**	opcode 0x0c
+**  usage : fork ARG_1(D2)
+**	creates a new process to be placed at the adress (PC + (ARG_1 % IDX_MOD)
+**	the new process inherits every state from the father
 ********************************************************************************
 */
 

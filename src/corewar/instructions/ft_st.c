@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_st.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/19 11:07:13 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 16:27:35 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/29 19:29:08 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 /*
 ********************************************************************************
-** 0x03
-** st -> store, met la valeur du 1er arg(un registre) dans le 2eme
-** Usage : st S(RG), D(RG/ID)
-** ft_printf("STORE value[0] x '%x' value[1] x '%d'\n", values[0], values[1]);
-** ft_printf("STORE value[0] d '%d' value[1] d '%d'\n", values[0], values[1]);
-** ft_printf("STORE process->args[1] '%d'  \n", (short)process->args[1]);
+**	ft_st
+**	opcode 0x03
+**  usage : st ARG_1(RG), ARG_2(RG/ID)
+**	stores ARG_1 in reg ARG_2 or at ind ARG_2
+**	we change the color to highlight the result of st as the latest instruction
 ********************************************************************************
 */
 

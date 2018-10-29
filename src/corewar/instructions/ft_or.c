@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_or.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:45:52 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 16:45:53 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/29 19:24:32 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 
 /*
 ********************************************************************************
-** 0x07
-** ou inclusif
-** OR bit à bit : l'arg1 | l'arg2 et met le resultat dans l'arg3
-** modifie le carry
-** Usage : or S(RG/ID/D4), S(RG/ID/D4), D(RG)
+**	ft_or
+**	opcode 0x07, changes carry if the result is null
+**  usage : or ARG_1(RG/ID/D4), ARG_2(RG/ID/D4), ARG_3(RG)
+**	applies | (bitwise or) on ARG_1 | ARG_2 and stores the result in ARG_3 reg
 ********************************************************************************
 */
 
-void		ft_or(t_corevm *vm, t_process *process)
+void	ft_or(t_corevm *vm, t_process *process)
 {
 	int	*values;
 

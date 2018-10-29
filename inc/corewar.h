@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/26 13:35:46 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/29 14:12:55 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "common.h"
 
-# define CYCLE_DEBUG		0
+# define CYCLE_DEBUG		20000
 # define PRINTF				1
 # define SHORT				32768
 # define UNSIGNED_CHAR		128

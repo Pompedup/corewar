@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lldi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:45:30 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 16:46:03 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/29 19:32:11 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,12 @@
 
 /*
 ********************************************************************************
-** 0x0e
-** lldi -> long long load indice, comme le load indice sans le % IDX_MOD
-** les parametres 1 et 2 sont des index.
-** qu'on dditionnne on nomme cette somme S.
-** quon copie dans le 3eme arg qui est un registre
-** modifie le carry
-** Usage : lldi S(RG/ID/D2), S(ID/D2), D(RG)
-** ft_printf("LONG LOAD INDICE values[0] x %x x %x \n", values[0], values[1]);
-** ft_printf("LONG LOAD INDICE values[0] d %d d %d \n", values[0], values[1]);
+**	ft_lldi
+**	opcode 0x0a, changes the carry
+**  usage : lldi ARG_1(RG/ID/D2), ARG_2(ID/D2), ARG_3(RG)
+**	same as ldi but without % IDX_MOD
+**	reads REG_SIZE at the adress process->pc + (ARG_1 + ARG_2) and stores it
+**	in ARG_3
 ********************************************************************************
 */
 

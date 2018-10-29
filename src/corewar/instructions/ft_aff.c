@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:36:44 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/26 13:14:02 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/29 16:47:11 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 /*
 ********************************************************************************
-** 0x10
-** affiche le caractère dont le code ascii est présent dans ce registre
-** (un modulo 256 est applique au code ascii,
-** Usage : aff S(RG)
+**	ft_aff
+** 	opcode 0x10, changes the carry if aff is null
+** 	usage : aff ARG_1(RG)
+**	displays the character of which the ASCII code (%256) is stored in ARG_1
 ********************************************************************************
 */
 

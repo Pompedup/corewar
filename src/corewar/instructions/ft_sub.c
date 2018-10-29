@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sub.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:31:46 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 16:32:10 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/29 19:39:11 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 /*
 ********************************************************************************
-** 0x05
-** soustraction : l'arg1 - l'arg2 et met le resultat dans l'arg3
-** modifie le carry
-** Usage : sub S(RG), S(RG), D(RG)
+**	ft_sub
+**	opcode 0x05, changes carry if the result is null
+**	usage : sub ARG_1(RG), ARG_2(RG), ARG_3(RG)
+**	substracts the value in ARG_2 to the value in ARG_1 and puts it in ARG_3
 ********************************************************************************
 */
 

@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/26 13:08:20 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/26 15:55:56 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	execute_instruction(t_corevm *vm, t_process *process)
 {
 	int	i;
 
-		ft_printf("	process->type_instruc[0] %x \n", process->type_instruc[0]);
+		// ft_printf("	process->type_instruc[0] %x \n", process->type_instruc[0]);
 	if (g_op_tab[process->type_instruc[0]].nbr_arg > 1
 		|| g_op_tab[process->type_instruc[0]].id == 16)
 	{
@@ -77,7 +77,7 @@ void	execute_instruction(t_corevm *vm, t_process *process)
 	else
 	{
 		// ft_printf("g_op_tab[process->type_instruc[0] %x \n", g_op_tab[process->type_instruc[0]]);
-		ft_printf("execute process->carry %d \n", process->carry);
+		// ft_printf("execute process->carry %d \n", process->carry);
 		g_instruc_func[process->type_instruc[0]].ptrfunc(vm, process);
 	}
 	i = 0;
