@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 12:24:37 by ecesari           #+#    #+#             */
-/*   Updated: 2018/10/30 15:04:39 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/30 18:27:31 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,20 @@ void	display_evolution_cycle(t_corevm *vm)
 void	display_name_champions(t_corevm *vm)
 {
 	t_player	*player;
+	int			padding;
 
 	ft_printf("Champions");
 	player = vm->info->first_player;
 	while (player)
 	{
-		ft_printf("\tn°%d - %s%d;%d;%dm%s%s -\t",
+		padding = vm->info->padding - player->precision;
+		// ft_printf("player->precision %d \n", player->precision);
+		// ft_printf("vm->info->padding %d \n", vm->info->padding);
+		// ft_printf("padding %d \n", padding);
+		ft_printf("\tn°%d - %s%d;%d;%dm%.*s%s -%*s",
 		ft_abs(player->num), COLOR_LET_ON, def_col(vm, player->color, 1),
 		def_col(vm, player->color, 2), def_col(vm, player->color, 3),
-		player->header->prog_name, COLOR_OFF);
-		ft_printf("\t\t\t");
+		player->precision, player->header->prog_name, COLOR_OFF, padding, "");
 		player = player->next;
 	}
 	ft_putendl("");
@@ -134,12 +138,21 @@ void	display_percentage_lives(t_corevm *vm)
 {
 	t_player	*player;
 	int 		i;
+	float		total_lives_correct;
+	int			percent;
 
 	player = vm->info->first_player;
+	total_lives_correct = 0;
+	i = 0;
+	while (i < vm->info->nb_players)
+		total_lives_correct += vm->lives_player[i++][1];
+	percent = 0;
 	i = vm->info->nb_players - 1;
 	while (i >= 0)
 	{
-		ft_printf("\t\tpourcentage de vie sur total - -", vm->lives_player[i][1]);
+		if (total_lives_correct)
+			percent = (int)(((float)vm->lives_player[i][1] / total_lives_correct) * 100);
+		ft_printf("\t\tpourcentage de vie sur total - %d%%-", percent);
 		i--;
 		player = player->next;
 	}

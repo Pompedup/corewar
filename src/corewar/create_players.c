@@ -6,11 +6,34 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:40:17 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/25 19:35:47 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/30 18:20:19 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+********************************************************************************
+**
+********************************************************************************
+*/
+
+int	lenght_display_name(char *name, int padding)
+{
+	int		lenght;
+	char	*new_line;
+
+	if ((new_line = ft_strchr(name, '\n')))
+	{
+		if (new_line - name > padding)
+			lenght = padding;
+		else
+			lenght = new_line - name;
+	}
+	else
+		lenght = (int)ft_strlen(name) > padding ? padding : ft_strlen(name);
+	return (lenght);
+}
 
 /*
 ********************************************************************************
@@ -75,7 +98,7 @@ void	create_player(t_corevm *vm, int num, int index)
 		ft_error(vm, FAIL_MEMALLOC_1, 0);
 	(*player)->name_file = vm->argv[index];
 	init_variable(vm, (*player), num, index_color);
-	index_color++;
 	get_info_player((*player), vm, index);
+	index_color++;
 	vm->info->nb_players++;
 }

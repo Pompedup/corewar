@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/11 13:36:25 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/25 19:54:50 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/30 18:22:28 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ void	introducing_contestants(t_corevm *vm)
 		player_to_introduce->header->prog_name, COLOR_OFF,
 		player_to_introduce->header->prog_size,
 		player_to_introduce->header->comment);
+		player_to_introduce->precision =
+		lenght_display_name(player_to_introduce->header->prog_name,
+		vm->info->padding);
 		player_to_introduce = player_to_introduce->next;
 	}
 	ft_printf("%s%s%s%s%s%s%s\n", LN_FL_64);
@@ -88,4 +91,5 @@ void	players_charged_in_core(t_corevm *vm)
 		player = player->next;
 	}
 	init_lives_player(vm);
+	vm->info->padding = ((185 / vm->info->nb_players) - 9);
 }

@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/30 14:38:09 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/30 18:22:10 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@
 **	- header refers to the structure defined in common.h
 **	- process (the array of char with the entire champion used to fill vm->core)
 **	- len_process (the lenght of the player process)
+**	- precision to help display name and comments correctly in viz
 **	- next that points to the next player
 ********************************************************************************
 */
@@ -119,6 +120,7 @@ typedef struct			s_player
 	header_t			*header;
 	char				process[CHAMP_MAX_SIZE + 1];
 	int					len_process;
+	int					precision;
 	struct s_player		*next;
 }						t_player;
 
@@ -171,6 +173,7 @@ typedef struct			s_process
 ********************************************************************************
 **	s_info contains
 **	- number of players
+**	- padding to help display name and comments correctly in viz
 **	- pointer to the first_player
 **	- pointer to the first_processus
 ********************************************************************************
@@ -179,6 +182,7 @@ typedef struct			s_process
 typedef struct			s_info
 {
 	int					nb_players;
+	int					padding;
 	t_player			*first_player;
 	t_process			*first_processus;
 }						t_info;
@@ -269,6 +273,7 @@ void					parse_argv(t_corevm *vm);
 ********************************************************************************
 */
 
+int						lenght_display_name(char *name, int padding);
 void					create_player(t_corevm *vm, int num, int index);
 
 /*

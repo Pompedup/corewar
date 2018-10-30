@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 12:24:37 by ecesari           #+#    #+#             */
-/*   Updated: 2018/10/30 14:59:14 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/30 16:26:27 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	print_header_viz(t_corevm *vm)
 {
 	ft_printf("%s%s%s%s%s%s%s\n", LN_FL_64);
 	ft_printf("\n%*s%s\n", (vm->octet_line_viz * 3 + 1) / 2, "",\
-	"COREWAR POUR LES DALTONIENS");
+	"COREWAR");
 }
 
 /*
@@ -116,5 +116,5 @@ void	print_it_all(t_corevm *vm)
 	print_introduction(vm);
 	print_core(vm);
 	print_summary(vm);
-	// usleep(100000);
+	usleep(100000);
 }

@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 15:22:28 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/30 14:26:21 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/30 16:13:37 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init_lives_player(t_corevm *vm)
 		vm->lives_player[i][0] = process->num_player;
 		vm->lives_player[i][1] = 0;
 		vm->lives_player[i][2] = 0;
-		vm->lives_player[i][3] = 0;
+		vm->lives_player[i][3] = 1;
 		i++;
 		process = process->next;
 	}
