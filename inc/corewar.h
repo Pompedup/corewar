@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/29 14:12:55 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/30 14:38:09 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -402,11 +402,19 @@ void					dump_core(t_corevm *vm, int color);
 
 /*
 ********************************************************************************
-**						VIZ_C					     			 	  **
+**						VIZ_C					     			 			  **
 ********************************************************************************
 */
 
 void					print_it_all(t_corevm *vm);
+int						count_processes(t_corevm *vm);
+void					display_evolution_cycle(t_corevm *vm);
+void					display_name_champions(t_corevm *vm);
+void					display_statistics_alive_dead_champions(t_corevm *vm);
+void					display_statistics_last_cycle(t_corevm *vm);
+void					display_statistics_number_lives(t_corevm *vm);
+void					display_percentage_lives(t_corevm *vm);
+void					display_constants(t_corevm *vm);
 
 /*
 ********************************************************************************

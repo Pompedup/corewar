@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 12:24:37 by ecesari           #+#    #+#             */
-/*   Updated: 2018/10/29 14:19:27 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/30 14:59:14 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ********************************************************************************
 */
 
-int	count_processes(t_corevm *vm)
+int		count_processes(t_corevm *vm)
 {
 	t_process	*process_to_count;
 	int			count;
@@ -41,10 +41,8 @@ int	count_processes(t_corevm *vm)
 
 void	print_header_viz(t_corevm *vm)
 {
-	// if (vm->octet_line_viz == ft)
-	// ft_printf("%*s%s\n", ft_sqrt(LN_FL_64_MEMSIZE), "_");
 	ft_printf("%s%s%s%s%s%s%s\n", LN_FL_64);
-	ft_printf("\n%*s%s\n", (vm->octet_line_viz * 3 + 1)/2, "",\
+	ft_printf("\n%*s%s\n", (vm->octet_line_viz * 3 + 1) / 2, "",\
 	"COREWAR POUR LES DALTONIENS");
 }
 
@@ -95,74 +93,14 @@ void	print_introduction(t_corevm *vm)
 
 void	print_summary(t_corevm *vm)
 {
-	t_player		*player;
-	// t_process		*process;
-
 	ft_printf("%s%s%s%s%s%s%s\n", LN_FL_64);
-	ft_printf("\t\tCycle en cours\t:\t%d\t\t", vm->nbr_total_cycles);
-	ft_printf("|\tNombre de process en cours\t:\t%d\n", count_processes(vm));
-	ft_printf("Champions");
-	player = vm->info->first_player;
-	while (player)
-	{
-		// if (player)
-		// {
-			ft_printf("\tn°%d - %s%d;%d;%dm%s%s -\t",
-	ft_abs(player->num), COLOR_LET_ON,
-	def_col(vm, player->color, 1), def_col(vm, player->color, 2),
-	def_col(vm, player->color, 3), player->header->prog_name, COLOR_OFF);
-
-	// process = vm->info->first_processus;
-	// 	while (process)
-	// 	{
-	// 		if (process->num_player == player->num)
-	// 		{
-	// 			if (process->live == -1)
-	// 				ft_printf("☠️");
-	// 			else
-	// 				ft_printf("🤗");
-	// 		}
-	// 		process = process->next;
-	// 	}
-			ft_printf("\t\t\t");
-		player = player->next;
-	}
-	ft_putendl("");
-
-	int i = 0;
-	player = vm->info->first_player;
-	while (player)
-	{
-			ft_printf("\t");
-		if (vm->lives_player[i][3] == 0)
-			ft_printf("\t☠️");
-		else
-			ft_printf("\t🤗");
-		i++;
-			ft_printf("\t\t\t\t");
-		player = player->next;
-	}
-	ft_putendl("");
-
-	i = 0;
-	player = vm->info->first_player;
-	while (player)
-	{
-		// if (player)
-		// {
-			ft_printf("\t\tderniere vie executee au tour - %d -", vm->lives_player[i][2]);
-			// ft_printf("\t\tnombre de vie -\t\t\t");
-		// }
-		i++;
-		player = player->next;
-	}
-
-	ft_printf("\nCONSTANTES");
-	ft_printf("\tCYCLE_TO_DIE\t:\t%d\t\t", vm->cycle_to_die);
-	ft_printf("|\tCYCLE DELTA\t:\t%d\t\t", CYCLE_DELTA);
-	ft_printf("|\tNBR_LIVE\t:\t%d\t\t", NBR_LIVE);
-	ft_printf("|\tMAX_CHECKS\t:\t%d\t\t\n", MAX_CHECKS);
-	ft_printf("%s%s%s%s%s%s%s\n", LN_FL_64);
+	display_evolution_cycle(vm);
+	display_name_champions(vm);
+	display_statistics_alive_dead_champions(vm);
+	display_statistics_last_cycle(vm);
+	display_statistics_number_lives(vm);
+	display_percentage_lives(vm);
+	display_constants(vm);
 }
 
 /*
@@ -178,5 +116,5 @@ void	print_it_all(t_corevm *vm)
 	print_introduction(vm);
 	print_core(vm);
 	print_summary(vm);
-	usleep(100000);
+	// usleep(100000);
 }
