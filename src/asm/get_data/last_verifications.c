@@ -6,11 +6,16 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 17:56:26 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/20 19:59:31 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/30 18:41:52 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+/*
+********************************************************************************
+********************************************************************************
+*/
 
 static t_bool	get_addr(t_record *record, t_function *functions, t_elem *elem,\
 																	t_arg *arg)
@@ -29,6 +34,11 @@ static t_bool	get_addr(t_record *record, t_function *functions, t_elem *elem,\
 	return (FALSE);
 }
 
+/*
+********************************************************************************
+********************************************************************************
+*/
+
 static t_bool	handle_elem(t_record *record, t_elem *elem)
 {
 	t_arg *args;
@@ -44,6 +54,11 @@ static t_bool	handle_elem(t_record *record, t_elem *elem)
 	elem->complete = TRUE;
 	return (TRUE);
 }
+
+/*
+********************************************************************************
+********************************************************************************
+*/
 
 t_bool			last_verifications(t_record *record)
 {

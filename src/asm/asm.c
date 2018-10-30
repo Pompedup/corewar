@@ -6,11 +6,16 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 12:23:45 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/21 16:33:03 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/30 18:43:03 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+/*
+********************************************************************************
+********************************************************************************
+*/
 
 static void	missing_name_or_comment(t_record *record, t_file *file)
 {
@@ -24,6 +29,11 @@ static void	missing_name_or_comment(t_record *record, t_file *file)
 		ft_printf(CURRENT, file->current);
 	ft_printf(".\n");
 }
+
+/*
+********************************************************************************
+********************************************************************************
+*/
 
 static void	handle_file(t_record *record, int options)
 {
@@ -43,6 +53,11 @@ static void	handle_file(t_record *record, int options)
 			ft_printf(NOINSTRUC, record->file_name);
 	}
 }
+
+/*
+********************************************************************************
+********************************************************************************
+*/
 
 int			main(int ac, char **av)
 {

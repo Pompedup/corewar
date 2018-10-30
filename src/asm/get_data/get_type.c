@@ -6,11 +6,16 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 16:01:44 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/21 16:16:29 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/30 18:41:41 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+/*
+********************************************************************************
+********************************************************************************
+*/
 
 t_bool		cmp_instruction(char *str, char *shortcut, int len)
 {
@@ -28,6 +33,11 @@ t_bool		cmp_instruction(char *str, char *shortcut, int len)
 	return (TRUE);
 }
 
+/*
+********************************************************************************
+********************************************************************************
+*/
+
 void		handle_bad_end(t_record *record, t_file *file, int i)
 {
 	file->current[i++] = '\0';
@@ -41,6 +51,11 @@ void		handle_bad_end(t_record *record, t_file *file, int i)
 			file->current);
 }
 
+/*
+********************************************************************************
+********************************************************************************
+*/
+
 void		handle_bad_char(t_record *record, t_file *file, int i)
 {
 	char	c;
@@ -52,6 +67,11 @@ void		handle_bad_char(t_record *record, t_file *file, int i)
 	file->current[i] = '\0';
 	ft_printf(WRLABEL, record->file_name, file->index_line, c, file->current);
 }
+
+/*
+********************************************************************************
+********************************************************************************
+*/
 
 void		handle_error(t_record *record, t_file *file)
 {
@@ -75,6 +95,11 @@ void		handle_error(t_record *record, t_file *file)
 	ft_printf(MISSLAB, record->file_name, file->index_line, LABEL_CHAR,\
 		file->current);
 }
+
+/*
+********************************************************************************
+********************************************************************************
+*/
 
 t_bool		get_type(t_record *record, t_file *file, int *type)
 {

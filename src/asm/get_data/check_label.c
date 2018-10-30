@@ -6,11 +6,17 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 16:07:43 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/21 16:23:53 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/30 18:49:52 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+/*
+********************************************************************************
+**	Move the cursor of file->current to the next char after the name
+********************************************************************************
+*/
 
 static void		next_data(t_file *file, char *name)
 {
@@ -22,6 +28,13 @@ static void		next_data(t_file *file, char *name)
 	file->index_char = i;
 	file->current = file->line + file->index_char;
 }
+
+/*
+********************************************************************************
+**	Check if the name isn't already know
+**	If not, create a copy of the name
+********************************************************************************
+*/
 
 static t_bool	is_new_name(t_record *record, char *str, char **name)
 {
@@ -41,6 +54,12 @@ static t_bool	is_new_name(t_record *record, char *str, char **name)
 	}
 	return (TRUE);
 }
+
+/*
+********************************************************************************
+**	Verify if the ":" arn't at the beggining of a line
+********************************************************************************
+*/
 
 t_bool			verify_label(t_record *record, t_file *file, int end,\
 																char **name)
@@ -62,6 +81,12 @@ t_bool			verify_label(t_record *record, t_file *file, int end,\
 	}
 	return (TRUE);
 }
+
+/*
+********************************************************************************
+**	Check if there is a ":" end if there is a space after
+********************************************************************************
+*/
 
 t_bool			check_label(t_record *record, t_file *file, char **name)
 {

@@ -6,11 +6,16 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/15 14:29:29 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/20 19:25:58 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/30 19:11:19 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+/*
+********************************************************************************
+********************************************************************************
+*/
 
 static t_bool	is_present(t_record *record, t_arg *arg)
 {
@@ -21,6 +26,11 @@ static t_bool	is_present(t_record *record, t_arg *arg)
 	}
 	return (TRUE);
 }
+
+/*
+********************************************************************************
+********************************************************************************
+*/
 
 t_bool			word_is_only_digit(t_record *record, t_arg *arg)
 {
@@ -43,6 +53,11 @@ t_bool			word_is_only_digit(t_record *record, t_arg *arg)
 	return (TRUE);
 }
 
+/*
+********************************************************************************
+********************************************************************************
+*/
+
 int				get_reg(t_record *record, t_elem *elem, t_arg *arg, int i)
 {
 	if (!is_present(record, arg))
@@ -57,6 +72,12 @@ int				get_reg(t_record *record, t_elem *elem, t_arg *arg, int i)
 	return (TRUE);
 }
 
+/*
+********************************************************************************
+**	Handle a ind value
+********************************************************************************
+*/
+
 int				get_ind(t_record *record, t_elem *elem, t_arg *arg, int i)
 {
 	if (!get_pos(record, elem, arg))
@@ -67,6 +88,12 @@ int				get_ind(t_record *record, t_elem *elem, t_arg *arg, int i)
 	elem->key += 3 << (6 - (2 * i));
 	return (TRUE);
 }
+
+/*
+********************************************************************************
+**	Handle a dir value
+********************************************************************************
+*/
 
 int				get_dir(t_record *record, t_elem *elem, t_arg *arg, int i)
 {

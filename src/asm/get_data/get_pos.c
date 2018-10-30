@@ -6,11 +6,16 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/11 16:29:18 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/21 14:10:10 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/30 18:40:40 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+/*
+********************************************************************************
+********************************************************************************
+*/
 
 static t_bool	verif_syntax_label(t_record *record, char *str, size_t *len,\
 																	char *copy)
@@ -35,6 +40,11 @@ static t_bool	verif_syntax_label(t_record *record, char *str, size_t *len,\
 	return (TRUE);
 }
 
+/*
+********************************************************************************
+********************************************************************************
+*/
+
 static t_bool	get_label_pos(t_record *record, t_elem *elem, t_arg *arg)
 {
 	size_t	len;
@@ -47,6 +57,11 @@ static t_bool	get_label_pos(t_record *record, t_elem *elem, t_arg *arg)
 		elem->complete = FALSE;
 	return (TRUE);
 }
+
+/*
+********************************************************************************
+********************************************************************************
+*/
 
 static t_bool	get_nbr_pos(t_record *record, t_arg *arg)
 {
@@ -78,7 +93,9 @@ static t_bool	get_nbr_pos(t_record *record, t_arg *arg)
 }
 
 /*
+********************************************************************************
 **	Explain the error found from a dir or a ind
+********************************************************************************
 */
 
 static void		error_dir_ind(t_record *record, t_elem *elem, t_arg *arg)
@@ -99,9 +116,11 @@ static void		error_dir_ind(t_record *record, t_elem *elem, t_arg *arg)
 }
 
 /*
+********************************************************************************
 **	Test if the arg contain a label or a int and call the function correspondent
 **	else
 **		error
+********************************************************************************
 */
 
 t_bool			get_pos(t_record *record, t_elem *elem, t_arg *arg)

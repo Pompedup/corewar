@@ -6,11 +6,16 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 18:54:37 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/20 21:45:33 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/30 18:42:47 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+/*
+********************************************************************************
+********************************************************************************
+*/
 
 static t_bool	check_existing_type(t_record *record, t_elem *elem, t_arg *arg,\
 																	char *str)
@@ -28,6 +33,11 @@ static t_bool	check_existing_type(t_record *record, t_elem *elem, t_arg *arg,\
 	}
 	return (TRUE);
 }
+
+/*
+********************************************************************************
+********************************************************************************
+*/
 
 static t_bool	verify_args_type(t_record *record, t_elem *elem)
 {
@@ -54,6 +64,11 @@ static t_bool	verify_args_type(t_record *record, t_elem *elem)
 	return (TRUE);
 }
 
+/*
+********************************************************************************
+********************************************************************************
+*/
+
 static t_bool	verify_present_arg(t_record *record, t_elem *elem, char c)
 {
 	if (!c || c == SEPARATOR_CHAR)
@@ -67,6 +82,11 @@ static t_bool	verify_present_arg(t_record *record, t_elem *elem, char c)
 	}
 	return (TRUE);
 }
+
+/*
+********************************************************************************
+********************************************************************************
+*/
 
 static t_bool	verify_args_separators(t_record *record, t_elem *elem,\
 																	char *str)
@@ -94,6 +114,11 @@ static t_bool	verify_args_separators(t_record *record, t_elem *elem,\
 	}
 	return (TRUE);
 }
+
+/*
+********************************************************************************
+********************************************************************************
+*/
 
 t_bool			verify_elem_str(t_record *record, t_elem *elem)
 {

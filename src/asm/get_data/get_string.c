@@ -6,15 +6,17 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/04 18:52:42 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/21 15:26:21 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/30 18:50:01 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
 /*
+********************************************************************************
 **	Skip the spaces of a line and return the first char found after theses
 **	spaces
+********************************************************************************
 */
 
 char		skip_spaces(char **str)
@@ -25,8 +27,10 @@ char		skip_spaces(char **str)
 }
 
 /*
+********************************************************************************
 **	Verify if there is nothing wrong (Too long string of something write after
 **	the ending quote) end copy the line if it's good.
+********************************************************************************
 */
 
 static int	handle_end_string(t_record *record, t_file *file, t_string *data,\
@@ -52,12 +56,14 @@ static int	handle_end_string(t_record *record, t_file *file, t_string *data,\
 }
 
 /*
+********************************************************************************
 **	Check if there is the ending quote in the current line
 **			-> call the function handle_end_string
 **	Else
 **			-> check if this is not to big
 **					-> copy the line in the current addr
 **	Read the file
+********************************************************************************
 */
 
 static int	handle_string(t_record *record, t_file *file, t_string *data)
@@ -76,12 +82,14 @@ static int	handle_string(t_record *record, t_file *file, t_string *data)
 }
 
 /*
+********************************************************************************
 **	Call skip spaces and verify if the first char is a quote
 **			!->	end
 **	Turn in a loop until handle_string found the end
 **			-> next step
 **	or there is no line
 **			!-> end
+********************************************************************************
 */
 
 t_bool		get_string(t_record *record, t_file *file, t_string *data)

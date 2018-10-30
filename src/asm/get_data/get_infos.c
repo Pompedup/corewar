@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 17:02:50 by pompedup          #+#    #+#             */
-/*   Updated: 2018/10/21 16:37:56 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/30 18:39:22 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,12 @@ static t_bool	check_line(t_record *record, t_file *file, char *cmp)
 	return (FALSE);
 }
 
+/*
+********************************************************************************
+**	Verify if it's a name or a comment or an error
+********************************************************************************
+*/
+
 static t_bool	check_type(t_file *file, char **type)
 {
 	*type = NULL;
@@ -72,6 +78,13 @@ static t_bool	check_type(t_file *file, char **type)
 		return (TRUE);
 	return (FALSE);
 }
+
+/*
+********************************************************************************
+**	Replace the hashtag by a end char and replace the cursor of
+**	file->current after the first sapces
+********************************************************************************
+*/
 
 static void		remove_hash(t_record *record, t_file *file)
 {
