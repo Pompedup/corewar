@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 12:24:37 by ecesari           #+#    #+#             */
-/*   Updated: 2018/10/30 18:59:16 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/30 19:09:33 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	display_name_champions(t_corevm *vm)
 	t_player	*player;
 	int			padding;
 
-	ft_printf("Champions");
+	ft_printf("Champions\t");
 	player = vm->info->first_player;
 	while (player)
 	{
@@ -43,7 +43,7 @@ void	display_name_champions(t_corevm *vm)
 		// ft_printf("player->precision %d \n", player->precision);
 		// ft_printf("vm->info->padding %d \n", vm->info->padding);
 		// ft_printf("padding %d \n", padding);
-		ft_printf("\tn°%d - %s%d;%d;%dm%.*s%s -%*s",
+		ft_printf("n°%d - %s%d;%d;%dm%.*s%s -%*s ",
 		ft_abs(player->num), COLOR_LET_ON, def_col(vm, player->color, 1),
 		def_col(vm, player->color, 2), def_col(vm, player->color, 3),
 		player->precision, player->header->prog_name, COLOR_OFF, padding, "");
@@ -71,13 +71,18 @@ void	display_statistics_alive_dead_champions(t_corevm *vm)
 	i = vm->info->nb_players - 1;
 	while (i >= 0)
 	{
-		padding = vm->info->padding + 11;
+		padding = vm->info->padding + 9;
+		// ft_printf("player->precision %d \n", player->precision);
+		// ft_printf("vm->info->padding %d \n", vm->info->padding);
+		// ft_printf("padding %d \n", padding);
 		if (vm->lives_player[i][3] == 0)
-			ft_printf("☠️");
+			ft_printf("%-*S", padding, L"☠️");
+			// ft_printf("☠️");
 		else
-			ft_printf("🤗");
+			ft_printf("%-*S", padding, L"🤗");
+			// ft_printf("F");
 		i--;
-		ft_printf("%*s", padding, "");
+		// ft_printf("%*s", padding, "");
 		// ft_printf("\t\t\t\t");
 		player = player->next;
 	}
