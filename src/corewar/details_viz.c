@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 12:24:37 by ecesari           #+#    #+#             */
-/*   Updated: 2018/10/30 18:27:31 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/30 18:59:16 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,24 @@ void	display_name_champions(t_corevm *vm)
 void	display_statistics_alive_dead_champions(t_corevm *vm)
 {
 	t_player	*player;
+	int			padding;
 	int 		i;
 
+	// ft_printf("Champions");
+	// ft_printf("         ");
+		ft_printf("%*s", 16, "");
 	player = vm->info->first_player;
 	i = vm->info->nb_players - 1;
 	while (i >= 0)
 	{
-		ft_printf("\t");
+		padding = vm->info->padding + 11;
 		if (vm->lives_player[i][3] == 0)
-			ft_printf("\t☠️");
+			ft_printf("☠️");
 		else
-			ft_printf("\t🤗");
+			ft_printf("🤗");
 		i--;
-		ft_printf("\t\t\t\t");
+		ft_printf("%*s", padding, "");
+		// ft_printf("\t\t\t\t");
 		player = player->next;
 	}
 	ft_putendl("");

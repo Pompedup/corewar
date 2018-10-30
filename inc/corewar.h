@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/30 18:22:10 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/30 18:44:35 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ typedef struct			s_player
 	char				process[CHAMP_MAX_SIZE + 1];
 	int					len_process;
 	int					precision;
+	int					precision_c;
 	struct s_player		*next;
 }						t_player;
 
