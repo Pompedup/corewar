@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_and.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:37:03 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 16:38:44 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/29 16:54:19 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,14 @@
 
 /*
 ********************************************************************************
-** 0x06
-** Applique un & (ET bit-à-bit) sur les deux premiers paramètres, et stocke le
-** résultat dans le registre qui est le 3ème paramètre.
-** Modifie le carry.
-** Si la valeur resultante est egale a zero, le carry passe a un, sinon zero
-**  Usage : and S(RG/ID/D4), S(RG/ID/D4), D(RG)
-** ft_printf(" AND values[0] x %x  values[1] hexa %x\n", values[0], values[1]);
-** ft_printf("process->reg[process->args[2]] hexa %x\n",
-** process->reg[process->args[2]]);
+**	ft_and
+**	opcode 0x06, changes carry if the result is null
+**  usage : and ARG_1(RG/ID/D4), ARG_2(RG/ID/D4), ARG_3(RG)
+**	applies & (bitwise and) on ARG_1 & ARG_2 and stores the result in ARG_3 reg
 ********************************************************************************
 */
 
-void		ft_and(t_corevm *vm, t_process *process)
+void	ft_and(t_corevm *vm, t_process *process)
 {
 	int	*values;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_processus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 15:13:34 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/19 13:08:49 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/25 20:00:37 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ********************************************************************************
 **  put_process_front enables the latest player to play first
-** le dernier joueur né joue en premier.
 ********************************************************************************
 */
 
@@ -28,6 +27,7 @@ void		put_process_front(t_process **first, t_process *process)
 /*
 ********************************************************************************
 **  create_process translates the player information into a process
+**	vm->color are changed for the fork
 ********************************************************************************
 */
 
@@ -39,8 +39,8 @@ t_process	*create_process(t_corevm *vm, int pc, t_player *player)
 	if (!(process = ft_memalloc(sizeof(t_process))))
 		ft_error(vm, FAIL_MEMALLOC_3, 0);
 	process->pc = pc;
-	process->color_live = -1;
 	process->color = player->color;
+	process->color_live = -1;
 	if (vm->color[pc] < 8)
 		vm->color[pc] =
 			vm->color[pc] < 4 ? vm->color[pc] + 8 : vm->color[pc] + 4;

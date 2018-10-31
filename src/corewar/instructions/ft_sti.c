@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:29:56 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 17:07:36 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/29 19:37:36 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 
 /*
 ********************************************************************************
-** 0x0b
-** sti -> va copier le 1er param dans une adresse obtenu grace au 2 autres
-** sti r2,%4,%5 -
-** sti copies REG_SIZE octets de r2 a laddresse (4 + 5)
-** ici les params 2 et 3 sont des index
-** si ce sont des registres, on utilisera leur contenu comme un index
-** Usage : sti S(RG), S(RG/ID/D2), S(RG/D2)
+**	ft_sti
+**	opcode 0x0b
+**  usage : sti ARG_1(RG), ARG_2(RG/ID/D2), ARG_3(RG/D2)
+**	copies ARG_1 at the address defined by ARG_2 + ARG_3
+**	if ARG_2 or ARG_3 are registers, their values will be used as indexes
+**	we change the color to highlight the result of st as the latest instruction
 ********************************************************************************
 */
 
-void		ft_sti(t_corevm *vm, t_process *process)
+void	ft_sti(t_corevm *vm, t_process *process)
 {
 	int	*values;
 	int	add;

@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   number_players.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:56:15 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 12:20:48 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/25 19:37:53 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+********************************************************************************
+**	def_col defines the color to be returned to use in ft_printf
+**	created to help with the norm
+********************************************************************************
+*/
+
+int		def_col(t_corevm *vm, int index, int rgb)
+{
+	if (rgb == 1)
+		return ((vm->tab_color[index] >> 16) & 0xff);
+	if (rgb == 2)
+		return ((vm->tab_color[index] >> 8) & 0xff);
+	if (rgb == 3)
+		return ((vm->tab_color[index]) & 0xff);
+	return (0);
+}
 
 /*
 ********************************************************************************

@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/10/31 17:18:49 by abezanni          #+#    #+#              #
-#    Updated: 2018/10/31 17:18:51 by abezanni         ###   ########.fr        #
+#    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
+#    Updated: 2018/10/31 17:42:21 by abezanni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 CC =			@gcc
 
-FSANITIZE_FLAG = -fsanitize=address
+FSANITIZE_FLAG = -g# -fsanitize=address
 
 OBJ =			$(COMMON_OBJ)\
 				$(ASM_OBJ)\
@@ -94,6 +94,8 @@ COREWAR_FILES =	corewar.c\
 				create_players.c\
 				print_core.c\
 				free_corewar.c\
+				viz.c\
+				details_viz.c\
 
 COMMON_SRC =	$(addprefix src/common/,$(COMMON_FILES))
 
@@ -186,8 +188,6 @@ fclean : clean
 
 re : fclean	all
 	@echo "\033[1;32mSucced recompilation asm and corewar\033[0m"
-
-
 
 del_cor:
 	@/bin/rm -f ****.cor

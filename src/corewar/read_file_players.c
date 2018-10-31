@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file_players.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 14:08:14 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 15:56:59 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/22 11:15:35 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	read_name(t_player *player, t_corevm *vm, int fd)
 
 	if ((ret = read(fd, player->header->prog_name, PROG_NAME_LENGTH + 4)) == -1)
 		ft_read_error(vm, ft_strjoin(ERR_MESS_9, player->name_file), fd);
-	player->header->prog_name[ret] = '\0';
+	player->header->prog_name[ret - 1] = '\0';
 }
 
 /*
@@ -79,7 +79,7 @@ void	read_comment(t_player *player, t_corevm *vm, int fd)
 
 	if ((ret = read(fd, player->header->comment, COMMENT_LENGTH + 4)) == -1)
 		ft_read_error(vm, ft_strjoin(ERR_MESS_12, player->name_file), fd);
-	player->header->comment[ret] = '\0';
+	player->header->comment[ret - 1] = '\0';
 }
 
 /*

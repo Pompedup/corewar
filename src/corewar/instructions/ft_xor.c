@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_xor.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:33:04 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 16:33:13 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/30 13:10:45 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 /*
 ********************************************************************************
-** 0x08
-** ou exclusif
-** XOR bit à bit :   l'arg1 | l'arg2 et met le resultat dans l'arg3
-** modifie le carry
-** Usage : xor S(RG/ID/D4), S(RG/ID/D4), D(RG)
+**	ft_xor
+**	opcode 0x08, changes carry if the result is null
+**  usage : xor ARG_1(RG/ID/D4), ARG_2(RG/ID/D4), ARG_3(RG)
+**	applies ^ (bitwise or exclusif) on ARG_1 ^ ARG_2
+**	and stores the result in ARG_3 reg
 ********************************************************************************
 */
 
-void		ft_xor(t_corevm *vm, t_process *process)
+void	ft_xor(t_corevm *vm, t_process *process)
 {
 	int	*values;
 

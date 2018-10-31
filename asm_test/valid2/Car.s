@@ -49,21 +49,21 @@ label03: ldi   r2,%:label12,r6    		# 6,181,100
 	 ld    %0,r4              		# 7,187,94
 	 live  %1                 		# 5,194,87
 
-label12: sti   r6,r2,r3           		# 5,199,82
+label12: sti   r6,r2,r3           		                # 5,199,82
 	 zjmp  %-277              		# 3,204,77
 
 label08: ldi   r2,%:label13,r6    		# 6,207,74
 	 ld    %0,r4              		# 7,213,68
 	 live  %1                 		# 5,220,61
 
-label13: sti   r6,r2,r3           		# 5,225,56
+label13: sti   r6,r2,r3           	                    	# 5,225,56
 	 zjmp  %395               		# 3,230,51
 
 label05: ldi   r2,%:label14,r6    		# 6,233,48
 	 ld    %0,r4              		# 7,239,42
 	 live  %1                 		# 5,246,35
 
-label14: sti   r6,r2,r3           		# 5,251,30
+label14: sti   r6,r2,r3           	                     	# 5,251,30
 	 zjmp  %-207              		# 3,256,25
 
 label10: live  %1                 		# 5,259,22

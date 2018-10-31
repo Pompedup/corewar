@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ldi.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:41:15 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 16:43:51 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/29 17:25:23 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 /*
 ********************************************************************************
-** 0x0a
-** ldi -> load a l'indice
-** modifie le carry
-** les parametres 1 et 2 sont des index.
-** quon copie dans r1
-** Usage : ldi S(RG/ID/D2), S(ID/D2), D(RG)
+**	ft_ldi
+**	opcode 0x0a, changes the carry
+**  usage : ldi ARG_1(RG/ID/D2), ARG_2(ID/D2), ARG_3(RG)
+**	reads REG_SIZE at the adress process->pc + (ARG_1 + ARG_2) and stores it
+**	in ARG_3
 ********************************************************************************
 */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_add.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:35:48 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 16:36:31 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/29 16:34:35 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,14 @@
 
 /*
 ********************************************************************************
-** 0x04
-** additionne l'arg1 et l'arg2 et met le resultat dans l'arg3
-** modifie le carry
-** Usage : add S(RG), S(RG), D(RG)
-** ft_printf(" ADD values[0] %d  values[1] %d process->reg[process->args[2]]
-** %d\n", values[0], values[1], process->reg[process->args[2]]);
+**	ft_add
+**	opcode 0x04, changes carry if the result is null
+**	usage : add ARG_1(RG), ARG_2(RG), ARG_3(RG), key 54
+**	adds the value in ARG_1 to the value in ARG_2 and puts it in ARG_3
 ********************************************************************************
 */
 
-void		ft_add(t_corevm *vm, t_process *process)
+void	ft_add(t_corevm *vm, t_process *process)
 {
 	int	*values;
 

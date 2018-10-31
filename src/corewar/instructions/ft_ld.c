@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ld.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:39:08 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 16:39:49 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/29 17:07:14 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,11 @@
 
 /*
 ********************************************************************************
-** 0x02
-** ld -> load charge la valeur du 1er parametre dans le registre (2eme param)
-** modifie le carry
-** Transfert direct RAM > Registre.
-** Si la valeur du 1er param = 0 , alors le carry passe a 1, sinon 0.
-** Usage : ld S(ID/D4), D(RG)
-** ft_printf("LD process->type_instruc[1] x%x\n", process->type_instruc[1]);
-** ft_printf(" LOAD reg args[1] %d values[0] int %d\n",
-** process->args[1], values[0]);
+**	ft_ld
+**	opcode 0x02, changes the carry if ARG_1 is null
+**  usage : ld ARG_1(ID/D4), ARG_2(RG)
+**	loads the value of ARG_1 in ARG_2
+**	direct transfert from RAM to register
 ********************************************************************************
 */
 

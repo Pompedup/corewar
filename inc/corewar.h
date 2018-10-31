@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/19 21:02:11 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/31 14:06:43 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@
 # define SHORT				32768
 # define UNSIGNED_CHAR		128
 # define USAGE 				USAGE1 USAGE2
-# define USAGE1				"Usage: ./corewar [-dump nbr_cycles]"
+# define USAGE1			"Usage: ./corewar [-dump [-b] [-c] nbr_cycles [-viz]]"
 # define USAGE2				"[[-n number] champion1.cor] ..."
 # define ERR_MESS_00		"incorrect defines"
 # define ERR_MESS_01 		"(MEM_SIZE or REG_NUMBER are null or too big)"
 # define ERR_MESS_0			"not enough arguments.\n" USAGE
 # define ERR_MESS_1			"incorrect arguments.\n" USAGE
 # define ERR_MESS_2			"argument for dump is not an unsigned int"
-# define ERR_MESS_3			"argument for dump must be superior to 0"
+# define ERR_MESS_3			"invalid argument for dump"
 # define ERR_MESS_4			"incorrect name of the champion file"
 # define ERR_MESS_5			"cannot open file "
 # define ERR_MESS_6			"cannot close file "
@@ -41,7 +41,7 @@
 # define ERR_MESS_14		"difference between progam size expected and read"
 # define ERR_MESS_15		"too many players"
 # define ERR_MESS_16		"at least one player is needed"
-# define ERR_MESS_17		"argument for number of player is not an int"
+# define ERR_MESS_17		"argument for number of player not a positive int"
 # define ERR_MESS_18		"a player cannot have a number already given or 0"
 # define FAIL_MEMALLOC_00	"ft_memalloc of vm failed"
 # define FAIL_MEMALLOC_0	"ft_memalloc of vm->info failed"
@@ -52,18 +52,40 @@
 
 /*
 ********************************************************************************
-**	ORDONNE DANS LE SENS
-**	COULEUR CLASSIQUE / SURBRILLANCE (derniere instruction en date) /
-**	SURLIGNEMENT PC
-**  					0	 1 		2		3		4		5		6		7		8			9		10		11			12		13
+**	To help format our viz
 ********************************************************************************
 */
 
-# define TAB_COLOR	{GREEN, PINK, BLUE, ORANGE, GREEN_S, PINK_S, BLUE_S, ORANGE_S, GREEN_PC, PINK_PC, BLUE_PC, ORANGE_PC, GREY_PC, GREY}
+# define LN_FL_64			LN_32, LN_32, LN_32, LN_32, LN_32, LN_32, LN_15
+# define LN_32				"_______________________________"
+# define LN_15				"______________"
+
+/*
+********************************************************************************
+**	To help put color in our vm->core
+**	Ansi characters to display letters in color
+**	Ansi characters to display letters in white
+**	Ansi characters to display letters in black
+**	Ansi characters to display the background in color
+**	Ansi characters to reset
+**	Ansi characters to clear the screen (2J) and move the cursor on top left (H)
+**	First, simple color			0 	1 	2 	3
+**	then highlight 				4 	5 	6 	7		(latest instruction)
+**	finally background			8 	9 	10	11 	12	(for the program counter)
+**	grey for everything else	13
+********************************************************************************
+*/
+
+# define COLOR_LET_ON		"\033[38;2;"
+# define COLOR_LET_WHITE	"\033[38;1;255;255;255m"
+# define COLOR_LET_BLACK	"\033[38;2;0;0;0m"
+# define COLOR_BG_ON		"\033[48;2;"
+# define COLOR_OFF			"\033[0m"
+# define CLEAR				"\e[H\e[2J"
 # define GREEN				0x00ff00
 # define PINK				0xff0000
 # define BLUE				0x0000ff
-# define ORANGE				0xf0f0f0
+# define ORANGE				0xff8c00
 # define GREEN_S			0xcdefb2
 # define PINK_S				0xff0099
 # define BLUE_S				0xcfebfd
@@ -80,10 +102,11 @@
 **	s_player contains
 **	- number of player (either from 1 to MAX_PLAYER or set through option -n)
 **	- name_file from the file that detailed the champion
-**	- color (as defined by the order set in TAB_COLOR with number of player)
+**	- color (as defined by the order set in vm->tab_color with number of player)
 **	- header refers to the structure defined in common.h
 **	- process (the array of char with the entire champion used to fill vm->core)
 **	- len_process (the lenght of the player process)
+**	- precision to help display name and comments correctly in viz
 **	- next that points to the next player
 ********************************************************************************
 */
@@ -96,6 +119,8 @@ typedef struct			s_player
 	header_t			*header;
 	char				process[CHAMP_MAX_SIZE + 1];
 	int					len_process;
+	int					precision;
+	int					precision_c;
 	struct s_player		*next;
 }						t_player;
 
@@ -103,18 +128,25 @@ typedef struct			s_player
 ********************************************************************************
 **	s_process defined either by the player or the parent proccess for (l)fork
 **	- name of program
-**	- color
 **	- num_player
+**	- color, as defined thanks to the num player
 **	- reg[REG_NUMBER]
 **	- pc
-**	- pc_tmp
-**	- carry,
-**	- live
-**	- type_instruc[2]
-**	- args[3]
-**	- color_live
+**	- pc_tmp, to advance during the instructions
+**	- carry, affected only by ld, add, sub, and, or, xor, ldi, sti, lld, lldi
+**	and aff. Initially at 0, it can be set at 1 if the instruction is successful
+**	that is if the result is 0
+**	- live, counts the amount of live and is set at -1 if the process is dead
+**	- type_instruc[2],
+**		type_instruc[0] represents the id in g_op_tab,
+**		type_instruc[1] represents the unique key resulting from the combination
+**		of arguments : - REG 01 (on 1 byte) | - DIR 10 (either on 2/4 bytes)
+** 		- IND 11 (on 2 bytes) (i.e.	{T_REG , T_REG , T_REG} -> 0101 0100 54)
+**	- args[3] represents the array of the 3 possible arguments
+**	- color_live to enable the correct background color
 **	- nb_cycle_instruc
-**	- good_reg
+**	- good_reg to enable to check that reg[0] that keeps num_player
+**	has not been corrupted
 **	- *next
 ********************************************************************************
 */
@@ -122,8 +154,8 @@ typedef struct			s_player
 typedef struct			s_process
 {
 	char				name[PROG_NAME_LENGTH + 1];
-	int					color;
 	int					num_player;
+	int					color;
 	int					reg[REG_NUMBER];
 	int					pc;
 	int					pc_tmp;
@@ -139,28 +171,44 @@ typedef struct			s_process
 
 /*
 ********************************************************************************
-** structure pour gerer la liste chainée des players
+**	s_info contains
+**	- number of players
+**	- padding to help display name and comments correctly in viz
+**	- pointer to the first_player
+**	- pointer to the first_processus
 ********************************************************************************
 */
 
 typedef struct			s_info
 {
 	int					nb_players;
+	int					padding;
 	t_player			*first_player;
 	t_process			*first_processus;
 }						t_info;
 
 /*
 ********************************************************************************
-**	t_corevm
-**	- core[MEM_SIZE] represents the actual vm (an array of char)
-**	- dump will be the nbr of cycles after which core will be printed on the
-**		standard output
-**	- nb_cycle
-**	-
-**argv pour le parsing
-** int	viz; option visu librairie possible : OpenGL, SDL, nCurses, ... (bonus)
-** t_info	*info; pointeur vers la structure qui gere la liste des players
+**	t_corevm contains
+**	- **argv, to access from anywhere the arguments of the program
+**	- viz, to set the option, overrides the option dump
+**	- info, pointer to struct s_info
+**	- core[MEM_SIZE], represents the actual vm (an array of char)
+**	- color[MEM_SIZE], represents colors for each cell of core[MEM_SIZE]
+**	- *tab_color, to rank the color defined above;
+**	- dump, to set the option of the nbr of cycles after which core will be
+**		printed on the standard output
+**	- dump_color, to set the option
+**	- nbr_total_cycles, is increased during the battle;
+**	- cycle_to_die, to be able to decrease with CYCLE_DELTA the define;
+**	- octet_line_viz, to set the width of either the viz or the dump;
+**	- nb_lives, to manage if there have been live calls since the last check;
+**	- lives_player[MAX_PLAYERS][4], an array to manage all info on processes,
+**			lives_player[i][0] = process->num_player;
+**			lives_player[i][1] = number of lives made in one period
+**				(since last decrease of CYCLE_TO_DIE);
+**			lives_player[i][2] = cycle of last live;
+**			lives_player[i][3] = linked to the processes;
 ********************************************************************************
 */
 
@@ -168,10 +216,13 @@ typedef struct			s_corevm
 {
 	char				**argv;
 	int					viz;
+	int					viz_debug;
 	t_info				*info;
 	char				core[MEM_SIZE];
 	unsigned int		color[MEM_SIZE];
+	int					*tab_color;
 	int					dump;
+	int					dump_color;
 	int					nbr_total_cycles;
 	int					cycle_to_die;
 	int					octet_line_viz;
@@ -181,7 +232,7 @@ typedef struct			s_corevm
 
 /*
 ********************************************************************************
-**	-
+**	s_ptr_func manages the pointer on function
 ********************************************************************************
 */
 
@@ -200,12 +251,16 @@ extern t_ptr_func		g_instruc_func[];
 ********************************************************************************
 */
 
-void					init_vm(char **av, t_corevm **vm);
 void					init_lives_player(t_corevm *vm);
+void					init_vm(char **av, t_corevm **vm);
 
 /*
 ********************************************************************************
 **						PARSE_ARGV_C								 		  **
+**	int		get_dump(t_corevm *vm, int i)									  **
+**	void	add_player(t_corevm *vm, int i)									  **
+**	void	add_player_with_num(t_corevm *vm, int i)						  **
+**	void	init_octet_line_viz(t_corevm *vm)								  **
 ********************************************************************************
 */
 
@@ -213,10 +268,13 @@ void					parse_argv(t_corevm *vm);
 
 /*
 ********************************************************************************
-**						REGISTER_PLAYERS_C							 		  **
+**						CREATE_PLAYERS_C							 		  **
+**	void	get_info_player(t_player *player, t_corevm *vm, int i)			  **
+** void	init_variable(t_corevm *vm, t_player *player, int num, int index_color)*
 ********************************************************************************
 */
 
+int						lenght_display_string(char *name, int padding);
 void					create_player(t_corevm *vm, int num, int index);
 
 /*
@@ -237,6 +295,7 @@ void					read_programme(t_player *player, t_corevm *vm, int fd);
 ********************************************************************************
 */
 
+int						def_col(t_corevm *vm, int index, int rgb);
 void					number_players(t_corevm *vm);
 int						unused_num(t_corevm *vm, int num);
 
@@ -246,6 +305,7 @@ int						unused_num(t_corevm *vm, int num);
 ********************************************************************************
 */
 
+void					introducing_contestants(t_corevm *vm);
 void					players_charged_in_core(t_corevm *vm);
 
 /*
@@ -270,11 +330,15 @@ void					put_process_front(t_process **first, \
 /*
 ********************************************************************************
 **						EXECUTE_THE_BATTLE_C						     	  **
+**	void	who_still_lives(t_corevm *vm)
+**	int		live_executed_in_one_cycle(t_corevm *vm, int cycle)
 ********************************************************************************
 */
 
-void					execute_the_battle(t_corevm *vm);
+void					declare_winner(t_corevm *vm);
 void					pc_color(t_corevm *vm, t_process *process);
+void					execute_the_battle(t_corevm *vm);
+void					viz_debug(t_corevm *vm, int cycle, int *debug);
 
 /*
 ********************************************************************************
@@ -340,7 +404,26 @@ void					ft_aff(t_corevm *vm, t_process *process);
 */
 
 void					print_core(t_corevm *vm);
-void					dump_core(t_corevm *vm);
+void					dump_core(t_corevm *vm, int color);
+
+/*
+********************************************************************************
+**						VIZ_C && DETAILS_VIZ_C	     			 			  **
+********************************************************************************
+*/
+
+void					print_it_all(t_corevm *vm);
+int						count_processes(t_corevm *vm);
+void					display_evolution_cycle(t_corevm *vm);
+void					display_name_champions(t_corevm *vm);
+void					display_statistics_alive_dead_champions(t_corevm *vm);
+void					display_statistics_last_cycle(t_corevm *vm);
+void					display_statistics_number_lives(t_corevm *vm);
+void					display_percentage_lives(t_corevm *vm);
+void					display_constants(t_corevm *vm);
+void					print_summary(t_corevm *vm);
+void					print_introduction(t_corevm *vm);
+void					print_header_viz(t_corevm *vm);
 
 /*
 ********************************************************************************

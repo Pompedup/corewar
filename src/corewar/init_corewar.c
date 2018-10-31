@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 15:22:28 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/19 21:01:55 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/30 16:13:37 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 /*
 ********************************************************************************
-** init_lives_player
+**	init_lives_player
+**	-	vm->lives_player[i][0] = process->num_player;
+**	-	vm->lives_player[i][1] = number of lives made in one period
+**	(since last decrease of CYCLE_TO_DIE);
+**	-	vm->lives_player[i][2] = cycle of last live;
+**	-	vm->lives_player[i][3] = linked to the processes;
 ********************************************************************************
 */
 
@@ -30,7 +35,7 @@ void	init_lives_player(t_corevm *vm)
 		vm->lives_player[i][0] = process->num_player;
 		vm->lives_player[i][1] = 0;
 		vm->lives_player[i][2] = 0;
-		vm->lives_player[i][3] = 0;
+		vm->lives_player[i][3] = 1;
 		i++;
 		process = process->next;
 	}
@@ -52,7 +57,9 @@ void	init_lives_player(t_corevm *vm)
 
 void	init_vm(char **av, t_corevm **vm)
 {
-	int	i;
+	int			i;
+	static int	tab[] = {GREEN, PINK, BLUE, ORANGE, GREEN_S, PINK_S, BLUE_S,\
+	ORANGE_S, GREEN_PC, PINK_PC, BLUE_PC, ORANGE_PC, GREY_PC, GREY};
 
 	i = 0;
 	if (!(*vm = ft_memalloc(sizeof(t_corevm))))
@@ -61,7 +68,8 @@ void	init_vm(char **av, t_corevm **vm)
 		(*vm)->color[i++] = 13;
 	(*vm)->argv = av;
 	(*vm)->dump = -1;
-	(*vm)->octet_line_viz = ft_sqrt(MEM_SIZE);
+	(*vm)->octet_line_viz = 32;
+	(*vm)->tab_color = tab;
 	(*vm)->cycle_to_die = CYCLE_TO_DIE;
 	if (!((*vm)->info = ft_memalloc(sizeof(t_info))))
 		ft_error(*vm, FAIL_MEMALLOC_0, 0);

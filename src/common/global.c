@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 21:06:11 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/31 17:17:27 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/31 17:43:48 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,19 @@
 **	- int 	nbr_arg, either 1, 2 or 3
 **	- char 	accept[3], array of acceptable types of arguments
 **	- int 	id, opcode
-**	- int 	nb_cycle_instruction, either 5, 6, 10, 20, 25, 800 or 1000
+**	- int 	nb_cycle_instruction, either 2, 5, 6, 10, 20, 25, 800 or 1000
 **	- char 	*description,
 **	- int 	ind, that is the flag for carry
-**	- int	dir;
+**	- int	dir,
+**			that is 1 if it is the direct is encoded on 2 bytes,
+**			else it's 0 if there is no direct or if it is encoded on 4 bytes;
 ** {T_REG | T_DIR | T_IND,  1 | 2 | 4 -> 00 00 01 11
+** {shortcut, nbr_arg, accept[3], id, nb_cycle_instruction, descript, ind, dir}
 ********************************************************************************
 */
 
 t_op	g_op_tab[] =
 {
-
-
-
-
-
-
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
 	{"st", 2, {T_REG, T_IND | T_REG}, 3, 5, "store", 0, 0},

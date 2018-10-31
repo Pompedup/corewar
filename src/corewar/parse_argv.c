@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   parse_argv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 12:02:04 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 12:21:33 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/31 13:38:17 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+/*
+********************************************************************************
+**	init_octet_line_viz helps define the width of viz on the standard output
+********************************************************************************
+*/
+
+void	init_octet_line_viz(t_corevm *vm)
+{
+	if (vm->viz || vm->viz_debug)
+	{
+		vm->dump = -1;
+		vm->octet_line_viz = ft_sqrt(MEM_SIZE);
+	}
+}
 
 /*
 ********************************************************************************
@@ -50,29 +65,56 @@ void	add_player(t_corevm *vm, int i)
 	create_player(vm, 0, i);
 }
 
+
+int		get_viz(t_corevm *vm, int i)
+{
+	// while (vm->argv[i])
+	// {
+		if (ft_strequ(vm->argv[i + 1], "-debug"))
+		{
+			vm->viz_debug = 1;
+			i++;
+		}
+		else
+			vm->viz = 1;
+		// i++;
+	// }
+	return (i);
+}
+
 /*
 ********************************************************************************
 **	get_dump checks that the number of cycles given is a positive int
-**
-** -------------------------- commentaire francais -----------------------------
-** on devrait peut etre ici gerer le define de ROOT et ROOT_SIZE
-**	(qui devrait peut etre s'appeler LINE) plutot que dans le corewar.h ????
-**	recupère	dump :
-** Au bout de nbr_cycles cycles d’exécution, dump la mémoire sur la sortie
-** standard,puis quitte la partie. (mémoire dumpée au format hexadécimal)
-** avec 32 octets par ligne.
+**	two options are possible
+**	-b to have a larger width displayed (64 bytes instead of 32)
+**	-c to display colors
 ********************************************************************************
 */
 
 int		get_dump(t_corevm *vm, int i)
 {
-	if (!ft_strequ(vm->argv[i], "-b"))
-		vm->octet_line_viz = 32;
-	else
-		i++;
+	if (!vm->argv[i])
+		ft_error(vm, ERR_MESS_3, 0);
+	while (((!(ft_strisall(vm->argv[i], &ft_isdigit)))\
+		|| (ft_strlen(vm->argv[i]) > 10 || (ft_strlen(vm->argv[i]) == 10\
+		&& ft_strcmp(vm->argv[i], "2147483647") > 0))) && vm->argv[i + 1])
+	{
+		if (ft_strequ(vm->argv[i], "-b"))
+		{
+			vm->octet_line_viz = ft_sqrt(MEM_SIZE);
+			i++;
+		}
+		else if (ft_strequ(vm->argv[i], "-c"))
+		{
+			vm->dump_color = ft_strequ(vm->argv[i], "-c");
+			i++;
+		}
+		else
+			ft_error(vm, ERR_MESS_3, 0);
+	}
 	if ((!(ft_strisall(vm->argv[i], &ft_isdigit)))\
 		|| (ft_strlen(vm->argv[i]) > 10 || (ft_strlen(vm->argv[i]) == 10\
-			&& ft_strcmp(vm->argv[i], "2147483647") > 0)))
+		&& ft_strcmp(vm->argv[i], "2147483647") > 0)))
 		ft_error(vm, ERR_MESS_2, 0);
 	vm->dump = ft_atoi(vm->argv[i]);
 	return (i);
@@ -80,9 +122,7 @@ int		get_dump(t_corevm *vm, int i)
 
 /*
 ********************************************************************************
-** parse_argv manages options (dump, visu, number of player)
-** -------------------------- commentaire francais -----------------------------
-** parsing des champions (et 2 options : -dump (lié a nbr_cycle) et -visu)
+** parse_argv manages options (dump, viz, number of player)
 ********************************************************************************
 */
 
@@ -96,7 +136,7 @@ void	parse_argv(t_corevm *vm)
 		if (ft_strequ(vm->argv[i], "-dump") && vm->dump == -1)
 			i = get_dump(vm, ++i);
 		else if (ft_strequ(vm->argv[i], "-viz"))
-			vm->viz = 1;
+			i = get_viz(vm, i);
 		else if (ft_strcmp(ft_strstr(vm->argv[i], ".cor"), ".cor") == 0)
 			add_player(vm, i);
 		else if (ft_strequ(vm->argv[i], "-n"))
@@ -111,6 +151,5 @@ void	parse_argv(t_corevm *vm)
 	}
 	if (vm->info->nb_players < 1)
 		ft_error(vm, ERR_MESS_16, 0);
-	if (vm->viz)
-		vm->dump = -1;
+	init_octet_line_viz(vm);
 }

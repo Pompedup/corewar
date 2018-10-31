@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_instructions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 15:17:53 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/26 15:55:56 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	execute_instruction(t_corevm *vm, t_process *process)
 {
 	int	i;
 
+		// ft_printf("	process->type_instruc[0] %x \n", process->type_instruc[0]);
 	if (g_op_tab[process->type_instruc[0]].nbr_arg > 1
 		|| g_op_tab[process->type_instruc[0]].id == 16)
 	{
@@ -74,7 +75,11 @@ void	execute_instruction(t_corevm *vm, t_process *process)
 		&& g_op_tab[process->type_instruc[0]].nbr_arg > 1)
 		get_pc_tmp(process, g_op_tab[process->type_instruc[0]]);
 	else
+	{
+		// ft_printf("g_op_tab[process->type_instruc[0] %x \n", g_op_tab[process->type_instruc[0]]);
+		// ft_printf("execute process->carry %d \n", process->carry);
 		g_instruc_func[process->type_instruc[0]].ptrfunc(vm, process);
+	}
 	i = 0;
 	while (i < 2)
 		process->type_instruc[i++] = -1;

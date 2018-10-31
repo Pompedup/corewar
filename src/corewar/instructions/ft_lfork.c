@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lfork.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:40:58 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 19:08:19 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/29 17:26:36 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,16 @@
 
 /*
 ********************************************************************************
-** 0x0f
-** lfork -> long fork, meme chose que fork sans le % IDX_MOD
-** Usage : lfork S(D2)
+**	ft_lfork
+**	opcode 0x0f
+**  usage : lfork ARG_1(D2)
+**	same as fork but without % IDX_MOD
+**	creates a new process to be placed at the adress (PC + (ARG_1)
+**	the new process inherits every state from the father
 ********************************************************************************
 */
 
-void		ft_lfork(t_corevm *vm, t_process *process)
+void	ft_lfork(t_corevm *vm, t_process *process)
 {
 	int			i;
 	t_player	*tmp;

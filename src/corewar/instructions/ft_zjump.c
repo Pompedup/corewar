@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:33:22 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/18 17:07:41 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/29 19:41:41 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 /*
 ********************************************************************************
-** 0x09
-** jump -> fait un saut à l'adresse passée en parametre
-** SI le carry est a 1
-** si le carry est a 0 il ne fait rien mais consomme le meme nb de cycle
-** Usage : zjmp S(D2)
+**	ft_zjmp
+**	opcode 0x09
+**  usage : zjmp ARG_1(D2)
+**	if carry exists, jumps at the adress given in ARG_1
+**	otherwise does nothing but uses the same amount of cycle
 ********************************************************************************
 */
 
