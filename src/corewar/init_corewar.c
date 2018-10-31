@@ -3,35 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   init_corewar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/12 15:22:28 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/02 18:45:25 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/19 21:01:55 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void		init_vm(char **av, t_corevm *vm)
-{
-	t_info_players	*players;
+/*
+********************************************************************************
+** init_lives_player
+********************************************************************************
+*/
 
-	vm->argv = av;
-	vm->visu = 0;
-	ft_bzero(vm->core, MEM_SIZE);
-	vm->nb_total_cycles = 0;
-	vm->dump = 0;
-	vm->nb_live = 0;
-	if (!(players = malloc(sizeof(t_info_players))))
-		ft_error(vm, 9); //malloc error
-	players->nb_players = 0;
-	players->first_player = NULL;
-	players->first_processus = NULL;
-	vm->info_players = players;
+void	init_lives_player(t_corevm *vm)
+{
+	int			i;
+	t_process	*process;
+
+	i = 0;
+	process = vm->info->first_processus;
+	while (i < vm->info->nb_players && process)
+	{
+		vm->lives_player[i][0] = process->num_player;
+		vm->lives_player[i][1] = 0;
+		vm->lives_player[i][2] = 0;
+		vm->lives_player[i][3] = 0;
+		i++;
+		process = process->next;
+	}
 }
 
 /*
-** la seule chose qui est malloc pour le moment
-** cest les mailons de la liste chainee des joueurs
-** et la structure info_player (1 int et lie a la liste chaine des joueurs)
+********************************************************************************
+**	init_vm initializes every attributes of t_corevm *vm
+**	- vm->color that will be used if vm->viz is activated,
+**	set by default on GREY
+**	- vm->argv
+**	- vm->dump that is set at -1 to differientate it from 0
+**	- vm->octet_line_viz that is the square of MEM_SIZE (i.e. 4096 then 64)
+**	this ensure vm->viz to be a square (unless if dump is activated then 32)
+**	- vm->cycle_to_die
+**	- and mallocs vm->info
+********************************************************************************
 */
+
+void	init_vm(char **av, t_corevm **vm)
+{
+	int	i;
+
+	i = 0;
+	if (!(*vm = ft_memalloc(sizeof(t_corevm))))
+		ft_error(*vm, FAIL_MEMALLOC_00, 0);
+	while (i < MEM_SIZE)
+		(*vm)->color[i++] = 13;
+	(*vm)->argv = av;
+	(*vm)->dump = -1;
+	(*vm)->octet_line_viz = ft_sqrt(MEM_SIZE);
+	(*vm)->cycle_to_die = CYCLE_TO_DIE;
+	if (!((*vm)->info = ft_memalloc(sizeof(t_info))))
+		ft_error(*vm, FAIL_MEMALLOC_0, 0);
+}

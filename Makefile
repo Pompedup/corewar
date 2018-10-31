@@ -5,12 +5,16 @@
 #                                                     +:+ +:+         +:+      #
 #    By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/10/21 11:49:01 by abezanni         ###   ########.fr        #
+#    Created: 2018/10/31 17:18:49 by abezanni          #+#    #+#              #
+#    Updated: 2018/10/31 17:18:51 by abezanni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+.PHONY : all clean fclean re libftcomp
+
 CC =			@gcc
+
+FSANITIZE_FLAG = -fsanitize=address
 
 OBJ =			$(COMMON_OBJ)\
 				$(ASM_OBJ)\
@@ -59,16 +63,37 @@ ASM_FILES =		asm.c\
 				$(addprefix write/,$(ASM_WRITE))\
 				$(addprefix verif/,$(ASM_VERIF))\
 
-COREWAR_FILES =	charge_players_in_core.c\
+COREWAR_FILES =	corewar.c\
 				execute_the_battle.c\
+				get_arguments.c\
+				get_instructions.c\
+				get_values.c\
 				handle_processus.c\
 				init_corewar.c\
+				instructions/ft_add.c\
+				instructions/ft_aff.c\
+				instructions/ft_and.c\
+				instructions/ft_fork.c\
+				instructions/ft_ld.c\
+				instructions/ft_ldi.c\
+				instructions/ft_lfork.c\
+				instructions/ft_live.c\
+				instructions/ft_lld.c\
+				instructions/ft_lldi.c\
+				instructions/ft_or.c\
+				instructions/ft_st.c\
+				instructions/ft_sti.c\
+				instructions/ft_sub.c\
+				instructions/ft_xor.c\
+				instructions/ft_zjump.c\
 				manage_error.c\
 				number_players.c\
 				parse_argv.c\
+				players_charged.c\
 				read_file_players.c\
-				register_players.c\
-				corewar.c\
+				create_players.c\
+				print_core.c\
+				free_corewar.c\
 
 COMMON_SRC =	$(addprefix src/common/,$(COMMON_FILES))
 
@@ -77,10 +102,12 @@ ASM_SRC =		$(addprefix src/asm/,$(ASM_FILES))
 COREWAR_SRC =	$(addprefix src/corewar/,$(COREWAR_FILES))
 
 ASM_NAME =		asm
+ASM_NAME_DEBUG =		asm_debug
 
 NAME = $(ASM_NAME) $(COREWAR_NAME)
 
 COREWAR_NAME =	corewar
+COREWAR_NAME_DEBUG =	corewar_debug
 
 LIB_PATH =		libft
 
@@ -117,13 +144,24 @@ ERROR_REG =		reg_without_int.s\
 
 all : libftcomp $(NAME)
 
+$(COREWAR_NAME) : $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
+	$(CC) -o $(COREWAR_NAME) $(CFLAGS) $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
+	@echo "\033[1;32mSucced corewar\033[0m"
+
 $(ASM_NAME) : $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
 	$(CC) -o $(ASM_NAME) $(CFLAGS) $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
 	@echo "\033[1;32mSucced asm\033[0m"
 
-$(COREWAR_NAME) : $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
-	$(CC) -o $(COREWAR_NAME) $(CFLAGS) $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
-	@echo "\033[1;32mSucced corewar\033[0m"
+
+$(ASM_NAME_DEBUG) : $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
+	$(CC) $(CFLAGS) $(FSANITIZE_FLAG) -o $(ASM_NAME) $(LIB) $(ASM_OBJ) $(COMMON_OBJ)
+	@echo "\033[1;32mSucced asm with $(FSANITIZE_FLAG)\033[0m"
+
+$(COREWAR_NAME_DEBUG) : $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
+	$(CC) $(CFLAGS) $(FSANITIZE_FLAG) -o $(COREWAR_NAME) $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
+	@echo "\033[1;32mSucced corewar with $(FSANITIZE_FLAG)\033[0m"
+
+DEBUG : libftcomp $(ASM_NAME_DEBUG) $(COREWAR_NAME_DEBUG)
 
 $(COMMON_OBJ) : inc/common.h
 $(ASM_OBJ) : inc/asm.h inc/common.h inc/asm_struct_define.h

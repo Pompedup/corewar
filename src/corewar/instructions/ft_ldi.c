@@ -1,22 +1,45 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ldi.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/10/18 16:41:15 by ccoupez           #+#    #+#             */
+/*   Updated: 2018/10/18 16:43:51 by ccoupez          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "corewar.h"
 
 /*
+********************************************************************************
 ** 0x0a
-** modifie le carry
 ** ldi -> load a l'indice
-** ex : ldi 3,%4,r1
-** lit IND_SIZE octets a ladresse: (PC + (3 % IDX_MOD)),
-** ajoute 4 a cette valeur
-** on nomme cette somme S.
-** on lit REG_SIZE octets a ladresse (PC + (S % IDX_MOD)),
-** quon copie dans r1
+** modifie le carry
 ** les parametres 1 et 2 sont des index.
+** quon copie dans r1
+** Usage : ldi S(RG/ID/D2), S(ID/D2), D(RG)
+********************************************************************************
 */
 
-//void    ldi(char *reg_dir_ind, char *dir_reg, char *reg)
-int     ft_ldi(t_corevm *core, t_player *player)
+void	ft_ldi(t_corevm *vm, t_process *process)
 {
+	int	*values;
+	int	add;
 
+	get_args(vm, process, g_op_tab[process->type_instruc[0]]);
+	if (process->good_reg)
+	{
+		values = get_values(vm, process, 3, 0);
+		if (values)
+		{
+			add = ((values[0] + values[1]) % IDX_MOD) - IDX_MOD
+				* ((((values[0] + values[1]) / IDX_MOD) & 1));
+			process->reg[process->args[2]] = *((int *)(vm->core
+				+ ((process->pc + add) & (MEM_SIZE - 1))));
+			process->carry = (process->reg[process->args[2]]) ? 0 : 1;
+			free(values);
+		}
+	}
 }

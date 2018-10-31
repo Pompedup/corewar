@@ -6,43 +6,54 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 15:13:34 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/09/03 14:03:28 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/19 13:08:49 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "corewar.h"
 
 /*
+********************************************************************************
+**  put_process_front enables the latest player to play first
 ** le dernier joueur né joue en premier.
+********************************************************************************
 */
 
-void        put_process_front(t_process **first, t_process *process)
+void		put_process_front(t_process **first, t_process *process)
 {
-    process->next = *first;
-    *first = process;
+	process->next = *first;
+	*first = process;
 }
 
 /*
-** avant de placer les joueurs dans la core
-** on les transformes en processus (on les mets dans une nouvelle sutructure "process")
-** plus adaptée pour executer le jeu
+********************************************************************************
+**  create_process translates the player information into a process
+********************************************************************************
 */
 
-t_process	*create_process(t_corevm *vm, int pc, int num, unsigned int color)
+t_process	*create_process(t_corevm *vm, int pc, t_player *player)
 {
-    int         i;
-    t_process   *process;
+	t_process	*process;
+	int			i;
 
-    if (!(process = malloc(sizeof(t_process))))
-        ft_error(vm, -66); //malloc error
-    process->color = color;
-    process->pc = pc;
-	process->carry = 0;
-	process->reg[0] = num + 1;
-	i = 1;
-	while (i < REG_NUMBER)
-		process->reg[i++] = 0;
-    printf("num %d\n", num);
-    return (process);
+	if (!(process = ft_memalloc(sizeof(t_process))))
+		ft_error(vm, FAIL_MEMALLOC_3, 0);
+	process->pc = pc;
+	process->color_live = -1;
+	process->color = player->color;
+	if (vm->color[pc] < 8)
+		vm->color[pc] =
+			vm->color[pc] < 4 ? vm->color[pc] + 8 : vm->color[pc] + 4;
+	if (vm->color[pc] == 13)
+		vm->color[pc]--;
+	process->num_player = player->num;
+	process->reg[0] = player->num;
+	ft_memrev(&process->reg[0], 4);
+	process->good_reg = 1;
+	i = -1;
+	while (++i < 2)
+		process->type_instruc[i] = -1;
+	ft_strcpy(process->name, player->header->prog_name);
+	put_process_front(&(vm->info->first_processus), process);
+	return (process);
 }
