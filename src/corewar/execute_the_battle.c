@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 11:51:31 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/30 14:58:57 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/31 13:41:00 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,14 +178,14 @@ void	execute_the_battle(t_corevm *vm)
 		vm->nbr_total_cycles++;
 		cycle++;
 		if (vm->viz)
-		{
 			print_it_all(vm);
+		if (vm->viz_debug)
+			viz_debug(vm, cycle, &debug);
+
 			// ft_printf(CLEAR);
 			// print_core(vm);
 			// sleep(1);
 			// ft_printf("%s%s%s%s%s%s%s\n", LN_32, LN_32, LN_32, LN_32, LN_32, LN_32, LN_15);
-			// viz_debug(vm, cycle, &debug);
-		}
 	}
 }
 
@@ -208,15 +208,20 @@ void	viz_debug(t_corevm *vm, int cycle, int *debug)
 			(void) cycle;
 			if (vm->nbr_total_cycles > CYCLE_DEBUG + *debug)
 			{
-				print_core(vm);
-				ft_printf("%s%s%s%s%s%s%s\n", LN_32, LN_32, LN_32, LN_32, LN_32, LN_32, LN_15);
-				ft_printf("\n\tCYCLE\tvm->nbr_total_cycles %d\n", vm->nbr_total_cycles);
-				ft_printf("\tCYCLE TO DIE\tvm->cycle to die %d\n", vm->cycle_to_die);
-				ft_printf("\tLIVES TOTAL\tvm->nb_lives %d\n", vm->nb_lives);
-				ft_printf("\tLIVES IN CURRENT PERIOD\n");
-				ft_printf("\tNombre de process en cours \n");
-				ft_printf("\tCYCLE DELTA\n");
-				ft_printf("%s%s%s%s%s%s%s\n", LN_32, LN_32, LN_32, LN_32, LN_32, LN_32, LN_15);
+					ft_printf(CLEAR);
+					print_header_viz(vm);
+					print_introduction(vm);
+					print_core(vm);
+					print_summary(vm);
+				// print_core(vm);
+				// ft_printf("%s%s%s%s%s%s%s\n", LN_32, LN_32, LN_32, LN_32, LN_32, LN_32, LN_15);
+				// ft_printf("\n\tCYCLE\tvm->nbr_total_cycles %d\n", vm->nbr_total_cycles);
+				// ft_printf("\tCYCLE TO DIE\tvm->cycle to die %d\n", vm->cycle_to_die);
+				// ft_printf("\tLIVES TOTAL\tvm->nb_lives %d\n", vm->nb_lives);
+				// ft_printf("\tLIVES IN CURRENT PERIOD\n");
+				// ft_printf("\tNombre de process en cours \n");
+				// ft_printf("\tCYCLE DELTA\n");
+				// ft_printf("%s%s%s%s%s%s%s\n", LN_32, LN_32, LN_32, LN_32, LN_32, LN_32, LN_15);
 				while (get_next_line(0, &line) == 0);
 				// {
 					// turn++;

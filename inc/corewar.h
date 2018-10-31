@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/30 18:44:35 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/31 14:06:43 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 # include "common.h"
 
-# define CYCLE_DEBUG		20000
+# define CYCLE_DEBUG		0
 # define PRINTF				1
 # define SHORT				32768
 # define UNSIGNED_CHAR		128
 # define USAGE 				USAGE1 USAGE2
-# define USAGE1				"Usage: ./corewar [-dump [-b] [-c] nbr_cycles]"
+# define USAGE1			"Usage: ./corewar [-dump [-b] [-c] nbr_cycles [-viz]]"
 # define USAGE2				"[[-n number] champion1.cor] ..."
 # define ERR_MESS_00		"incorrect defines"
 # define ERR_MESS_01 		"(MEM_SIZE or REG_NUMBER are null or too big)"
@@ -56,7 +56,6 @@
 ********************************************************************************
 */
 
-//# define LN_FL_64_MEMSIZE	MEM_SIZE //to see if there is a better way to do depending
 # define LN_FL_64			LN_32, LN_32, LN_32, LN_32, LN_32, LN_32, LN_15
 # define LN_32				"_______________________________"
 # define LN_15				"______________"
@@ -217,6 +216,7 @@ typedef struct			s_corevm
 {
 	char				**argv;
 	int					viz;
+	int					viz_debug;
 	t_info				*info;
 	char				core[MEM_SIZE];
 	unsigned int		color[MEM_SIZE];
@@ -274,7 +274,7 @@ void					parse_argv(t_corevm *vm);
 ********************************************************************************
 */
 
-int						lenght_display_name(char *name, int padding);
+int						lenght_display_string(char *name, int padding);
 void					create_player(t_corevm *vm, int num, int index);
 
 /*
@@ -408,7 +408,7 @@ void					dump_core(t_corevm *vm, int color);
 
 /*
 ********************************************************************************
-**						VIZ_C					     			 			  **
+**						VIZ_C && DETAILS_VIZ_C	     			 			  **
 ********************************************************************************
 */
 
@@ -421,6 +421,9 @@ void					display_statistics_last_cycle(t_corevm *vm);
 void					display_statistics_number_lives(t_corevm *vm);
 void					display_percentage_lives(t_corevm *vm);
 void					display_constants(t_corevm *vm);
+void					print_summary(t_corevm *vm);
+void					print_introduction(t_corevm *vm);
+void					print_header_viz(t_corevm *vm);
 
 /*
 ********************************************************************************

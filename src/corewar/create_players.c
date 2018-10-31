@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:40:17 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/30 18:20:19 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/31 14:06:29 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 
 /*
 ********************************************************************************
-**
+**	lenght_display_string
 ********************************************************************************
 */
 
-int	lenght_display_name(char *name, int padding)
+int	lenght_display_string(char *string, int padding)
 {
 	int		lenght;
 	char	*new_line;
 
-	if ((new_line = ft_strchr(name, '\n')))
+	if ((new_line = ft_strchr(string, '\n')))
 	{
-		if (new_line - name > padding)
+		if (new_line - string > padding)
 			lenght = padding;
 		else
-			lenght = new_line - name;
+			lenght = new_line - string;
 	}
 	else
-		lenght = (int)ft_strlen(name) > padding ? padding : ft_strlen(name);
+		lenght = (int)ft_strlen(string) > padding ? padding : ft_strlen(string);
 	return (lenght);
 }
 

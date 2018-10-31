@@ -1,7 +1,6 @@
 .name "Ultima_long_long_long_long_long_long_long_long_long_long"
 
-.comment "
-Je suis l'Alpha
+.comment "Je suis l'Alpha
 Je suis Le destructeur
 Je suis Omega
 Je suis La raison de ta peur

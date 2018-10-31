@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 12:24:37 by ecesari           #+#    #+#             */
-/*   Updated: 2018/10/30 18:50:38 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/10/31 14:28:34 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ void	print_header_viz(t_corevm *vm)
 
 void	print_introduction(t_corevm *vm)
 {
-	t_player		*player_to_introduce;
+	t_player	*player_to_introduce;
+	int			padding_name;
+	// int			padding_comment;
 
 	player_to_introduce = vm->info->first_player;
 	ft_printf("%s%s%s%s%s%s%s\n", LN_FL_64);
@@ -63,15 +65,19 @@ void	print_introduction(t_corevm *vm)
 	{
 		if (player_to_introduce)
 		{
-			ft_printf("	* le champion n°%d, nommé %s%d;%d;%dm%s%s\
-			et pesant %d bytes (%s)\n",
+			// ft_printf("player_to_introduce->precision %d\n", player_to_introduce->precision);
+			// ft_printf("player_to_introduce->precision_c %d\n", player_to_introduce->precision_c);
+			padding_name = vm->info->padding - player_to_introduce->precision;
+			// padding_comment = vm->info->padding - player_to_introduce->precision_c;
+			ft_printf(
+"\t* le champion n°%d, nommé %s%d;%d;%dm%.*s%s%*s et pesant %d bytes (%.*s)\n",
 			ft_abs(player_to_introduce->num), COLOR_LET_ON,
 			def_col(vm, player_to_introduce->color, 1),
 			def_col(vm, player_to_introduce->color, 2),
-			def_col(vm, player_to_introduce->color, 3),
-			player_to_introduce->header->prog_name, COLOR_OFF,
+			def_col(vm, player_to_introduce->color, 3), player_to_introduce->precision,
+			player_to_introduce->header->prog_name, COLOR_OFF, padding_name, "",
 			player_to_introduce->header->prog_size,
-			player_to_introduce->header->comment);
+			player_to_introduce->precision_c, player_to_introduce->header->comment);
 		}
 		player_to_introduce = player_to_introduce->next;
 	}
