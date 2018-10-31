@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 14:29:06 by ecesari           #+#    #+#             */
-/*   Updated: 2018/10/19 15:54:42 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/24 12:01:56 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ********************************************************************************
 */
 
-void	free_vm_info_process(t_corevm *vm, t_process* process_to_delete)
+void	free_vm_info_process(t_corevm *vm, t_process *process_to_delete)
 {
 	t_process	*tmp;
 
@@ -34,19 +34,17 @@ void	free_vm_info_process(t_corevm *vm, t_process* process_to_delete)
 ********************************************************************************
 **	free_vm_info_player aims at freeing each vm->info->player created
 **	it also frees the header of each player
-**	and calls free_vm_info_process
 ********************************************************************************
 */
 
-void	free_vm_info_player(t_corevm *vm, t_player* player_to_delete)
+void	free_vm_info_player(t_corevm *vm, t_player *player_to_delete)
 {
 	t_player	*tmp;
 
 	if (player_to_delete)
 	{
 		tmp = player_to_delete->next;
-		free(player_to_delete->header);// free_vm_info_player_header(vm, player_to_delete->header);
-		free_vm_info_process(vm, player_to_delete->process);
+		free(player_to_delete->header);
 		free(player_to_delete);
 		free_vm_info_player(vm, tmp);
 	}
@@ -60,15 +58,19 @@ void	free_vm_info_player(t_corevm *vm, t_player* player_to_delete)
 **	- vm->info->player->header
 **	- vm->info->process
 **	- (values used in instruction are freed at the end of the instruction)
-**
 ********************************************************************************
 */
 
 void	free_vm(t_corevm *vm)
 {
-	if (vm->info)
+	if (vm)
 	{
-		free_vm_info_player(vm, vm->info->first_player);
-		free(vm->info);
+		if (vm->info)
+		{
+			free_vm_info_player(vm, vm->info->first_player);
+			free_vm_info_process(vm, vm->info->first_processus);
+			free(vm->info);
+		}
+		free(vm);
 	}
 }

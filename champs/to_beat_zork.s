@@ -31,11 +31,10 @@
 		#strategie 3
 #________________________________________________________________________
 		and r1, %0, r16			#resultat nul donc carry devient actif
-		and r1, %0, r16			#resultat nul donc carry devient actif
-fork:	fork %:troisieme_partie
+		and r1, %0, r16			#pour etre en decaler par rapport a zork
+		fork %:troisieme_partie	#pour encadrer les lives de zork par nos lives
 
-deuxieme_partie: 	sti r1, %:troisieme_partie, %1
+deuxieme_partie: 	sti r1, %:troisieme_partie, %1 #pour faire un live a notre numero de joueur
 
 troisieme_partie: 	live %1
-				#	st r3, r4
-					zjmp %:troisieme_partie
+					zjmp %:troisieme_partie #pour boucler

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/19 13:38:52 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/22 19:30:15 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 
 # include "common.h"
 
-#define CYCLE_DEBUG			0
-#define PRINTF				1
-
+# define CYCLE_DEBUG		0
+# define PRINTF				1
 # define SHORT				32768
 # define UNSIGNED_CHAR		128
 # define USAGE 				USAGE1 USAGE2
-# define USAGE1				"Usage: ./corewar [-dump nbr_cycles]"
+# define USAGE1				"Usage: ./corewar [-dump [-b] nbr_cycles]"
 # define USAGE2				"[[-n number] champion1.cor] ..."
 # define ERR_MESS_00		"incorrect defines"
+# define ERR_MESS_01 		"(MEM_SIZE or REG_NUMBER are null or too big)"
 # define ERR_MESS_0			"not enough arguments.\n" USAGE
 # define ERR_MESS_1			"incorrect arguments.\n" USAGE
 # define ERR_MESS_2			"argument for dump is not an unsigned int"
-# define ERR_MESS_3			"argument for dump must be superior to 0"
+# define ERR_MESS_3			"invalid argument for dump"
 # define ERR_MESS_4			"incorrect name of the champion file"
 # define ERR_MESS_5			"cannot open file "
 # define ERR_MESS_6			"cannot close file "
@@ -43,38 +43,44 @@
 # define ERR_MESS_16		"at least one player is needed"
 # define ERR_MESS_17		"argument for number of player is not an int"
 # define ERR_MESS_18		"a player cannot have a number already given or 0"
+# define FAIL_MEMALLOC_00	"ft_memalloc of vm failed"
 # define FAIL_MEMALLOC_0	"ft_memalloc of vm->info failed"
 # define FAIL_MEMALLOC_1	"ft_memalloc of vm->info->player failed"
 # define FAIL_MEMALLOC_2	"ft_memalloc of vm->info->player->header failed"
 # define FAIL_MEMALLOC_3	"ft_memalloc of vm->info->process failed"
-// # define FAIL_MEMALLOC_4	"ft_memalloc of new_color failed"
-# define FAIL_MEMALLOC_5	"ft_memalloc of values failed"
+# define FAIL_MEMALLOC_4	"ft_memalloc of values failed"
 
-//ORDONNE DANS LE SENS COULEUR CLASSIQUE / SURBRILLANCE (derniere instruction en date) / SURLIGNEMENT PC
-#define TAB_COLOR	{GREEN, PINK, BLUE, ORANGE, GREEN_S, PINK_S, BLUE_S, ORANGE_S, GREEN_PC, PINK_PC, BLUE_PC, ORANGE_PC, GREY_PC, GREY}
-//  					0	 1 		2		3		4		5		6		7		8			9		10		11			12		13
-#define GREEN				0x00ff00
-#define PINK				0xff0000
-#define BLUE				0x0000ff
-#define ORANGE				0xf0f0f0
-//////////
-#define GREEN_S				0xcdefb2
-#define PINK_S				0xff0099
-#define BLUE_S				0xcfebfd
-#define ORANGE_S			0xfdc085
-//////////
-#define GREEN_PC			0xace580
-#define PINK_PC				0xffb6c1
-#define BLUE_PC				0x9fd7fb
-#define ORANGE_PC			0xfd9735
-//////////
-#define GREY_PC				0x808080
-#define GREY				0xdfdfdf
-//////////
-// #define GREEN_LIFE			0x00ff00
-// #define PINK_LIFE			0xff0000
-// #define BLUE_LIFE			0x0000ff
-// #define ORANGE_LIFE			0xf0f0f0
+/*
+********************************************************************************
+**	ORDONNE DANS LE SENS
+**	COULEUR CLASSIQUE 	0 	1 	2 	3
+**	SURBRILLANCE 		4 	5 	6 	7		(derniere instruction en date)
+**	SURLIGNEMENT PC		8 	9 	10	11 12
+**	GRIS				13
+********************************************************************************
+*/
+
+# define COLOR_LET_ON		"\033[38;2;"
+# define COLOR_LET_WHITE	"\033[38;1;255;255;255m"
+# define COLOR_LET_BLACK	"\033[38;2;0;0;0m"
+# define COLOR_BG_ON		"\033[48;2;"
+# define COLOR_OFF			"\033[0m"
+# define CLEAR				"\e[J\x1b[H"
+
+# define GREEN				0x00ff00
+# define PINK				0xff0000
+# define BLUE				0x0000ff
+# define ORANGE				0xff8c00
+# define GREEN_S			0xcdefb2
+# define PINK_S				0xff0099
+# define BLUE_S				0xcfebfd
+# define ORANGE_S			0xfdc085
+# define GREEN_PC			0xace580
+# define PINK_PC			0xffb6c1
+# define BLUE_PC			0x9fd7fb
+# define ORANGE_PC			0xfd9735
+# define GREY_PC			0x808080
+# define GREY				0xdfdfdf
 
 /*
 ********************************************************************************
@@ -91,7 +97,7 @@
 
 typedef struct			s_player
 {
-	int					num;//num joueur faut peut etre le mettre dans le r1
+	int					num;
 	char				*name_file;
 	int					color;
 	header_t			*header;
@@ -102,14 +108,21 @@ typedef struct			s_player
 
 /*
 ********************************************************************************
-**	s_process contains
+**	s_process defined either by the player or the parent proccess for (l)fork
 **	- name of program
 **	- color
-**	-
-**	-
-**	-
-**	-
-**	-
+**	- num_player
+**	- reg[REG_NUMBER]
+**	- pc
+**	- pc_tmp
+**	- carry,
+**	- live
+**	- type_instruc[2]
+**	- args[3]
+**	- color_live
+**	- nb_cycle_instruc
+**	- good_reg
+**	- *next
 ********************************************************************************
 */
 
@@ -118,7 +131,7 @@ typedef struct			s_process
 	char				name[PROG_NAME_LENGTH + 1];
 	int					color;
 	int					num_player;
-	int					reg[REG_NUMBER];//de REG_SIZE un int 4 octets
+	int					reg[REG_NUMBER];
 	int					pc;
 	int					pc_tmp;
 	int					carry;
@@ -152,31 +165,34 @@ typedef struct			s_info
 **		standard output
 **	- nb_cycle
 **	-
+**argv pour le parsing
+** int	viz; option visu librairie possible : OpenGL, SDL, nCurses, ... (bonus)
+** t_info	*info; pointeur vers la structure qui gere la liste des players
 ********************************************************************************
 */
 
-extern t_op	g_op_tab[];
-
 typedef struct			s_corevm
 {
-	char				**argv; //pour le parsing
-	int					viz; //option visu librairie possible : OpenGL, SDL, nCurses, ... (bonus)
-	t_info				*info; // pointeur vers la structure qui gere la liste des players
-
-	//ici plus pour la battle
+	char				**argv;
+	int					viz;
+	t_info				*info;
 	char				core[MEM_SIZE];
 	unsigned int		color[MEM_SIZE];
-	//t_op				*g_op_tab;
-	int					dump;//unsigned int
-
+	int					*tab_color;
+	int					dump;
+	int					dump_color;
 	int					nbr_total_cycles;
-
 	int					cycle_to_die;
-
 	int					octet_line_viz;
 	int					nb_lives;
 	int					lives_player[MAX_PLAYERS][4];
 }						t_corevm;
+
+/*
+********************************************************************************
+**	-
+********************************************************************************
+*/
 
 typedef struct			s_ptr_func
 {
@@ -184,7 +200,8 @@ typedef struct			s_ptr_func
 	int					code_instruction;
 }						t_ptr_func;
 
-extern t_ptr_func	g_instruc_func[];
+extern t_op				g_op_tab[];
+extern t_ptr_func		g_instruc_func[];
 
 /*
 ********************************************************************************
@@ -192,7 +209,7 @@ extern t_ptr_func	g_instruc_func[];
 ********************************************************************************
 */
 
-void					init_vm(char **av, t_corevm *vm);
+void					init_vm(char **av, t_corevm **vm);
 void					init_lives_player(t_corevm *vm);
 
 /*
@@ -201,7 +218,7 @@ void					init_lives_player(t_corevm *vm);
 ********************************************************************************
 */
 
-void   					parse_argv(t_corevm *vm);
+void					parse_argv(t_corevm *vm);
 
 /*
 ********************************************************************************
@@ -209,7 +226,7 @@ void   					parse_argv(t_corevm *vm);
 ********************************************************************************
 */
 
-void					create_player(t_corevm *vm, int num,  int index);
+void					create_player(t_corevm *vm, int num, int index);
 
 /*
 ********************************************************************************
@@ -229,15 +246,16 @@ void					read_programme(t_player *player, t_corevm *vm, int fd);
 ********************************************************************************
 */
 
-void    				number_players(t_corevm *vm);
+void					number_players(t_corevm *vm);
 int						unused_num(t_corevm *vm, int num);
 
 /*
 ********************************************************************************
-**						PLAYERS_CHARGED								 	 	 **
+**						PLAYERS_CHARGED_C  							 	 	  **
 ********************************************************************************
 */
 
+void					introducing_contestants(t_corevm *vm);
 void					players_charged_in_core(t_corevm *vm);
 
 /*
@@ -246,9 +264,8 @@ void					players_charged_in_core(t_corevm *vm);
 ********************************************************************************
 */
 
-void    				ft_error(t_corevm *vm, char *mess_error, int to_free);
+void					ft_error(t_corevm *vm, char *mess_error, int to_free);
 void					ft_read_error(t_corevm *vm, char *mess_error, int fd);
-void					ft_dump_exit(t_corevm *vm);
 
 /*
 ********************************************************************************
@@ -266,6 +283,7 @@ void					put_process_front(t_process **first, \
 ********************************************************************************
 */
 
+void					declare_winner(t_corevm *vm);
 void					execute_the_battle(t_corevm *vm);
 void					pc_color(t_corevm *vm, t_process *process);
 
@@ -289,7 +307,8 @@ void					get_pc_tmp(t_process *process, t_op g_tab);
 
 void					get_one_octet(t_corevm *vm, t_process *process, int i);
 void					get_two_octets(t_corevm *vm, t_process *process, int i);
-void					get_four_octets(t_corevm *vm, t_process *process, int i);
+void					get_four_octets(t_corevm *vm, t_process *process,\
+						int i);
 void					get_args(t_corevm *vm, t_process *process, t_op g_tab);
 t_bool					test_args(t_process *process, t_op g_tab);
 
@@ -304,26 +323,26 @@ int						*get_values(t_corevm *vm, t_process *process,\
 
 /*
 ********************************************************************************
-**						INSTRUCTIONS/				     				 	  **
+**						INSTRUCTIONS\				     				 	  **
 ********************************************************************************
 */
 
-void						ft_live(t_corevm *vm, t_process *process);
-void						ft_ld(t_corevm *vm, t_process *process);
-void	    				ft_st(t_corevm *vm, t_process *process);
-void						ft_add(t_corevm *vm, t_process *process);
-void	    				ft_sub(t_corevm *vm, t_process *process);
-void						ft_and(t_corevm *vm, t_process *process);
-void	    				ft_or(t_corevm *vm, t_process *process);
-void	    				ft_xor(t_corevm *vm, t_process *process);
-void						ft_zjmp(t_corevm *vm, t_process *process);
-void						ft_ldi(t_corevm *vm, t_process *process);
-void	    				ft_sti(t_corevm *vm, t_process *process);
-void						ft_fork(t_corevm *vm, t_process *process);
-void	    				ft_lld(t_corevm *vm, t_process *process);
-void	    				ft_lldi(t_corevm *vm, t_process *process);
-void	    				ft_lfork(t_corevm *vm, t_process *process);
-void						ft_aff(t_corevm *vm, t_process *process);
+void					ft_live(t_corevm *vm, t_process *process);
+void					ft_ld(t_corevm *vm, t_process *process);
+void					ft_st(t_corevm *vm, t_process *process);
+void					ft_add(t_corevm *vm, t_process *process);
+void					ft_sub(t_corevm *vm, t_process *process);
+void					ft_and(t_corevm *vm, t_process *process);
+void					ft_or(t_corevm *vm, t_process *process);
+void					ft_xor(t_corevm *vm, t_process *process);
+void					ft_zjmp(t_corevm *vm, t_process *process);
+void					ft_ldi(t_corevm *vm, t_process *process);
+void					ft_sti(t_corevm *vm, t_process *process);
+void					ft_fork(t_corevm *vm, t_process *process);
+void					ft_lld(t_corevm *vm, t_process *process);
+void					ft_lldi(t_corevm *vm, t_process *process);
+void					ft_lfork(t_corevm *vm, t_process *process);
+void					ft_aff(t_corevm *vm, t_process *process);
 
 /*
 ********************************************************************************
@@ -332,27 +351,14 @@ void						ft_aff(t_corevm *vm, t_process *process);
 */
 
 void					print_core(t_corevm *vm);
-void					dump_core(t_corevm *vm);
+void					dump_core(t_corevm *vm, int color);
+
+/*
+********************************************************************************
+**						FREE_COREWAR_C					     			 	  **
+********************************************************************************
+*/
 
 void					free_vm(t_corevm *vm);
-
-//Trois méthodes d’adressage de la mémoire sont possibles
-//dans une instruction :
-//Relatif : C’est le mode par défaut. Il est relatif à la
-//case de l’instruction en cours d’exécution. Par exemple,
-//3 pointe vers la troisième case après la case de
-//l’instruction en cours d’exécution.
-
-//Indirect : Est indiqué par un signe @.
-//L’adresse après le signe @ n’est pas l’adresse pointée
-//mais l’adresse de l’adresse pointée.
-//Par exemple @3 pointe vers la case dont l’adresse est 3 cases
-//après celle de l’instruction en cours. Attention, la case
-//contenant l’adresse doit être du type DAT (cf plus loin)
-//sans quoi, le programme s’arrête sur une erreur d’indirection.
-
-//Immédiat : Est indiqué par un signe # avant
-//l’argument. Indique une valeur numérique, sans référence
-//d’adresse. Donc #3 est la valeur numérique 3.
 
 #endif

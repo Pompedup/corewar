@@ -6,7 +6,7 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 12:02:04 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/19 16:04:30 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/24 12:01:58 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,28 @@ void	add_player(t_corevm *vm, int i)
 
 int		get_dump(t_corevm *vm, int i)
 {
-	if (!ft_strequ(vm->argv[i], "-b"))
-		vm->octet_line_viz = 32;
-	else
-		i++;
+	if (!vm->argv[i])
+		ft_error(vm, ERR_MESS_3, 0);
+	while (((!(ft_strisall(vm->argv[i], &ft_isdigit)))\
+		|| (ft_strlen(vm->argv[i]) > 10 || (ft_strlen(vm->argv[i]) == 10\
+			&& ft_strcmp(vm->argv[i], "2147483647") > 0))) && vm->argv[i + 1])
+	{
+		if (ft_strequ(vm->argv[i], "-b"))
+		{
+			vm->octet_line_viz = ft_sqrt(MEM_SIZE);
+			i++;
+		}
+		else if (ft_strequ(vm->argv[i], "-c"))
+		{
+			vm->dump_color = ft_strequ(vm->argv[i], "-c");
+			i++;
+		}
+		else
+			ft_error(vm, ERR_MESS_3, 0);
+	}
 	if ((!(ft_strisall(vm->argv[i], &ft_isdigit)))\
 		|| (ft_strlen(vm->argv[i]) > 10 || (ft_strlen(vm->argv[i]) == 10\
-			&& ft_strcmp(vm->argv[i], "2147483647") > 0)))
+		&& ft_strcmp(vm->argv[i], "2147483647") > 0)))
 		ft_error(vm, ERR_MESS_2, 0);
 	vm->dump = ft_atoi(vm->argv[i]);
 	return (i);

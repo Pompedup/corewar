@@ -6,39 +6,12 @@
 /*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 14:29:45 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/19 16:19:52 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/24 12:01:59 by ccoupez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-/*
-********************************************************************************
-** dump_core
-********************************************************************************
-*/
-
-void	dump_core(t_corevm *vm)
-{
-	unsigned char	print[vm->octet_line_viz * 3];
-	int				i;
-	int				j;
- 	i = 0;
-	j = 0;
-	while (i < MEM_SIZE)
-	{
- 		print[j * 3] = HEXAMIN[((unsigned char *)vm->core)[i] / 16];
-		print[j * 3 + 1] = HEXAMIN[((unsigned char *)vm->core)[i] % 16];
-		print[j * 3 + 2] = ' ';
-		j++;
-		if (i && !((i + 1) % (vm->octet_line_viz)))
-		{
-			ft_printf("%s\n", print);
-			j = 0;
-		}
-		i++;
-	}
-}
 /*
 ********************************************************************************
 **
@@ -72,18 +45,19 @@ int		color_live(t_corevm *vm, int i)
 
 void	put_color(t_corevm *vm, unsigned char *print, int j, int i)
 {
-	static int	tab[] = TAB_COLOR;
 	int			h;
 
 	if (vm->color[i] > 7 && vm->color[i] < 13)
 		ft_printf("\033[48;2;%d;%d;%dm\033[38;2;0;0;0m%.*s\033[0m"
-		, (tab[vm->color[i]] >> 16) & 0xff, (tab[vm->color[i]] >> 8) & 0xff
-			, (tab[vm->color[i]]) & 0xff, j - 1, print);
+		, (vm->tab_color[vm->color[i]] >> 16) & 0xff,
+		(vm->tab_color[vm->color[i]] >> 8) & 0xff,
+		(vm->tab_color[vm->color[i]]) & 0xff, j - 1, print);
 	else
 		ft_printf("\033[38;2;%d;%d;%dm%.*s\033[0m",
-			(tab[vm->color[i]] >> 16) & 0xff, (tab[vm->color[i]] >> 8) & 0xff,
-				(tab[vm->color[i]]) & 0xff, j, print);
-	if (i && !((i + 1) % (vm->octet_line_viz)))
+		(vm->tab_color[vm->color[i]] >> 16) & 0xff,
+		(vm->tab_color[vm->color[i]] >> 8) & 0xff,
+		(vm->tab_color[vm->color[i]]) & 0xff, j, print);
+	if (i && !((i + 1) % (vm->octet_line_viz)) && i + 1 < MEM_SIZE)
 		ft_printf("\n%#.4x : ", i + 1);
 	else if (vm->color[i] > 7 && vm->color[i] < 13)
 		ft_printf(" ");
@@ -105,8 +79,7 @@ void	put_color(t_corevm *vm, unsigned char *print, int j, int i)
 int		checking_color(t_corevm *vm,
 unsigned char print[vm->octet_line_viz * 3 + 1], int i, int j)
 {
-	static int		tab[] = TAB_COLOR;
-	int				color;
+	int			color;
 
 	if (vm->color[i] != vm->color[i + 1]
 		|| (i && !((i + 1) % (vm->octet_line_viz))))
@@ -119,8 +92,9 @@ unsigned char print[vm->octet_line_viz * 3 + 1], int i, int j)
 		if (j > 1)
 			put_color(vm, print, (j * 3 - 3), i);
 		ft_printf("\033[48;2;%d;%d;%dm\033[38;1;255;255;255m%.*s\033[0m",
-			(tab[color] >> 16) & 0xff, (tab[color] >> 8) & 0xff,
-				(tab[color]) & 0xff, 2, print + (j * 3 - 3));
+			(vm->tab_color[color] >> 16) & 0xff,
+			(vm->tab_color[color] >> 8) & 0xff,
+			(vm->tab_color[color]) & 0xff, 2, print + (j * 3 - 3));
 		if (i && !((i + 1) % (vm->octet_line_viz)))
 			ft_printf("\n");
 		else
@@ -144,7 +118,9 @@ void	print_core(t_corevm *vm)
 
 	i = 0;
 	j = 0;
-	ft_printf("\E[H\E[2J");
+	// ft_printf("\E[H\E[2J");
+	// ft_printf("\e[H\e[2J");
+	ft_printf("\e[J\x1b[H");
 	ft_printf("0x0000 : ");
 	while (i < MEM_SIZE)
 	{
@@ -156,4 +132,44 @@ void	print_core(t_corevm *vm)
 		i++;
 	}
 	ft_putendl("");
+}
+
+/*
+********************************************************************************
+** dump_core
+********************************************************************************
+*/
+
+void	dump_core(t_corevm *vm, int color)
+{
+	unsigned char	print[vm->octet_line_viz * 3 + 1];
+	int				i;
+	int				j;
+
+	i = 0;
+	j = 0;
+	ft_printf("0x0000 : ");
+	while (i < MEM_SIZE)
+	{
+		print[j * 3] = HEXAMIN[((unsigned char *)vm->core)[i] / 16];
+		print[j * 3 + 1] = HEXAMIN[((unsigned char *)vm->core)[i] % 16];
+		print[j * 3 + 2] = ' ';
+		j++;
+		if (!color)
+		{
+			if (i && !((i + 1) % (vm->octet_line_viz)))
+			{
+				ft_printf("%.*s", j * 3 - 1, print);
+				if (i + 1 < MEM_SIZE)
+					ft_printf("\n%#.4x : ", i + 1);
+				j = 0;
+			}
+		}
+		else
+			j = checking_color(vm, print, i, j);
+		i++;
+	}
+	ft_putendl("");
+	free_vm(vm);
+	exit(0);
 }
