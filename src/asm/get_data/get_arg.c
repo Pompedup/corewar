@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/15 14:29:29 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/30 19:11:19 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/31 17:05:59 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int				get_dir(t_record *record, t_elem *elem, t_arg *arg, int i)
 	if (!get_pos(record, elem, arg))
 		return (FALSE);
 	arg->type = 2;
+	arg->size = 2;
 	if (!g_op_tab[elem->type].dir)
 		arg->size = 4;
 	elem->size += arg->size;

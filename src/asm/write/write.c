@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/27 15:10:17 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/18 18:38:19 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/31 17:12:56 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_bool	write_key(t_record *record, t_elem *elem, int fd)
 		ft_printf(WRITEER, record->final_name);
 		return (FALSE);
 	}
-	if (elem->op_case.arg_authorized > 1 || elem->op_case.id == 16)
+	if (elem->op_case.nbr_arg > 1 || elem->op_case.id == 16)
 	{
 		if (write(fd, &elem->key, 1) == -1)
 		{

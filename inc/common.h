@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccoupez <ccoupez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/03 18:33:39 by ccoupez          ###   ########.fr       */
+/*   Updated: 2018/10/31 17:12:18 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct		header_s
 typedef struct		s_op
 {
 	char			*shortcut;
-	int				arg_authorized; // 1 || 2 || 3
+	int				nbr_arg; // 1 || 2 || 3
 	char			accept[3];
 	int				id;
 	int				nb_cycle_instruction; //10 || 5 || 6 || 20 || 25 || 800 || 1000

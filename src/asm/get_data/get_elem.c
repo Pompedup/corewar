@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 14:27:56 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/30 18:39:45 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/31 17:12:37 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ t_bool			get_elem(t_record *record, t_elem *elem)
 		return (FALSE);
 	i = 0;
 	arg = &(elem->args);
-	while (i < elem->op_case.arg_authorized && *elem->line)
+	while (i < elem->op_case.nbr_arg && *elem->line)
 	{
 		if (!(get_value_arg(record, elem, *arg, i)))
 			return (FALSE);
 		arg = &(*arg)->next;
 		i++;
 	}
-	if (elem->op_case.arg_authorized > 1 || elem->op_case.id == 16)
+	if (elem->op_case.nbr_arg > 1 || elem->op_case.id == 16)
 		elem->size++;
 	return (TRUE);
 }

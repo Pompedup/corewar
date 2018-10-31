@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 18:54:37 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/30 18:42:47 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/31 17:13:17 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static t_bool	verify_present_arg(t_record *record, t_elem *elem, char c)
 	{
 		if (!c)
 			ft_printf(MISSARG, record->file_name, record->file.index_line,\
-				elem->op_case.shortcut, elem->op_case.arg_authorized, 0);
+				elem->op_case.shortcut, elem->op_case.nbr_arg, 0);
 		else
 			ft_printf(ARGBEFSEP, record->file_name, elem->index_line);
 		return (FALSE);
@@ -127,16 +127,16 @@ t_bool			verify_elem_str(t_record *record, t_elem *elem)
 	if (!verify_args_separators(record, elem, elem->line))
 		return (FALSE);
 	nb = ft_nbr_words_charset(elem->line, ELEM_CHRST);
-	if (nb < elem->op_case.arg_authorized)
+	if (nb < elem->op_case.nbr_arg)
 	{
 		ft_printf(MISSARG, record->file_name, record->file.index_line,\
-			elem->op_case.shortcut, elem->op_case.arg_authorized, nb);
+			elem->op_case.shortcut, elem->op_case.nbr_arg, nb);
 		return (FALSE);
 	}
-	else if (nb > elem->op_case.arg_authorized)
+	else if (nb > elem->op_case.nbr_arg)
 	{
 		ft_printf(TOOMARG, record->file_name, record->file.index_line,\
-			elem->op_case.shortcut, elem->op_case.arg_authorized, nb);
+			elem->op_case.shortcut, elem->op_case.nbr_arg, nb);
 		return (FALSE);
 	}
 	if (!(elem->split = ft_split_charset(elem->line, ELEM_CHRST)))

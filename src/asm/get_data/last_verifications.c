@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/26 17:56:26 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/30 18:41:52 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/31 17:04:56 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static t_bool	get_addr(t_record *record, t_function *functions, t_elem *elem,\
 	{
 		if (!ft_strcmp(functions->name, arg->str))
 		{
+			// ft_printf("func %d - arg %d\n", functions->addr, arg->addr);
 			arg->value = functions->addr - arg->addr;
 			arg->handled = TRUE;
 			return (TRUE);
