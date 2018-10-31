@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 17:37:50 by pompedup          #+#    #+#             */
-/*   Updated: 2018/10/30 18:42:09 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/31 18:25:14 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,14 @@ void	del_t_args(t_arg **current)
 ********************************************************************************
 */
 
-void	new_t_arg(t_arg **current, int addr, char *copy)
+void	new_t_arg(t_record *record, t_arg **current, int addr, char *copy)
 {
 	if (!(*current = ft_memalloc(sizeof(t_arg))))
-		return ;
+	{
+		ft_printf(ALLOC, record->file_name);
+		erase(record);
+		exit(0);
+	}
 	(*current)->addr = addr;
 	(*current)->str = copy;
 	(*current)->copy = copy;

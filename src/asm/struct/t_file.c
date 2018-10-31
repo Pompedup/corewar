@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/20 15:46:56 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/30 18:42:25 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/31 18:21:45 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ void			new_t_file(t_record *record, t_file *file, char *file_name)
 	if ((file->fd = open(file_name, O_RDONLY)) == -1)
 	{
 		ft_printf(OPEN, record->file_name);
-		return ;
+		erase(record);
+		exit(0);
 	}
 	read_t_file(record, file, TRUE);
 	if (!file->line)

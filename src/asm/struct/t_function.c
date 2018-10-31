@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:43:02 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/30 18:42:32 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/31 18:21:37 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ t_bool	new_t_function(t_record *record, t_function **current,\
 	if (!(*current = ft_memalloc(sizeof(t_function))))
 	{
 		ft_printf(ALLOC, record->file_name);
-		return (FALSE);
+		erase(record);
+		exit(0);
 	}
 	(*current)->name = name;
 	(*current)->addr = record->tot;

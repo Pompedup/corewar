@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/15 14:29:29 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/31 17:05:59 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/31 18:37:11 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,9 @@ t_bool			word_is_only_digit(t_record *record, t_arg *arg)
 			arg->value = arg->value * 10 + (arg->str[i] - 48);
 		i++;
 	}
-	if (!ft_isdigit(arg->str[i - 1]) || arg->value > REG_NUMBER)
+	if (arg->str[i] || !ft_isdigit(arg->str[i - 1]) || arg->value > REG_NUMBER)
 	{
-		arg->str[i] = '\0';
-		ft_printf(!ft_isdigit(arg->str[i - 1]) ? WRREG : BIGREG,\
+		ft_printf(arg->value > REG_NUMBER ? BIGREG : WRREG,\
 			record->file_name, record->file.index_line, arg->str);
 		return (FALSE);
 	}

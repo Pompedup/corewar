@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:34:54 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/30 18:42:17 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/31 18:21:51 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ t_bool	new_t_elem(t_record *record, t_elem **current, int type)
 	{
 		ft_printf(ALLOC,
 			record->file_name);
-		return (FALSE);
+		erase(record);
+		exit(0);
 	}
 	(*current)->op_case = g_op_tab[type];
 	(*current)->type = type;

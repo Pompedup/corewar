@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 18:54:37 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/31 17:13:17 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/31 18:24:12 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static t_bool	verify_args_type(t_record *record, t_elem *elem)
 	split = elem->split;
 	while (split[i])
 	{
-		new_t_arg(arg, elem->addr, split[i]);
+		new_t_arg(record, arg, elem->addr, split[i]);
 		if (!(check_existing_type(record, elem, *arg, split[i])))
 			return (FALSE);
 		if (!(elem->op_case.accept[i] & (*arg)->type))
@@ -142,6 +142,7 @@ t_bool			verify_elem_str(t_record *record, t_elem *elem)
 	if (!(elem->split = ft_split_charset(elem->line, ELEM_CHRST)))
 	{
 		ft_printf(ALLOC, record->file_name);
+		erase(record);
 		exit(0);
 	}
 	return (verify_args_type(record, elem));

@@ -6,7 +6,7 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 14:59:59 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/20 21:46:09 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/31 18:24:35 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ t_bool	new_t_function(t_record *record, t_function **current, char *name);
 void	print_args(t_arg *current);
 void	del_t_arg(t_arg **current);
 void	del_t_args(t_arg **current);
-void	new_t_arg(t_arg **current, int addr, char *copy);
+void	new_t_arg(t_record *record, t_arg **current, int addr, char *copy);
 
 /*
 ********************************************************************************
