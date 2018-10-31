@@ -6,63 +6,61 @@
 /*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 12:23:45 by abezanni          #+#    #+#             */
-/*   Updated: 2018/09/02 19:18:35 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/10/21 16:33:03 by abezanni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void		error(int ret, char *name)
+static void	missing_name_or_comment(t_record *record, t_file *file)
 {
-	ft_putendl(name);
-	ft_putnbrendl(ret);
+	if (!record->name_complete && !record->comment_complete)
+		ft_printf(BOTH, record->file_name, record->file.index_line,
+			NAME_CMD_STRING, COMMENT_CMD_STRING);
+	else
+		ft_printf(ONE, record->file_name, record->file.index_line,\
+			!record->name_complete ? NAME_CMD_STRING : COMMENT_CMD_STRING);
+	if (file->current && *file->current)
+		ft_printf(CURRENT, file->current);
+	ft_printf(".\n");
 }
 
-void		print_lines(t_lines *lines)
+static void	handle_file(t_record *record, int options)
 {
-	while (lines)
+	if (get_infos(record, &record->file))
 	{
-		ft_putendl(lines->str);
-		lines = lines->next;
+		if (!record->name_complete || !record->comment_complete)
+			missing_name_or_comment(record, &record->file);
+		else if (record->file.line)
+		{
+			if (get_functions(record, &record->file, &record->functions))
+			{
+				if (last_verifications(record))
+					handle_options(record, options);
+			}
+		}
+		else
+			ft_printf(NOINSTRUC, record->file_name);
 	}
-}
-
-void		name_and_comment(t_record record)
-{
-	ft_putendl(record.name);
-	ft_putendl(record.comment);
-}
-
-static void	init(t_record *record)
-{
-	record->lines = NULL;
-	record->name = NULL;
-	record->comment = NULL;
 }
 
 int			main(int ac, char **av)
 {
 	t_record	record;
+	int			options;
 	int			i;
-	int			ret;
 
-	if (ac < 2)
-		ft_putendl("usage: ./data/asm [-a] <sourcefile.s>\n\t-a : Instead of \
-		creating a .cor file, outputs a stripped and annotated version of the \
-		code to the standard output");
+	if (!handle_args(ac, av, &options))
+		return (0);
 	i = 1;
-	init(&record);
 	while (i < ac)
 	{
-		if ((ret = get_lines(av[i], &(record.lines))))
-			error(ret, av[i]);
-		get_infos(&record);
-		name_and_comment(record);
+		if (init(&record, av[i]))
+			handle_file(&record, options);
 		i++;
+		while (i < ac && *av[i] == '-')
+			i++;
+		erase(&record);
 	}
-	//print_lines(record.lines);
-	//verification fichier
-	//creation data pour le .cor
-	//creation du .cor
 	return (0);
 }
