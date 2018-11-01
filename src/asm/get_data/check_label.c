@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_label.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 16:07:43 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/30 18:49:52 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/11/01 15:27:25 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static t_bool	is_new_name(t_record *record, char *str, char **name)
 	if (!(*name = ft_strdup(str)))
 	{
 		ft_printf(ALLOC, record->name);
-		return (FALSE);
+		erase(record);
+		exit(0);
 	}
 	return (TRUE);
 }

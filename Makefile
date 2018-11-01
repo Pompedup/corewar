@@ -6,7 +6,7 @@
 #    By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/11/01 13:49:39 by ecesari          ###   ########.fr        #
+#    Updated: 2018/11/01 15:37:12 by ecesari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 CC =			@gcc
 
-FSANITIZE_FLAG = -g# -fsanitize=address
+FSANITIZE_FLAG = -fsanitize=address
 
 OBJ =			$(COMMON_OBJ)\
 				$(ASM_OBJ)\
@@ -121,31 +121,6 @@ INCLUDE =		-I ./inc
 
 CFLAGS = -Wall -Wextra -Werror $(INCLUDE)
 
-.PHONY = libftcomp
-
-ERROR_FILE =	$(addprefix error_champ/arg/, $(ERROR_ARG))\
-				$(addprefix error_champ/comment/, $(ERROR_COMMENT))\
-				$(addprefix error_champ/dir/, $(ERROR_DIR))\
-				$(addprefix error_champ/name/, $(ERROR_NAME))\
-				$(addprefix error_champ/reg/, $(ERROR_REG))\
-
-ERROR_ARG =		miss_sep.s\
-				too_much.s\
-				miss_arg_between.s\
-
-ERROR_COMMENT =	char_after_comment.s\
-				comment_too_long.s\
-				second_comment.s\
-
-ERROR_DIR =		dir_without_value.s\
-				dir_wrong_value.s\
-
-ERROR_NAME =	char_after_name.s\
-				name_too_long.s\
-				second_name.s\
-
-ERROR_REG =		reg_without_int.s\
-
 all : libftcomp $(NAME)
 
 $(COREWAR_NAME) : $(LIB) $(COREWAR_OBJ) $(COMMON_OBJ)
@@ -171,9 +146,6 @@ $(COMMON_OBJ) : inc/common.h
 $(ASM_OBJ) : inc/asm.h inc/common.h inc/asm_struct_define.h
 $(COREWAR_OBJ) : inc/corewar.h inc/common.h
 
-test : print_memory.c
-	$(CC) print_memory.c $(LIB) -o memory
-
 libftcomp :
 	@make -C $(LIB_PATH)
 
@@ -185,14 +157,8 @@ clean :
 fclean : clean
 	@/bin/rm -f $(LIB)
 	@echo "\033[1;32mSucced clean of libft.a\033[0m"
-	@/bin/rm -f $(ASM_NAME) $(COREWAR_NAME) memory #remove memory
+	@/bin/rm -f $(ASM_NAME) $(COREWAR_NAME) memory
 	@echo "\033[1;32mSucced clean asm and corewar\033[0m"
 
 re : fclean	all
 	@echo "\033[1;32mSucced recompilation asm and corewar\033[0m"
-
-del_cor:
-	@/bin/rm -f ****.cor
-
-errors: $(ERROR_FILE)
-	./$(ASM_NAME) $^

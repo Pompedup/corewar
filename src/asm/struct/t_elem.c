@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_elem.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 15:34:54 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/31 18:21:51 by abezanni         ###   ########.fr       */
+/*   Updated: 2018/11/01 15:28:02 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,7 @@ t_bool	new_t_elem(t_record *record, t_elem **current, int type)
 {
 	if (!(*current = ft_memalloc(sizeof(t_elem))))
 	{
-		ft_printf(ALLOC,
-			record->file_name);
+		ft_printf(ALLOC, record->file_name);
 		erase(record);
 		exit(0);
 	}

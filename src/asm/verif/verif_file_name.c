@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/13 16:06:00 by abezanni          #+#    #+#             */
-/*   Updated: 2018/10/31 15:46:36 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/11/01 15:29:27 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,12 @@ t_bool	verif_file_name(t_record *record, char *str)
 		return (FALSE);
 	}
 	*end = '\0';
-	record->final_name = ft_strjoin(str, ".cor");
+	if (!(record->final_name = ft_strjoin(str, ".cor")))
+	{
+		ft_printf(ALLOC, record->name);
+		erase(record);
+		exit(0);
+	}
 	*end = '.';
 	return (TRUE);
 }
