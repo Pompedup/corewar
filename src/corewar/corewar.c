@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 13:17:29 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/24 16:29:52 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/11/01 14:05:48 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,7 @@ int		check_include(void)
 
 /*
 ********************************************************************************
-**	These are the rules of corewar:
-**	-
-**
-**
-**
-** 				let's	(ง •̀_•́)ง  ᕙ༼*◕_◕*༽ᕤ
+** 						let's	(ง •̀_•́)ง  ᕙ༼*◕_◕*༽ᕤ
 ********************************************************************************
 */
 
@@ -77,6 +72,7 @@ int		main(int ac, char **av)
 	introducing_contestants(vm);
 	execute_the_battle(vm);
 	declare_winner(vm);
+	ft_printf("%s%s%s%s%s%s%s\n", LN_FL_64);
 	free_vm(vm);
 	return (0);
 }

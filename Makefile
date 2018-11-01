@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abezanni <abezanni@student.42.fr>          +#+  +:+       +#+         #
+#    By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 18:57:57 by abezanni          #+#    #+#              #
-#    Updated: 2018/10/31 17:42:21 by abezanni         ###   ########.fr        #
+#    Updated: 2018/11/01 13:49:39 by ecesari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,8 +93,10 @@ COREWAR_FILES =	corewar.c\
 				read_file_players.c\
 				create_players.c\
 				print_core.c\
+				dump_core.c\
 				free_corewar.c\
 				viz.c\
+				viz_debug.c\
 				details_viz.c\
 
 COMMON_SRC =	$(addprefix src/common/,$(COMMON_FILES))

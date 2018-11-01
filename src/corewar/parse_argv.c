@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 12:02:04 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/31 13:38:17 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/11/01 14:28:15 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,23 +63,6 @@ void	add_player(t_corevm *vm, int i)
 	if (ft_strlen(vm->argv[i]) < 4)
 		ft_error(vm, ERR_MESS_4, 0);
 	create_player(vm, 0, i);
-}
-
-
-int		get_viz(t_corevm *vm, int i)
-{
-	// while (vm->argv[i])
-	// {
-		if (ft_strequ(vm->argv[i + 1], "-debug"))
-		{
-			vm->viz_debug = 1;
-			i++;
-		}
-		else
-			vm->viz = 1;
-		// i++;
-	// }
-	return (i);
 }
 
 /*

@@ -6,14 +6,16 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 17:22:55 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/26 15:55:56 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/11/01 13:20:44 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
 /*
-**	tableau de pointeurs sur fonctions liees a l'opcode
+********************************************************************************
+**	pointers to functions array linked to the opcode
+********************************************************************************
 */
 
 t_ptr_func g_instruc_func[] =
@@ -27,7 +29,7 @@ t_ptr_func g_instruc_func[] =
 
 /*
 ********************************************************************************
-** si on a une mauvaise key avancer le pc quand meme en fonction de la key
+**	get_pc_tmp enables to forward pc even in case of a wrong key
 ********************************************************************************
 */
 
@@ -55,7 +57,7 @@ void	get_pc_tmp(t_process *process, t_op g_tab)
 
 /*
 ********************************************************************************
-**
+**	execute_instruction
 ********************************************************************************
 */
 
@@ -63,7 +65,6 @@ void	execute_instruction(t_corevm *vm, t_process *process)
 {
 	int	i;
 
-		// ft_printf("	process->type_instruc[0] %x \n", process->type_instruc[0]);
 	if (g_op_tab[process->type_instruc[0]].nbr_arg > 1
 		|| g_op_tab[process->type_instruc[0]].id == 16)
 	{
@@ -75,11 +76,7 @@ void	execute_instruction(t_corevm *vm, t_process *process)
 		&& g_op_tab[process->type_instruc[0]].nbr_arg > 1)
 		get_pc_tmp(process, g_op_tab[process->type_instruc[0]]);
 	else
-	{
-		// ft_printf("g_op_tab[process->type_instruc[0] %x \n", g_op_tab[process->type_instruc[0]]);
-		// ft_printf("execute process->carry %d \n", process->carry);
 		g_instruc_func[process->type_instruc[0]].ptrfunc(vm, process);
-	}
 	i = 0;
 	while (i < 2)
 		process->type_instruc[i++] = -1;
@@ -87,18 +84,14 @@ void	execute_instruction(t_corevm *vm, t_process *process)
 
 /*
 ********************************************************************************
-**
-**	# define REG_CODE	1
-**	# define DIR_CODE	2
-**	# define IND_CODE	3
-** pour connaitre le type de notre argument on a 1 octet qui nous indique :
-** si l'arg et un registre -> 01 - codé sur 1 octet
-** si l'arg et un direct -> 10 - codé sur 2 ou 4 octets
-** si l'arg et un indirect -> 11 - codé 2 octets
-** ce qui donne avec un mask comme on applique dans la fonction ci dessous
-** : 1 pour reg, 2 pour direct ou 3 pour un indirect
-** r2,23,%34 donne l’octet de codage 0b 01 11 10 00, soit 0x78
-**                                      re id di les 2 derniers bits tjr a 00
+**	get_instruction_type
+**	in order to know the arg type there is one byte
+**	if arg is a register : 01 it will be coded on 1 byte
+**	if arg is a direct : 10 it will be coded on either 2 or 4 bytes
+**	if arg is an indirect : 11 it will be coded on 2 bytes
+**	thanks to a mask it will be 1 for reg, 2 for direct and 3 for indirect
+** 	r2,23,%34 will be 0b 01 11 10 00, hence 0x78
+**                       re id di (last two bytes always at 0)
 ********************************************************************************
 */
 
@@ -123,23 +116,8 @@ void	get_instruction_type(t_corevm *vm, t_process *process)
 
 /*
 ********************************************************************************
-**	manage_instruction reupere l'instruc et ne l'execute qu'a la fin du cycle
-**
-** je regarde si j'ai deja lu linstruction ou se situe mon pc
-** si NON : je la recupere avec get_instruction
-** si OUI : je regard	e si on est arrive a la fin de son dernier cycle
-** pour voir si on peut lexecuter ou non
-********************************************************************************
-*/
-
-/*
-********************************************************************************
-**	if (vm->nbr_total_cycles > CYCLE_DEBUG)
-**		ft_printf("	process->type_instruc[0] %d\n", process->type_instruc[0]);
-**		ft_printf("process->type_instruc[0] == -1) -------------!\n");
-**		ft_printf("	process->nb_cycle_instruc %d\n", process->nb_cycle_instruc);
-**		ft_printf("fonction %s\n", g_op_tab[process->type_instruc[0]].shortcut);
-**		ft_printf("	process->type_instruc[1] %x\n", process->type_instruc[1]);
+**	manage_instruction calls get_instruction_type if the type is not already
+**	define and otherwise waits for the last nb_cycle_instruc to execute
 ********************************************************************************
 */
 

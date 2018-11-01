@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:44:17 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/30 14:58:48 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/11/01 13:21:07 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,6 @@
 **  usage : live ARG_1(D4)
 **	declares life for the number of 4 bytes following the opcode
 **	we search for the right num_player
-ft_printf("\n\ndans ft_live\n");
-ft_printf("vm->lives_player[%d][0] %d\n", i, vm->lives_player[i][0]);
-ft_printf("vm->lives_player[%d][1] %d\n", i, vm->lives_player[i][1]);
-ft_printf("vm->lives_player[%d][2] %d\n", i, vm->lives_player[i][2]);
-ft_printf("vm->lives_player[%d][3] %d\n", i, vm->lives_player[i][3]);
 ********************************************************************************
 */
 

@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/10 09:44:42 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/31 14:06:43 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/11/01 14:30:32 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ typedef struct			s_player
 	int					num;
 	char				*name_file;
 	int					color;
-	header_t			*header;
+	t_header			*header;
 	char				process[CHAMP_MAX_SIZE + 1];
 	int					len_process;
 	int					precision;
@@ -330,7 +330,6 @@ void					put_process_front(t_process **first, \
 /*
 ********************************************************************************
 **						EXECUTE_THE_BATTLE_C						     	  **
-**	void	who_still_lives(t_corevm *vm)
 **	int		live_executed_in_one_cycle(t_corevm *vm, int cycle)
 ********************************************************************************
 */
@@ -338,7 +337,6 @@ void					put_process_front(t_process **first, \
 void					declare_winner(t_corevm *vm);
 void					pc_color(t_corevm *vm, t_process *process);
 void					execute_the_battle(t_corevm *vm);
-void					viz_debug(t_corevm *vm, int cycle, int *debug);
 
 /*
 ********************************************************************************
@@ -399,31 +397,34 @@ void					ft_aff(t_corevm *vm, t_process *process);
 
 /*
 ********************************************************************************
-**						PRINT_CORE_C					     			 	  **
+**						PRINT_CORE_C && DUMP_CORE_C		     			 	  **
 ********************************************************************************
 */
 
 void					print_core(t_corevm *vm);
+int						checking_color(t_corevm *vm,\
+unsigned char print[vm->octet_line_viz * 3 + 1], int i, int j);
 void					dump_core(t_corevm *vm, int color);
 
 /*
 ********************************************************************************
-**						VIZ_C && DETAILS_VIZ_C	     			 			  **
+**						VIZ_C && DETAILS_VIZ_C && VIZ_DEBUG_C	 			  **
 ********************************************************************************
 */
 
 void					print_it_all(t_corevm *vm);
 int						count_processes(t_corevm *vm);
-void					display_evolution_cycle(t_corevm *vm);
 void					display_name_champions(t_corevm *vm);
 void					display_statistics_alive_dead_champions(t_corevm *vm);
 void					display_statistics_last_cycle(t_corevm *vm);
 void					display_statistics_number_lives(t_corevm *vm);
 void					display_percentage_lives(t_corevm *vm);
-void					display_constants(t_corevm *vm);
 void					print_summary(t_corevm *vm);
 void					print_introduction(t_corevm *vm);
 void					print_header_viz(t_corevm *vm);
+void					viz_debug(t_corevm *vm, int *debug);
+void					who_still_lives(t_corevm *vm);
+int						get_viz(t_corevm *vm, int i);
 
 /*
 ********************************************************************************

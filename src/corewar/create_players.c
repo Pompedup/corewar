@@ -6,7 +6,7 @@
 /*   By: ecesari <ecesari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/18 15:40:17 by ccoupez           #+#    #+#             */
-/*   Updated: 2018/10/31 14:06:29 by ecesari          ###   ########.fr       */
+/*   Updated: 2018/11/01 14:31:06 by ecesari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ********************************************************************************
 */
 
-int	lenght_display_string(char *string, int padding)
+int		lenght_display_string(char *string, int padding)
 {
 	int		lenght;
 	char	*new_line;
@@ -69,9 +69,9 @@ void	get_info_player(t_player *player, t_corevm *vm, int i)
 
 void	init_variable(t_corevm *vm, t_player *player, int num, int index_color)
 {
-	header_t			*header;
+	t_header			*header;
 
-	if (!(header = ft_memalloc(sizeof(header_t))))
+	if (!(header = ft_memalloc(sizeof(t_header))))
 		ft_error(vm, FAIL_MEMALLOC_2, 0);
 	player->header = header;
 	player->num = num;
